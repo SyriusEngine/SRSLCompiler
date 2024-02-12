@@ -24,17 +24,27 @@ set(ANTLR4_SRC
     src/Grammar/SrslGrammarBaseListener.cpp
     src/Grammar/SrslGrammarLexer.cpp
     src/Grammar/SrslGrammarListener.cpp
-    src/Grammar/SrslGrammarParser.cpp
-    )
+    src/Grammar/SrslGrammarParser.cpp)
+
+set(AST_SRC
+
+    src/AbstractSyntaxTree/AbstractNode.cpp src/AbstractSyntaxTree/AbstractNode.hpp src/AbstractSyntaxTree/NodeTypes.cpp src/AbstractSyntaxTree/NodeTypes.hpp)
+
+set(CONVERTER_SRC
+
+
+    src/Converter/VariableTypes.cpp src/Converter/VariableTypes.hpp)
 
 set(SRSL_SRC
     ${ANTLR4_SRC}
+    ${AST_SRC}
+    ${CONVERTER_SRC}
 
     src/SrslCompiler.cpp
     src/ShaderModuleImpl.cpp
     src/ShaderProgramImpl.cpp
     src/ParseExceptionHandler.cpp
-    )
+    src/TreeWalker.cpp src/TreeWalker.hpp)
 
 add_library(SRSLCompiler SHARED ${SRSL_SRC})
 target_link_libraries(SRSLCompiler antlr4-runtime)

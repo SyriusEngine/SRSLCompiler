@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Utils.hpp"
+#include "TreeWalker.hpp"
+#include "ParseExceptionHandler.hpp"
 
 namespace Srsl{
 
@@ -17,5 +19,8 @@ namespace Srsl{
         void exportShader(const ExportDesc& desc) override;
 
         [[nodiscard]] SRSL_SHADER_TYPE getShaderType() const override;
+
+    private:
+        UP<AbstractNode> m_Program;
     };
 }
