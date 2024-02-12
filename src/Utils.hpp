@@ -83,4 +83,6 @@ namespace PrivateSRSL{
 
 #define SRSL_POSTCONDITION(condition, message, ...) if (!(condition)) PrivateSRSL::formatAssert(#condition, __FILE__, __FUNCTION__, __LINE__, message, ##__VA_ARGS__);
 
+#define SRSL_ASSERT(condition, message, ...) if (!(condition)) PrivateSRSL::formatAssert(#condition, __FILE__, __FUNCTION__, __LINE__, message, ##__VA_ARGS__);
+
 #define SRSL_THROW_EXCEPTION(message, ...) throw std::runtime_error(PrivateSRSL::formatException(__FILE__, __FUNCTION__, __LINE__, message, ##__VA_ARGS__));

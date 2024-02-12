@@ -21,6 +21,8 @@ namespace Srsl{
         [[nodiscard]] SRSL_SHADER_TYPE getShaderType() const override;
 
     private:
+        SRSL_SHADER_TYPE m_ShaderType;
         UP<AbstractNode> m_Program;
+        RCP<SymbolTable> m_SymbolTable;
     };
 }

@@ -8,12 +8,13 @@
 
 #include "../Utils.hpp"
 #include "AbstractSyntaxTree/AbstractNode.hpp"
+#include "AbstractSyntaxTree/ShaderTypeNode.hpp"
 
 namespace Srsl{
 
     class TreeWalker: public SrslGrammarBaseListener{
     public:
-        explicit TreeWalker(UP<AbstractNode>& rootNode);
+        TreeWalker(UP<AbstractNode>& rootNode, SRSL_SHADER_TYPE& shaderType);
 
         ~TreeWalker() override = default;
 
@@ -118,6 +119,7 @@ namespace Srsl{
         void exitTestCase(SrslGrammarParser::TestCaseContext * ctx) override;
 
     private:
+        SRSL_SHADER_TYPE& m_ShaderType;
         UP<AbstractNode>& m_RootNode;
         AbstractNode* m_CurrentNode;
 

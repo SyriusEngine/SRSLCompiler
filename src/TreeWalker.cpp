@@ -2,21 +2,39 @@
 
 namespace Srsl{
 
-    TreeWalker::TreeWalker(UP<AbstractNode> &rootNode):
+    TreeWalker::TreeWalker(UP<AbstractNode> &rootNode, SRSL_SHADER_TYPE& shaderType):
     m_RootNode(rootNode),
+    m_ShaderType(shaderType),
     m_CurrentNode(rootNode.get()){
+        SRSL_PRECONDITION(m_RootNode == nullptr, "There already exists a root node");
 
     }
 
     void TreeWalker::enterShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext *ctx) {
-
+        auto type = ctx->SHADER_TYPE()->getText();
+        if (type == "Vertex"){
+            m_RootNode = createUP<ShaderTypeNode>(SRSL_VERTEX_SHADER, ctx->start->getLine());
+        }
+        else if (type == "Fragment"){
+            m_RootNode = createUP<ShaderTypeNode>(SRSL_FRAGMENT_SHADER, ctx->start->getLine());
+        }
+        else if (type == "Geometry"){
+            m_RootNode = createUP<ShaderTypeNode>(SRSL_GEOMETRY_SHADER, ctx->start->getLine());
+        }
+        else {
+            throw std::runtime_error("Unknown shader type");
+        }
+        m_CurrentNode = m_RootNode.get();
     }
 
     void TreeWalker::exitShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext *ctx) {
-
+        // when entering the shader type spec, we create the root of the tree
+        // and set the current node to the root. When we exit the shader type spec
+        // there is no other node to return to
     }
 
     void TreeWalker::enterStatement(SrslGrammarParser::StatementContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -25,6 +43,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterNewVariable(SrslGrammarParser::NewVariableContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -33,6 +52,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterExpression(SrslGrammarParser::ExpressionContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -41,6 +61,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterVariable(SrslGrammarParser::VariableContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -49,6 +70,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterConstant(SrslGrammarParser::ConstantContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
     }
 
     void TreeWalker::exitConstant(SrslGrammarParser::ConstantContext *ctx) {
@@ -56,6 +78,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterScope(SrslGrammarParser::ScopeContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -64,6 +87,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterWhileLoop(SrslGrammarParser::WhileLoopContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -72,6 +96,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterForLoop(SrslGrammarParser::ForLoopContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -80,6 +105,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterIfStatement(SrslGrammarParser::IfStatementContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -88,6 +114,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterElseStatement(SrslGrammarParser::ElseStatementContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -96,6 +123,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterElseIfStatement(SrslGrammarParser::ElseIfStatementContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -104,6 +132,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterControlFlow(SrslGrammarParser::ControlFlowContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -112,6 +141,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterFunctionDeclaration(SrslGrammarParser::FunctionDeclarationContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -120,6 +150,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterFunctionCall(SrslGrammarParser::FunctionCallContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -128,6 +159,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterInitializerList(SrslGrammarParser::InitializerListContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -136,6 +168,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -144,6 +177,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterTextureDeclaration(SrslGrammarParser::TextureDeclarationContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -152,6 +186,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterSamplerDeclaration(SrslGrammarParser::SamplerDeclarationContext *ctx ) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -160,6 +195,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterConstantBufferDeclaration(SrslGrammarParser::ConstantBufferDeclarationContext * ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -168,6 +204,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterReturnStatement(SrslGrammarParser::ReturnStatementContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -176,6 +213,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterShaderInterface(SrslGrammarParser::ShaderInterfaceContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -184,6 +222,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -192,6 +231,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterMemberAccess(SrslGrammarParser::MemberAccessContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 
@@ -200,6 +240,7 @@ namespace Srsl{
     }
 
     void TreeWalker::enterTestCase(SrslGrammarParser::TestCaseContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
     }
 

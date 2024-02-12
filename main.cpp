@@ -10,11 +10,15 @@ int main(int argc, char** argv){
             vertexDesc.source = argv[1];
             vertexDesc.loadType = SRSL_LOAD_FROM_FILE;
             auto vertexShaderModule = createShaderModule(vertexDesc);
+            vertexShaderModule->exportAstDot("./Dev-vs.dot");
+            vertexShaderModule->exportSymbolTableHtml("./Dev-vs.html");
 
             ImportDesc fragmentDesc;
             fragmentDesc.source = argv[2];
             fragmentDesc.loadType = SRSL_LOAD_FROM_FILE;
             auto fragmentShaderModule = createShaderModule(fragmentDesc);
+            fragmentShaderModule->exportAstDot("./Dev-fs.dot");
+            fragmentShaderModule->exportSymbolTableHtml("./Dev-fs.html");
 
 
             ExportDesc exportDesc;
