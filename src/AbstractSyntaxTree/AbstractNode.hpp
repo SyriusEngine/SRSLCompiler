@@ -15,10 +15,10 @@ namespace Srsl{
         virtual ~AbstractNode() = default;
 
         template<typename T, typename... Args>
-        UP<AbstractNode>& addChild(Args&&... args){
+        AbstractNode* addChild(Args&&... args){
             auto& retVal = m_Children.emplace_back(createUP<T>(std::forward<Args>(args)...));
             retVal->m_Parent = this;
-            return retVal;
+            return retVal.get();
         }
 
         [[nodiscard]] AbstractNode* getParent() const;
@@ -54,7 +54,7 @@ namespace Srsl{
 
     protected:
 
-        AbstractNode(AST_NODE_TYPE type, uint64 lineNumber);
+        AbstractNode(const std::string& value, AST_NODE_TYPE type, uint64 lineNumber);
 
     protected:
 
@@ -62,10 +62,10 @@ namespace Srsl{
         AbstractNode* m_Parent;
         std::string m_Value;
         RCP<SymbolTable> m_SymbolTable;
+        const uint64 m_LineNumber;
 
     private:
         const AST_NODE_TYPE m_Type;
-        const uint64 m_LineNumber;
 
     };
 

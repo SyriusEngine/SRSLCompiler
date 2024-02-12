@@ -2,8 +2,9 @@
 
 namespace Srsl{
 
-    AbstractNode::AbstractNode(AST_NODE_TYPE type, uint64 lineNumber):
+    AbstractNode::AbstractNode(const std::string& value, AST_NODE_TYPE type, uint64 lineNumber):
     m_Type(type),
+    m_Value(value),
     m_LineNumber(lineNumber),
     m_Parent(nullptr){
 
@@ -41,7 +42,6 @@ namespace Srsl{
     }
 
     void AbstractNode::fillSymbolTable(RCP<SymbolTable> table){
-        m_SymbolTable = table;
         for (const auto& child: m_Children){
             child->fillSymbolTable(table);
         }

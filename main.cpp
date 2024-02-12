@@ -21,16 +21,24 @@ int main(int argc, char** argv){
             fragmentShaderModule->exportSymbolTableHtml("./Dev-fs.html");
 
 
-            ExportDesc exportDesc;
-            exportDesc.vertexShaderOut = "./Dev-vs.glsl";
-            exportDesc.fragmentShaderOut = "./Dev-fs.glsl";
-            exportDesc.writeType = SRSL_WRITE_TO_FILE;
+            ExportDesc exportGlsl;
+            exportGlsl.vertexShaderOut = "./Dev-vs.glsl";
+            exportGlsl.fragmentShaderOut = "./Dev-fs.glsl";
+            exportGlsl.writeType = SRSL_WRITE_TO_FILE;
+            exportGlsl.target = SRSL_TARGET_GLSL;
+
+            ExportDesc exportHlsl;
+            exportHlsl.vertexShaderOut = "./Dev-vs.hlsl";
+            exportHlsl.fragmentShaderOut = "./Dev-fs.hlsl";
+            exportHlsl.writeType = SRSL_WRITE_TO_FILE;
+            exportHlsl.target = SRSL_TARGET_HLSL;
 
             auto shaderProgram = createShaderProgram();
             shaderProgram->addShaderModule(vertexShaderModule);
             shaderProgram->addShaderModule(fragmentShaderModule);
             shaderProgram->link();
-            shaderProgram->exportShader(exportDesc);
+            shaderProgram->exportShader(exportGlsl);
+            shaderProgram->exportShader(exportHlsl);
 
 
 

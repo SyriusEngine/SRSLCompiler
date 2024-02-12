@@ -50,6 +50,7 @@ namespace Srsl{
         switch (type) {
             case SRSL_VERTEX_SHADER: return "Vertex";
             case SRSL_FRAGMENT_SHADER: return "Fragment";
+            case SRSL_GEOMETRY_SHADER: return "Geometry";
             default: return "Unknown";
         }
     }

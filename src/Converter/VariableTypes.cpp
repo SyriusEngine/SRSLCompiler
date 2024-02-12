@@ -46,6 +46,56 @@ namespace Srsl{
         }
     }
 
+    TypeDesc::TypeDesc(const std::string &typeStr, bool isConst, const std::vector<uint32>& arraySizes):
+    typeStr(typeStr),
+    isConst(isConst),
+    arraySizes(arraySizes){
+        std::string dimensions;
+        if (typeStr.find("void") != std::string::npos){
+            type = VT_VOID;
+            dimensions = "";
+        }
+        else if (typeStr.find("bool") != std::string::npos){
+            type = VT_BOOL;
+            dimensions = typeStr.substr(4);
+        }
+        else if (typeStr.find("uint") != std::string::npos){
+            type = VT_UINT;
+            dimensions = typeStr.substr(4);
+        }
+        else if (typeStr.find("int") != std::string::npos){
+            type = VT_INT;
+            dimensions = typeStr.substr(3);
+        }
+        else if (typeStr.find("half") != std::string::npos){
+            type = VT_HALF;
+            dimensions = typeStr.substr(4);
+        }
+        else if (typeStr.find("float") != std::string::npos){
+            type = VT_FLOAT;
+            dimensions = typeStr.substr(5);
+        }
+        else if (typeStr.find("double") != std::string::npos){
+            type = VT_DOUBLE;
+            dimensions = typeStr.substr(6);
+        }
+        else {
+            type = VT_STRUCT;
+            dimensions = "";
+        }
+
+        if (!dimensions.empty()){
+            if (dimensions.find('x') != std::string::npos){
+                rows = std::stoi(dimensions.substr(0, dimensions.find('x')));
+                columns = std::stoi(dimensions.substr(dimensions.find('x') + 1));
+            }
+            else {
+                rows = 1;
+                columns = std::stoi(dimensions);
+            }
+        }
+    }
+
     uint32 TypeDesc::getSize() const {
         auto size = getVariableTypeSize(type);
         size *= rows * columns;
@@ -54,5 +104,6 @@ namespace Srsl{
         }
         return size;
     }
+    
 
 }

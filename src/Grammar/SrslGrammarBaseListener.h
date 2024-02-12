@@ -79,6 +79,9 @@ public:
   virtual void enterTestCase(SrslGrammarParser::TestCaseContext * /*ctx*/) override { }
   virtual void exitTestCase(SrslGrammarParser::TestCaseContext * /*ctx*/) override { }
 
+  virtual void enterAssignment(SrslGrammarParser::AssignmentContext * /*ctx*/) override { }
+  virtual void exitAssignment(SrslGrammarParser::AssignmentContext * /*ctx*/) override { }
+
   virtual void enterExpression(SrslGrammarParser::ExpressionContext * /*ctx*/) override { }
   virtual void exitExpression(SrslGrammarParser::ExpressionContext * /*ctx*/) override { }
 
@@ -108,6 +111,9 @@ public:
 
   virtual void enterTypeConstructor(SrslGrammarParser::TypeConstructorContext * /*ctx*/) override { }
   virtual void exitTypeConstructor(SrslGrammarParser::TypeConstructorContext * /*ctx*/) override { }
+
+  virtual void enterVectorSwizzle(SrslGrammarParser::VectorSwizzleContext * /*ctx*/) override { }
+  virtual void exitVectorSwizzle(SrslGrammarParser::VectorSwizzleContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

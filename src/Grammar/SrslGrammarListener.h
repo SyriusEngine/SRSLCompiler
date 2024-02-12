@@ -77,6 +77,9 @@ public:
   virtual void enterTestCase(SrslGrammarParser::TestCaseContext *ctx) = 0;
   virtual void exitTestCase(SrslGrammarParser::TestCaseContext *ctx) = 0;
 
+  virtual void enterAssignment(SrslGrammarParser::AssignmentContext *ctx) = 0;
+  virtual void exitAssignment(SrslGrammarParser::AssignmentContext *ctx) = 0;
+
   virtual void enterExpression(SrslGrammarParser::ExpressionContext *ctx) = 0;
   virtual void exitExpression(SrslGrammarParser::ExpressionContext *ctx) = 0;
 
@@ -106,6 +109,9 @@ public:
 
   virtual void enterTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) = 0;
   virtual void exitTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) = 0;
+
+  virtual void enterVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) = 0;
+  virtual void exitVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) = 0;
 
 
 };

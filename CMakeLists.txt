@@ -28,7 +28,9 @@ set(ANTLR4_SRC
 
 set(AST_SRC
     src/AbstractSyntaxTree/AbstractNode.cpp
-    src/AbstractSyntaxTree/NodeTypes.cpp src/AbstractSyntaxTree/ShaderTypeNode.cpp src/AbstractSyntaxTree/ShaderTypeNode.hpp)
+    src/AbstractSyntaxTree/NodeTypes.cpp
+    src/AbstractSyntaxTree/ShaderTypeNode.cpp
+    src/AbstractSyntaxTree/Nodes.cpp src/AbstractSyntaxTree/VariableNode.cpp src/AbstractSyntaxTree/VariableNode.hpp)
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp

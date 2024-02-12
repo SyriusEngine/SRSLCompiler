@@ -50,8 +50,13 @@ namespace Srsl{
         uint32 columns      = 1;
         std::vector<uint32> arraySizes;
         bool isConst        = false;
+        std::string typeStr; // contains the original type string, used for struct types
 
     public:
+
+        TypeDesc() = default;
+
+        explicit TypeDesc(const std::string& typeStr, bool isConst = false, const std::vector<uint32>& arraySizes = {});
 
         /**
          * @brief returns the size of the type in bytes

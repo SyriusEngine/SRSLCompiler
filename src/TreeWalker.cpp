@@ -33,15 +33,6 @@ namespace Srsl{
         // there is no other node to return to
     }
 
-    void TreeWalker::enterStatement(SrslGrammarParser::StatementContext *ctx) {
-        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
-
-    }
-
-    void TreeWalker::exitStatement(SrslGrammarParser::StatementContext *ctx) {
-
-    }
-
     void TreeWalker::enterNewVariable(SrslGrammarParser::NewVariableContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 

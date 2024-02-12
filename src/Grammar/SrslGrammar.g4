@@ -12,7 +12,7 @@ singlelinecomment : COMMENT;
 
 statement:
     lvalue EOL |
-    lvalue ASSIGN expression EOL |
+    assignment EOL |
     expression EOL |
     controlFlow EOL |
     forLoop |
@@ -49,6 +49,8 @@ structDeclaration: STRUCT VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
 
 testCase: AT TEST VAR_NAME CBRACKO (expression COMMA)* OPERATION COMMA expression CBRACKC;
 
+assignment: lvalue ASSIGN expression;
+
 expression:
     expression (MULTIPLY |
     DIVIDE) expression |
@@ -78,13 +80,16 @@ rvalue:
     memberAccess |
     initializerList;
 
-memberAccess: (variable | functionCall) DOT (variable | memberAccess);
+memberAccess: (variable | functionCall) DOT (variable | memberAccess | vectorSwizzle);
 
 newVariable: CONST* (TYPE | VAR_NAME) VAR_NAME (SBRACKO NUMBER SBRACKC)* (COLON VAR_NAME)?;
 variable:  VAR_NAME (SBRACKO expression SBRACKC)*;
 constant: NUMBER | FLOATING_POINT;
 controlFlow: CONTROL_FLOW;
 typeConstructor: TYPE PARENO expression (COMMA expression)* PARENC;
+
+vectorSwizzle: VECTOR_COMPONENT (VECTOR_COMPONENT (VECTOR_COMPONENT (VECTOR_COMPONENT)?)?)?;
+
 
 // brackets
 SBRACKO: '[';
@@ -107,6 +112,8 @@ STRUCT: 'struct';
 SHADER_INPUT: 'Input';
 SHADER_OUTPUT: 'Output';
 TEST: 'test';
+
+VECTOR_COMPONENT: [xyzwrgbastpq];
 
 // types
 TYPE:

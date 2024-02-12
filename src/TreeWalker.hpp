@@ -9,6 +9,7 @@
 #include "../Utils.hpp"
 #include "AbstractSyntaxTree/AbstractNode.hpp"
 #include "AbstractSyntaxTree/ShaderTypeNode.hpp"
+#include "AbstractSyntaxTree/Nodes.hpp"
 
 namespace Srsl{
 
@@ -21,10 +22,6 @@ namespace Srsl{
         void enterShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext* ctx) override;
 
         void exitShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext* ctx) override;
-
-        void enterStatement(SrslGrammarParser::StatementContext* ctx) override;
-
-        void exitStatement(SrslGrammarParser::StatementContext* ctx) override;
 
         void enterNewVariable(SrslGrammarParser::NewVariableContext* ctx) override;
 

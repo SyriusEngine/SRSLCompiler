@@ -1,0 +1,20 @@
+ShaderType = Fragment;
+
+Input fsIn{
+    float4 position: SRV_POSITION;
+};
+
+Output fsOut{
+    float4 color: SRV_TARGET_0;
+};
+
+Texture1D(slot = 0) albedo;
+Texture2D(slot = 1) color;
+Texture3D(slot = 2) wop;
+TextureCube(slot = 3) skybox;
+Sampler(slot = 0) sampler0;
+
+void main() {
+
+    fsOut.color = float4(0.2f, 0.3f, 0.4f, 1.0f);
+}
