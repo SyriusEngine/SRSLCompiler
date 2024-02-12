@@ -36,10 +36,34 @@ namespace Srsl{
     void TreeWalker::enterNewVariable(SrslGrammarParser::NewVariableContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        std::string name;
+        std::string semantic;
+        std::vector<uint32> arraySizes;
+        std::string type;
+        bool isConst = false;
+        if (ctx->TYPE() != nullptr){
+            type = ctx->TYPE()->getText();
+            name = ctx->VAR_NAME()[0]->getText();
+        }
+        else {
+            type = ctx->VAR_NAME()[0]->getText();
+            name = ctx->VAR_NAME()[1]->getText();
+        }
+        for (const auto& number: ctx->NUMBER()){
+            arraySizes.push_back(std::stoi(number->getText()));
+        }
+        isConst = !ctx->CONST().empty();
+        if (ctx->COLON() != nullptr){
+            semantic = ctx->VAR_NAME()[1]->getText();
+        }
+        TypeDesc vtDesc(type, isConst, arraySizes);
+
+        auto newCurrent = m_CurrentNode->addChild<NewVariableNode>(name, semantic, vtDesc, ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitNewVariable(SrslGrammarParser::NewVariableContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterExpression(SrslGrammarParser::ExpressionContext *ctx) {
@@ -228,6 +252,14 @@ namespace Srsl{
 
     void TreeWalker::exitMemberAccess(SrslGrammarParser::MemberAccessContext *ctx) {
 
+    }
+
+    void TreeWalker::enterVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) {
+        SrslGrammarBaseListener::enterVectorSwizzle(ctx);
+    }
+
+    void TreeWalker::exitVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) {
+        SrslGrammarBaseListener::exitVectorSwizzle(ctx);
     }
 
     void TreeWalker::enterTestCase(SrslGrammarParser::TestCaseContext *ctx) {

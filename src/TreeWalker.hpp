@@ -10,6 +10,7 @@
 #include "AbstractSyntaxTree/AbstractNode.hpp"
 #include "AbstractSyntaxTree/ShaderTypeNode.hpp"
 #include "AbstractSyntaxTree/Nodes.hpp"
+#include "AbstractSyntaxTree/VariableNode.hpp"
 
 namespace Srsl{
 
@@ -110,6 +111,10 @@ namespace Srsl{
         void enterMemberAccess(SrslGrammarParser::MemberAccessContext * ctx) override;
 
         void exitMemberAccess(SrslGrammarParser::MemberAccessContext * ctx) override;
+
+        void enterVectorSwizzle(SrslGrammarParser::VectorSwizzleContext * ctx) override;
+
+        void exitVectorSwizzle(SrslGrammarParser::VectorSwizzleContext * ctx) override;
 
         void enterTestCase(SrslGrammarParser::TestCaseContext * ctx) override;
 
