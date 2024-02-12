@@ -29,18 +29,35 @@ namespace Srsl{
         VT_INTRINSIC        = 0x21,
     } VariableType;
 
-    struct TypeDesc{
-        VariableType type = VT_VOID;
-        uint32 rows = 0;
-        uint32 columns = 0;
-        std::vector<uint32> arraySizes;
-    };
-
     /**
      * @brief returns the size of a variable type in bytes
      * @param type the type to get the size of
      * @return uint32 the size of the type in bytes
      */
     uint32 getVariableTypeSize(VariableType type);
+
+    /**
+     * @brief converts the symbolic name of a type to a string
+     * @param type the type to convert
+     * @return std::string the string representation of the type
+     */
+    [[nodiscard]] std::string variableTypeToString(VariableType type);
+
+    class TypeDesc{
+    public:
+        VariableType type   = VT_VOID;
+        uint32 rows         = 1;
+        uint32 columns      = 1;
+        std::vector<uint32> arraySizes;
+        bool isConst        = false;
+
+    public:
+
+        /**
+         * @brief returns the size of the type in bytes
+         * @return uint32 the size of the type in bytes
+         */
+        [[nodiscard]] uint32 getSize() const;
+    };
 
 }

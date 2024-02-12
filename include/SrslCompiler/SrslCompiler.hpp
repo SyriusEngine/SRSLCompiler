@@ -45,6 +45,9 @@ namespace Srsl{
     struct SRSL_API ShaderLimits{
         uint32_t maxVertexAttributes = 16;
         uint32_t maxConstantBufferSize = 16 * 1024;
+        uint32_t maxTextureUnits = 16;
+        uint32_t maxSamplers = 16;
+        uint32_t maxConstantBufferSlots = 32;
     };
 
     struct SRSL_API VersionDesc{

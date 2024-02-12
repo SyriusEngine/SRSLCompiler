@@ -27,18 +27,22 @@ set(ANTLR4_SRC
     src/Grammar/SrslGrammarParser.cpp)
 
 set(AST_SRC
-
-    src/AbstractSyntaxTree/AbstractNode.cpp src/AbstractSyntaxTree/AbstractNode.hpp src/AbstractSyntaxTree/NodeTypes.cpp src/AbstractSyntaxTree/NodeTypes.hpp)
+    src/AbstractSyntaxTree/AbstractNode.cpp
+    src/AbstractSyntaxTree/NodeTypes.cpp )
 
 set(CONVERTER_SRC
+    src/Converter/VariableTypes.cpp
+    )
 
-
-    src/Converter/VariableTypes.cpp src/Converter/VariableTypes.hpp)
+set(SYMBOL_TABLE_SRC
+    src/SymbolTable/Symbol.cpp
+    src/SymbolTable/SymbolTable.cpp )
 
 set(SRSL_SRC
     ${ANTLR4_SRC}
     ${AST_SRC}
     ${CONVERTER_SRC}
+    ${SYMBOL_TABLE_SRC}
 
     src/SrslCompiler.cpp
     src/ShaderModuleImpl.cpp

@@ -20,7 +20,7 @@ namespace Srsl{
             return retVal;
         }
 
-        AbstractNode* getParent() const;
+        [[nodiscard]] AbstractNode* getParent() const;
 
         [[nodiscard]] AST_NODE_TYPE getType() const;
 

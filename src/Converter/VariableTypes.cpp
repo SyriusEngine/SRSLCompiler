@@ -23,4 +23,36 @@ namespace Srsl{
         }
     }
 
+    std::string variableTypeToString(VariableType type){
+        switch (type) {
+            case VT_VOID:               return "void";
+            case VT_BOOL:               return "bool";
+            case VT_INT:                return "int";
+            case VT_UINT:               return "uint";
+            case VT_HALF:               return "half";
+            case VT_FLOAT:              return "float";
+            case VT_DOUBLE:             return "double";
+            case VT_SAMPLER:            return "sampler";
+            case VT_TEXTURE1D:          return "texture1D";
+            case VT_TEXTURE2D:          return "texture2D";
+            case VT_TEXTURE3D:          return "texture3D";
+            case VT_TEXTURECUBE:        return "textureCube";
+            case VT_TEXTURE1DARRAY:     return "texture1DArray";
+            case VT_TEXTURE2DARRAY:     return "texture2DArray";
+            case VT_TEXTURECUBEARRAY:   return "textureCubeArray";
+            case VT_INTRINSIC:          return "intrinsic";
+            case VT_STRUCT:             return "struct";
+            default: return "unknown";
+        }
+    }
+
+    uint32 TypeDesc::getSize() const {
+        auto size = getVariableTypeSize(type);
+        size *= rows * columns;
+        for (const auto& arraySize : arraySizes){
+            size *= arraySize;
+        }
+        return size;
+    }
+
 }
