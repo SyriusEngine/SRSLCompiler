@@ -69,23 +69,96 @@ namespace Srsl{
     void TreeWalker::enterExpression(SrslGrammarParser::ExpressionContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto isBracket = (ctx->PARENO() != nullptr) || (ctx->PARENC() != nullptr);
+        if (isBracket){
+            m_BracketStack.push(m_CurrentNode);
+        }
+        else if (ctx->expression().size() == 1){
+            if (ctx->CREMENT() != nullptr){
+                auto newCurrent = m_CurrentNode->addChild<ExpressionNode>(ctx->CREMENT()->getText(), OPERATION_UNARY, ctx->start->getLine());
+                m_CurrentNode = newCurrent;
+            }
+            else if (ctx->NOT() != nullptr){
+                auto newCurrent = m_CurrentNode->addChild<ExpressionNode>("!", OPERATION_UNARY, ctx->start->getLine());
+                m_CurrentNode = newCurrent;
+            }
+            else if (ctx->MINUS() != nullptr){
+                auto newCurrent = m_CurrentNode->addChild<ExpressionNode>("-", OPERATION_UNARY, ctx->start->getLine());
+                m_CurrentNode = newCurrent;
+            }
+            else{
+                SRSL_THROW_EXCEPTION("Unknown unary expression")
+            }
+
+        }
+        else if (ctx->expression().size() == 2){
+            if (ctx->MULTIPLY() != nullptr){
+                auto newCurrent = m_CurrentNode->addChild<ExpressionNode>("*", OPERATION_BINARY, ctx->start->getLine());
+                m_CurrentNode = newCurrent;
+            }
+            else if (ctx->DIVIDE() != nullptr){
+                auto newCurrent = m_CurrentNode->addChild<ExpressionNode>("/", OPERATION_BINARY, ctx->start->getLine());
+                m_CurrentNode = newCurrent;
+            }
+            else if (ctx->PLUS() != nullptr){
+                auto newCurrent = m_CurrentNode->addChild<ExpressionNode>("+", OPERATION_BINARY, ctx->start->getLine());
+                m_CurrentNode = newCurrent;
+            }
+            else if (ctx->MINUS() != nullptr){
+                auto newCurrent = m_CurrentNode->addChild<ExpressionNode>("-", OPERATION_BINARY, ctx->start->getLine());
+                m_CurrentNode = newCurrent;
+            }
+            else if (ctx->OPERATION() != nullptr){
+                auto newCurrent = m_CurrentNode->addChild<ExpressionNode>(ctx->OPERATION()->getText(), OPERATION_BINARY, ctx->start->getLine());
+                m_CurrentNode = newCurrent;
+            }
+            else{
+                SRSL_THROW_EXCEPTION("Unknown unary expression")
+            }
+        }
     }
 
     void TreeWalker::exitExpression(SrslGrammarParser::ExpressionContext *ctx) {
+        auto isBracket = (ctx->PARENO() != nullptr) || (ctx->PARENC() != nullptr);
+        if (isBracket){
 
+        }
+        else if (ctx->expression().size() == 2 or ctx->expression().size() == 1){
+            m_CurrentNode = m_CurrentNode->getParent();
+        }
+    }
+
+    void TreeWalker::enterAssignment(SrslGrammarParser::AssignmentContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
+
+        auto newCurrent = m_CurrentNode->addChild<AssignmentNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
+    }
+
+    void TreeWalker::exitAssignment(SrslGrammarParser::AssignmentContext *ctx) {
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterVariable(SrslGrammarParser::VariableContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<VariableNode>(ctx->VAR_NAME()->getText(), ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitVariable(SrslGrammarParser::VariableContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterConstant(SrslGrammarParser::ConstantContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
+
+        if (ctx->NUMBER()){
+            m_CurrentNode->addChild<ConstantNode>(ctx->NUMBER()->getText(), ctx->start->getLine());
+        }
+        else if (ctx->FLOATING_POINT()){
+            m_CurrentNode->addChild<ConstantNode>(ctx->FLOATING_POINT()->getText(), ctx->start->getLine());
+        }
     }
 
     void TreeWalker::exitConstant(SrslGrammarParser::ConstantContext *ctx) {
@@ -176,10 +249,12 @@ namespace Srsl{
     void TreeWalker::enterInitializerList(SrslGrammarParser::InitializerListContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<InitializerListNode>(ctx->expression().size(), ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitInitializerList(SrslGrammarParser::InitializerListContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) {
@@ -239,10 +314,13 @@ namespace Srsl{
     void TreeWalker::enterTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        TypeDesc type(ctx->TYPE()->getText());
+        auto newCurrent = m_CurrentNode->addChild<TypeConstructorNode>(type, ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterMemberAccess(SrslGrammarParser::MemberAccessContext *ctx) {

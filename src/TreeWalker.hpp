@@ -32,6 +32,10 @@ namespace Srsl{
 
         void exitExpression(SrslGrammarParser::ExpressionContext* ctx) override;
 
+        void enterAssignment(SrslGrammarParser::AssignmentContext* ctx) override;
+
+        void exitAssignment(SrslGrammarParser::AssignmentContext* ctx) override;
+
         void enterVariable(SrslGrammarParser::VariableContext* ctx) override;
 
         void exitVariable(SrslGrammarParser::VariableContext* ctx) override;

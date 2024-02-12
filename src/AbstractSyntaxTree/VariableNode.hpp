@@ -18,6 +18,28 @@ namespace Srsl{
 
     };
 
+    class VariableNode: public AbstractNode{
+    public:
+        VariableNode() = delete;
+
+        VariableNode(const std::string& name, uint64 lineNumber);
+
+        ~VariableNode() override;
+
+        void fillSymbolTable(RCP<SymbolTable> symbolTable) override;
+
+    };
+
+    class TypeConstructorNode: public AbstractNode{
+    public:
+        TypeConstructorNode(const TypeDesc& typeDesc, uint64 lineNumber);
+
+        ~TypeConstructorNode() override;
+
+    private:
+        const TypeDesc m_Type;
+    };
+
 
 
 }

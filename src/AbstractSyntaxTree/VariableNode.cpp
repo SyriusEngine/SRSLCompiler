@@ -33,4 +33,31 @@ namespace Srsl{
 
         AbstractNode::fillSymbolTable(symbolTable);
     }
+
+    VariableNode::VariableNode(const std::string& name, uint64 lineNumber):
+    AbstractNode(name, AST_NODE_VARIABLE, lineNumber){
+
+    }
+
+    VariableNode::~VariableNode() {
+
+    }
+
+    void VariableNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
+        m_SymbolTable = symbolTable;
+        if (!m_SymbolTable->hasSymbol(m_Value)){
+            SRSL_THROW_EXCEPTION("Variable (%s) not found at (line %d)", m_Value.c_str(), m_LineNumber);
+        }
+        AbstractNode::fillSymbolTable(symbolTable);
+    }
+
+    TypeConstructorNode::TypeConstructorNode(const TypeDesc &typeDesc, uint64 lineNumber):
+    AbstractNode(typeDesc.typeStr, AST_NODE_INITIALIZER, lineNumber),
+    m_Type(typeDesc) {
+
+    }
+
+    TypeConstructorNode::~TypeConstructorNode() {
+
+    }
 }

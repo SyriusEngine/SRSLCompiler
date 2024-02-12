@@ -29,7 +29,7 @@ namespace Srsl{
 
         SRSL_ASSERT(m_Program != nullptr, "Program (%p) is null", this);
 
-        m_Program->construct(); // fill in missing information
+//        m_Program->construct(); // fill in missing information
 //        m_Program->fillSymbolTable(m_SymbolTable);
 //        m_Program->validate();
         m_Program->optimize();

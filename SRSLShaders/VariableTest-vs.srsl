@@ -29,4 +29,6 @@ void main(){
 
     float2 swiz = bigPos.xy;
 
+    uint mathExpr = (5.0f + data.ids[0]) * 2;
+
 }
