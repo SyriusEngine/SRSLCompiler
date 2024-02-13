@@ -54,6 +54,10 @@ namespace Srsl{
             return m_Target;
         }
 
+        inline const ExportDesc& getExportDesc() const{
+            return m_Desc;
+        }
+
         void getShaderCode(std::string& buffer) const;
 
         virtual std::string getVariableType(const TypeDesc& type) const = 0;

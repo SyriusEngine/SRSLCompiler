@@ -16,6 +16,7 @@
 #include "AbstractSyntaxTree/SwizzleNode.hpp"
 #include "AbstractSyntaxTree/ConstantBufferNode.hpp"
 #include "AbstractSyntaxTree/FLowControlNodes.hpp"
+#include "AbstractSyntaxTree/InterfaceNode.hpp"
 
 namespace Srsl{
 

@@ -108,4 +108,8 @@ namespace Srsl{
         }
         return size;
     }
+
+    Symbol &SymbolTable::operator[](const std::string &name) {
+        return getSymbol(name);
+    }
 }

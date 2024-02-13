@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <unordered_map>
+#include <map>
 
 #include <SrslCompiler/SrslCompiler.hpp>
 #include <iomanip>
@@ -63,9 +63,10 @@ bool testShader(const TestData& data){
 }
 
 int main(int argc, char** argv){
-    std::unordered_map<std::string, TestData> testMap = {
+    std::map<std::string, TestData> testMap = {
             {"Variables", {"./SRSLShaders/VariableTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
             {"Swizzle", {"./SRSLShaders/VectorSwizzleTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
+            {"Flow Control", {"./SRSLShaders/FlowControlTest-vs.srsl", "./SRSLShaders/FlowControlTest-fs.srsl", true}},
     };
 
     std::cout << "Running Tests: \n";
@@ -75,7 +76,7 @@ int main(int argc, char** argv){
 
     try{
         for (const auto& [name, test]: testMap){
-            std::cout << "| " << std::setw(18) << name << " | " << std::setw(8) << test.expectedSuccess << " | " << std::setw(3) << testShader(test) << " | " << std::setw(6) << (test.expectedSuccess == testShader(test) ? "Pass" : "Fail") << " |\n";
+            std::cout << "| " << std::setw(18) << name << " | " << std::setw(8) << test.expectedSuccess << " | " << std::setw(3) << testShader(test) << " | " << std::setw(6) << (test.expectedSuccess == testShader(test) ? "Pass" : "FAIL") << " |\n";
         }
     } catch (std::exception& e){
         std::cerr << "Exception: " << e.what() << std::endl;

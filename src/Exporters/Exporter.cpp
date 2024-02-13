@@ -30,6 +30,7 @@ namespace Srsl{
             for (const auto& line: lines){
                 buffer += line;
             }
+            buffer += "\n";
         }
     }
 }

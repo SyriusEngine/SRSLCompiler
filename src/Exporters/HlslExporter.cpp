@@ -3,7 +3,9 @@
 namespace Srsl{
 
     HlslExporter::HlslExporter(const ExportDesc &desc, SRSL_SHADER_TYPE type) :
-    Exporter(desc, type) {
+    Exporter(desc, type),
+    m_InputSymbolTable(nullptr),
+    m_OutputSymbolTable(nullptr){
 
     }
 

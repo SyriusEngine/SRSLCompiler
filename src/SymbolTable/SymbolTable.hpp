@@ -24,6 +24,12 @@ namespace Srsl{
 
         [[nodiscard]] uint32 getSize() const;
 
+        Symbol& operator[](const std::string& name);
+
+        [[nodiscard]] inline std::unordered_map<std::string, Symbol>& getSymbols(){
+            return m_Symbols;
+        }
+
     private:
         const std::string m_Name;
         std::unordered_map<std::string, Symbol> m_Symbols;

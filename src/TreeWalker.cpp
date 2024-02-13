@@ -338,10 +338,19 @@ namespace Srsl{
     void TreeWalker::enterShaderInterface(SrslGrammarParser::ShaderInterfaceContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        InterfaceType type;
+        if (ctx->SHADER_OUTPUT() != nullptr){
+            type = InterfaceType::Output;
+        }
+        else{
+            type = InterfaceType::Input;
+        }
+        auto newCurrent = m_CurrentNode->addChild<InterfaceNode>(type, ctx->VAR_NAME()->getText(), ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitShaderInterface(SrslGrammarParser::ShaderInterfaceContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) {

@@ -62,6 +62,60 @@ namespace Srsl{
         auto leftSymbol = m_SymbolTable->getSymbol(m_Left->getValue());
         auto rightSymbol = getRightSymbol(leftSymbol);
 
+        switch (exporter->getLanguageType()){
+            case SRSL_TARGET_GLSL: {
+                // check if it has a special semantic name such as SRV_POSITION, in this case, the interface access must
+                // be replaced with the correct glsl variable such as gl_Position
+                if (exporter->getVariableIntrinsics().hasIntrinsic(rightSymbol.semantic)){
+                    auto varIntrinsic = exporter->getVariableIntrinsics().getIntrinsic(rightSymbol.semantic);
+                    if (!varIntrinsic.glslVariable.empty()){
+                        exporter->addLine(varIntrinsic.glslVariable);
+                        return;
+                    }
+                }
+                m_Left->generateCode(exporter, "");
+                exporter->addLine(SRSL_CONCAT_LIT);
+                m_Right->generateCode(exporter, ""); // no indent, just concatenate
+                return;
+            }
+            case SRSL_TARGET_HLSL: {
+                auto hlslexporter = dynamic_cast<HlslExporter*>(exporter.get());
+                if (leftSymbol.name == hlslexporter->m_InputSymbolTable->getName()){ // luckily the symbol table has the same name as the type
+                    exporter->addLine(SRSL_CONCAT_LIT + "input." + rightSymbol.name);
+                }
+                else if (leftSymbol.name == hlslexporter->m_OutputSymbolTable->getName()){
+                    exporter->addLine(SRSL_CONCAT_LIT + "output." + rightSymbol.name);
+                }
+                else{
+                    SRSL_THROW_EXCEPTION("MemberAccessNode::handleShaderInterface(): Invalid left symbol name (%s)!", leftSymbol.name.c_str());
+                }
+                return;
+            }
+            case SRSL_TARGET_CPP: {
+                // if the left side is an interface member and the shadertype is a vertex, use the -> operator instead of
+                // the [] operator
+//                auto cppexporter = dynamic_cast<Cppexporter*>(exporter);
+//                // in case of the vertex shader, if the left side is the input table, the right side is a member
+//                // of the input table, so stored in an unordered map. But this unordered map contains the data in a char array
+//                // so we need to cast it to the correct glm type
+//                if (exporter->getShaderType() == Vertex and leftSymbol.m_Name == cppexporter->m_ShaderInputTable->getName()){
+//                    auto typeStr = cppexporter->getVariableType(rightSymbol.m_Type, rightSymbol.m_Rows, rightSymbol.m_Columns, rightSymbol.m_ExtType);
+//                    exporter->addLine("*reinterpret_cast<" + typeStr + "*>(" + leftSymbol.m_Name +"[\"" + rightSymbol.m_Semantic + "\"])", m_LineNumber);
+//                }
+//                else{
+//                    m_Left->generateCode(exporter, "");
+//                    exporter->addLine("[\"", m_LineNumber);
+//                    m_Right->generateCode(exporter, "");
+//                    exporter->addLine("\"]", m_LineNumber);
+//                }
+//                return;
+
+            }
+            default: {
+                SRSL_THROW_EXCEPTION("Unsupported language type! (%d)", exporter->getLanguageType());
+            }
+        }
+
     }
 
     Symbol MemberAccessNode::getRightSymbol(const Symbol &leftSymbol) const {
@@ -74,7 +128,7 @@ namespace Srsl{
                 return leftSymbol.structTable->getSymbol(rightMemberAccess->m_Left->getValue());
             }
             else{
-                throw std::runtime_error("MemberAccessNode: Invalid right child!");
+                SRSL_THROW_EXCEPTION("MemberAccessNode::getRightSymbol(): Invalid cast (%p)!", m_Right);
             }
         }
         else{
