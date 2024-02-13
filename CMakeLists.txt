@@ -32,7 +32,14 @@ set(AST_SRC
     src/AbstractSyntaxTree/ShaderTypeNode.cpp
     src/AbstractSyntaxTree/Nodes.cpp
     src/AbstractSyntaxTree/VariableNode.cpp
-    src/AbstractSyntaxTree/MemberAccessNode.cpp src/AbstractSyntaxTree/MemberAccessNode.hpp src/AbstractSyntaxTree/StructDeclarationNode.cpp src/AbstractSyntaxTree/StructDeclarationNode.hpp src/AbstractSyntaxTree/SwizzleNode.cpp src/AbstractSyntaxTree/SwizzleNode.hpp)
+    src/AbstractSyntaxTree/MemberAccessNode.cpp
+    src/AbstractSyntaxTree/StructDeclarationNode.cpp
+    src/AbstractSyntaxTree/SwizzleNode.cpp
+    src/AbstractSyntaxTree/ConstantBufferNode.cpp
+#    src/AbstractSyntaxTree/FLowControlNodes.cpp
+#    src/AbstractSyntaxTree/Interface.cpp
+#    src/AbstractSyntaxTree/TextureNode.cpp
+    )
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp
@@ -40,7 +47,8 @@ set(CONVERTER_SRC
 
 set(SYMBOL_TABLE_SRC
     src/SymbolTable/Symbol.cpp
-    src/SymbolTable/SymbolTable.cpp src/SymbolTable/Validator.cpp src/SymbolTable/Validator.hpp)
+    src/SymbolTable/SymbolTable.cpp
+    src/SymbolTable/Validator.cpp )
 
 set(INTRINSICS_SRC
     src/Intrinsics/Intrinsics.cpp

@@ -17,8 +17,9 @@
 
 namespace Srsl{
 
+    // sorted from top of the shader to bottom of the shader
     typedef enum PROGRAM_SECTION_TYPE{
-        PROGRAM_SECTION_DEFAULT = 0x00,
+        PROGRAM_SECTION_DEFAULT = 0xff,
         PROGRAM_SECTION_TOP     = 0x01,
         PROGRAM_SECTION_INPUT   = 0x02,
         PROGRAM_SECTION_OUTPUT  = 0x03,

@@ -14,6 +14,7 @@
 #include "AbstractSyntaxTree/MemberAccessNode.hpp"
 #include "AbstractSyntaxTree/StructDeclarationNode.hpp"
 #include "AbstractSyntaxTree/SwizzleNode.hpp"
+#include "AbstractSyntaxTree/ConstantBufferNode.hpp"
 
 namespace Srsl{
 

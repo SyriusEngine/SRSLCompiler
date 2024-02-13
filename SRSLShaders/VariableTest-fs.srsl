@@ -7,4 +7,5 @@ TextureCube(slot = 3) skybox;
 Sampler(slot = 0) sampler0;
 
 void main() {
+
 }

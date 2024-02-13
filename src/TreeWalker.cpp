@@ -304,10 +304,12 @@ namespace Srsl{
     void TreeWalker::enterConstantBufferDeclaration(SrslGrammarParser::ConstantBufferDeclarationContext * ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<ConstantBufferNode>(ctx->VAR_NAME()->getText(), std::stoi(ctx->NUMBER()->getText()), ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitConstantBufferDeclaration(SrslGrammarParser::ConstantBufferDeclarationContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterReturnStatement(SrslGrammarParser::ReturnStatementContext *ctx) {

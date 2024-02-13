@@ -36,12 +36,16 @@ bool testShader(const TestData& data){
         exportGlsl.fragmentShaderOut = "./Dev-fs.glsl";
         exportGlsl.writeType = SRSL_WRITE_TO_FILE;
         exportGlsl.target = SRSL_TARGET_GLSL;
+        exportGlsl.version.majorVersion = 4;
+        exportGlsl.version.minorVersion = 6;
 
         ExportDesc exportHlsl;
         exportHlsl.vertexShaderOut = "./Dev-vs.hlsl";
         exportHlsl.fragmentShaderOut = "./Dev-fs.hlsl";
         exportHlsl.writeType = SRSL_WRITE_TO_FILE;
         exportHlsl.target = SRSL_TARGET_HLSL;
+        exportHlsl.version.majorVersion = 5;
+        exportHlsl.version.minorVersion = 0;
 
         auto shaderProgram = createShaderProgram();
         shaderProgram->addShaderModule(vertexShaderModule);
@@ -60,7 +64,8 @@ bool testShader(const TestData& data){
 
 int main(int argc, char** argv){
     std::unordered_map<std::string, TestData> testMap = {
-            {"Variables", {"./SRSLShaders/VariableTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}}
+            {"Variables", {"./SRSLShaders/VariableTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
+            {"Swizzle", {"./SRSLShaders/VectorSwizzleTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
     };
 
     std::cout << "Running Tests: \n";

@@ -39,11 +39,11 @@ namespace Srsl{
         if (m_Type.isConst){
             line += "const ";
         }
-        line += exporter->getVariableType(m_Type);
+        line += exporter->getVariableType(m_Type) + " ";
         if (m_Parent->getType() == AST_NODE_CONSTANT_BUFFER_DECLARATION){
             line += m_Parent->getValue() + SRSL_CONCAT_LIT;
         }
-        line += " " + m_Value;
+        line += m_Value;
         for (auto m_ArraySize : m_Type.arraySizes){
             line += "[" + std::to_string(m_ArraySize) + "]";
         }
