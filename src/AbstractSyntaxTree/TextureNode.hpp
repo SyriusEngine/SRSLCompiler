@@ -1,11 +1,10 @@
 #pragma once
 
-#include "BaseNode.hpp"
-#include "../Converters/Cpp/CppWriter.hpp"
+#include "AbstractNode.hpp"
 
 namespace Srsl{
 
-    class SamplerNode: public BaseNode{
+    class SamplerNode: public AbstractNode{
     public:
         SamplerNode(const std::string& name, uint32 slot, uint64 lineNumber);
 
@@ -13,38 +12,36 @@ namespace Srsl{
 
         void fillSymbolTable(RCP<SymbolTable> symbolTable) override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
 
-        void exportCpp(CppWriter* writer, const std::string& indent) const;
+//        void exportCpp(CppWriter* writer, const std::string& indent) const;
 
     private:
-        const std::string m_Name;
         const uint32 m_Slot;
 
     };
 
-    class TextureNode: public BaseNode{
+    class TextureNode: public AbstractNode{
     public:
-        TextureNode(const std::string& name, uint32 slot, const std::string& type, uint64 lineNumber);
+        TextureNode(const std::string& name, uint32 slot, const TypeDesc& type, uint64 lineNumber);
 
         ~TextureNode() override;
 
         void fillSymbolTable(RCP<SymbolTable> symbolTable) override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
 
         [[nodiscard]] std::string getGlslType() const;
 
-        void exportCpp(CppWriter* writer, const std::string& indent) const;
+//        void exportCpp(CppWriter* writer, const std::string& indent) const;
 
     private:
-        const std::string m_Name;
         const uint32 m_Slot;
-        const VariableBaseType m_Type;
+        const TypeDesc m_Type;
     };
 
 }

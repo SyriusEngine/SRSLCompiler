@@ -17,6 +17,7 @@
 #include "AbstractSyntaxTree/ConstantBufferNode.hpp"
 #include "AbstractSyntaxTree/FLowControlNodes.hpp"
 #include "AbstractSyntaxTree/InterfaceNode.hpp"
+#include "AbstractSyntaxTree/TextureNode.hpp"
 
 namespace Srsl{
 

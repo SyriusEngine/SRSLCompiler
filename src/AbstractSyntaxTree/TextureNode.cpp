@@ -2,119 +2,110 @@
 
 namespace Srsl{
 
-    SamplerNode::SamplerNode(const std::string &name, uint32 slot, uint64 lineNumber)
-    : BaseNode(NodeType::Sampler, lineNumber),
-    m_Slot(slot),
-    m_Name(name){
-        m_Value = "[Slot = " + std::to_string(m_Slot) + "] Sampler " + name;
-
+    SamplerNode::SamplerNode(const std::string &name, uint32 slot, uint64 lineNumber):
+    AbstractNode(name, AST_NODE_SAMPLER_DECLARATION, lineNumber),
+    m_Slot(slot){
     }
 
-    SamplerNode::~SamplerNode() {
-
-    }
+    SamplerNode::~SamplerNode() = default;
 
     void SamplerNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
         m_SymbolTable = symbolTable;
+        TypeDesc type;
+        type.type = VT_SAMPLER;
+        type.isConst = true;
         Symbol symbol;
-        symbol.m_Name = m_Name;
-        symbol.m_Type = VariableBaseType::Sampler;
-        symbol.m_Slot = m_Slot;
-        symbol.m_IsConst = true;
+        symbol.name = m_Value;
+        symbol.type = type;
+        symbol.slot = m_Slot;
         symbolTable->addSymbol(symbol);
     }
 
-    void SamplerNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        writer->setAppendBuffer(AppendBufferType::AppendSampler);
-        switch (writer->getLanguageType()) {
-            case LanguageType::GLSL:
+    void SamplerNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        exporter->setAppendBuffer(PROGRAM_SECTION_SAMPLER);
+        switch (exporter->getLanguageType()) {
+            case SRSL_TARGET_GLSL: break;
+            case SRSL_TARGET_HLSL:
+                exporter->addLine(indent + "SamplerState " + m_Value + " : register(s" + std::to_string(m_Slot) + ");\n");
                 break;
-            case LanguageType::HLSL:
-                writer->addLine(indent + "SamplerState " + m_Name + " : register(s" + std::to_string(m_Slot) + ");\n", m_LineNumber);
-                break;
-            case LanguageType::CPP: {
-                auto cppWriter = dynamic_cast<CppWriter*>(writer);
-                if (!cppWriter){
-                    throw std::runtime_error("Invalid language writer!");
-                }
-                exportCpp(cppWriter, indent);
-                break;
-            }
+//            case LanguageType::CPP: {
+//                auto cppexporter = dynamic_cast<Cppexporter*>(exporter);
+//                if (!cppexporter){
+//                    throw std::runtime_error("Invalid language exporter!");
+//                }
+//                exportCpp(cppexporter, indent);
+//                break;
+//            }
             default:
-                throw std::runtime_error("Invalid language type");
+                SRSL_THROW_EXCEPTION("Unsupported language type (%d)", exporter->getLanguageType());
         }
-        writer->setAppendBuffer(AppendBufferType::AppendProgram);
+        exporter->setAppendBuffer(PROGRAM_SECTION_DEFAULT);
     }
 
-    void SamplerNode::exportCpp(CppWriter *writer, const std::string &indent) const {
-        writer->addLine("static SamplerState* " + m_Name + " = nullptr;\n", m_LineNumber);
-        writer->m_Samplers.push_back({m_Name, m_Slot});
-    }
+//    void SamplerNode::exportCpp(Cppexporter *exporter, const std::string &indent) const {
+//        exporter->addLine("static SamplerState* " + m_Name + " = nullptr;\n", m_LineNumber);
+//        exporter->m_Samplers.push_back({m_Name, m_Slot});
+//    }
 
-    TextureNode::TextureNode(const std::string &name, uint32 slot, const std::string &type, uint64 lineNumber)
-    : BaseNode(NodeType::Texture, lineNumber),
+    TextureNode::TextureNode(const std::string &name, uint32 slot, const TypeDesc& type, uint64 lineNumber):
+    AbstractNode(name, AST_NODE_TEXTURE_DECLARATION, lineNumber),
     m_Slot(slot),
-    m_Name(name),
-    m_Type(parseTexture(type)){
-        m_Value = "[Slot = " + std::to_string(m_Slot) + "] " + type + " " + name;
+    m_Type(type){
 
     }
 
-    TextureNode::~TextureNode() {
-
-    }
+    TextureNode::~TextureNode() = default;
 
     void TextureNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
         m_SymbolTable = symbolTable;
         Symbol symbol;
-        symbol.m_Name = m_Name;
-        symbol.m_Type = m_Type;
-        symbol.m_Slot = m_Slot;
-        symbol.m_IsConst = true;
+        symbol.name = m_Value;
+        symbol.type = m_Type;
+        symbol.slot = m_Slot;
         symbolTable->addSymbol(symbol);
     }
 
-    void TextureNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        writer->setAppendBuffer(AppendBufferType::AppendTexture);
-        switch (writer->getLanguageType()) {
-            case LanguageType::GLSL: {
-                writer->addLine(indent + "layout(binding = " + std::to_string(m_Slot) + ") uniform " + getGlslType() + " " + m_Name + ";\n", m_LineNumber);
+    void TextureNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        exporter->setAppendBuffer(PROGRAM_SECTION_TEXTURE);
+        switch (exporter->getLanguageType()) {
+            case SRSL_TARGET_GLSL: {
+                exporter->addLine(indent + "layout(binding = " + std::to_string(m_Slot) + ") uniform " + getGlslType() + " " + m_Value + ";\n");
                 break;
             }
-            case LanguageType::HLSL:
-                writer->addLine(indent + "Texture2D " + m_Name + " : register(t" + std::to_string(m_Slot) + ");\n", m_LineNumber);
+            case SRSL_TARGET_HLSL:
+                exporter->addLine(indent + "Texture2D " + m_Value + " : register(t" + std::to_string(m_Slot) + ");\n");
                 break;
-            case LanguageType::CPP: {
-                auto cppWriter = dynamic_cast<CppWriter*>(writer);
-                if (!cppWriter){
-                    throw std::runtime_error("Invalid language writer!");
-                }
-                exportCpp(cppWriter, indent);
-                break;
-            }
+//            case SRSL_TARGET_CPP: {
+//                auto cppexporter = dynamic_cast<Cppexporter*>(exporter);
+//                if (!cppexporter){
+//                    throw std::runtime_error("Invalid language exporter!");
+//                }
+//                exportCpp(cppexporter, indent);
+//                break;
+//            }
             default:
-                throw std::runtime_error("Invalid language type");
+                SRSL_THROW_EXCEPTION("Unsupported language type (%d)", exporter->getLanguageType());
         }
-        writer->setAppendBuffer(AppendBufferType::AppendProgram);
+        exporter->setAppendBuffer(PROGRAM_SECTION_DEFAULT);
     }
 
     std::string TextureNode::getGlslType() const {
-        switch(m_Type){
-            case VariableBaseType::Texture1D:
-                return "sampler1D";
-            case VariableBaseType::Texture2D:
-                return "sampler2D";
-            case VariableBaseType::Texture3D:
-                return "sampler3D";
-            case VariableBaseType::TextureCube:
-                return "samplerCube";
+        switch(m_Type.type){
+            case VT_TEXTURE1D: return "sampler1D";
+            case VT_TEXTURE1D_ARRAY: return "sampler1DArray";
+            case VT_TEXTURE2D: return "sampler2D";
+            case VT_TEXTURE2D_ARRAY: return "sampler2DArray";
+            case VT_TEXTURE3D: return "sampler3D";
+            case VT_TEXTURE3D_ARRAY: return "sampler3DArray";
+            case VT_TEXTURE_CUBE: return "samplerCube";
+            case VT_TEXTURE_CUBE_ARRAY: return "samplerCubeArray";
             default:
-                throw std::runtime_error("Invalid texture type for GLSL");
+                SRSL_THROW_EXCEPTION("Unsupported glsl texture type (%d)", m_Type.type);
         }
     }
 
-    void TextureNode::exportCpp(CppWriter *writer, const std::string &indent) const {
-        writer->addLine("static Texture2D* " + m_Name + " = nullptr;\n", m_LineNumber);
-        writer->m_Textures.push_back({m_Name, m_Slot});
-    }
+//    void TextureNode::exportCpp(Cppexporter *exporter, const std::string &indent) const {
+//        exporter->addLine("static Texture2D* " + m_Name + " = nullptr;\n", m_LineNumber);
+//        exporter->m_Textures.push_back({m_Name, m_Slot});
+//    }
 }

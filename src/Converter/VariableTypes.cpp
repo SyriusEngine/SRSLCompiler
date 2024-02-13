@@ -81,9 +81,35 @@ namespace Srsl{
             type = VT_DOUBLE;
             dimensions = typeStr.substr(6);
         }
+        else if (typeStr.find("Texture1D") != std::string::npos){
+            type = VT_TEXTURE1D;
+        }
+        else if (typeStr.find("Texture2D") != std::string::npos){
+            type = VT_TEXTURE2D;
+        }
+        else if (typeStr.find("Texture3D") != std::string::npos){
+            type = VT_TEXTURE3D;
+        }
+        else if (typeStr.find("TextureCube") != std::string::npos){
+            type = VT_TEXTURE_CUBE;
+        }
+        else if (typeStr.find("Texture1DArray") != std::string::npos){
+            type = VT_TEXTURE1D_ARRAY;
+        }
+        else if (typeStr.find("Texture2DArray") != std::string::npos){
+            type = VT_TEXTURE2D_ARRAY;
+        }
+        else if (typeStr.find("Texture3DArray") != std::string::npos){
+            type = VT_TEXTURE3D_ARRAY;
+        }
+        else if (typeStr.find("TextureCubeArray") != std::string::npos){
+            type = VT_TEXTURE_CUBE_ARRAY;
+        }
+        else if (typeStr.find("sampler") != std::string::npos){
+            type = VT_SAMPLER;
+        }
         else {
             type = VT_STRUCT;
-            dimensions = "";
         }
 
         if (!dimensions.empty()){

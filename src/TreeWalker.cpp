@@ -298,15 +298,21 @@ namespace Srsl{
     void TreeWalker::enterTextureDeclaration(SrslGrammarParser::TextureDeclarationContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        TypeDesc type(ctx->TEXTURE_TYPES()->getText(), true);
+        const std::string& name = ctx->VAR_NAME()->getText();
+        const auto slot = std::stoi(ctx->NUMBER()->getText());
+        auto newCurrent = m_CurrentNode->addChild<TextureNode>(name, slot, type, ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitTextureDeclaration(SrslGrammarParser::TextureDeclarationContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterSamplerDeclaration(SrslGrammarParser::SamplerDeclarationContext *ctx ) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        m_CurrentNode->addChild<SamplerNode>(ctx->VAR_NAME()->getText(), std::stoi(ctx->NUMBER()->getText()), ctx->start->getLine());
     }
 
     void TreeWalker::exitSamplerDeclaration(SrslGrammarParser::SamplerDeclarationContext * ctx) {
