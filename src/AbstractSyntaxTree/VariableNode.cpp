@@ -34,6 +34,26 @@ namespace Srsl{
         AbstractNode::fillSymbolTable(symbolTable);
     }
 
+    void NewVariableNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
+        std::string line;
+        if (m_Type.isConst){
+            line += "const ";
+        }
+        line += exporter->getVariableType(m_Type);
+        if (m_Parent->getType() == AST_NODE_CONSTANT_BUFFER_DECLARATION){
+            line += m_Parent->getValue() + SRSL_CONCAT_LIT;
+        }
+        line += " " + m_Value;
+        for (auto m_ArraySize : m_Type.arraySizes){
+            line += "[" + std::to_string(m_ArraySize) + "]";
+        }
+        if (m_Parent->getType() == AST_NODE_SCOPE_STATEMENT){
+            line += ";\n";
+        }
+        exporter->addLine(line);
+
+    }
+
     VariableNode::VariableNode(const std::string& name, uint64 lineNumber):
     AbstractNode(name, AST_NODE_VARIABLE, lineNumber){
 
@@ -51,6 +71,17 @@ namespace Srsl{
         AbstractNode::fillSymbolTable(symbolTable);
     }
 
+    void VariableNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
+        exporter->addLine(m_Value);
+
+        for (const auto& child : m_Children){
+            if (child->getType() == AST_NODE_CONSTANT){
+                exporter->addLine("[" + child->getValue() + "]");
+            }
+        }
+
+    }
+
     TypeConstructorNode::TypeConstructorNode(const TypeDesc &typeDesc, uint64 lineNumber):
     AbstractNode(typeDesc.typeStr, AST_NODE_INITIALIZER, lineNumber),
     m_Type(typeDesc) {
@@ -58,6 +89,18 @@ namespace Srsl{
     }
 
     TypeConstructorNode::~TypeConstructorNode() {
+
+    }
+
+    void TypeConstructorNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
+        exporter->addLine(indent + exporter->getVariableType(m_Type) + "(");
+        for (const auto& child : m_Children){
+            child->generateCode(exporter, "");
+            if (child != m_Children.back()){
+                exporter->addLine(", ");
+            }
+        }
+        exporter->addLine(indent + ")");
 
     }
 }

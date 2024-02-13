@@ -43,7 +43,7 @@ namespace Srsl{
                     case VT_FLOAT:   return "float";
                     case VT_DOUBLE:  return "double";
                     default:
-                        SRSL_THROW_EXCEPTION("Unknown type (%d)", type.type);
+                        SRSL_THROW_EXCEPTION("Unknown GLSL type (%d)", type.type);
                 }
             }
         }
@@ -58,11 +58,11 @@ namespace Srsl{
                 case VT_TEXTURE_CUBE:       return "samplerCube";
                 case VT_TEXTURE_CUBE_ARRAY: return "samplerCubeArray";
                 default:
-                    SRSL_THROW_EXCEPTION("Unknown type (%d)", type.type);
+                    SRSL_THROW_EXCEPTION("Unknown GLSL type (%d)", type.type);
             }
         }
         else{
-            SRSL_THROW_EXCEPTION("Unknown type (%d)", type.type);
+            SRSL_THROW_EXCEPTION("Unknown GLSL type (%d)", type.type);
         };
     }
 }

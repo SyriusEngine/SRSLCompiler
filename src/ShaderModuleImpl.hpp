@@ -4,6 +4,9 @@
 #include "TreeWalker.hpp"
 #include "ParseExceptionHandler.hpp"
 
+#include "Exporters/GlslExporter.hpp"
+#include "Exporters/HlslExporter.hpp"
+
 namespace Srsl{
 
     class ShaderModuleImpl: public ShaderModule{
@@ -16,7 +19,7 @@ namespace Srsl{
 
         void exportSymbolTableHtml(const std::string& outputFile) override;
 
-        void exportShader(const ExportDesc& desc) override;
+        void exportShader(ExportDesc& desc) override;
 
         [[nodiscard]] SRSL_SHADER_TYPE getShaderType() const override;
 

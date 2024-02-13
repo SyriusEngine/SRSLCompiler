@@ -32,7 +32,7 @@ set(AST_SRC
     src/AbstractSyntaxTree/ShaderTypeNode.cpp
     src/AbstractSyntaxTree/Nodes.cpp
     src/AbstractSyntaxTree/VariableNode.cpp
-    )
+    src/AbstractSyntaxTree/MemberAccessNode.cpp src/AbstractSyntaxTree/MemberAccessNode.hpp src/AbstractSyntaxTree/StructDeclarationNode.cpp src/AbstractSyntaxTree/StructDeclarationNode.hpp)
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp
@@ -40,7 +40,7 @@ set(CONVERTER_SRC
 
 set(SYMBOL_TABLE_SRC
     src/SymbolTable/Symbol.cpp
-    src/SymbolTable/SymbolTable.cpp )
+    src/SymbolTable/SymbolTable.cpp src/SymbolTable/Validator.cpp src/SymbolTable/Validator.hpp)
 
 set(INTRINSICS_SRC
     src/Intrinsics/Intrinsics.cpp
@@ -49,7 +49,10 @@ set(INTRINSICS_SRC
     )
 
 set(EXPORTER_SRC
-    src/Exporters/Exporter.cpp src/Exporters/GlslExporter.cpp src/Exporters/GlslExporter.hpp)
+    src/Exporters/Exporter.cpp
+    src/Exporters/GlslExporter.cpp
+    src/Exporters/HlslExporter.cpp
+    )
 
 set(SRSL_SRC
     ${ANTLR4_SRC}

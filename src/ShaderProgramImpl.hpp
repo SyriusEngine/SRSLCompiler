@@ -15,7 +15,7 @@ namespace Srsl{
 
         void link() override;
 
-        void exportShader(const ExportDesc& desc) override;
+        void exportShader(ExportDesc& desc) override;
 
     private:
         RCP<ShaderModuleImpl> m_VertexShader;

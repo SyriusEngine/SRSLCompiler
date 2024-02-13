@@ -578,8 +578,8 @@ public:
     std::vector<VariableContext *> variable();
     VariableContext* variable(size_t i);
     FunctionCallContext *functionCall();
-    MemberAccessContext *memberAccess();
     VectorSwizzleContext *vectorSwizzle();
+    MemberAccessContext *memberAccess();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

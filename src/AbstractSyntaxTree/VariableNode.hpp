@@ -12,6 +12,8 @@ namespace Srsl{
 
         void fillSymbolTable(RCP<SymbolTable> symbolTable) override;
 
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
+
     private:
         const std::string m_SemanticName;
         const TypeDesc m_Type;
@@ -28,6 +30,8 @@ namespace Srsl{
 
         void fillSymbolTable(RCP<SymbolTable> symbolTable) override;
 
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
+
     };
 
     class TypeConstructorNode: public AbstractNode{
@@ -35,6 +39,8 @@ namespace Srsl{
         TypeConstructorNode(const TypeDesc& typeDesc, uint64 lineNumber);
 
         ~TypeConstructorNode() override;
+
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
         const TypeDesc m_Type;

@@ -10,6 +10,8 @@ namespace Srsl{
 
         ~ConstantNode() override;
 
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
+
     };
 
     class AssignmentNode: public AbstractNode{
@@ -19,6 +21,8 @@ namespace Srsl{
         ~AssignmentNode() override;
 
         void construct() override;
+
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
         AbstractNode* m_Left;
@@ -31,6 +35,8 @@ namespace Srsl{
         InitializerListNode(uint32 initializerCount, uint64 lineNumber);
 
         ~InitializerListNode() override;
+
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     };
 
@@ -46,6 +52,8 @@ namespace Srsl{
         ~ExpressionNode() override;
 
         void construct() override;
+
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
         OPERATION_TYPE m_OperationType;

@@ -40,9 +40,6 @@ int main(int argc, char** argv){
             shaderProgram->exportShader(exportGlsl);
             shaderProgram->exportShader(exportHlsl);
 
-
-
-
         }
         else{
             std::cerr << "Usage: " << argv[0] << " <vertex shader> <fragment shader>" << std::endl;

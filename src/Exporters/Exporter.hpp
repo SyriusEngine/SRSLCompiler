@@ -8,6 +8,13 @@
 #include <set>
 #include <map>
 
+#define SRSL_CONCAT_LIT std::string("SRSLCONCAT")
+#define SRSL_TYPE_DECL std::string("TYPE_")
+#define SRSL_CONSTANT_BUFFER_COLLECTION std::string("__CBUFFERS__")
+#define SRSL_TEXTURE_COLLECTION std::string("__TEXTURES__")
+#define SRSL_SAMPLER_CONNECTION std::string("__SAMPLERS__")
+
+
 namespace Srsl{
 
     typedef enum PROGRAM_SECTION_TYPE{
@@ -49,8 +56,6 @@ namespace Srsl{
         void getShaderCode(std::string& buffer) const;
 
         virtual std::string getVariableType(const TypeDesc& type) const = 0;
-
-
 
     private:
         const SRSL_SHADER_TYPE m_ShaderType;

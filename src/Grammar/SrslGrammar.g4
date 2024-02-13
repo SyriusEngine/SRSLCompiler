@@ -80,7 +80,7 @@ rvalue:
     memberAccess |
     initializerList;
 
-memberAccess: (variable | functionCall) DOT (variable | memberAccess | vectorSwizzle);
+memberAccess: (variable | functionCall) DOT (vectorSwizzle | variable | memberAccess);
 
 newVariable: CONST* (TYPE | VAR_NAME) VAR_NAME (SBRACKO NUMBER SBRACKC)* (COLON VAR_NAME)?;
 variable:  VAR_NAME (SBRACKO expression SBRACKC)*;

@@ -29,9 +29,10 @@ namespace Srsl{
 
         SRSL_ASSERT(m_Program != nullptr, "Program (%p) is null", this);
 
-//        m_Program->construct(); // fill in missing information
-//        m_Program->fillSymbolTable(m_SymbolTable);
-//        m_Program->validate();
+        m_Program->construct(); // fill in missing information
+        m_Program->fillSymbolTable(m_SymbolTable);
+        Validator validator;
+        m_Program->validate(validator);
         m_Program->optimize();
 
 
@@ -67,8 +68,48 @@ namespace Srsl{
         file << "</html>" << std::endl;
     }
 
-    void ShaderModuleImpl::exportShader(const ExportDesc &desc) {
+    void ShaderModuleImpl::exportShader(ExportDesc &desc) {
+        SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
+        // determine the target language
+        UP<Exporter> exporter = nullptr;
+        switch (desc.target) {
+            case SRSL_TARGET_GLSL:
+                exporter = createUP<GlslExporter>(desc, m_ShaderType);
+                break;
+            case SRSL_TARGET_HLSL:
+                exporter = createUP<HlslExporter>(desc, m_ShaderType);
+                break;
+            case SRSL_TARGET_CPP:
+//                exporter = createUP<CppExporter>(desc, m_ShaderType);
+                break;
+            default:
+                SRSL_THROW_EXCEPTION("Invalid target (%d)", desc.target);
+        }
+
+        // determine output buffer
+        std::string* out = nullptr;
+        switch (m_ShaderType) {
+            case SRSL_VERTEX_SHADER: out = &desc.vertexShaderOut; break;
+            case SRSL_FRAGMENT_SHADER: out = &desc.fragmentShaderOut; break;
+            default: SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ShaderType);
+        }
+
+        SRSL_ASSERT(out != nullptr, "Output buffer is null")
+
+        // how to export?
+        if (desc.writeType == SRSL_WRITE_TO_FILE){
+            std::string buffer;
+            m_Program->generateCode(exporter, "");
+            exporter->getShaderCode(buffer);
+            std::ofstream file(*out);
+            file << buffer;
+            file.close();
+        }
+        else{
+            m_Program->generateCode(exporter, "");
+            exporter->getShaderCode(*out);
+        }
     }
 
     SRSL_SHADER_TYPE ShaderModuleImpl::getShaderType() const {

@@ -192,8 +192,8 @@ void srslgrammarParserInitialize() {
   	31,0,354,357,3,52,26,0,355,357,3,46,23,0,356,350,1,0,0,0,356,351,1,0,
   	0,0,356,352,1,0,0,0,356,353,1,0,0,0,356,354,1,0,0,0,356,355,1,0,0,0,357,
   	51,1,0,0,0,358,361,3,56,28,0,359,361,3,32,16,0,360,358,1,0,0,0,360,359,
-  	1,0,0,0,361,362,1,0,0,0,362,366,5,36,0,0,363,367,3,56,28,0,364,367,3,
-  	52,26,0,365,367,3,64,32,0,366,363,1,0,0,0,366,364,1,0,0,0,366,365,1,0,
+  	1,0,0,0,361,362,1,0,0,0,362,366,5,36,0,0,363,367,3,64,32,0,364,367,3,
+  	56,28,0,365,367,3,52,26,0,366,363,1,0,0,0,366,364,1,0,0,0,366,365,1,0,
   	0,0,367,53,1,0,0,0,368,370,5,8,0,0,369,368,1,0,0,0,370,373,1,0,0,0,371,
   	369,1,0,0,0,371,372,1,0,0,0,372,374,1,0,0,0,373,371,1,0,0,0,374,375,7,
   	1,0,0,375,381,5,45,0,0,376,377,5,2,0,0,377,378,5,34,0,0,378,380,5,3,0,
@@ -3008,12 +3008,12 @@ SrslGrammarParser::FunctionCallContext* SrslGrammarParser::MemberAccessContext::
   return getRuleContext<SrslGrammarParser::FunctionCallContext>(0);
 }
 
-SrslGrammarParser::MemberAccessContext* SrslGrammarParser::MemberAccessContext::memberAccess() {
-  return getRuleContext<SrslGrammarParser::MemberAccessContext>(0);
-}
-
 SrslGrammarParser::VectorSwizzleContext* SrslGrammarParser::MemberAccessContext::vectorSwizzle() {
   return getRuleContext<SrslGrammarParser::VectorSwizzleContext>(0);
+}
+
+SrslGrammarParser::MemberAccessContext* SrslGrammarParser::MemberAccessContext::memberAccess() {
+  return getRuleContext<SrslGrammarParser::MemberAccessContext>(0);
 }
 
 
@@ -3071,19 +3071,19 @@ SrslGrammarParser::MemberAccessContext* SrslGrammarParser::memberAccess() {
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 27, _ctx)) {
     case 1: {
       setState(363);
-      variable();
+      vectorSwizzle();
       break;
     }
 
     case 2: {
       setState(364);
-      memberAccess();
+      variable();
       break;
     }
 
     case 3: {
       setState(365);
-      vectorSwizzle();
+      memberAccess();
       break;
     }
 

@@ -12,7 +12,7 @@ namespace Srsl{
 
         void addSymbol(const Symbol& symbol);
 
-        RCP<SymbolTable> addChild(const std::string& name);
+        void addChild(RCP<SymbolTable> symbolTable);
 
         Symbol& getSymbol(const std::string& name);
 

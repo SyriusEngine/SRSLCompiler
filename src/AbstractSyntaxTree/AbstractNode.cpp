@@ -47,6 +47,12 @@ namespace Srsl{
         }
     }
 
+    void AbstractNode::validate(Validator& ctx) {
+        for (const auto& child: m_Children){
+            child->validate(ctx);
+        }
+    }
+
     void AbstractNode::optimize() {
         for (const auto& child: m_Children){
             child->optimize();

@@ -3,8 +3,13 @@
 #include "../Utils.hpp"
 #include "../Converter/VariableTypes.hpp"
 #include "../SymbolTable/SymbolTable.hpp"
+#include "../SymbolTable/Validator.hpp"
 
 #include "NodeTypes.hpp"
+
+#include "../Exporters/Exporter.hpp"
+#include "../Exporters/GlslExporter.hpp"
+#include "../Exporters/HlslExporter.hpp"
 
 namespace Srsl{
 
@@ -48,9 +53,22 @@ namespace Srsl{
         virtual void fillSymbolTable(RCP<SymbolTable> table);
 
         /**
+         * @brief validates certain properties of the AST, a Validatior object is passed recursively.
+         * @param ctx the validator object.
+         */
+        virtual void validate(Validator& ctx);
+
+        /**
          * @brief Used to optimize the AST before the actual code is generated. Can change (replace/add/remove) child nodes.
          */
         virtual void optimize();
+
+        /**
+         * @brief This function will generate the code for the node and all its children.
+         * @param exporter the exporter to use.
+         */
+        virtual void generateCode(UP<Exporter>& exporter, const std::string& indent) const = 0;
+
 
     protected:
 

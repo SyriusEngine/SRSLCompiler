@@ -86,7 +86,7 @@ namespace Srsl{
 
         virtual void exportSymbolTableHtml(const std::string& outputFile) = 0;
 
-        virtual void exportShader(const ExportDesc& desc) = 0;
+        virtual void exportShader(ExportDesc& desc) = 0;
 
         [[nodiscard]] virtual SRSL_SHADER_TYPE getShaderType() const = 0;
     };
@@ -101,7 +101,7 @@ namespace Srsl{
 
         virtual void link() = 0;
 
-        virtual void exportShader(const ExportDesc& desc) = 0;
+        virtual void exportShader(ExportDesc& desc) = 0;
 
     };
 

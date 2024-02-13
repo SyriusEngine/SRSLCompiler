@@ -14,12 +14,15 @@ namespace Srsl{
         auto type = ctx->SHADER_TYPE()->getText();
         if (type == "Vertex"){
             m_RootNode = createUP<ShaderTypeNode>(SRSL_VERTEX_SHADER, ctx->start->getLine());
+            m_ShaderType = SRSL_VERTEX_SHADER;
         }
         else if (type == "Fragment"){
             m_RootNode = createUP<ShaderTypeNode>(SRSL_FRAGMENT_SHADER, ctx->start->getLine());
+            m_ShaderType = SRSL_FRAGMENT_SHADER;
         }
         else if (type == "Geometry"){
             m_RootNode = createUP<ShaderTypeNode>(SRSL_GEOMETRY_SHADER, ctx->start->getLine());
+            m_ShaderType = SRSL_GEOMETRY_SHADER;
         }
         else {
             throw std::runtime_error("Unknown shader type");
@@ -260,10 +263,12 @@ namespace Srsl{
     void TreeWalker::enterStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<StructDeclarationNode>(ctx->VAR_NAME()->getText(), ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterTextureDeclaration(SrslGrammarParser::TextureDeclarationContext *ctx) {
@@ -326,10 +331,12 @@ namespace Srsl{
     void TreeWalker::enterMemberAccess(SrslGrammarParser::MemberAccessContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<MemberAccessNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitMemberAccess(SrslGrammarParser::MemberAccessContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) {

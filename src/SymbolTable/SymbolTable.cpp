@@ -17,11 +17,9 @@ namespace Srsl{
 
     }
 
-    RCP<SymbolTable> SymbolTable::addChild(const std::string &name) {
-        auto child = std::make_shared<SymbolTable>(name);
-        m_Children[name] = child;
-        child->m_Parent = this;
-        return child;
+    void SymbolTable::addChild(RCP<SymbolTable> symbolTable) {
+        m_Children.insert({symbolTable->m_Name, symbolTable});
+        symbolTable->m_Parent = this;
     }
 
     Symbol &SymbolTable::getSymbol(const std::string &name) {

@@ -11,6 +11,8 @@
 #include "AbstractSyntaxTree/ShaderTypeNode.hpp"
 #include "AbstractSyntaxTree/Nodes.hpp"
 #include "AbstractSyntaxTree/VariableNode.hpp"
+#include "AbstractSyntaxTree/MemberAccessNode.hpp"
+#include "AbstractSyntaxTree/StructDeclarationNode.hpp"
 
 namespace Srsl{
 

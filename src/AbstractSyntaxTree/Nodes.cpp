@@ -11,6 +11,10 @@ namespace Srsl{
 
     }
 
+    void ConstantNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
+        exporter->addLine(indent + m_Value);
+    }
+
 
     AssignmentNode::AssignmentNode(uint64 lineNumber) :
     AbstractNode("=", AST_NODE_ASSIGNMENT, lineNumber) {
@@ -30,12 +34,32 @@ namespace Srsl{
         m_Right->construct();
     }
 
+    void AssignmentNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
+        m_Left->generateCode(exporter, indent);
+        exporter->addLine(" = ");
+        m_Right->generateCode(exporter, "");
+        exporter->addLine(";");
+
+    }
+
     InitializerListNode::InitializerListNode(uint32 initializerCount, uint64 lineNumber):
     AbstractNode("{ }", AST_NODE_INITIALIZER_LIST, lineNumber){
 
     }
 
     InitializerListNode::~InitializerListNode() {
+
+    }
+
+    void InitializerListNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
+        exporter->addLine("{");
+        for (const auto& child: m_Children){
+            child->generateCode(exporter, "");
+            if (child != m_Children.back()){
+                exporter->addLine(", ");
+            }
+        }
+        exporter->addLine("}");
 
     }
 
@@ -63,6 +87,27 @@ namespace Srsl{
         else{
             SRSL_THROW_EXCEPTION("Invalid number of children, expected 1 or 2 got %s", m_Children.size());
         }
+    }
+
+    void ExpressionNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
+        if (m_OperationType == OPERATION_UNARY){
+            exporter->addLine(indent + m_Value);
+            m_Children[0]->generateCode(exporter, "");
+            if (m_Parent->getType() != AST_NODE_FOR_STATEMENT){
+                exporter->addLine(";\n");
+            }
+        }
+        else if (m_OperationType == OPERATION_BINARY){
+            if (exporter->getLanguageType() ==SRSL_TARGET_HLSL and m_Value == "*"){
+                printf("HLSL multiplication detected\n");
+            }
+            else{
+                m_Children[0]->generateCode(exporter, indent);
+                exporter->addLine(" " + m_Value + " ");
+                m_Children[1]->generateCode(exporter, indent);
+            }
+        }
+
     }
 
 }
