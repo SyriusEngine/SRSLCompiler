@@ -15,10 +15,11 @@ namespace Srsl{
             case VT_TEXTURE1D: return 4;
             case VT_TEXTURE2D: return 4;
             case VT_TEXTURE3D: return 4;
-            case VT_TEXTURECUBE: return 4;
-            case VT_TEXTURE1DARRAY: return 4;
-            case VT_TEXTURE2DARRAY: return 4;
-            case VT_TEXTURECUBEARRAY: return 4;
+            case VT_TEXTURE_CUBE: return 4;
+            case VT_TEXTURE1D_ARRAY: return 4;
+            case VT_TEXTURE2D_ARRAY: return 4;
+            case VT_TEXTURE3D_ARRAY:    return 4;
+            case VT_TEXTURE_CUBE_ARRAY: return 4;
             default: return 0;
         }
     }
@@ -36,10 +37,11 @@ namespace Srsl{
             case VT_TEXTURE1D:          return "texture1D";
             case VT_TEXTURE2D:          return "texture2D";
             case VT_TEXTURE3D:          return "texture3D";
-            case VT_TEXTURECUBE:        return "textureCube";
-            case VT_TEXTURE1DARRAY:     return "texture1DArray";
-            case VT_TEXTURE2DARRAY:     return "texture2DArray";
-            case VT_TEXTURECUBEARRAY:   return "textureCubeArray";
+            case VT_TEXTURE_CUBE:        return "textureCube";
+            case VT_TEXTURE1D_ARRAY:     return "texture1DArray";
+            case VT_TEXTURE2D_ARRAY:     return "texture2DArray";
+            case VT_TEXTURE3D_ARRAY:     return "texture3DArray";
+            case VT_TEXTURE_CUBE_ARRAY:   return "textureCubeArray";
             case VT_INTRINSIC:          return "intrinsic";
             case VT_STRUCT:             return "struct";
             default: return "unknown";

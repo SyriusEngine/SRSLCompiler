@@ -48,12 +48,16 @@ set(INTRINSICS_SRC
     src/Intrinsics/VariableIntrinsics.cpp
     )
 
+set(EXPORTER_SRC
+    src/Exporters/Exporter.cpp src/Exporters/GlslExporter.cpp src/Exporters/GlslExporter.hpp)
+
 set(SRSL_SRC
     ${ANTLR4_SRC}
     ${AST_SRC}
     ${CONVERTER_SRC}
     ${SYMBOL_TABLE_SRC}
     ${INTRINSICS_SRC}
+    ${EXPORTER_SRC}
 
     src/SrslCompiler.cpp
     src/ShaderModuleImpl.cpp

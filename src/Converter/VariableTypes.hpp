@@ -19,10 +19,11 @@ namespace Srsl{
         VT_TEXTURE1D        = 0x11,
         VT_TEXTURE2D        = 0x12,
         VT_TEXTURE3D        = 0x13,
-        VT_TEXTURECUBE      = 0x14,
-        VT_TEXTURE1DARRAY   = 0x15,
-        VT_TEXTURE2DARRAY   = 0x16,
-        VT_TEXTURECUBEARRAY = 0x17,
+        VT_TEXTURE_CUBE      = 0x14,
+        VT_TEXTURE1D_ARRAY   = 0x15,
+        VT_TEXTURE2D_ARRAY   = 0x16,
+        VT_TEXTURE3D_ARRAY   = 0x17,
+        VT_TEXTURE_CUBE_ARRAY = 0x18,
 
         // helper types
         VT_STRUCT           = 0x20,
