@@ -1,0 +1,14 @@
+ShaderType = Vertex;
+
+void main(){
+    float2 smallPos = {1.0f, 2.0f};
+    float3 pos = {1.0f, 2.0f, 3.0f};
+    float4 bigPos = {1.0f, 2.0f, 3.0f, 4.0f};
+
+    float2 swizzled = bigPos.xy;
+    float3 swizzled2 = bigPos.zwx;
+    float4 swizzled3 = bigPos.wzyx;
+
+    float2 constry = {pos.r, pos.b};
+
+}

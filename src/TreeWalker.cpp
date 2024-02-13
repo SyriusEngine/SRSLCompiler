@@ -1,3 +1,4 @@
+#include <regex>
 #include "TreeWalker.hpp"
 
 namespace Srsl{
@@ -145,7 +146,16 @@ namespace Srsl{
     void TreeWalker::enterVariable(SrslGrammarParser::VariableContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
-        auto newCurrent = m_CurrentNode->addChild<VariableNode>(ctx->VAR_NAME()->getText(), ctx->start->getLine());
+        static const std::regex pattern("^([xyzwrgbastuvw][xyzwrgbastuvw]{0,3})$");
+        auto varName = ctx->VAR_NAME()->getText();
+        bool isSwizzle = std::regex_match(varName, pattern);
+        AbstractNode* newCurrent = nullptr;
+        if (isSwizzle){
+            newCurrent = m_CurrentNode->addChild<SwizzleNode>(varName, ctx->start->getLine());
+        }
+        else{
+            newCurrent = m_CurrentNode->addChild<VariableNode>(varName, ctx->start->getLine());
+        }
         m_CurrentNode = newCurrent;
     }
 
@@ -339,14 +349,6 @@ namespace Srsl{
 
     void TreeWalker::exitMemberAccess(SrslGrammarParser::MemberAccessContext *ctx) {
         m_CurrentNode = m_CurrentNode->getParent();
-    }
-
-    void TreeWalker::enterVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) {
-        SrslGrammarBaseListener::enterVectorSwizzle(ctx);
-    }
-
-    void TreeWalker::exitVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) {
-        SrslGrammarBaseListener::exitVectorSwizzle(ctx);
     }
 
     void TreeWalker::enterTestCase(SrslGrammarParser::TestCaseContext *ctx) {

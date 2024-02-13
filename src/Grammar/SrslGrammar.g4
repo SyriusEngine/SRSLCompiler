@@ -80,15 +80,13 @@ rvalue:
     memberAccess |
     initializerList;
 
-memberAccess: (variable | functionCall) DOT (vectorSwizzle | variable | memberAccess);
+memberAccess: (variable | functionCall) DOT ( variable | memberAccess);
 
 newVariable: CONST* (TYPE | VAR_NAME) VAR_NAME (SBRACKO NUMBER SBRACKC)* (COLON VAR_NAME)?;
 variable:  VAR_NAME (SBRACKO expression SBRACKC)*;
 constant: NUMBER | FLOATING_POINT;
 controlFlow: CONTROL_FLOW;
 typeConstructor: TYPE PARENO expression (COMMA expression)* PARENC;
-
-vectorSwizzle: VECTOR_COMPONENT (VECTOR_COMPONENT (VECTOR_COMPONENT (VECTOR_COMPONENT)?)?)?;
 
 
 // brackets
@@ -112,8 +110,6 @@ STRUCT: 'struct';
 SHADER_INPUT: 'Input';
 SHADER_OUTPUT: 'Output';
 TEST: 'test';
-
-VECTOR_COMPONENT: [xyzwrgbastpq];
 
 // types
 TYPE:

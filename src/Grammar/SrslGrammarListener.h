@@ -110,9 +110,6 @@ public:
   virtual void enterTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) = 0;
   virtual void exitTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) = 0;
 
-  virtual void enterVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) = 0;
-  virtual void exitVectorSwizzle(SrslGrammarParser::VectorSwizzleContext *ctx) = 0;
-
 
 };
 

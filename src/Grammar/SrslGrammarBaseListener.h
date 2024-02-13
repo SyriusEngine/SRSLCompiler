@@ -112,9 +112,6 @@ public:
   virtual void enterTypeConstructor(SrslGrammarParser::TypeConstructorContext * /*ctx*/) override { }
   virtual void exitTypeConstructor(SrslGrammarParser::TypeConstructorContext * /*ctx*/) override { }
 
-  virtual void enterVectorSwizzle(SrslGrammarParser::VectorSwizzleContext * /*ctx*/) override { }
-  virtual void exitVectorSwizzle(SrslGrammarParser::VectorSwizzleContext * /*ctx*/) override { }
-
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }
   virtual void exitEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

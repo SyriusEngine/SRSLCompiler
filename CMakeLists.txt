@@ -32,7 +32,7 @@ set(AST_SRC
     src/AbstractSyntaxTree/ShaderTypeNode.cpp
     src/AbstractSyntaxTree/Nodes.cpp
     src/AbstractSyntaxTree/VariableNode.cpp
-    src/AbstractSyntaxTree/MemberAccessNode.cpp src/AbstractSyntaxTree/MemberAccessNode.hpp src/AbstractSyntaxTree/StructDeclarationNode.cpp src/AbstractSyntaxTree/StructDeclarationNode.hpp)
+    src/AbstractSyntaxTree/MemberAccessNode.cpp src/AbstractSyntaxTree/MemberAccessNode.hpp src/AbstractSyntaxTree/StructDeclarationNode.cpp src/AbstractSyntaxTree/StructDeclarationNode.hpp src/AbstractSyntaxTree/SwizzleNode.cpp src/AbstractSyntaxTree/SwizzleNode.hpp)
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp

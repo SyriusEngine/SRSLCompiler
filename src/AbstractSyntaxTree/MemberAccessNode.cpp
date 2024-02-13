@@ -13,9 +13,8 @@ namespace Srsl{
     }
 
     void MemberAccessNode::construct() {
-        if (m_Children.size() != 2){
-            throw std::runtime_error("MemberAccessNode should have exactly 2 children.");
-        }
+        SRSL_PRECONDITION(m_Children.size() == 2, "Invalid number of children, expected 2 got %s", m_Children.size());
+
         m_Left = m_Children[0].get();
         m_Right = m_Children[1].get();
         AbstractNode::construct();

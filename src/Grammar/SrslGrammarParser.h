@@ -15,12 +15,11 @@ public:
     WS = 1, SBRACKO = 2, SBRACKC = 3, CBRACKO = 4, CBRACKC = 5, PARENO = 6, 
     PARENC = 7, CONST = 8, FOR = 9, WHILE = 10, IF = 11, ELSE = 12, ELSEIF = 13, 
     RETURN = 14, CONTROL_FLOW = 15, STRUCT = 16, SHADER_INPUT = 17, SHADER_OUTPUT = 18, 
-    TEST = 19, VECTOR_COMPONENT = 20, TYPE = 21, TEXTURE_TYPES = 22, SAMPLER_TYPE = 23, 
-    CONSTANT_BUFFER = 24, SLOT = 25, COMMENT = 26, MCOMMENT = 27, SHADER_TYPE_LIT = 28, 
-    SHADER_TYPE = 29, EOL = 30, COMMA = 31, COLON = 32, FLOATING_POINT = 33, 
-    NUMBER = 34, ASSIGN = 35, DOT = 36, AT = 37, PLUS = 38, MINUS = 39, 
-    MULTIPLY = 40, DIVIDE = 41, OPERATION = 42, CREMENT = 43, NOT = 44, 
-    VAR_NAME = 45
+    TEST = 19, TYPE = 20, TEXTURE_TYPES = 21, SAMPLER_TYPE = 22, CONSTANT_BUFFER = 23, 
+    SLOT = 24, COMMENT = 25, MCOMMENT = 26, SHADER_TYPE_LIT = 27, SHADER_TYPE = 28, 
+    EOL = 29, COMMA = 30, COLON = 31, FLOATING_POINT = 32, NUMBER = 33, 
+    ASSIGN = 34, DOT = 35, AT = 36, PLUS = 37, MINUS = 38, MULTIPLY = 39, 
+    DIVIDE = 40, OPERATION = 41, CREMENT = 42, NOT = 43, VAR_NAME = 44
   };
 
   enum {
@@ -32,8 +31,7 @@ public:
     RuleReturnStatement = 17, RuleScope = 18, RuleStructDeclaration = 19, 
     RuleTestCase = 20, RuleAssignment = 21, RuleExpression = 22, RuleInitializerList = 23, 
     RuleLvalue = 24, RuleRvalue = 25, RuleMemberAccess = 26, RuleNewVariable = 27, 
-    RuleVariable = 28, RuleConstant = 29, RuleControlFlow = 30, RuleTypeConstructor = 31, 
-    RuleVectorSwizzle = 32
+    RuleVariable = 28, RuleConstant = 29, RuleControlFlow = 30, RuleTypeConstructor = 31
   };
 
   explicit SrslGrammarParser(antlr4::TokenStream *input);
@@ -84,8 +82,7 @@ public:
   class VariableContext;
   class ConstantContext;
   class ControlFlowContext;
-  class TypeConstructorContext;
-  class VectorSwizzleContext; 
+  class TypeConstructorContext; 
 
   class  FileContext : public antlr4::ParserRuleContext {
   public:
@@ -578,7 +575,6 @@ public:
     std::vector<VariableContext *> variable();
     VariableContext* variable(size_t i);
     FunctionCallContext *functionCall();
-    VectorSwizzleContext *vectorSwizzle();
     MemberAccessContext *memberAccess();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -676,20 +672,6 @@ public:
   };
 
   TypeConstructorContext* typeConstructor();
-
-  class  VectorSwizzleContext : public antlr4::ParserRuleContext {
-  public:
-    VectorSwizzleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    std::vector<antlr4::tree::TerminalNode *> VECTOR_COMPONENT();
-    antlr4::tree::TerminalNode* VECTOR_COMPONENT(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  VectorSwizzleContext* vectorSwizzle();
 
 
   bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
