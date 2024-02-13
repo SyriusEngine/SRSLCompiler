@@ -21,7 +21,6 @@ namespace Srsl{
             default:
                 SRSL_THROW_EXCEPTION("Shader type (%d) not supported", shaderModule->getShaderType());
         }
-
     }
 
     void ShaderProgramImpl::link() {

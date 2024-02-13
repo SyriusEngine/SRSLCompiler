@@ -47,9 +47,6 @@ namespace Srsl{
         for (auto m_ArraySize : m_Type.arraySizes){
             line += "[" + std::to_string(m_ArraySize) + "]";
         }
-        if (m_Parent->getType() == AST_NODE_SCOPE_STATEMENT){
-            line += ";\n";
-        }
         exporter->addLine(line);
 
     }

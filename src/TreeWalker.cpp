@@ -171,10 +171,12 @@ namespace Srsl{
     void TreeWalker::enterScope(SrslGrammarParser::ScopeContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<ScopeNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitScope(SrslGrammarParser::ScopeContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterWhileLoop(SrslGrammarParser::WhileLoopContext *ctx) {

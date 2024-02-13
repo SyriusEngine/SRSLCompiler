@@ -28,6 +28,7 @@ namespace Srsl{
         exporter->addLine(indent + "struct " + m_Value + " {\n");
         std::string newIndent = indent + "\t";
         for (const auto& child : m_Children){
+            exporter->addLine(newIndent);
             child->generateCode(exporter, newIndent);
             exporter->addLine(";\n");
         }

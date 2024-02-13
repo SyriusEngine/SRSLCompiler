@@ -32,10 +32,6 @@ namespace Srsl{
     }
 
     void MemberAccessNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
-        // leftmost symbol can be a constant buffer, or a shader interface or a normal struct
-        if (m_Parent->getType() != AST_NODE_MEMBER_ACCESS){
-            exporter->addLine(indent);
-        }
         auto leftSymbol = m_SymbolTable->getSymbol(m_Left->getValue());
         switch (leftSymbol.symbolType){
             case ST_SHADER_INTERFACE: {

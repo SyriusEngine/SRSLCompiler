@@ -38,7 +38,6 @@ namespace Srsl{
         m_Left->generateCode(exporter, indent);
         exporter->addLine(" = ");
         m_Right->generateCode(exporter, "");
-        exporter->addLine(";");
 
     }
 
@@ -90,6 +89,11 @@ namespace Srsl{
     }
 
     void ExpressionNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
+        bool addParentheses = m_Parent->getType() == AST_NODE_EXPRESSION;
+        if (addParentheses){
+            exporter->addLine("(");
+        }
+
         if (m_OperationType == OPERATION_UNARY){
             exporter->addLine(indent + m_Value);
             m_Children[0]->generateCode(exporter, "");
@@ -107,7 +111,39 @@ namespace Srsl{
                 m_Children[1]->generateCode(exporter, indent);
             }
         }
+        if (addParentheses){
+            exporter->addLine(")");
+        }
 
     }
 
+    ScopeNode::ScopeNode(uint64 lineNumber):
+    AbstractNode("", AST_NODE_SCOPE_STATEMENT, lineNumber){
+        std::stringstream ss;
+        ss << "Scope_" << this;
+        m_Value = ss.str();
+
+    }
+
+    ScopeNode::~ScopeNode() = default;
+
+    void ScopeNode::fillSymbolTable(RCP<SymbolTable> table) {
+        m_SymbolTable = table;
+        auto localTable = createRCP<SymbolTable>(m_Value);
+        table->addChild(localTable);
+        for (const auto& child: m_Children){
+            child->fillSymbolTable(localTable);
+        }
+    }
+
+    void ScopeNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
+        auto newIndent = indent + "\t";
+        exporter->addLine(indent + "{\n");
+        for (const auto& child: m_Children){
+            exporter->addLine(newIndent);
+            child->generateCode(exporter, newIndent);
+            exporter->addLine(";\n");
+        }
+        exporter->addLine(indent + "}\n");
+    }
 }
