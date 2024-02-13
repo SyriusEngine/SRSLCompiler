@@ -1,12 +1,76 @@
 #include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
+
+#include <SrslCompiler/SrslCompiler.hpp>
+#include <iomanip>
+
+struct TestData{
+    std::string vertexShaderPath;
+    std::string fragmentShaderPath;
+    bool expectedSuccess;
+};
+
+bool testShader(const TestData& data){
+    try{
+        using namespace Srsl;
+
+        ImportDesc vertexDesc;
+        vertexDesc.source = data.vertexShaderPath;
+        vertexDesc.loadType = SRSL_LOAD_FROM_FILE;
+        auto vertexShaderModule = createShaderModule(vertexDesc);
+        vertexShaderModule->exportAstDot("./Dev-vs.dot");
+        vertexShaderModule->exportSymbolTableHtml("./Dev-vs.html");
+
+        ImportDesc fragmentDesc;
+        fragmentDesc.source = data.fragmentShaderPath;
+        fragmentDesc.loadType = SRSL_LOAD_FROM_FILE;
+        auto fragmentShaderModule = createShaderModule(fragmentDesc);
+        fragmentShaderModule->exportAstDot("./Dev-fs.dot");
+        fragmentShaderModule->exportSymbolTableHtml("./Dev-fs.html");
+
+
+        ExportDesc exportGlsl;
+        exportGlsl.vertexShaderOut = "./Dev-vs.glsl";
+        exportGlsl.fragmentShaderOut = "./Dev-fs.glsl";
+        exportGlsl.writeType = SRSL_WRITE_TO_FILE;
+        exportGlsl.target = SRSL_TARGET_GLSL;
+
+        ExportDesc exportHlsl;
+        exportHlsl.vertexShaderOut = "./Dev-vs.hlsl";
+        exportHlsl.fragmentShaderOut = "./Dev-fs.hlsl";
+        exportHlsl.writeType = SRSL_WRITE_TO_FILE;
+        exportHlsl.target = SRSL_TARGET_HLSL;
+
+        auto shaderProgram = createShaderProgram();
+        shaderProgram->addShaderModule(vertexShaderModule);
+        shaderProgram->addShaderModule(fragmentShaderModule);
+        shaderProgram->link();
+        shaderProgram->exportShader(exportGlsl);
+        shaderProgram->exportShader(exportHlsl);
+
+    } catch(std::exception& e){
+        std::cerr << "Exception: " << e.what() << std::endl;
+        return false;
+    }
+    return true;
+
+}
 
 int main(int argc, char** argv){
-    try{
-        if (argc > 2){
+    std::unordered_map<std::string, TestData> testMap = {
+            {"Variables", {"./SRSLShaders/VariableTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}}
+    };
 
-        }
-        else{
-            std::cerr << "Usage: " << argv[0] << " <vertex shader> <fragment shader>" << std::endl;
+    std::cout << "Running Tests: \n";
+    std::cout << "------------------------------------------------\n";
+    std::cout << "|        name        | Expected | Got | Result |\n";
+    std::cout << "------------------------------------------------\n";
+
+    try{
+        for (const auto& [name, test]: testMap){
+            std::cout << "| " << std::setw(18) << name << " | " << std::setw(8) << test.expectedSuccess << " | " << std::setw(3) << testShader(test) << " | " << std::setw(6) << (test.expectedSuccess == testShader(test) ? "Pass" : "Fail") << " |\n";
         }
     } catch (std::exception& e){
         std::cerr << "Exception: " << e.what() << std::endl;
@@ -15,6 +79,7 @@ int main(int argc, char** argv){
         std::cerr << "Unknown exception" << std::endl;
         return -1;
     }
+    std::cout << "------------------------------------------------\n";
     return 0;
 
 }

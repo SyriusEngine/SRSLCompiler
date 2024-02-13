@@ -94,22 +94,16 @@ namespace Srsl{
             exporter->addLine("(");
         }
 
-        if (m_OperationType == OPERATION_UNARY){
-            exporter->addLine(indent + m_Value);
-            m_Children[0]->generateCode(exporter, "");
-            if (m_Parent->getType() != AST_NODE_FOR_STATEMENT){
-                exporter->addLine(";\n");
-            }
-        }
-        else if (m_OperationType == OPERATION_BINARY){
-            if (exporter->getLanguageType() ==SRSL_TARGET_HLSL and m_Value == "*"){
-                printf("HLSL multiplication detected\n");
-            }
-            else{
-                m_Children[0]->generateCode(exporter, indent);
+        switch (m_OperationType) {
+            case OPERATION_UNARY:
+                exporter->addLine(m_Value);
+                m_Right->generateCode(exporter, "");
+                break;
+            case OPERATION_BINARY:
+                m_Left->generateCode(exporter, indent);
                 exporter->addLine(" " + m_Value + " ");
-                m_Children[1]->generateCode(exporter, indent);
-            }
+                m_Right->generateCode(exporter, indent);
+                break;
         }
         if (addParentheses){
             exporter->addLine(")");
