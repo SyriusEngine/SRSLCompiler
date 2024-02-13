@@ -30,7 +30,9 @@ set(AST_SRC
     src/AbstractSyntaxTree/AbstractNode.cpp
     src/AbstractSyntaxTree/NodeTypes.cpp
     src/AbstractSyntaxTree/ShaderTypeNode.cpp
-    src/AbstractSyntaxTree/Nodes.cpp src/AbstractSyntaxTree/VariableNode.cpp src/AbstractSyntaxTree/VariableNode.hpp)
+    src/AbstractSyntaxTree/Nodes.cpp
+    src/AbstractSyntaxTree/VariableNode.cpp
+    )
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp
@@ -40,11 +42,18 @@ set(SYMBOL_TABLE_SRC
     src/SymbolTable/Symbol.cpp
     src/SymbolTable/SymbolTable.cpp )
 
+set(INTRINSICS_SRC
+    src/Intrinsics/Intrinsics.cpp
+    src/Intrinsics/FunctionIntrinsics.cpp
+    src/Intrinsics/VariableIntrinsics.cpp
+    )
+
 set(SRSL_SRC
     ${ANTLR4_SRC}
     ${AST_SRC}
     ${CONVERTER_SRC}
     ${SYMBOL_TABLE_SRC}
+    ${INTRINSICS_SRC}
 
     src/SrslCompiler.cpp
     src/ShaderModuleImpl.cpp
