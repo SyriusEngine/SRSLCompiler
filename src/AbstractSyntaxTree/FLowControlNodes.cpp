@@ -3,181 +3,170 @@
 namespace Srsl{
 
     FlowControlNode::FlowControlNode(const std::string &value, uint64 lineNumber):
-    BaseNode(NodeType::FLowControl, lineNumber){
-        m_Value = value;
-    }
-
-    FlowControlNode::~FlowControlNode() {
+    AbstractNode(value, AST_NODE_CONTROL_FLOW_STATEMENT, lineNumber){
 
     }
 
-    void FlowControlNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        if (writer->getLanguageType() == LanguageType::CPP and m_Value == "discard"){
-            writer->addLine(indent + "throw int(0x87A9);\n", m_LineNumber);
+    FlowControlNode::~FlowControlNode() = default;
+
+    void FlowControlNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        if (exporter->getLanguageType() == SRSL_TARGET_CPP and m_Value == "discard"){
+            exporter->addLine("throw int(0x87A9);\n");
         }
         else{
-            writer->addLine(indent + m_Value + ";\n", m_LineNumber);
+            exporter->addLine(m_Value);
         }
     }
 
 
-    WhileNode::WhileNode(uint64 lineNumber) :
-    BaseNode(NodeType::WhileLoop, lineNumber){
-        m_Value = "While";
-    }
-
-    WhileNode::~WhileNode() {
+    WhileNode::WhileNode(uint64 lineNumber):
+    AbstractNode("while", AST_NODE_WHILE_STATEMENT, lineNumber){
 
     }
+
+    WhileNode::~WhileNode() = default;
 
     void WhileNode::construct() {
         if (m_Children.size() != 2){
-            throw std::runtime_error("[WhileNode]: Incorrect number of children!");
+            SRSL_THROW_EXCEPTION("Invalid number of children, expected 2 got %s", m_Children.size());
         }
+        
         m_Condition = m_Children[0].get();
         m_Scope = m_Children[1].get();
+
+        AbstractNode::construct();
     }
 
-    void WhileNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        writer->addLine(indent + "while (", m_LineNumber);
-        m_Condition->exportCode(writer, "");
-        writer->addLine(")", m_LineNumber);
-        m_Scope->exportCode(writer, indent);
+    void WhileNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        exporter->addLine("while (");
+        m_Condition->generateCode(exporter, "");
+        exporter->addLine(")");
+        m_Scope->generateCode(exporter, indent);
     }
 
 
     ForNode::ForNode(uint64 lineNumber):
-    BaseNode(NodeType::ForLoop, lineNumber){
-        m_Value = "For";
-
+    AbstractNode("for", AST_NODE_FOR_STATEMENT, lineNumber){
     }
 
-    ForNode::~ForNode() {
-
-    }
+    ForNode::~ForNode() = default;
 
     void ForNode::construct() {
         if (m_Children.size() != 4){
-            throw std::runtime_error("[ForNode]: Incorrect number of children!");
+            SRSL_THROW_EXCEPTION("Invalid number of children, expected 4 got %s", m_Children.size());
         }
         m_LoopVariable = m_Children[0].get();
         m_LoopCondition = dynamic_cast<ExpressionNode*>(m_Children[1].get());
         m_Increment = dynamic_cast<ExpressionNode*>(m_Children[2].get());
         m_Scope = m_Children[3].get();
         if (m_LoopCondition == nullptr or m_Increment == nullptr){
-            throw std::runtime_error("[ForNode]: Invalid child configuration");
+            SRSL_THROW_EXCEPTION("Invalid child type, expected ExpressionNode, got %s", m_Children[1]->getType());
         }
-        BaseNode::construct();
+        AbstractNode::construct();
     }
 
-    void ForNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        writer->addLine(indent + "for (", m_LineNumber);
-        m_LoopVariable->exportCode(writer, "");
-        writer->addLine("; ", m_LineNumber);
-        m_LoopCondition->exportCode(writer, "");
-        writer->addLine("; ", m_LineNumber);
-        m_Increment->exportCode(writer, "");
-        writer->addLine(")", m_LineNumber);
-        m_Scope->exportCode(writer, indent);
+    void ForNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        exporter->addLine("for (");
+        m_LoopVariable->generateCode(exporter, "");
+        exporter->addLine("; ");
+        m_LoopCondition->generateCode(exporter, "");
+        exporter->addLine("; ");
+        m_Increment->generateCode(exporter, "");
+        exporter->addLine(")");
+        m_Scope->generateCode(exporter, indent);
     }
 
 
     IfNode::IfNode(uint64 lineNumber) :
-    BaseNode(NodeType::IfStatement, lineNumber),
+    AbstractNode("if", AST_NODE_IF_STATEMENT, lineNumber),
     m_Scope(nullptr),
     m_Condition(nullptr),
     m_optional(nullptr){
-        m_Value = "If";
     }
 
-    IfNode::~IfNode() {
-
-    }
+    IfNode::~IfNode() = default;
 
     void IfNode::construct() {
         if (m_Children.size() < 2){
-            throw std::runtime_error("[IfNode]: Incorrect number of children!");
+            SRSL_THROW_EXCEPTION("Invalid number of children, expected at least 2 got %s", m_Children.size());
         }
         m_Condition = m_Children[0].get();
         m_Scope = m_Children[1].get();
         if (m_Children.size() == 3){
             m_optional = m_Children[2].get();
         }
-        BaseNode::construct();
+        AbstractNode::construct();
     }
 
-    void IfNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        writer->addLine(indent + "if (", m_LineNumber);
-        m_Condition->exportCode(writer, "");
-        writer->addLine(")", m_LineNumber);
-        m_Scope->exportCode(writer, indent);
+    void IfNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        exporter->addLine("if (");
+        m_Condition->generateCode(exporter, "");
+        exporter->addLine(")");
+        m_Scope->generateCode(exporter, indent);
         if (m_optional){
-            m_optional->exportCode(writer, indent);
+            m_optional->generateCode(exporter, indent);
         }
     }
 
     ElseNode::ElseNode(uint64 lineNumber):
-    BaseNode(NodeType::ElseStatement, lineNumber){
-        m_Value = "Else";
+    AbstractNode("else", AST_NODE_ELSE_STATEMENT, lineNumber),
+    m_Scope(nullptr){
     }
 
-    ElseNode::~ElseNode() {
-
-    }
+    ElseNode::~ElseNode() = default;
 
     void ElseNode::construct() {
         if (m_Children.size() != 1){
-            throw std::runtime_error("[ElseNode]: Incorrect number of children!");
+            SRSL_THROW_EXCEPTION("Invalid number of children, expected 1 got %s", m_Children.size());
         }
         m_Scope = m_Children[0].get();
-        BaseNode::construct();
+        AbstractNode::construct();
     }
 
-    void ElseNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        writer->addLine(indent + "else", m_LineNumber);
-        m_Scope->exportCode(writer, indent);
+    void ElseNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        SRSL_PRECONDITION(m_Scope != nullptr, "Scope is null");
+
+        exporter->addLine(indent + "else");
+        m_Scope->generateCode(exporter, indent);
     }
 
 
     ElseIfNode::ElseIfNode(uint64 lineNumber):
-    BaseNode(NodeType::ElseIfStatement, lineNumber){
-        m_Value = "ElseIf";
+    AbstractNode("else if", AST_NODE_IF_ELSE_STATEMENT, lineNumber){
     }
 
-    ElseIfNode::~ElseIfNode() {
-
-    }
+    ElseIfNode::~ElseIfNode() = default;
 
     void ElseIfNode::construct() {
         if (m_Children.size() != 2){
-            throw std::runtime_error("[ElseIfNode]: Incorrect number of children!");
+            SRSL_THROW_EXCEPTION("Invalid number of children, expected 2 got %s", m_Children.size());
         }
         m_Condition = m_Children[0].get();
         m_Scope = m_Children[1].get();
-        BaseNode::construct();
+        AbstractNode::construct();
     }
 
-    void ElseIfNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        writer->addLine(indent + "else if (", m_LineNumber);
-        m_Condition->exportCode(writer, "");
-        writer->addLine(")", m_LineNumber);
-        m_Scope->exportCode(writer, indent);
+    void ElseIfNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        SRSL_PRECONDITION(m_Condition != nullptr, "Condition is null");
+        SRSL_PRECONDITION(m_Scope != nullptr, "Scope is null");
+
+        exporter->addLine(indent + "else if (");
+        m_Condition->generateCode(exporter, "");
+        exporter->addLine(")");
+        m_Scope->generateCode(exporter, indent);
     }
 
 
     ReturnNode::ReturnNode(uint64 lineNumber):
-    BaseNode(NodeType::ReturnStatement, lineNumber){
-        m_Value = "Return";
+    AbstractNode("return", AST_NODE_RETURN_STATEMENT, lineNumber){
     }
 
-    ReturnNode::~ReturnNode() {
+    ReturnNode::~ReturnNode() = default;
 
-    }
-
-    void ReturnNode::exportCode(LanguageWriter *writer, const std::string &indent) const {
-        writer->addLine(indent + "return ", m_LineNumber);
-        m_Children[0]->exportCode(writer, "");
-        writer->addLine(";\n", m_LineNumber);
+    void ReturnNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
+        exporter->addLine(indent + "return ");
+        m_Children[0]->generateCode(exporter, "");
+        exporter->addLine(";\n");
     }
 
 }

@@ -30,8 +30,8 @@ namespace Srsl{
 
         m_Left = m_Children[0].get();
         m_Right = m_Children[1].get();
-        m_Left->construct();
-        m_Right->construct();
+
+        AbstractNode::construct();
     }
 
     void AssignmentNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
@@ -75,17 +75,16 @@ namespace Srsl{
     void ExpressionNode::construct() {
         if (m_Children.size() == 1){
             m_Right = m_Children[0].get();
-            m_Right->construct();
         }
         else if (m_Children.size() == 2){
             m_Left = m_Children[0].get();
             m_Right = m_Children[1].get();
-            m_Left->construct();
-            m_Right->construct();
         }
         else{
             SRSL_THROW_EXCEPTION("Invalid number of children, expected 1 or 2 got %s", m_Children.size());
         }
+
+        AbstractNode::construct();
     }
 
     void ExpressionNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
@@ -132,11 +131,22 @@ namespace Srsl{
 
     void ScopeNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
         auto newIndent = indent + "\t";
-        exporter->addLine(indent + "{\n");
+        exporter->addLine("{\n");
         for (const auto& child: m_Children){
             exporter->addLine(newIndent);
             child->generateCode(exporter, newIndent);
-            exporter->addLine(";\n");
+            auto childType = child->getType();
+            if (childType == AST_NODE_FOR_STATEMENT or
+                childType == AST_NODE_IF_STATEMENT or
+                childType == AST_NODE_ELSE_STATEMENT or
+                childType == AST_NODE_WHILE_STATEMENT or
+                childType == AST_NODE_SCOPE_STATEMENT
+            ){
+
+            }
+            else{
+                exporter->addLine(";\n");
+            }
         }
         exporter->addLine(indent + "}\n");
     }

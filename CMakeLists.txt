@@ -36,7 +36,7 @@ set(AST_SRC
     src/AbstractSyntaxTree/StructDeclarationNode.cpp
     src/AbstractSyntaxTree/SwizzleNode.cpp
     src/AbstractSyntaxTree/ConstantBufferNode.cpp
-#    src/AbstractSyntaxTree/FLowControlNodes.cpp
+    src/AbstractSyntaxTree/FLowControlNodes.cpp
 #    src/AbstractSyntaxTree/Interface.cpp
 #    src/AbstractSyntaxTree/TextureNode.cpp
     )

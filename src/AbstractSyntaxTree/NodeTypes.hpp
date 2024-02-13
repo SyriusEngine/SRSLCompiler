@@ -39,6 +39,8 @@ namespace Srsl{
         AST_NODE_FOR_STATEMENT          = 0x0043,
         AST_NODE_WHILE_STATEMENT        = 0x0044,
         AST_NODE_SCOPE_STATEMENT        = 0x0045,
+        AST_NODE_CONTROL_FLOW_STATEMENT = 0x0046,
+        AST_NODE_RETURN_STATEMENT       = 0x0047,
 
     } AST_NODE_TYPE;
 

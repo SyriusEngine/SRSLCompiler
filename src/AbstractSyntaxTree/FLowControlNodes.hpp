@@ -1,21 +1,21 @@
 #pragma once
 
-#include "BaseNode.hpp"
-#include "ExpressionNode.hpp"
+#include "AbstractNode.hpp"
+#include "Nodes.hpp"
 
 namespace Srsl{
 
-    class FlowControlNode: public BaseNode {
+    class FlowControlNode: public AbstractNode {
     public:
         FlowControlNode(const std::string &value, uint64 lineNumber);
 
         ~FlowControlNode() override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     };
 
-    class WhileNode : public BaseNode{
+    class WhileNode : public AbstractNode{
     public:
         explicit WhileNode(uint64 lineNumber);
 
@@ -23,15 +23,15 @@ namespace Srsl{
 
         void construct() override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
-        BaseNode* m_Scope;
-        BaseNode* m_Condition;
+        AbstractNode* m_Scope;
+        AbstractNode* m_Condition;
 
     };
 
-    class ForNode : public BaseNode{
+    class ForNode : public AbstractNode{
     public:
         explicit ForNode(uint64 lineNumber);
 
@@ -39,16 +39,16 @@ namespace Srsl{
 
         void construct() override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
-        BaseNode* m_LoopVariable;
+        AbstractNode* m_LoopVariable;
         ExpressionNode* m_LoopCondition;
         ExpressionNode* m_Increment;
-        BaseNode* m_Scope;
+        AbstractNode* m_Scope;
     };
 
-    class IfNode : public BaseNode{
+    class IfNode : public AbstractNode{
     public:
         explicit IfNode(uint64 lineNumber);
 
@@ -56,15 +56,15 @@ namespace Srsl{
 
         void construct() override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
-        BaseNode* m_Scope;
-        BaseNode* m_Condition;
-        BaseNode* m_optional;
+        AbstractNode* m_Scope;
+        AbstractNode* m_Condition;
+        AbstractNode* m_optional;
     };
 
-    class ElseNode : public BaseNode{
+    class ElseNode : public AbstractNode{
     public:
         explicit ElseNode(uint64 lineNumber);
 
@@ -72,13 +72,13 @@ namespace Srsl{
 
         void construct() override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
-        BaseNode* m_Scope;
+        AbstractNode* m_Scope;
     };
 
-    class ElseIfNode : public BaseNode{
+    class ElseIfNode : public AbstractNode{
     public:
         explicit ElseIfNode(uint64 lineNumber);
 
@@ -86,20 +86,20 @@ namespace Srsl{
 
         void construct() override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
-        BaseNode* m_Scope;
-        BaseNode* m_Condition;
+        AbstractNode* m_Scope;
+        AbstractNode* m_Condition;
     };
 
-    class ReturnNode : public BaseNode{
+    class ReturnNode : public AbstractNode{
     public:
         explicit ReturnNode(uint64 lineNumber);
 
         ~ReturnNode() override;
 
-        void exportCode(LanguageWriter* writer, const std::string& indent) const override;
+        void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
     };
 
 }

@@ -21,6 +21,9 @@ namespace Srsl{
     }
 
     void MemberAccessNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
+        SRSL_PRECONDITION(m_Left != nullptr, "Left element is null");
+        SRSL_PRECONDITION(m_Right != nullptr, "Right element is null");
+
         m_SymbolTable = symbolTable;
         m_Left->fillSymbolTable(symbolTable);
 

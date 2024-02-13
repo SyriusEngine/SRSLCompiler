@@ -192,55 +192,67 @@ namespace Srsl{
     void TreeWalker::enterWhileLoop(SrslGrammarParser::WhileLoopContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<WhileNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitWhileLoop(SrslGrammarParser::WhileLoopContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterForLoop(SrslGrammarParser::ForLoopContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<ForNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitForLoop(SrslGrammarParser::ForLoopContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterIfStatement(SrslGrammarParser::IfStatementContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<IfNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitIfStatement(SrslGrammarParser::IfStatementContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterElseStatement(SrslGrammarParser::ElseStatementContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<ElseNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitElseStatement(SrslGrammarParser::ElseStatementContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterElseIfStatement(SrslGrammarParser::ElseIfStatementContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<ElseIfNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitElseIfStatement(SrslGrammarParser::ElseIfStatementContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterControlFlow(SrslGrammarParser::ControlFlowContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<FlowControlNode>(ctx->CONTROL_FLOW()->getText(), ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitControlFlow(SrslGrammarParser::ControlFlowContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterFunctionDeclaration(SrslGrammarParser::FunctionDeclarationContext *ctx) {
@@ -315,10 +327,12 @@ namespace Srsl{
     void TreeWalker::enterReturnStatement(SrslGrammarParser::ReturnStatementContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<ReturnNode>(ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitReturnStatement(SrslGrammarParser::ReturnStatementContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterShaderInterface(SrslGrammarParser::ShaderInterfaceContext *ctx) {

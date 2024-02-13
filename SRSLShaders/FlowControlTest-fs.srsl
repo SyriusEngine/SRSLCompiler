@@ -1,0 +1,9 @@
+ShaderType = Fragment;
+
+void main() {
+    uint i = 5;
+    if (i == 5) {
+        discard;
+    }
+    float4 color = float4(1, 0, 0, 1);
+}
