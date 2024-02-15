@@ -64,6 +64,10 @@ namespace Srsl{
          * @return uint32 the size of the type in bytes
          */
         [[nodiscard]] uint32 getSize() const;
+
+        bool operator==(const TypeDesc& other) const;
+
+        bool operator!=(const TypeDesc& other) const;
     };
 
 }

@@ -39,6 +39,7 @@ set(AST_SRC
     src/AbstractSyntaxTree/FLowControlNodes.cpp
     src/AbstractSyntaxTree/InterfaceNode.cpp
     src/AbstractSyntaxTree/TextureNode.cpp
+    src/AbstractSyntaxTree/FunctionNode.cpp
     )
 
 set(CONVERTER_SRC

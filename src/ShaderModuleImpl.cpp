@@ -31,7 +31,11 @@ namespace Srsl{
         SRSL_ASSERT(m_Program != nullptr, "Program (%p) is null", this);
 
         m_Program->construct(); // fill in missing information
+
+        // ONLY TOP LEVEL SYMBOL TABLE NEEDS TO BE FILLED
+        loadIntrinsicFunctions(m_SymbolTable);
         m_Program->fillSymbolTable(m_SymbolTable);
+
         m_Program->optimize();
 
         SRSL_POSTCONDITION(m_ShaderType != SRSL_SHADER_NONE, "Shader type is (%d)", m_ShaderType);

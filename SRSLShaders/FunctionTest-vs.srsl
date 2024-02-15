@@ -1,0 +1,34 @@
+ShaderType = Vertex;
+
+Input vsIn{
+    float3 position: Position;
+    float3 normal: Normal;
+    float2 texCoords: TexCoords;
+};
+
+Output vsOut{
+    float4 position: SRV_POSITION;
+    float3 normal: Normal;
+    float2 texCoords: TexCoords;
+};
+
+uint calculateMoveOffset(uint toMove){
+    return toMove * 2;
+}
+
+float4 move(float4 pos, uint toMove){
+    if(toMove == 0){
+        return pos;
+    }
+    pos.x = pos.x + calculateMoveOffset(toMove);
+    pos.y = pos.y + calculateMoveOffset(toMove);
+    pos.z = pos.z + calculateMoveOffset(toMove);
+    return pos;
+}
+
+void main(){
+    float4 extPos = float4(vsIn.position, 1.0);
+    vsOut.position = move(extPos, 1);
+    vsOut.normal = vsIn.normal;
+    vsOut.texCoords = vsIn.texCoords;
+}

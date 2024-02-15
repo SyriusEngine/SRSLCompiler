@@ -258,19 +258,42 @@ namespace Srsl{
     void TreeWalker::enterFunctionDeclaration(SrslGrammarParser::FunctionDeclarationContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        FunctionDeclarationDesc desc;
+        // the type can be a VARN_NAME => the function returns a struct
+        if (ctx->TYPE() != nullptr){
+            TypeDesc typeDesc(ctx->TYPE()->getText());
+            desc.type = typeDesc;
+            desc.name = ctx->VAR_NAME()[0]->getText();
+            if (ctx->COLON() != nullptr){
+                desc.semantic = ctx->VAR_NAME()[1]->getText();
+            }
+        }
+        else {
+            TypeDesc typeDesc(ctx->VAR_NAME()[0]->getText());
+            desc.type = typeDesc;
+            desc.name = ctx->VAR_NAME()[1]->getText();
+            if (ctx->COLON() != nullptr){
+                desc.semantic = ctx->VAR_NAME()[2]->getText();
+            }
+        }
+        auto newCurrent = m_CurrentNode->addChild<FunctionDeclarationNode>(desc, ctx->start->getLine());
+        m_CurrentNode = newCurrent;
+
     }
 
     void TreeWalker::exitFunctionDeclaration(SrslGrammarParser::FunctionDeclarationContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterFunctionCall(SrslGrammarParser::FunctionCallContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto newCurrent = m_CurrentNode->addChild<FunctionCallNode>(ctx->VAR_NAME()->getText(), ctx->start->getLine());
+        m_CurrentNode = newCurrent;
     }
 
     void TreeWalker::exitFunctionCall(SrslGrammarParser::FunctionCallContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 
     void TreeWalker::enterInitializerList(SrslGrammarParser::InitializerListContext *ctx) {

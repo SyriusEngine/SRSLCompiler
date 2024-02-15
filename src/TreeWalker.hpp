@@ -18,6 +18,7 @@
 #include "AbstractSyntaxTree/FLowControlNodes.hpp"
 #include "AbstractSyntaxTree/InterfaceNode.hpp"
 #include "AbstractSyntaxTree/TextureNode.hpp"
+#include "AbstractSyntaxTree/FunctionNode.hpp"
 
 namespace Srsl{
 

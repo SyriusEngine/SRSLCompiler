@@ -132,6 +132,14 @@ namespace Srsl{
         }
         return size;
     }
-    
+
+    bool TypeDesc::operator==(const TypeDesc &other) const {
+        return type == other.type && rows == other.rows && columns == other.columns;
+    }
+
+    bool TypeDesc::operator!=(const TypeDesc &other) const {
+        return (type != other.type || rows != other.rows || columns != other.columns);
+    }
+
 
 }

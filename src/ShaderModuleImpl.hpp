@@ -7,6 +7,11 @@
 #include "Exporters/GlslExporter.hpp"
 #include "Exporters/HlslExporter.hpp"
 
+#include "Intrinsics/FunctionIntrinsics.hpp"
+#include "Intrinsics/Intrinsics.hpp"
+#include "Intrinsics/VariableIntrinsics.hpp"
+
+
 namespace Srsl{
 
     class ShaderModuleImpl: public ShaderModule{
