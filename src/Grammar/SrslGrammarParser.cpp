@@ -70,7 +70,7 @@ void srslgrammarParserInitialize() {
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,44,412,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
+  	4,1,44,413,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
   	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,
   	14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,2,21,7,
   	21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,2,27,7,27,2,28,7,
@@ -88,124 +88,125 @@ void srslgrammarParserInitialize() {
   	9,15,1,15,1,15,1,15,1,15,1,15,1,15,5,15,225,8,15,10,15,12,15,228,9,15,
   	3,15,230,8,15,1,15,1,15,1,15,3,15,235,8,15,1,15,1,15,3,15,239,8,15,1,
   	16,1,16,1,16,1,16,1,16,5,16,246,8,16,10,16,12,16,249,9,16,3,16,251,8,
-  	16,1,16,1,16,1,17,1,17,1,17,1,18,1,18,5,18,260,8,18,10,18,12,18,263,9,
-  	18,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,19,5,19,273,8,19,10,19,12,19,
-  	276,9,19,1,19,1,19,1,20,1,20,1,20,1,20,1,20,1,20,1,20,5,20,287,8,20,10,
-  	20,12,20,290,9,20,1,20,1,20,1,20,1,20,1,20,1,21,1,21,1,21,1,21,1,22,1,
-  	22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,3,22,313,8,22,1,
-  	22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,5,22,326,8,22,10,
-  	22,12,22,329,9,22,1,23,1,23,1,23,1,23,5,23,335,8,23,10,23,12,23,338,9,
-  	23,3,23,340,8,23,1,23,1,23,1,24,1,24,1,24,3,24,347,8,24,1,25,1,25,1,25,
-  	1,25,1,25,1,25,3,25,355,8,25,1,26,1,26,3,26,359,8,26,1,26,1,26,1,26,3,
-  	26,364,8,26,1,27,5,27,367,8,27,10,27,12,27,370,9,27,1,27,1,27,1,27,1,
-  	27,1,27,5,27,377,8,27,10,27,12,27,380,9,27,1,27,1,27,3,27,384,8,27,1,
-  	28,1,28,1,28,1,28,1,28,5,28,391,8,28,10,28,12,28,394,9,28,1,29,1,29,1,
-  	30,1,30,1,31,1,31,1,31,1,31,1,31,5,31,405,8,31,10,31,12,31,408,9,31,1,
-  	31,1,31,1,31,0,1,44,32,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,
-  	34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,0,5,1,0,17,18,2,0,20,20,
-  	44,44,1,0,39,40,1,0,37,38,1,0,32,33,436,0,64,1,0,0,0,2,73,1,0,0,0,4,77,
-  	1,0,0,0,6,79,1,0,0,0,8,118,1,0,0,0,10,120,1,0,0,0,12,129,1,0,0,0,14,135,
-  	1,0,0,0,16,145,1,0,0,0,18,147,1,0,0,0,20,156,1,0,0,0,22,159,1,0,0,0,24,
-  	167,1,0,0,0,26,175,1,0,0,0,28,193,1,0,0,0,30,209,1,0,0,0,32,240,1,0,0,
-  	0,34,254,1,0,0,0,36,257,1,0,0,0,38,266,1,0,0,0,40,279,1,0,0,0,42,296,
-  	1,0,0,0,44,312,1,0,0,0,46,330,1,0,0,0,48,346,1,0,0,0,50,354,1,0,0,0,52,
-  	358,1,0,0,0,54,368,1,0,0,0,56,385,1,0,0,0,58,395,1,0,0,0,60,397,1,0,0,
-  	0,62,399,1,0,0,0,64,70,3,2,1,0,65,69,3,4,2,0,66,69,3,6,3,0,67,69,3,8,
-  	4,0,68,65,1,0,0,0,68,66,1,0,0,0,68,67,1,0,0,0,69,72,1,0,0,0,70,68,1,0,
-  	0,0,70,71,1,0,0,0,71,1,1,0,0,0,72,70,1,0,0,0,73,74,5,27,0,0,74,75,5,28,
-  	0,0,75,76,5,29,0,0,76,3,1,0,0,0,77,78,5,26,0,0,78,5,1,0,0,0,79,80,5,25,
-  	0,0,80,7,1,0,0,0,81,82,3,48,24,0,82,83,5,29,0,0,83,119,1,0,0,0,84,85,
-  	3,42,21,0,85,86,5,29,0,0,86,119,1,0,0,0,87,88,3,44,22,0,88,89,5,29,0,
-  	0,89,119,1,0,0,0,90,91,3,60,30,0,91,92,5,29,0,0,92,119,1,0,0,0,93,119,
-  	3,10,5,0,94,119,3,12,6,0,95,119,3,14,7,0,96,97,3,34,17,0,97,98,5,29,0,
-  	0,98,119,1,0,0,0,99,119,3,30,15,0,100,101,3,32,16,0,101,102,5,29,0,0,
-  	102,119,1,0,0,0,103,104,3,38,19,0,104,105,5,29,0,0,105,119,1,0,0,0,106,
-  	107,3,24,12,0,107,108,5,29,0,0,108,119,1,0,0,0,109,110,3,22,11,0,110,
-  	111,5,29,0,0,111,119,1,0,0,0,112,113,3,28,14,0,113,114,5,29,0,0,114,119,
-  	1,0,0,0,115,116,3,26,13,0,116,117,5,29,0,0,117,119,1,0,0,0,118,81,1,0,
-  	0,0,118,84,1,0,0,0,118,87,1,0,0,0,118,90,1,0,0,0,118,93,1,0,0,0,118,94,
-  	1,0,0,0,118,95,1,0,0,0,118,96,1,0,0,0,118,99,1,0,0,0,118,100,1,0,0,0,
-  	118,103,1,0,0,0,118,106,1,0,0,0,118,109,1,0,0,0,118,112,1,0,0,0,118,115,
-  	1,0,0,0,119,9,1,0,0,0,120,121,5,9,0,0,121,122,5,6,0,0,122,123,3,8,4,0,
-  	123,124,3,44,22,0,124,125,5,29,0,0,125,126,3,44,22,0,126,127,5,7,0,0,
-  	127,128,3,36,18,0,128,11,1,0,0,0,129,130,5,10,0,0,130,131,5,6,0,0,131,
-  	132,3,44,22,0,132,133,5,7,0,0,133,134,3,36,18,0,134,13,1,0,0,0,135,136,
-  	5,11,0,0,136,137,5,6,0,0,137,138,3,44,22,0,138,139,5,7,0,0,139,141,3,
-  	36,18,0,140,142,3,16,8,0,141,140,1,0,0,0,141,142,1,0,0,0,142,15,1,0,0,
-  	0,143,146,3,20,10,0,144,146,3,18,9,0,145,143,1,0,0,0,145,144,1,0,0,0,
-  	146,17,1,0,0,0,147,148,5,12,0,0,148,149,5,11,0,0,149,150,5,6,0,0,150,
-  	151,3,44,22,0,151,152,5,7,0,0,152,154,3,36,18,0,153,155,3,16,8,0,154,
-  	153,1,0,0,0,154,155,1,0,0,0,155,19,1,0,0,0,156,157,5,12,0,0,157,158,3,
-  	36,18,0,158,21,1,0,0,0,159,160,5,21,0,0,160,161,5,6,0,0,161,162,5,24,
-  	0,0,162,163,5,34,0,0,163,164,5,33,0,0,164,165,5,7,0,0,165,166,5,44,0,
-  	0,166,23,1,0,0,0,167,168,5,22,0,0,168,169,5,6,0,0,169,170,5,24,0,0,170,
-  	171,5,34,0,0,171,172,5,33,0,0,172,173,5,7,0,0,173,174,5,44,0,0,174,25,
-  	1,0,0,0,175,176,5,23,0,0,176,177,5,6,0,0,177,178,5,24,0,0,178,179,5,34,
-  	0,0,179,180,5,33,0,0,180,181,5,7,0,0,181,182,5,44,0,0,182,188,5,4,0,0,
-  	183,184,3,54,27,0,184,185,5,29,0,0,185,187,1,0,0,0,186,183,1,0,0,0,187,
-  	190,1,0,0,0,188,186,1,0,0,0,188,189,1,0,0,0,189,191,1,0,0,0,190,188,1,
-  	0,0,0,191,192,5,5,0,0,192,27,1,0,0,0,193,194,7,0,0,0,194,195,5,44,0,0,
-  	195,201,5,4,0,0,196,197,3,54,27,0,197,198,5,29,0,0,198,200,1,0,0,0,199,
-  	196,1,0,0,0,200,203,1,0,0,0,201,199,1,0,0,0,201,202,1,0,0,0,202,204,1,
-  	0,0,0,203,201,1,0,0,0,204,205,5,5,0,0,205,29,1,0,0,0,206,208,3,40,20,
-  	0,207,206,1,0,0,0,208,211,1,0,0,0,209,207,1,0,0,0,209,210,1,0,0,0,210,
-  	215,1,0,0,0,211,209,1,0,0,0,212,214,5,8,0,0,213,212,1,0,0,0,214,217,1,
-  	0,0,0,215,213,1,0,0,0,215,216,1,0,0,0,216,218,1,0,0,0,217,215,1,0,0,0,
-  	218,219,7,1,0,0,219,220,5,44,0,0,220,229,5,6,0,0,221,226,3,54,27,0,222,
-  	223,5,30,0,0,223,225,3,54,27,0,224,222,1,0,0,0,225,228,1,0,0,0,226,224,
-  	1,0,0,0,226,227,1,0,0,0,227,230,1,0,0,0,228,226,1,0,0,0,229,221,1,0,0,
-  	0,229,230,1,0,0,0,230,231,1,0,0,0,231,234,5,7,0,0,232,233,5,31,0,0,233,
-  	235,5,44,0,0,234,232,1,0,0,0,234,235,1,0,0,0,235,238,1,0,0,0,236,239,
-  	3,36,18,0,237,239,5,29,0,0,238,236,1,0,0,0,238,237,1,0,0,0,239,31,1,0,
-  	0,0,240,241,5,44,0,0,241,250,5,6,0,0,242,247,3,44,22,0,243,244,5,30,0,
-  	0,244,246,3,44,22,0,245,243,1,0,0,0,246,249,1,0,0,0,247,245,1,0,0,0,247,
-  	248,1,0,0,0,248,251,1,0,0,0,249,247,1,0,0,0,250,242,1,0,0,0,250,251,1,
-  	0,0,0,251,252,1,0,0,0,252,253,5,7,0,0,253,33,1,0,0,0,254,255,5,14,0,0,
-  	255,256,3,44,22,0,256,35,1,0,0,0,257,261,5,4,0,0,258,260,3,8,4,0,259,
-  	258,1,0,0,0,260,263,1,0,0,0,261,259,1,0,0,0,261,262,1,0,0,0,262,264,1,
-  	0,0,0,263,261,1,0,0,0,264,265,5,5,0,0,265,37,1,0,0,0,266,267,5,16,0,0,
-  	267,268,5,44,0,0,268,274,5,4,0,0,269,270,3,54,27,0,270,271,5,29,0,0,271,
-  	273,1,0,0,0,272,269,1,0,0,0,273,276,1,0,0,0,274,272,1,0,0,0,274,275,1,
-  	0,0,0,275,277,1,0,0,0,276,274,1,0,0,0,277,278,5,5,0,0,278,39,1,0,0,0,
-  	279,280,5,36,0,0,280,281,5,19,0,0,281,282,5,44,0,0,282,288,5,4,0,0,283,
-  	284,3,44,22,0,284,285,5,30,0,0,285,287,1,0,0,0,286,283,1,0,0,0,287,290,
-  	1,0,0,0,288,286,1,0,0,0,288,289,1,0,0,0,289,291,1,0,0,0,290,288,1,0,0,
-  	0,291,292,5,41,0,0,292,293,5,30,0,0,293,294,3,44,22,0,294,295,5,5,0,0,
-  	295,41,1,0,0,0,296,297,3,48,24,0,297,298,5,34,0,0,298,299,3,44,22,0,299,
-  	43,1,0,0,0,300,301,6,22,-1,0,301,302,5,6,0,0,302,303,3,44,22,0,303,304,
-  	5,7,0,0,304,313,1,0,0,0,305,306,5,42,0,0,306,313,3,44,22,5,307,308,5,
-  	43,0,0,308,313,3,44,22,3,309,310,5,38,0,0,310,313,3,44,22,2,311,313,3,
-  	50,25,0,312,300,1,0,0,0,312,305,1,0,0,0,312,307,1,0,0,0,312,309,1,0,0,
-  	0,312,311,1,0,0,0,313,327,1,0,0,0,314,315,10,9,0,0,315,316,7,2,0,0,316,
-  	326,3,44,22,10,317,318,10,8,0,0,318,319,7,3,0,0,319,326,3,44,22,9,320,
-  	321,10,7,0,0,321,322,5,41,0,0,322,326,3,44,22,8,323,324,10,4,0,0,324,
-  	326,5,42,0,0,325,314,1,0,0,0,325,317,1,0,0,0,325,320,1,0,0,0,325,323,
-  	1,0,0,0,326,329,1,0,0,0,327,325,1,0,0,0,327,328,1,0,0,0,328,45,1,0,0,
-  	0,329,327,1,0,0,0,330,339,5,4,0,0,331,336,3,44,22,0,332,333,5,30,0,0,
-  	333,335,3,44,22,0,334,332,1,0,0,0,335,338,1,0,0,0,336,334,1,0,0,0,336,
-  	337,1,0,0,0,337,340,1,0,0,0,338,336,1,0,0,0,339,331,1,0,0,0,339,340,1,
-  	0,0,0,340,341,1,0,0,0,341,342,5,5,0,0,342,47,1,0,0,0,343,347,3,54,27,
-  	0,344,347,3,56,28,0,345,347,3,52,26,0,346,343,1,0,0,0,346,344,1,0,0,0,
-  	346,345,1,0,0,0,347,49,1,0,0,0,348,355,3,56,28,0,349,355,3,58,29,0,350,
-  	355,3,32,16,0,351,355,3,62,31,0,352,355,3,52,26,0,353,355,3,46,23,0,354,
-  	348,1,0,0,0,354,349,1,0,0,0,354,350,1,0,0,0,354,351,1,0,0,0,354,352,1,
-  	0,0,0,354,353,1,0,0,0,355,51,1,0,0,0,356,359,3,56,28,0,357,359,3,32,16,
-  	0,358,356,1,0,0,0,358,357,1,0,0,0,359,360,1,0,0,0,360,363,5,35,0,0,361,
-  	364,3,56,28,0,362,364,3,52,26,0,363,361,1,0,0,0,363,362,1,0,0,0,364,53,
-  	1,0,0,0,365,367,5,8,0,0,366,365,1,0,0,0,367,370,1,0,0,0,368,366,1,0,0,
-  	0,368,369,1,0,0,0,369,371,1,0,0,0,370,368,1,0,0,0,371,372,7,1,0,0,372,
-  	378,5,44,0,0,373,374,5,2,0,0,374,375,5,33,0,0,375,377,5,3,0,0,376,373,
-  	1,0,0,0,377,380,1,0,0,0,378,376,1,0,0,0,378,379,1,0,0,0,379,383,1,0,0,
-  	0,380,378,1,0,0,0,381,382,5,31,0,0,382,384,5,44,0,0,383,381,1,0,0,0,383,
-  	384,1,0,0,0,384,55,1,0,0,0,385,392,5,44,0,0,386,387,5,2,0,0,387,388,3,
-  	44,22,0,388,389,5,3,0,0,389,391,1,0,0,0,390,386,1,0,0,0,391,394,1,0,0,
-  	0,392,390,1,0,0,0,392,393,1,0,0,0,393,57,1,0,0,0,394,392,1,0,0,0,395,
-  	396,7,4,0,0,396,59,1,0,0,0,397,398,5,15,0,0,398,61,1,0,0,0,399,400,5,
-  	20,0,0,400,401,5,6,0,0,401,406,3,44,22,0,402,403,5,30,0,0,403,405,3,44,
-  	22,0,404,402,1,0,0,0,405,408,1,0,0,0,406,404,1,0,0,0,406,407,1,0,0,0,
-  	407,409,1,0,0,0,408,406,1,0,0,0,409,410,5,7,0,0,410,63,1,0,0,0,33,68,
-  	70,118,141,145,154,188,201,209,215,226,229,234,238,247,250,261,274,288,
-  	312,325,327,336,339,346,354,358,363,368,378,383,392,406
+  	16,1,16,1,16,1,17,1,17,3,17,257,8,17,1,18,1,18,5,18,261,8,18,10,18,12,
+  	18,264,9,18,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,19,5,19,274,8,19,10,
+  	19,12,19,277,9,19,1,19,1,19,1,20,1,20,1,20,1,20,1,20,1,20,1,20,5,20,288,
+  	8,20,10,20,12,20,291,9,20,1,20,1,20,1,20,1,20,1,20,1,21,1,21,1,21,1,21,
+  	1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,3,22,314,
+  	8,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,5,22,327,
+  	8,22,10,22,12,22,330,9,22,1,23,1,23,1,23,1,23,5,23,336,8,23,10,23,12,
+  	23,339,9,23,3,23,341,8,23,1,23,1,23,1,24,1,24,1,24,3,24,348,8,24,1,25,
+  	1,25,1,25,1,25,1,25,1,25,3,25,356,8,25,1,26,1,26,3,26,360,8,26,1,26,1,
+  	26,1,26,3,26,365,8,26,1,27,5,27,368,8,27,10,27,12,27,371,9,27,1,27,1,
+  	27,1,27,1,27,1,27,5,27,378,8,27,10,27,12,27,381,9,27,1,27,1,27,3,27,385,
+  	8,27,1,28,1,28,1,28,1,28,1,28,5,28,392,8,28,10,28,12,28,395,9,28,1,29,
+  	1,29,1,30,1,30,1,31,1,31,1,31,1,31,1,31,5,31,406,8,31,10,31,12,31,409,
+  	9,31,1,31,1,31,1,31,0,1,44,32,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,
+  	30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,0,5,1,0,17,18,2,0,
+  	20,20,44,44,1,0,39,40,1,0,37,38,1,0,32,33,438,0,64,1,0,0,0,2,73,1,0,0,
+  	0,4,77,1,0,0,0,6,79,1,0,0,0,8,118,1,0,0,0,10,120,1,0,0,0,12,129,1,0,0,
+  	0,14,135,1,0,0,0,16,145,1,0,0,0,18,147,1,0,0,0,20,156,1,0,0,0,22,159,
+  	1,0,0,0,24,167,1,0,0,0,26,175,1,0,0,0,28,193,1,0,0,0,30,209,1,0,0,0,32,
+  	240,1,0,0,0,34,254,1,0,0,0,36,258,1,0,0,0,38,267,1,0,0,0,40,280,1,0,0,
+  	0,42,297,1,0,0,0,44,313,1,0,0,0,46,331,1,0,0,0,48,347,1,0,0,0,50,355,
+  	1,0,0,0,52,359,1,0,0,0,54,369,1,0,0,0,56,386,1,0,0,0,58,396,1,0,0,0,60,
+  	398,1,0,0,0,62,400,1,0,0,0,64,70,3,2,1,0,65,69,3,4,2,0,66,69,3,6,3,0,
+  	67,69,3,8,4,0,68,65,1,0,0,0,68,66,1,0,0,0,68,67,1,0,0,0,69,72,1,0,0,0,
+  	70,68,1,0,0,0,70,71,1,0,0,0,71,1,1,0,0,0,72,70,1,0,0,0,73,74,5,27,0,0,
+  	74,75,5,28,0,0,75,76,5,29,0,0,76,3,1,0,0,0,77,78,5,26,0,0,78,5,1,0,0,
+  	0,79,80,5,25,0,0,80,7,1,0,0,0,81,82,3,48,24,0,82,83,5,29,0,0,83,119,1,
+  	0,0,0,84,85,3,42,21,0,85,86,5,29,0,0,86,119,1,0,0,0,87,88,3,44,22,0,88,
+  	89,5,29,0,0,89,119,1,0,0,0,90,91,3,60,30,0,91,92,5,29,0,0,92,119,1,0,
+  	0,0,93,119,3,10,5,0,94,119,3,12,6,0,95,119,3,14,7,0,96,97,3,34,17,0,97,
+  	98,5,29,0,0,98,119,1,0,0,0,99,119,3,30,15,0,100,101,3,32,16,0,101,102,
+  	5,29,0,0,102,119,1,0,0,0,103,104,3,38,19,0,104,105,5,29,0,0,105,119,1,
+  	0,0,0,106,107,3,24,12,0,107,108,5,29,0,0,108,119,1,0,0,0,109,110,3,22,
+  	11,0,110,111,5,29,0,0,111,119,1,0,0,0,112,113,3,28,14,0,113,114,5,29,
+  	0,0,114,119,1,0,0,0,115,116,3,26,13,0,116,117,5,29,0,0,117,119,1,0,0,
+  	0,118,81,1,0,0,0,118,84,1,0,0,0,118,87,1,0,0,0,118,90,1,0,0,0,118,93,
+  	1,0,0,0,118,94,1,0,0,0,118,95,1,0,0,0,118,96,1,0,0,0,118,99,1,0,0,0,118,
+  	100,1,0,0,0,118,103,1,0,0,0,118,106,1,0,0,0,118,109,1,0,0,0,118,112,1,
+  	0,0,0,118,115,1,0,0,0,119,9,1,0,0,0,120,121,5,9,0,0,121,122,5,6,0,0,122,
+  	123,3,8,4,0,123,124,3,44,22,0,124,125,5,29,0,0,125,126,3,44,22,0,126,
+  	127,5,7,0,0,127,128,3,36,18,0,128,11,1,0,0,0,129,130,5,10,0,0,130,131,
+  	5,6,0,0,131,132,3,44,22,0,132,133,5,7,0,0,133,134,3,36,18,0,134,13,1,
+  	0,0,0,135,136,5,11,0,0,136,137,5,6,0,0,137,138,3,44,22,0,138,139,5,7,
+  	0,0,139,141,3,36,18,0,140,142,3,16,8,0,141,140,1,0,0,0,141,142,1,0,0,
+  	0,142,15,1,0,0,0,143,146,3,20,10,0,144,146,3,18,9,0,145,143,1,0,0,0,145,
+  	144,1,0,0,0,146,17,1,0,0,0,147,148,5,12,0,0,148,149,5,11,0,0,149,150,
+  	5,6,0,0,150,151,3,44,22,0,151,152,5,7,0,0,152,154,3,36,18,0,153,155,3,
+  	16,8,0,154,153,1,0,0,0,154,155,1,0,0,0,155,19,1,0,0,0,156,157,5,12,0,
+  	0,157,158,3,36,18,0,158,21,1,0,0,0,159,160,5,21,0,0,160,161,5,6,0,0,161,
+  	162,5,24,0,0,162,163,5,34,0,0,163,164,5,33,0,0,164,165,5,7,0,0,165,166,
+  	5,44,0,0,166,23,1,0,0,0,167,168,5,22,0,0,168,169,5,6,0,0,169,170,5,24,
+  	0,0,170,171,5,34,0,0,171,172,5,33,0,0,172,173,5,7,0,0,173,174,5,44,0,
+  	0,174,25,1,0,0,0,175,176,5,23,0,0,176,177,5,6,0,0,177,178,5,24,0,0,178,
+  	179,5,34,0,0,179,180,5,33,0,0,180,181,5,7,0,0,181,182,5,44,0,0,182,188,
+  	5,4,0,0,183,184,3,54,27,0,184,185,5,29,0,0,185,187,1,0,0,0,186,183,1,
+  	0,0,0,187,190,1,0,0,0,188,186,1,0,0,0,188,189,1,0,0,0,189,191,1,0,0,0,
+  	190,188,1,0,0,0,191,192,5,5,0,0,192,27,1,0,0,0,193,194,7,0,0,0,194,195,
+  	5,44,0,0,195,201,5,4,0,0,196,197,3,54,27,0,197,198,5,29,0,0,198,200,1,
+  	0,0,0,199,196,1,0,0,0,200,203,1,0,0,0,201,199,1,0,0,0,201,202,1,0,0,0,
+  	202,204,1,0,0,0,203,201,1,0,0,0,204,205,5,5,0,0,205,29,1,0,0,0,206,208,
+  	3,40,20,0,207,206,1,0,0,0,208,211,1,0,0,0,209,207,1,0,0,0,209,210,1,0,
+  	0,0,210,215,1,0,0,0,211,209,1,0,0,0,212,214,5,8,0,0,213,212,1,0,0,0,214,
+  	217,1,0,0,0,215,213,1,0,0,0,215,216,1,0,0,0,216,218,1,0,0,0,217,215,1,
+  	0,0,0,218,219,7,1,0,0,219,220,5,44,0,0,220,229,5,6,0,0,221,226,3,54,27,
+  	0,222,223,5,30,0,0,223,225,3,54,27,0,224,222,1,0,0,0,225,228,1,0,0,0,
+  	226,224,1,0,0,0,226,227,1,0,0,0,227,230,1,0,0,0,228,226,1,0,0,0,229,221,
+  	1,0,0,0,229,230,1,0,0,0,230,231,1,0,0,0,231,234,5,7,0,0,232,233,5,31,
+  	0,0,233,235,5,44,0,0,234,232,1,0,0,0,234,235,1,0,0,0,235,238,1,0,0,0,
+  	236,239,3,36,18,0,237,239,5,29,0,0,238,236,1,0,0,0,238,237,1,0,0,0,239,
+  	31,1,0,0,0,240,241,5,44,0,0,241,250,5,6,0,0,242,247,3,44,22,0,243,244,
+  	5,30,0,0,244,246,3,44,22,0,245,243,1,0,0,0,246,249,1,0,0,0,247,245,1,
+  	0,0,0,247,248,1,0,0,0,248,251,1,0,0,0,249,247,1,0,0,0,250,242,1,0,0,0,
+  	250,251,1,0,0,0,251,252,1,0,0,0,252,253,5,7,0,0,253,33,1,0,0,0,254,256,
+  	5,14,0,0,255,257,3,44,22,0,256,255,1,0,0,0,256,257,1,0,0,0,257,35,1,0,
+  	0,0,258,262,5,4,0,0,259,261,3,8,4,0,260,259,1,0,0,0,261,264,1,0,0,0,262,
+  	260,1,0,0,0,262,263,1,0,0,0,263,265,1,0,0,0,264,262,1,0,0,0,265,266,5,
+  	5,0,0,266,37,1,0,0,0,267,268,5,16,0,0,268,269,5,44,0,0,269,275,5,4,0,
+  	0,270,271,3,54,27,0,271,272,5,29,0,0,272,274,1,0,0,0,273,270,1,0,0,0,
+  	274,277,1,0,0,0,275,273,1,0,0,0,275,276,1,0,0,0,276,278,1,0,0,0,277,275,
+  	1,0,0,0,278,279,5,5,0,0,279,39,1,0,0,0,280,281,5,36,0,0,281,282,5,19,
+  	0,0,282,283,5,44,0,0,283,289,5,4,0,0,284,285,3,44,22,0,285,286,5,30,0,
+  	0,286,288,1,0,0,0,287,284,1,0,0,0,288,291,1,0,0,0,289,287,1,0,0,0,289,
+  	290,1,0,0,0,290,292,1,0,0,0,291,289,1,0,0,0,292,293,5,41,0,0,293,294,
+  	5,30,0,0,294,295,3,44,22,0,295,296,5,5,0,0,296,41,1,0,0,0,297,298,3,48,
+  	24,0,298,299,5,34,0,0,299,300,3,44,22,0,300,43,1,0,0,0,301,302,6,22,-1,
+  	0,302,303,5,6,0,0,303,304,3,44,22,0,304,305,5,7,0,0,305,314,1,0,0,0,306,
+  	307,5,42,0,0,307,314,3,44,22,5,308,309,5,43,0,0,309,314,3,44,22,3,310,
+  	311,5,38,0,0,311,314,3,44,22,2,312,314,3,50,25,0,313,301,1,0,0,0,313,
+  	306,1,0,0,0,313,308,1,0,0,0,313,310,1,0,0,0,313,312,1,0,0,0,314,328,1,
+  	0,0,0,315,316,10,9,0,0,316,317,7,2,0,0,317,327,3,44,22,10,318,319,10,
+  	8,0,0,319,320,7,3,0,0,320,327,3,44,22,9,321,322,10,7,0,0,322,323,5,41,
+  	0,0,323,327,3,44,22,8,324,325,10,4,0,0,325,327,5,42,0,0,326,315,1,0,0,
+  	0,326,318,1,0,0,0,326,321,1,0,0,0,326,324,1,0,0,0,327,330,1,0,0,0,328,
+  	326,1,0,0,0,328,329,1,0,0,0,329,45,1,0,0,0,330,328,1,0,0,0,331,340,5,
+  	4,0,0,332,337,3,44,22,0,333,334,5,30,0,0,334,336,3,44,22,0,335,333,1,
+  	0,0,0,336,339,1,0,0,0,337,335,1,0,0,0,337,338,1,0,0,0,338,341,1,0,0,0,
+  	339,337,1,0,0,0,340,332,1,0,0,0,340,341,1,0,0,0,341,342,1,0,0,0,342,343,
+  	5,5,0,0,343,47,1,0,0,0,344,348,3,54,27,0,345,348,3,56,28,0,346,348,3,
+  	52,26,0,347,344,1,0,0,0,347,345,1,0,0,0,347,346,1,0,0,0,348,49,1,0,0,
+  	0,349,356,3,56,28,0,350,356,3,58,29,0,351,356,3,32,16,0,352,356,3,62,
+  	31,0,353,356,3,52,26,0,354,356,3,46,23,0,355,349,1,0,0,0,355,350,1,0,
+  	0,0,355,351,1,0,0,0,355,352,1,0,0,0,355,353,1,0,0,0,355,354,1,0,0,0,356,
+  	51,1,0,0,0,357,360,3,56,28,0,358,360,3,32,16,0,359,357,1,0,0,0,359,358,
+  	1,0,0,0,360,361,1,0,0,0,361,364,5,35,0,0,362,365,3,56,28,0,363,365,3,
+  	52,26,0,364,362,1,0,0,0,364,363,1,0,0,0,365,53,1,0,0,0,366,368,5,8,0,
+  	0,367,366,1,0,0,0,368,371,1,0,0,0,369,367,1,0,0,0,369,370,1,0,0,0,370,
+  	372,1,0,0,0,371,369,1,0,0,0,372,373,7,1,0,0,373,379,5,44,0,0,374,375,
+  	5,2,0,0,375,376,5,33,0,0,376,378,5,3,0,0,377,374,1,0,0,0,378,381,1,0,
+  	0,0,379,377,1,0,0,0,379,380,1,0,0,0,380,384,1,0,0,0,381,379,1,0,0,0,382,
+  	383,5,31,0,0,383,385,5,44,0,0,384,382,1,0,0,0,384,385,1,0,0,0,385,55,
+  	1,0,0,0,386,393,5,44,0,0,387,388,5,2,0,0,388,389,3,44,22,0,389,390,5,
+  	3,0,0,390,392,1,0,0,0,391,387,1,0,0,0,392,395,1,0,0,0,393,391,1,0,0,0,
+  	393,394,1,0,0,0,394,57,1,0,0,0,395,393,1,0,0,0,396,397,7,4,0,0,397,59,
+  	1,0,0,0,398,399,5,15,0,0,399,61,1,0,0,0,400,401,5,20,0,0,401,402,5,6,
+  	0,0,402,407,3,44,22,0,403,404,5,30,0,0,404,406,3,44,22,0,405,403,1,0,
+  	0,0,406,409,1,0,0,0,407,405,1,0,0,0,407,408,1,0,0,0,408,410,1,0,0,0,409,
+  	407,1,0,0,0,410,411,5,7,0,0,411,63,1,0,0,0,34,68,70,118,141,145,154,188,
+  	201,209,215,226,229,234,238,247,250,256,262,275,289,313,326,328,337,340,
+  	347,355,359,364,369,379,384,393,407
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
 
@@ -2049,6 +2050,7 @@ void SrslGrammarParser::ReturnStatementContext::exitRule(tree::ParseTreeListener
 SrslGrammarParser::ReturnStatementContext* SrslGrammarParser::returnStatement() {
   ReturnStatementContext *_localctx = _tracker.createInstance<ReturnStatementContext>(_ctx, getState());
   enterRule(_localctx, 34, SrslGrammarParser::RuleReturnStatement);
+  size_t _la = 0;
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -2061,8 +2063,15 @@ SrslGrammarParser::ReturnStatementContext* SrslGrammarParser::returnStatement() 
     enterOuterAlt(_localctx, 1);
     setState(254);
     match(SrslGrammarParser::RETURN);
-    setState(255);
-    expression(0);
+    setState(256);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (((_la & ~ 0x3fULL) == 0) &&
+      ((1ULL << _la) & 31074089435216) != 0) {
+      setState(255);
+      expression(0);
+    }
    
   }
   catch (RecognitionException &e) {
@@ -2127,20 +2136,20 @@ SrslGrammarParser::ScopeContext* SrslGrammarParser::scope() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(257);
+    setState(258);
     match(SrslGrammarParser::CBRACKO);
-    setState(261);
+    setState(262);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 31142824103760) != 0) {
-      setState(258);
+      setState(259);
       statement();
-      setState(263);
+      setState(264);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(264);
+    setState(265);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -2222,26 +2231,26 @@ SrslGrammarParser::StructDeclarationContext* SrslGrammarParser::structDeclaratio
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(266);
-    match(SrslGrammarParser::STRUCT);
     setState(267);
-    match(SrslGrammarParser::VAR_NAME);
+    match(SrslGrammarParser::STRUCT);
     setState(268);
+    match(SrslGrammarParser::VAR_NAME);
+    setState(269);
     match(SrslGrammarParser::CBRACKO);
-    setState(274);
+    setState(275);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 17592187093248) != 0) {
-      setState(269);
-      newVariable();
       setState(270);
+      newVariable();
+      setState(271);
       match(SrslGrammarParser::EOL);
-      setState(276);
+      setState(277);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(277);
+    setState(278);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -2331,34 +2340,34 @@ SrslGrammarParser::TestCaseContext* SrslGrammarParser::testCase() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(279);
-    match(SrslGrammarParser::AT);
     setState(280);
-    match(SrslGrammarParser::TEST);
+    match(SrslGrammarParser::AT);
     setState(281);
-    match(SrslGrammarParser::VAR_NAME);
+    match(SrslGrammarParser::TEST);
     setState(282);
+    match(SrslGrammarParser::VAR_NAME);
+    setState(283);
     match(SrslGrammarParser::CBRACKO);
-    setState(288);
+    setState(289);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 31074089435216) != 0) {
-      setState(283);
-      expression(0);
       setState(284);
+      expression(0);
+      setState(285);
       match(SrslGrammarParser::COMMA);
-      setState(290);
+      setState(291);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(291);
-    match(SrslGrammarParser::OPERATION);
     setState(292);
-    match(SrslGrammarParser::COMMA);
+    match(SrslGrammarParser::OPERATION);
     setState(293);
-    expression(0);
+    match(SrslGrammarParser::COMMA);
     setState(294);
+    expression(0);
+    setState(295);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -2419,11 +2428,11 @@ SrslGrammarParser::AssignmentContext* SrslGrammarParser::assignment() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(296);
-    lvalue();
     setState(297);
-    match(SrslGrammarParser::ASSIGN);
+    lvalue();
     setState(298);
+    match(SrslGrammarParser::ASSIGN);
+    setState(299);
     expression(0);
    
   }
@@ -2533,39 +2542,39 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(312);
+    setState(313);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SrslGrammarParser::PARENO: {
-        setState(301);
-        match(SrslGrammarParser::PARENO);
         setState(302);
-        expression(0);
+        match(SrslGrammarParser::PARENO);
         setState(303);
+        expression(0);
+        setState(304);
         match(SrslGrammarParser::PARENC);
         break;
       }
 
       case SrslGrammarParser::CREMENT: {
-        setState(305);
-        match(SrslGrammarParser::CREMENT);
         setState(306);
+        match(SrslGrammarParser::CREMENT);
+        setState(307);
         expression(5);
         break;
       }
 
       case SrslGrammarParser::NOT: {
-        setState(307);
-        match(SrslGrammarParser::NOT);
         setState(308);
+        match(SrslGrammarParser::NOT);
+        setState(309);
         expression(3);
         break;
       }
 
       case SrslGrammarParser::MINUS: {
-        setState(309);
-        match(SrslGrammarParser::MINUS);
         setState(310);
+        match(SrslGrammarParser::MINUS);
+        setState(311);
         expression(2);
         break;
       }
@@ -2575,7 +2584,7 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
       case SrslGrammarParser::FLOATING_POINT:
       case SrslGrammarParser::NUMBER:
       case SrslGrammarParser::VAR_NAME: {
-        setState(311);
+        setState(312);
         rvalue();
         break;
       }
@@ -2584,24 +2593,24 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
       throw NoViableAltException(this);
     }
     _ctx->stop = _input->LT(-1);
-    setState(327);
+    setState(328);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 22, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
         if (!_parseListeners.empty())
           triggerExitRuleEvent();
         previousContext = _localctx;
-        setState(325);
+        setState(326);
         _errHandler->sync(this);
-        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 20, _ctx)) {
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx)) {
         case 1: {
           _localctx = _tracker.createInstance<ExpressionContext>(parentContext, parentState);
           pushNewRecursionContext(_localctx, startState, RuleExpression);
-          setState(314);
+          setState(315);
 
           if (!(precpred(_ctx, 9))) throw FailedPredicateException(this, "precpred(_ctx, 9)");
-          setState(315);
+          setState(316);
           _la = _input->LA(1);
           if (!(_la == SrslGrammarParser::MULTIPLY
 
@@ -2612,7 +2621,7 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(316);
+          setState(317);
           expression(10);
           break;
         }
@@ -2620,10 +2629,10 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
         case 2: {
           _localctx = _tracker.createInstance<ExpressionContext>(parentContext, parentState);
           pushNewRecursionContext(_localctx, startState, RuleExpression);
-          setState(317);
+          setState(318);
 
           if (!(precpred(_ctx, 8))) throw FailedPredicateException(this, "precpred(_ctx, 8)");
-          setState(318);
+          setState(319);
           _la = _input->LA(1);
           if (!(_la == SrslGrammarParser::PLUS
 
@@ -2634,7 +2643,7 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(319);
+          setState(320);
           expression(9);
           break;
         }
@@ -2642,12 +2651,12 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
         case 3: {
           _localctx = _tracker.createInstance<ExpressionContext>(parentContext, parentState);
           pushNewRecursionContext(_localctx, startState, RuleExpression);
-          setState(320);
+          setState(321);
 
           if (!(precpred(_ctx, 7))) throw FailedPredicateException(this, "precpred(_ctx, 7)");
-          setState(321);
-          match(SrslGrammarParser::OPERATION);
           setState(322);
+          match(SrslGrammarParser::OPERATION);
+          setState(323);
           expression(8);
           break;
         }
@@ -2655,10 +2664,10 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
         case 4: {
           _localctx = _tracker.createInstance<ExpressionContext>(parentContext, parentState);
           pushNewRecursionContext(_localctx, startState, RuleExpression);
-          setState(323);
+          setState(324);
 
           if (!(precpred(_ctx, 4))) throw FailedPredicateException(this, "precpred(_ctx, 4)");
-          setState(324);
+          setState(325);
           match(SrslGrammarParser::CREMENT);
           break;
         }
@@ -2667,9 +2676,9 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
           break;
         } 
       }
-      setState(329);
+      setState(330);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 22, _ctx);
     }
   }
   catch (RecognitionException &e) {
@@ -2741,30 +2750,30 @@ SrslGrammarParser::InitializerListContext* SrslGrammarParser::initializerList() 
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(330);
+    setState(331);
     match(SrslGrammarParser::CBRACKO);
-    setState(339);
+    setState(340);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 31074089435216) != 0) {
-      setState(331);
+      setState(332);
       expression(0);
-      setState(336);
+      setState(337);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == SrslGrammarParser::COMMA) {
-        setState(332);
-        match(SrslGrammarParser::COMMA);
         setState(333);
+        match(SrslGrammarParser::COMMA);
+        setState(334);
         expression(0);
-        setState(338);
+        setState(339);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
     }
-    setState(341);
+    setState(342);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -2824,26 +2833,26 @@ SrslGrammarParser::LvalueContext* SrslGrammarParser::lvalue() {
     exitRule();
   });
   try {
-    setState(346);
+    setState(347);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 24, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(343);
+      setState(344);
       newVariable();
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(344);
+      setState(345);
       variable();
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(345);
+      setState(346);
       memberAccess();
       break;
     }
@@ -2921,47 +2930,47 @@ SrslGrammarParser::RvalueContext* SrslGrammarParser::rvalue() {
     exitRule();
   });
   try {
-    setState(354);
+    setState(355);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 26, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(348);
+      setState(349);
       variable();
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(349);
+      setState(350);
       constant();
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(350);
+      setState(351);
       functionCall();
       break;
     }
 
     case 4: {
       enterOuterAlt(_localctx, 4);
-      setState(351);
+      setState(352);
       typeConstructor();
       break;
     }
 
     case 5: {
       enterOuterAlt(_localctx, 5);
-      setState(352);
+      setState(353);
       memberAccess();
       break;
     }
 
     case 6: {
       enterOuterAlt(_localctx, 6);
-      setState(353);
+      setState(354);
       initializerList();
       break;
     }
@@ -3036,17 +3045,17 @@ SrslGrammarParser::MemberAccessContext* SrslGrammarParser::memberAccess() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(358);
+    setState(359);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 26, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 27, _ctx)) {
     case 1: {
-      setState(356);
+      setState(357);
       variable();
       break;
     }
 
     case 2: {
-      setState(357);
+      setState(358);
       functionCall();
       break;
     }
@@ -3054,19 +3063,19 @@ SrslGrammarParser::MemberAccessContext* SrslGrammarParser::memberAccess() {
     default:
       break;
     }
-    setState(360);
+    setState(361);
     match(SrslGrammarParser::DOT);
-    setState(363);
+    setState(364);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 27, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 28, _ctx)) {
     case 1: {
-      setState(361);
+      setState(362);
       variable();
       break;
     }
 
     case 2: {
-      setState(362);
+      setState(363);
       memberAccess();
       break;
     }
@@ -3170,17 +3179,17 @@ SrslGrammarParser::NewVariableContext* SrslGrammarParser::newVariable() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(368);
+    setState(369);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == SrslGrammarParser::CONST) {
-      setState(365);
+      setState(366);
       match(SrslGrammarParser::CONST);
-      setState(370);
+      setState(371);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(371);
+    setState(372);
     _la = _input->LA(1);
     if (!(_la == SrslGrammarParser::TYPE
 
@@ -3191,30 +3200,30 @@ SrslGrammarParser::NewVariableContext* SrslGrammarParser::newVariable() {
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(372);
+    setState(373);
     match(SrslGrammarParser::VAR_NAME);
-    setState(378);
+    setState(379);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == SrslGrammarParser::SBRACKO) {
-      setState(373);
-      match(SrslGrammarParser::SBRACKO);
       setState(374);
-      match(SrslGrammarParser::NUMBER);
+      match(SrslGrammarParser::SBRACKO);
       setState(375);
+      match(SrslGrammarParser::NUMBER);
+      setState(376);
       match(SrslGrammarParser::SBRACKC);
-      setState(380);
+      setState(381);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(383);
+    setState(384);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == SrslGrammarParser::COLON) {
-      setState(381);
-      match(SrslGrammarParser::COLON);
       setState(382);
+      match(SrslGrammarParser::COLON);
+      setState(383);
       match(SrslGrammarParser::VAR_NAME);
     }
    
@@ -3293,23 +3302,23 @@ SrslGrammarParser::VariableContext* SrslGrammarParser::variable() {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(385);
+    setState(386);
     match(SrslGrammarParser::VAR_NAME);
-    setState(392);
+    setState(393);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 31, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 32, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
-        setState(386);
-        match(SrslGrammarParser::SBRACKO);
         setState(387);
-        expression(0);
+        match(SrslGrammarParser::SBRACKO);
         setState(388);
+        expression(0);
+        setState(389);
         match(SrslGrammarParser::SBRACKC); 
       }
-      setState(394);
+      setState(395);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 31, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 32, _ctx);
     }
    
   }
@@ -3367,7 +3376,7 @@ SrslGrammarParser::ConstantContext* SrslGrammarParser::constant() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(395);
+    setState(396);
     _la = _input->LA(1);
     if (!(_la == SrslGrammarParser::FLOATING_POINT
 
@@ -3429,7 +3438,7 @@ SrslGrammarParser::ControlFlowContext* SrslGrammarParser::controlFlow() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(397);
+    setState(398);
     match(SrslGrammarParser::CONTROL_FLOW);
    
   }
@@ -3507,25 +3516,25 @@ SrslGrammarParser::TypeConstructorContext* SrslGrammarParser::typeConstructor() 
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(399);
-    match(SrslGrammarParser::TYPE);
     setState(400);
-    match(SrslGrammarParser::PARENO);
+    match(SrslGrammarParser::TYPE);
     setState(401);
+    match(SrslGrammarParser::PARENO);
+    setState(402);
     expression(0);
-    setState(406);
+    setState(407);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == SrslGrammarParser::COMMA) {
-      setState(402);
-      match(SrslGrammarParser::COMMA);
       setState(403);
+      match(SrslGrammarParser::COMMA);
+      setState(404);
       expression(0);
-      setState(408);
+      setState(409);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(409);
+    setState(410);
     match(SrslGrammarParser::PARENC);
    
   }

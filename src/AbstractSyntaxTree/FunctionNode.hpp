@@ -41,7 +41,6 @@ namespace Srsl{
 //        void cppWriteTextures(CppExporter* cppExporter, const std::string& indent) const;
 
     private:
-        const std::string m_ExtType;
         const std::string m_SemanticName;
         const bool m_HasScope;
         TypeDesc m_Type;

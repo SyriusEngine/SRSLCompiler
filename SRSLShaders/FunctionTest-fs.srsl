@@ -21,6 +21,13 @@ float4 sampleFromTexture(float2 texCoords){
     return texel;
 }
 
+void emptyFunction(float3 param1){
+    uint aPos = 0;
+    uint bPos = 1;
+
+    return;
+}
+
 void main(){
     float4 texel = sampleFromTexture(fsIn.texCoords);
     fsOut.color = texel;

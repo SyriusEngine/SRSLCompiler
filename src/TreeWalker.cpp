@@ -276,6 +276,8 @@ namespace Srsl{
                 desc.semantic = ctx->VAR_NAME()[2]->getText();
             }
         }
+        desc.hasScope = (ctx->scope() != nullptr);
+
         auto newCurrent = m_CurrentNode->addChild<FunctionDeclarationNode>(desc, ctx->start->getLine());
         m_CurrentNode = newCurrent;
 

@@ -41,7 +41,7 @@ shaderInterface: (SHADER_INPUT | SHADER_OUTPUT) VAR_NAME CBRACKO (newVariable EO
 
 functionDeclaration: testCase* CONST* (TYPE | VAR_NAME) VAR_NAME PARENO (newVariable (COMMA newVariable)*)? PARENC (COLON VAR_NAME)? (scope | EOL);
 functionCall: VAR_NAME PARENO (expression (COMMA expression)*)? PARENC;
-returnStatement: RETURN expression;
+returnStatement: RETURN expression?;
 
 scope: CBRACKO statement* CBRACKC;
 

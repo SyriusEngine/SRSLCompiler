@@ -14,26 +14,24 @@ namespace Srsl{
 
     void FunctionDeclarationNode::construct() {
         if (m_HasScope){
+            SRSL_ASSERT(m_Children.size() > 0, "Invalid number of children for function %s, expected at least 1 got %s", m_Value.c_str(), m_Children.size());
             m_Scope = dynamic_cast<ScopeNode*>(m_Children.back().get());
             if (m_Scope == nullptr){
                 SRSL_THROW_EXCEPTION("FunctionDeclarationNode::construct() - ScopeNode not found");
             }
-        }
-        m_Scope->construct();
-        for (uint32 i = 0; i < m_Children.size() - 1; i++){
-            auto arg = dynamic_cast<NewVariableNode*>(m_Children[i].get());
-            if (arg == nullptr){
-                SRSL_THROW_EXCEPTION("FunctionDeclarationNode::construct() - NewVariableNode not found");
+            m_Scope->construct();
+            for (uint32 i = 0; i < m_Children.size() - 1; i++){
+                auto arg = dynamic_cast<NewVariableNode*>(m_Children[i].get());
+                if (arg == nullptr){
+                    SRSL_THROW_EXCEPTION("FunctionDeclarationNode::construct() - NewVariableNode not found");
+                }
+                m_Arguments.push_back(arg);
             }
-            m_Arguments.push_back(arg);
         }
-
     }
 
     void FunctionDeclarationNode::fillSymbolTable(RCP<SymbolTable> table) {
-        if (!m_SymbolTable){
-            m_SymbolTable = table;
-        }
+        m_SymbolTable = table;
         if (!table->hasSymbol(m_Value)){
             Symbol symbol;
             symbol.name = m_Value;
@@ -42,17 +40,25 @@ namespace Srsl{
             symbol.symbolType = ST_FUNCTION;
             if (m_HasScope){
                 symbol.structTable = createRCP<SymbolTable>(m_Value);
-                table->addChild(symbol.structTable);
+                m_SymbolTable->addChild(symbol.structTable);
                 for (const auto& child: m_Children){
                     child->fillSymbolTable(symbol.structTable);
                 }
             }
-            table->addSymbol(symbol);
+            m_SymbolTable->addSymbol(symbol);
         }
         else{
             auto& symbol = table->getSymbol(m_Value);
             if (symbol.symbolType != ST_FUNCTION or symbol.type != m_Type){
                 SRSL_THROW_EXCEPTION("Redefinition of symbol %s", m_Value.c_str());
+            }
+            // this functions has been forward declared, now we need to fill the symbol table with the actual function
+            if (m_HasScope){
+                symbol.structTable = createRCP<SymbolTable>(m_Value);
+                m_SymbolTable->addChild(symbol.structTable);
+                for (const auto& child: m_Children){
+                    child->fillSymbolTable(symbol.structTable);
+                }
             }
 
         }
@@ -73,6 +79,7 @@ namespace Srsl{
             default:
                 SRSL_THROW_EXCEPTION("Unsupported language type! (%d)", exporter->getLanguageType());
         }
+        exporter->addLine("\n");
     }
 
     void FunctionDeclarationNode::generateGlsl(UP<Exporter>& exporter, const std::string &indent) const {
@@ -86,6 +93,9 @@ namespace Srsl{
         exporter->addLine(")");
         if (m_Scope != nullptr){
             m_Scope->generateCode(exporter, indent);
+        }
+        else{
+            exporter->addLine(";\n");
         }
     }
 
@@ -102,7 +112,7 @@ namespace Srsl{
             if (hlslExporter->m_OutputSymbolTable == nullptr){
                 SRSL_THROW_EXCEPTION("exporter::exportHlsl() - Output symbol table (%p) is not set", hlslExporter->m_OutputSymbolTable.get());
             }
-            exporter->addLine(hlslExporter->m_OutputSymbolTable->getName() + " " + m_Value + " (");
+            exporter->addLine(hlslExporter->m_OutputSymbolTable->getName() + " " + m_Value + "(");
             exporter->addLine(hlslExporter->m_InputSymbolTable->getName() + " " + SRSL_CONCAT_LIT + "input" + ") {\n");
             exporter->addLine("\t" + hlslExporter->m_OutputSymbolTable->getName() + " " + SRSL_CONCAT_LIT + "output;\n");
             m_Scope->generateCode(exporter, indent + "\t");
@@ -290,7 +300,7 @@ namespace Srsl{
                 break;
             }
             default:
-                throw std::runtime_error("FunctionCallNode::handleTextureFunction() - Language not supported");
+                SRSL_THROW_EXCEPTION("Unknown language type %d", exporter->getLanguageType());
         }
 
 

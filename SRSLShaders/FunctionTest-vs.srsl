@@ -26,6 +26,22 @@ float4 move(float4 pos, uint toMove){
     return pos;
 }
 
+struct SomeData{
+    float4 position;
+    bool isMoving;
+    uint id;
+};
+
+SomeData createExampleData();
+
+SomeData createExampleData(){
+    SomeData data;
+    data.position = float4(0, 0, 0, 1);
+    data.isMoving = 1;
+    data.id = 1;
+    return data;
+}
+
 void main(){
     float4 extPos = float4(vsIn.position, 1.0);
     vsOut.position = move(extPos, 1);

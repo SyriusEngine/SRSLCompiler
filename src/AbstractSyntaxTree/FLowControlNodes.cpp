@@ -164,9 +164,13 @@ namespace Srsl{
     ReturnNode::~ReturnNode() = default;
 
     void ReturnNode::generateCode(UP<Exporter>& exporter, const std::string &indent) const {
-        exporter->addLine(indent + "return ");
-        m_Children[0]->generateCode(exporter, "");
-        exporter->addLine(";\n");
+        if (m_Children.empty()){
+            exporter->addLine("return");
+        }
+        else{
+            exporter->addLine("return ");
+            m_Children[0]->generateCode(exporter, "");
+        }
     }
 
 }
