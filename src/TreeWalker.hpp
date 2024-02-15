@@ -19,6 +19,7 @@
 #include "AbstractSyntaxTree/InterfaceNode.hpp"
 #include "AbstractSyntaxTree/TextureNode.hpp"
 #include "AbstractSyntaxTree/FunctionNode.hpp"
+#include "AbstractSyntaxTree/TestCaseNode.hpp"
 
 namespace Srsl{
 

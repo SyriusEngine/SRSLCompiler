@@ -15,6 +15,7 @@ namespace Srsl{
         ST_TEXTURE          = 0x06,
         ST_SAMPLER          = 0x07,
         ST_VECTOR_SWIZZLE   = 0x08,
+        ST_TEST_CASE        = 0x09,
     } SYMBOL_TYPE;
 
     class SymbolTable;

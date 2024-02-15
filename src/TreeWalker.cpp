@@ -410,9 +410,19 @@ namespace Srsl{
     void TreeWalker::enterTestCase(SrslGrammarParser::TestCaseContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
+        auto compare = ctx->OPERATION()->getText();
+        if (compare == "==" or compare == "!="
+            or compare == "<" or compare == ">"
+            or compare == "<=" or compare == ">="){
+            auto newCurrent = m_CurrentNode->addChild<TestCaseNode>(ctx->VAR_NAME()->getText(), compare, ctx->start->getLine());
+            m_CurrentNode = newCurrent;
+        }
+        else{
+            SRSL_THROW_EXCEPTION("Invalid comparison operator (%s)", compare.c_str())
+        }
     }
 
     void TreeWalker::exitTestCase(SrslGrammarParser::TestCaseContext *ctx) {
-
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 }

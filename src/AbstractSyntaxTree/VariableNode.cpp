@@ -3,7 +3,7 @@
 namespace Srsl{
 
     NewVariableNode::NewVariableNode(const std::string &name, const std::string &semanticName, const TypeDesc &typeDesc, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_VARIABLE, lineNumber),
+    AbstractNode(name, AST_NODE_VARIABLE_DECLARATION, lineNumber),
     m_SemanticName(semanticName),
     m_Type(typeDesc) {
 
