@@ -45,7 +45,7 @@ namespace Srsl{
 
     struct SRSL_API ShaderLimits{
         uint32_t maxVertexAttributes = 16;
-        uint32_t maxConstantBufferSize = 16 * 1024;
+        uint32_t maxConstantBufferSize = 16384;
         uint32_t maxTextureUnits = 16;
         uint32_t maxSamplers = 16;
         uint32_t maxConstantBufferSlots = 32;
@@ -72,7 +72,6 @@ namespace Srsl{
         bool exportTestCases = false;
         std::string entryPoint = "main";
         SRSL_TARGET_LANGUAGE_TYPE target = SRSL_TARGET_NONE;
-        ShaderLimits limits = {};
         VersionDesc version = {};
     };
 
@@ -86,14 +85,14 @@ namespace Srsl{
 
         virtual void exportSymbolTableHtml(const std::string& outputFile) = 0;
 
-        virtual void exportShader(ExportDesc& desc) = 0;
-
         [[nodiscard]] virtual SRSL_SHADER_TYPE getShaderType() const = 0;
     };
 
     class SRSL_API ShaderProgram{
     public:
         ShaderProgram();
+
+        explicit ShaderProgram(const ShaderLimits& limits);
 
         virtual ~ShaderProgram();
 
@@ -102,6 +101,9 @@ namespace Srsl{
         virtual void link() = 0;
 
         virtual void exportShader(ExportDesc& desc) = 0;
+
+    protected:
+        ShaderLimits m_Limits;
 
     };
 

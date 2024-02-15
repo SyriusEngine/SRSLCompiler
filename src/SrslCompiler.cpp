@@ -5,21 +5,22 @@
 
 namespace Srsl{
 
-    ShaderModule::ShaderModule() {
+    ShaderModule::ShaderModule() = default;
+
+    ShaderModule::~ShaderModule() = default;
+
+    ShaderProgram::ShaderProgram():
+    m_Limits(){
 
     }
 
-    ShaderModule::~ShaderModule() {
+    ShaderProgram::ShaderProgram(const ShaderLimits &limits):
+    m_Limits(limits){
 
     }
 
-    ShaderProgram::ShaderProgram() {
+    ShaderProgram::~ShaderProgram() = default;
 
-    }
-
-    ShaderProgram::~ShaderProgram() {
-
-    }
 
     std::shared_ptr<ShaderModule> createShaderModule(const ImportDesc& desc){
         return std::make_shared<ShaderModuleImpl>(desc);

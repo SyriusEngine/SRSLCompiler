@@ -30,9 +30,9 @@ namespace Srsl{
 
     class Exporter{
     public:
-        Exporter(const ExportDesc& desc, SRSL_SHADER_TYPE type);
+        Exporter(const ExportDesc& desc, SRSL_SHADER_TYPE type, const ShaderLimits& limits);
 
-        virtual ~Exporter() = default;
+        virtual ~Exporter();
 
         void addLine(const std::string& line);
 
@@ -58,6 +58,10 @@ namespace Srsl{
             return m_Desc;
         }
 
+        inline const ShaderLimits& getLimits() const{
+            return m_Limits;
+        }
+
         void getShaderCode(std::string& buffer) const;
 
         virtual std::string getVariableType(const TypeDesc& type) const = 0;
@@ -65,6 +69,7 @@ namespace Srsl{
     private:
         const SRSL_SHADER_TYPE m_ShaderType;
         const ExportDesc m_Desc;
+        const ShaderLimits m_Limits;
         const SRSL_TARGET_LANGUAGE_TYPE m_Target;
 
         std::vector<std::string>* m_CurrentBuffer;

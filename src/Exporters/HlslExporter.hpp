@@ -11,7 +11,7 @@ namespace Srsl{
         RCP<SymbolTable> m_OutputSymbolTable;
 
     public:
-        HlslExporter(const ExportDesc& desc, SRSL_SHADER_TYPE type);
+        HlslExporter(const ExportDesc& desc, SRSL_SHADER_TYPE type, const ShaderLimits& limits);
 
         ~HlslExporter() override;
 

@@ -9,6 +9,8 @@ namespace Srsl{
     public:
         ShaderProgramImpl();
 
+        explicit ShaderProgramImpl(const ShaderLimits& limits);
+
         ~ShaderProgramImpl() override;
 
         void addShaderModule(std::shared_ptr<ShaderModule> shaderModule) override;

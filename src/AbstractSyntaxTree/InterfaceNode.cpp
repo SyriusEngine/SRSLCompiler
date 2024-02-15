@@ -65,12 +65,12 @@ namespace Srsl{
         if (m_InterfaceType == InterfaceType::Input){
             glslExporter->setAppendBuffer(PROGRAM_SECTION_INPUT);
             interfaceType = "in";
-            location = (glslExporter->getShaderType() == SRSL_VERTEX_SHADER? 0 : glslExporter->getExportDesc().limits.maxVertexAttributes);
+            location = (glslExporter->getShaderType() == SRSL_VERTEX_SHADER? 0 : glslExporter->getLimits().maxVertexAttributes);
         }
         else{
             glslExporter->setAppendBuffer(PROGRAM_SECTION_OUTPUT);
             interfaceType = "out";
-            location = (glslExporter->getShaderType() == SRSL_VERTEX_SHADER ? glslExporter->getExportDesc().limits.maxVertexAttributes : 0);
+            location = (glslExporter->getShaderType() == SRSL_VERTEX_SHADER ? glslExporter->getLimits().maxVertexAttributes : 0);
         }
         /* The order in which locations are assigned to the members of an interface block is the same as the order in which they are declared in the block.
          * An unordered_map does not guarantee the order of its elements, so we simply loop over the children which are

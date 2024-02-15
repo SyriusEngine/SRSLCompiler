@@ -19,9 +19,11 @@ namespace Srsl{
 
         void exportSymbolTableHtml(const std::string& outputFile) override;
 
-        void exportShader(ExportDesc& desc) override;
+        void exportShader(ExportDesc& desc, const ShaderLimits& limits);
 
         [[nodiscard]] SRSL_SHADER_TYPE getShaderType() const override;
+
+        void validate(Validator& validator);
 
     private:
         SRSL_SHADER_TYPE m_ShaderType;

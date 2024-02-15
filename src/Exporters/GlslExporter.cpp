@@ -2,8 +2,8 @@
 
 namespace Srsl{
 
-    GlslExporter::GlslExporter(const ExportDesc &desc, SRSL_SHADER_TYPE type) :
-    Exporter(desc, type) {
+    GlslExporter::GlslExporter(const ExportDesc &desc, SRSL_SHADER_TYPE type, const ShaderLimits& limits) :
+    Exporter(desc, type, limits){
         setAppendBuffer(PROGRAM_SECTION_TOP);
         addLine("#version " + std::to_string(desc.version.majorVersion) + std::to_string(desc.version.minorVersion) + "0\n\n");
         setAppendBuffer(PROGRAM_SECTION_DEFAULT);

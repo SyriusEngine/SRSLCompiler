@@ -2,13 +2,17 @@
 
 namespace Srsl{
 
-    ShaderProgramImpl::ShaderProgramImpl() {
+    ShaderProgramImpl::ShaderProgramImpl():
+    ShaderProgram(){
 
     }
 
-    ShaderProgramImpl::~ShaderProgramImpl() {
+    ShaderProgramImpl::ShaderProgramImpl(const ShaderLimits &limits) :
+    ShaderProgram(limits) {
 
     }
+
+    ShaderProgramImpl::~ShaderProgramImpl() = default;
 
     void ShaderProgramImpl::addShaderModule(std::shared_ptr<ShaderModule> shaderModule) {
         switch (shaderModule->getShaderType()) {
@@ -25,20 +29,23 @@ namespace Srsl{
 
     void ShaderProgramImpl::link() {
         if (m_VertexShader != nullptr and m_FragmentShader != nullptr) {
+            Validator validator(m_Limits);
+            m_VertexShader->validate(validator);
+            m_FragmentShader->validate(validator);
 
         }
         else {
-            SRSL_THROW_EXCEPTION("Vertex and fragment shaders are not set.");
+            SRSL_THROW_EXCEPTION("Vertex shader (%p) and fragment shader (%p) are not set.", m_VertexShader.get(), m_FragmentShader.get());
         }
 
     }
 
     void ShaderProgramImpl::exportShader(ExportDesc &desc) {
         if (m_VertexShader != nullptr){
-            m_VertexShader->exportShader(desc);
+            m_VertexShader->exportShader(desc, m_Limits);
         }
         if (m_FragmentShader != nullptr){
-            m_FragmentShader->exportShader(desc);
+            m_FragmentShader->exportShader(desc, m_Limits);
         }
     }
 }

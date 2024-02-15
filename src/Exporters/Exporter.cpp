@@ -2,8 +2,9 @@
 
 namespace Srsl{
 
-    Exporter::Exporter(const ExportDesc &desc, SRSL_SHADER_TYPE type):
+    Exporter::Exporter(const ExportDesc &desc, SRSL_SHADER_TYPE type, const ShaderLimits& limits):
     m_ShaderType(type),
+    m_Limits(limits),
     m_Desc(desc),
     m_Target(desc.target),
     m_CurrentBuffer(nullptr),
@@ -12,6 +13,8 @@ namespace Srsl{
         m_CurrentBuffer = &m_Sections[PROGRAM_SECTION_DEFAULT];
 
     }
+
+    Exporter::~Exporter() = default;
 
     void Exporter::addLine(const std::string &line) {
         m_CurrentBuffer->push_back(line);

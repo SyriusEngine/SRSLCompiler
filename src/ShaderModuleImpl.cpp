@@ -4,7 +4,8 @@ namespace Srsl{
 
     ShaderModuleImpl::ShaderModuleImpl(const ImportDesc &desc):
     ShaderModule(),
-    m_SymbolTable(createRCP<SymbolTable>("GLOBAL")){
+    m_SymbolTable(createRCP<SymbolTable>("GLOBAL")),
+    m_ShaderType(SRSL_SHADER_NONE){
         UP<antlr4::ANTLRInputStream> input = nullptr;
         if (desc.loadType == SRSL_LOAD_FROM_FILE){
             std::ifstream file(desc.source);
@@ -31,16 +32,12 @@ namespace Srsl{
 
         m_Program->construct(); // fill in missing information
         m_Program->fillSymbolTable(m_SymbolTable);
-        Validator validator;
-        m_Program->validate(validator);
         m_Program->optimize();
 
-
+        SRSL_POSTCONDITION(m_ShaderType != SRSL_SHADER_NONE, "Shader type is (%d)", m_ShaderType);
     }
 
-    ShaderModuleImpl::~ShaderModuleImpl() {
-
-    }
+    ShaderModuleImpl::~ShaderModuleImpl() = default;
 
     void ShaderModuleImpl::exportAstDot(const std::string &outputFile) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
@@ -68,17 +65,17 @@ namespace Srsl{
         file << "</html>" << std::endl;
     }
 
-    void ShaderModuleImpl::exportShader(ExportDesc &desc) {
+    void ShaderModuleImpl::exportShader(ExportDesc &desc, const ShaderLimits& limits) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
         // determine the target language
         UP<Exporter> exporter = nullptr;
         switch (desc.target) {
             case SRSL_TARGET_GLSL:
-                exporter = createUP<GlslExporter>(desc, m_ShaderType);
+                exporter = createUP<GlslExporter>(desc, m_ShaderType, limits);
                 break;
             case SRSL_TARGET_HLSL:
-                exporter = createUP<HlslExporter>(desc, m_ShaderType);
+                exporter = createUP<HlslExporter>(desc, m_ShaderType, limits);
                 break;
             case SRSL_TARGET_CPP:
 //                exporter = createUP<CppExporter>(desc, m_ShaderType);
@@ -114,5 +111,11 @@ namespace Srsl{
 
     SRSL_SHADER_TYPE ShaderModuleImpl::getShaderType() const {
         return m_ShaderType;
+    }
+
+    void ShaderModuleImpl::validate(Validator& validator) {
+        SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
+
+        m_Program->validate(validator);
     }
 }

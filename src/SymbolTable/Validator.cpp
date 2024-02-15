@@ -2,11 +2,13 @@
 
 namespace Srsl{
 
-    Validator::Validator() {
+    Validator::Validator(const ShaderLimits& limits):
+    m_Limits(limits){
 
     }
 
     Validator::~Validator() {
 
     }
+
 }
