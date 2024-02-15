@@ -7,20 +7,19 @@ namespace Srsl{
         intrinsicType.type = VT_INTRINSIC;
 
         table->addSymbol({"abs", "", intrinsicType, ST_FUNCTION, nullptr, 0});
-        table->addSymbol({"all", "", intrinsicType, ST_FUNCTION, nullptr, 0});
-        table->addSymbol({"any", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"sqrt", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"radians", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"degrees", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"pow", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"noise", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"log", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"log2", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"exp", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"exp2", "", intrinsicType, ST_FUNCTION, nullptr, 0});
-        table->addSymbol({"log2", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"floor", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"ceil", "", intrinsicType, ST_FUNCTION, nullptr, 0});
 
+        // Trigonometric functions
         table->addSymbol({"sin", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"cos", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"tan", "", intrinsicType, ST_FUNCTION, nullptr, 0});
@@ -35,6 +34,18 @@ namespace Srsl{
         table->addSymbol({"atanh", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"atan2", "", intrinsicType, ST_FUNCTION, nullptr, 0});
 
+        // vector comparisons
+        table->addSymbol({"lessThan", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"lessThanEqual", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"greaterThan", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"greaterThanEqual", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"equal", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"notEqual", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"any", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"all", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"not", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+
+        // Geometric functions
         table->addSymbol({"normalize", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"length", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"distance", "", intrinsicType, ST_FUNCTION, nullptr, 0});
@@ -51,12 +62,14 @@ namespace Srsl{
         table->addSymbol({"smoothstep", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"dfdx", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"dfdy", "", intrinsicType, ST_FUNCTION, nullptr, 0});
-
-        table->addSymbol({"transpose", "", intrinsicType, ST_FUNCTION, nullptr, 0});
-        table->addSymbol({"inverse", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"inversesqrt", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"determinant", "", intrinsicType, ST_FUNCTION, nullptr, 0});
 
+        // Matrix functions
+        table->addSymbol({"transpose", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"inverse", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+
+        // Texture functions
         table->addSymbol({"sampleTexture", "", intrinsicType, ST_FUNCTION, nullptr, 0});
     }
 

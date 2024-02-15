@@ -6,8 +6,6 @@ namespace Srsl{
     FunctionIntrinsics::FunctionIntrinsics():
     m_IntrinsicMap(){
         m_IntrinsicMap.insert({"abs", {"abs", "abs", "abs", "glm::abs"}});
-        m_IntrinsicMap.insert({"all", {"all", "all", "all", "glm::all"}});
-        m_IntrinsicMap.insert({"any", {"any", "any", "any", "glm::any"}});
         m_IntrinsicMap.insert({"sqrt", {"sqrt", "sqrt", "sqrt", "glm::sqrt"}});
         m_IntrinsicMap.insert({"radians", {"radians", "radians", "radians", "glm::radians"}});
         m_IntrinsicMap.insert({"degrees", {"degrees", "degrees", "degrees", "glm::degrees"}});
@@ -26,6 +24,23 @@ namespace Srsl{
         m_IntrinsicMap.insert({"asin", {"asin", "asin", "asin", "glm::asin"}});
         m_IntrinsicMap.insert({"acos", {"acos", "acos", "acos", "glm::acos"}});
         m_IntrinsicMap.insert({"atan", {"atan", "atan", "atan", "glm::atan"}});
+        m_IntrinsicMap.insert({"sinh", {"sinh", "sinh", "sinh", "glm::sinh"}});
+        m_IntrinsicMap.insert({"cosh", {"cosh", "cosh", "cosh", "glm::cosh"}});
+        m_IntrinsicMap.insert({"tanh", {"tanh", "tanh", "tanh", "glm::tanh"}});
+        m_IntrinsicMap.insert({"asinh", {"asinh", "asinh", "asinh", "glm::asinh"}});
+        m_IntrinsicMap.insert({"acosh", {"acosh", "acosh", "acosh", "glm::acosh"}});
+        m_IntrinsicMap.insert({"atanh", {"atanh", "atanh", "atanh", "glm::atanh"}});
+        m_IntrinsicMap.insert({"atan2", {"atan2", "atan2", "atan2", "glm::atan2"}});
+
+        m_IntrinsicMap.insert({"lessThan", {"lessThan", "lessThan", "lessThan", "glm::lessThan"}});
+        m_IntrinsicMap.insert({"lessThanEqual", {"lessThanEqual", "lessThanEqual", "lessThanEqual", "glm::lessThanEqual"}});
+        m_IntrinsicMap.insert({"greaterThan", {"greaterThan", "greaterThan", "greaterThan", "glm::greaterThan"}});
+        m_IntrinsicMap.insert({"greaterThanEqual", {"greaterThanEqual", "greaterThanEqual", "greaterThanEqual", "glm::greaterThanEqual"}});
+        m_IntrinsicMap.insert({"equal", {"equal", "equal", "equal", "glm::equal"}});
+        m_IntrinsicMap.insert({"notEqual", {"notEqual", "notEqual", "notEqual", "glm::notEqual"}});
+        m_IntrinsicMap.insert({"any", {"any", "any", "any", "glm::any"}});
+        m_IntrinsicMap.insert({"all", {"all", "all", "all", "glm::all"}});
+        m_IntrinsicMap.insert({"not", {"not", "not", "not", "glm::not"}});
 
         m_IntrinsicMap.insert({"normalize", {"normalize", "normalize", "normalize", "glm::normalize"}});
         m_IntrinsicMap.insert({"length", {"length", "length", "length", "glm::length"}});
@@ -42,13 +57,13 @@ namespace Srsl{
         m_IntrinsicMap.insert({"smoothstep", {"smoothstep", "smoothstep", "smoothstep", "glm::smoothstep"}});
         m_IntrinsicMap.insert({"dfdx", {"dfdx", "dfdx", "ddx", "GLM_NOT_IMPLEMENTED"}});
         m_IntrinsicMap.insert({"dfdy", {"dfdy", "dfdy", "ddy", "GLM_NOT_IMPLEMENTED"}});
-
-        m_IntrinsicMap.insert({"transpose", {"transpose", "transpose", "transpose", "glm::transpose"}});
-        m_IntrinsicMap.insert({"inverse", {"inverse", "inverse", "inverse", "glm::inverse"}});
         m_IntrinsicMap.insert({"inversesqrt", {"inversesqrt", "inversesqrt", "inversesqrt", "glm::inversesqrt"}});
         m_IntrinsicMap.insert({"determinant", {"determinant", "determinant", "determinant", "GLM_NOT_IMPLEMENTED"}});
 
-        m_IntrinsicMap.insert({"sampleTexture", {"sampleTexture", "texture", "__NONE__", "__NONE__"}}); // texture sampling is completely different in hlsl
+        m_IntrinsicMap.insert({"transpose", {"transpose", "transpose", "transpose", "glm::transpose"}});
+        m_IntrinsicMap.insert({"inverse", {"inverse", "inverse", "inverse", "glm::inverse"}});
+
+        m_IntrinsicMap.insert({"sampleTexture", {"sampleTexture", "texture", "__NONE__", "GLM_NOT_IMPLEMENTED"}}); // texture sampling is completely different in hlsl
     }
 
     FunctionIntrinsics::~FunctionIntrinsics() {
