@@ -2,7 +2,7 @@
 
 #include "AbstractNode.hpp"
 
-#include "Nodes.hpp"
+#include "ScopeNode.hpp"
 #include "VariableNode.hpp"
 
 namespace Srsl{

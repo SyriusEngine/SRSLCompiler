@@ -40,7 +40,7 @@ set(AST_SRC
     src/AbstractSyntaxTree/InterfaceNode.cpp
     src/AbstractSyntaxTree/TextureNode.cpp
     src/AbstractSyntaxTree/FunctionNode.cpp
-    src/AbstractSyntaxTree/TestCaseNode.cpp)
+    src/AbstractSyntaxTree/TestCaseNode.cpp src/AbstractSyntaxTree/ScopeNode.cpp src/AbstractSyntaxTree/ScopeNode.hpp src/AbstractSyntaxTree/ExpressionNode.cpp src/AbstractSyntaxTree/ExpressionNode.hpp)
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp

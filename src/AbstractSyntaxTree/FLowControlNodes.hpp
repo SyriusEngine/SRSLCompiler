@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AbstractNode.hpp"
-#include "Nodes.hpp"
+#include "ExpressionNode.hpp"
 
 namespace Srsl{
 

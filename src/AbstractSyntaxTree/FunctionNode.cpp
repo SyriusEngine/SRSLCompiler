@@ -21,19 +21,20 @@ namespace Srsl{
             }
             m_Scope->construct();
         }
-
-        for (uint32 i = 0; i < m_Children.size() - 1; i++){
-            switch (m_Children[i]->getType()) {
-                case AST_NODE_VARIABLE_DECLARATION: {
-                    m_Arguments.push_back(m_Children[i].get());
-                    break;
-                }
-                case AST_NODE_TEST_CASE: {
-                    m_TestCases.push_back(m_Children[i].get());
-                    break;
-                }
-                default: {
-                    SRSL_THROW_EXCEPTION("Invalid node type for function declaration %s", m_Children[i]->getType());
+        if (!m_Children.empty()){
+            for (uint32 i = 0; i < m_Children.size() - 1; i++){
+                switch (m_Children[i]->getType()) {
+                    case AST_NODE_VARIABLE_DECLARATION: {
+                        m_Arguments.push_back(m_Children[i].get());
+                        break;
+                    }
+                    case AST_NODE_TEST_CASE: {
+                        m_TestCases.push_back(m_Children[i].get());
+                        break;
+                    }
+                    default: {
+                        SRSL_THROW_EXCEPTION("Invalid node type for function declaration %s", m_Children[i]->getType());
+                    }
                 }
             }
         }
