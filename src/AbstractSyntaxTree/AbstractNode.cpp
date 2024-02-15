@@ -1,4 +1,5 @@
 #include "AbstractNode.hpp"
+#include "FunctionNode.hpp"
 
 namespace Srsl{
 
@@ -8,6 +9,12 @@ namespace Srsl{
     m_LineNumber(lineNumber),
     m_Parent(nullptr){
 
+    }
+
+    AbstractNode* AbstractNode::addExistingChild(UP<AbstractNode>&& child){
+        child->m_Parent = this;
+        m_Children.push_back(std::move(child));
+        return m_Children.back().get();
     }
 
     AbstractNode *AbstractNode::getParent() const {
@@ -57,5 +64,24 @@ namespace Srsl{
         for (const auto& child: m_Children){
             child->optimize();
         }
+    }
+
+    void AbstractNode::createTestCode(std::vector<TestCaseNode*>& testCase) {
+        for (const auto& child: m_Children){
+            child->createTestCode(testCase);
+        }
+    }
+
+    FunctionDeclarationNode* AbstractNode::getMainFunction() {
+        if (m_Type == AST_NODE_FUNCTION_DECLARATION and m_Value == "main") {
+            return dynamic_cast<FunctionDeclarationNode *>(this);
+        }
+        for (const auto& child: m_Children){
+            auto result = child->getMainFunction();
+            if (result != nullptr) {
+                return result;
+            }
+        }
+        return nullptr;
     }
 }

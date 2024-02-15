@@ -128,6 +128,17 @@ namespace Srsl{
     }
 
     void ShaderModuleImpl::generateTestCode() {
+        // convert all test case nodes to evaluable code
+        std::vector<TestCaseNode*> testCases;
+        m_Program->createTestCode(testCases);
 
+        auto mainFunction = m_Program->getMainFunction();
+        if (mainFunction == nullptr){
+            SRSL_THROW_EXCEPTION("Main function (%p) is null", mainFunction);
+        }
+        auto mainScope = mainFunction->getScope();
+
+        // the last child added to the scopeNode will be a TestEvaluationNode
+        // this node will generate a SSBO object that will be used to store the test results
     }
 }

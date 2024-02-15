@@ -38,6 +38,7 @@ namespace Srsl{
                 }
             }
         }
+        AbstractNode::construct();
     }
 
     void FunctionDeclarationNode::fillSymbolTable(RCP<SymbolTable> table) {
@@ -143,6 +144,10 @@ namespace Srsl{
             }
         }
 
+    }
+
+    ScopeNode *FunctionDeclarationNode::getScope() const {
+        return m_Scope;
     }
 
 //    void FunctionDeclarationNode::exportCpp(Cppexporter *cppexporter, const std::string &indent) const {

@@ -13,6 +13,9 @@
 
 namespace Srsl{
 
+    class TestCaseNode;
+    class FunctionDeclarationNode;
+
     class AbstractNode{
     public:
         AbstractNode() = delete;
@@ -25,6 +28,8 @@ namespace Srsl{
             retVal->m_Parent = this;
             return retVal.get();
         }
+
+        AbstractNode* addExistingChild(UP<AbstractNode>&& child);
 
         [[nodiscard]] AbstractNode* getParent() const;
 
@@ -68,6 +73,10 @@ namespace Srsl{
          * @param exporter the exporter to use.
          */
         virtual void generateCode(UP<Exporter>& exporter, const std::string& indent) const = 0;
+
+        virtual void createTestCode(std::vector<TestCaseNode*>& testCase);
+
+        FunctionDeclarationNode* getMainFunction();
 
 
     protected:

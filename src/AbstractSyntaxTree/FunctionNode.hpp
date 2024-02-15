@@ -26,6 +26,8 @@ namespace Srsl{
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
+        ScopeNode* getScope() const;
+
     private:
 
         void generateGlsl(UP<Exporter>& exporter, const std::string& indent) const;
