@@ -76,11 +76,11 @@ A shader module confines a single shader stage, such a vertex shader module or a
 module is created by calling the 'createShaderModule' function. This function takes a string as input that contains
 the SRSL code.
 ```cpp
-auto vsm = Srsl::createShaderModule(vertex);
+auto vsm = Srsl::createShaderModule();
 vsm->exportAstDot("VSM.dot");
 vsm->exportSymbolTableHtml("VSM.html");
 
-auto fsm = Srsl::createShaderModule(fragment);
+auto fsm = Srsl::createShaderModule();
 fsm->exportAstDot("FSM.dot");
 fsm->exportSymbolTableHtml("FSM.html");
 ```
@@ -94,7 +94,8 @@ A shader program is used to describe all shader stages used in a single pipeline
 must contain a vertex shader module and a fragment shader module. The shader program is created by calling the
 'createShaderProgram' function. This function takes a vertex shader module and a fragment shader module as input.
 ```cpp
-auto program = Srsl::createShaderProgram();
+ShaderLimits limits;
+auto program = Srsl::createShaderProgram(limits); // limits is optional
 program->addShaderModule(vsm);
 program->addShaderModule(fsm);
 program->link();
@@ -110,11 +111,21 @@ function which is a member function of the shader program. These functions take 
 the output filename and some other information as well. In case of GLSL, the struct contains the version of GLSL that
 should be generated. In case of HLSL, the struct contains the shader model that should be generated.
 ```cpp
-GlslDescriptor glslDesc;
-glslDesc.outputFile = output;
+ExportDesc exportGlsl;
+exportGlsl.vertexShaderOut = "./Dev-vs.glsl";
+exportGlsl.fragmentShaderOut = "./Dev-fs.glsl";
+exportGlsl.writeType = SRSL_WRITE_TO_FILE;
+exportGlsl.target = SRSL_TARGET_GLSL;
+exportGlsl.version.majorVersion = 4;
+exportGlsl.version.minorVersion = 6;
 
-HlslDescriptor hlslDesc;
-hlslDesc.outputFile = output;
+ExportDesc exportHlsl;
+exportHlsl.vertexShaderOut = "./Dev-vs.hlsl";
+exportHlsl.fragmentShaderOut = "./Dev-fs.hlsl";
+exportHlsl.writeType = SRSL_WRITE_TO_FILE;
+exportHlsl.target = SRSL_TARGET_HLSL;
+exportHlsl.version.majorVersion = 5;
+exportHlsl.version.minorVersion = 0;
 
 program->exportGlsl(glslDesc);
 program->exportHlsl(hlslDesc);
