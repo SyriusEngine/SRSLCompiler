@@ -60,7 +60,7 @@ namespace Srsl{
         explicit TypeDesc(const std::string& typeStr, bool isConst = false, const std::vector<uint32>& arraySizes = {});
 
         /**
-         * @brief returns the size of the type in bytes
+         * @brief returns the size of the type in bytes. It takes into account the number of rows, columns and array sizes
          * @return uint32 the size of the type in bytes
          */
         [[nodiscard]] uint32 getSize() const;

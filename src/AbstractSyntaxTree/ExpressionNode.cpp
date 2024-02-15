@@ -27,6 +27,13 @@ namespace Srsl{
         AbstractNode::construct();
     }
 
+    void ExpressionNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
+        SRSL_PRECONDITION(m_Children.size() == 1 || m_Children.size() == 2, "Invalid number of children, expected 1 or 2 got %s", m_Children.size());
+
+        m_SymbolTable = symbolTable;
+        AbstractNode::fillSymbolTable(symbolTable);
+    }
+
     void ExpressionNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
         bool addParentheses = m_Parent->getType() == AST_NODE_EXPRESSION;
         if (addParentheses){
