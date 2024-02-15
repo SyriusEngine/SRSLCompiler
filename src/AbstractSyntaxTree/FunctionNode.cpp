@@ -25,11 +25,7 @@ namespace Srsl{
         for (uint32 i = 0; i < m_Children.size() - 1; i++){
             switch (m_Children[i]->getType()) {
                 case AST_NODE_VARIABLE_DECLARATION: {
-                    auto arg = dynamic_cast<NewVariableNode*>(m_Children[i].get());
-                    if (arg == nullptr){
-                        SRSL_THROW_EXCEPTION("FunctionDeclarationNode::construct() - NewVariableNode not found");
-                    }
-                    m_Arguments.push_back(arg);
+                    m_Arguments.push_back(m_Children[i].get());
                     break;
                 }
                 case AST_NODE_TEST_CASE: {

@@ -31,6 +31,10 @@ namespace Srsl{
         void validate(Validator& validator);
 
     private:
+
+        void generateTestCode();
+
+    private:
         SRSL_SHADER_TYPE m_ShaderType;
         UP<AbstractNode> m_Program;
         RCP<SymbolTable> m_SymbolTable;

@@ -72,6 +72,10 @@ namespace Srsl{
     void ShaderModuleImpl::exportShader(ExportDesc &desc, const ShaderLimits& limits) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
+        if (desc.exportTestCases){
+            generateTestCode();
+        }
+
         // determine the target language
         UP<Exporter> exporter = nullptr;
         switch (desc.target) {
@@ -121,5 +125,9 @@ namespace Srsl{
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
         m_Program->validate(validator);
+    }
+
+    void ShaderModuleImpl::generateTestCode() {
+
     }
 }

@@ -46,7 +46,7 @@ namespace Srsl{
         TypeDesc m_Type;
 
         ScopeNode* m_Scope = nullptr;
-        std::vector<NewVariableNode*> m_Arguments;
+        std::vector<AbstractNode*> m_Arguments;
         std::vector<AbstractNode*> m_TestCases;
     };
 
