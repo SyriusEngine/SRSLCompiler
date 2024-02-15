@@ -12,6 +12,8 @@ namespace Srsl{
 
         void fillSymbolTable(RCP<SymbolTable> symbolTable) override;
 
+        void validate(Validator& ctx) override;
+
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:

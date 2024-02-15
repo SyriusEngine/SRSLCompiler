@@ -5,6 +5,7 @@
 
 #include <SrslCompiler/SrslCompiler.hpp>
 #include <iomanip>
+#include <fstream>
 
 struct TestData{
     std::string vertexShaderPath;
@@ -30,7 +31,6 @@ bool testShader(const TestData& data){
         fragmentShaderModule->exportAstDot("./Dev-fs.dot");
         fragmentShaderModule->exportSymbolTableHtml("./Dev-fs.html");
 
-
         ExportDesc exportGlsl;
         exportGlsl.vertexShaderOut = "./Dev-vs.glsl";
         exportGlsl.fragmentShaderOut = "./Dev-fs.glsl";
@@ -47,7 +47,15 @@ bool testShader(const TestData& data){
         exportHlsl.version.majorVersion = 5;
         exportHlsl.version.minorVersion = 0;
 
-        auto shaderProgram = createShaderProgram();
+        ShaderLimits limits;
+        limits.maxVertexAttributes = 16;
+        limits.maxConstantBufferSize = 16384;
+        limits.maxTextureUnits = 16;
+        limits.maxSamplers = 16;
+        limits.maxConstantBufferSlots = 32;
+
+
+        auto shaderProgram = createShaderProgram(limits);
         shaderProgram->addShaderModule(vertexShaderModule);
         shaderProgram->addShaderModule(fragmentShaderModule);
         shaderProgram->link();
@@ -67,16 +75,21 @@ int main(int argc, char** argv){
             {"Variables", {"./SRSLShaders/VariableTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
             {"Swizzle", {"./SRSLShaders/VectorSwizzleTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
             {"Flow Control", {"./SRSLShaders/FlowControlTest-vs.srsl", "./SRSLShaders/FlowControlTest-fs.srsl", true}},
+            {"Constant Buffer", {"./SRSLShaders/ConstantBufferTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
+            {"Functions", {"./SRSLShaders/FunctionTest-vs.srsl", "./SRSLShaders/FunctionTest-fs.srsl", true}},
+            {"CB Slot too large", {"./SRSLShaders/CBLargeSlot-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
+            {"CB Slot Taken", {"./SRSLShaders/CBSlotAlreadyTaken-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
     };
 
-    std::cout << "Running Tests: \n";
-    std::cout << "------------------------------------------------\n";
-    std::cout << "|        name        | Expected | Got | Result |\n";
-    std::cout << "------------------------------------------------\n";
+    std::ofstream resultFile("TestResults.txt");
+
+    resultFile << "--------------------------------------------------------\n";
+    resultFile << "|            name            | Expected | Got | Result |\n";
+    resultFile << "--------------------------------------------------------\n";
 
     try{
         for (const auto& [name, test]: testMap){
-            std::cout << "| " << std::setw(18) << name << " | " << std::setw(8) << test.expectedSuccess << " | " << std::setw(3) << testShader(test) << " | " << std::setw(6) << (test.expectedSuccess == testShader(test) ? "Pass" : "FAIL") << " |\n";
+            resultFile << "| " << std::setw(26) << name << " | " << std::setw(8) << test.expectedSuccess << " | " << std::setw(3) << testShader(test) << " | " << std::setw(6) << (test.expectedSuccess == testShader(test) ? "Pass" : "FAIL") << " |\n";
         }
     } catch (std::exception& e){
         std::cerr << "Exception: " << e.what() << std::endl;
@@ -85,7 +98,8 @@ int main(int argc, char** argv){
         std::cerr << "Unknown exception" << std::endl;
         return -1;
     }
-    std::cout << "------------------------------------------------\n";
+    resultFile << "--------------------------------------------------------\n";
+    resultFile.close();
     return 0;
 
 }

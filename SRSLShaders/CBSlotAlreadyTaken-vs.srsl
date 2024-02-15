@@ -16,21 +16,11 @@ ConstantBuffer(slot = 0) ModelData{
     float4x4 model;
 };
 
-ConstantBuffer(slot = 1) CameraData{
+ConstantBuffer(slot = 0) CameraData{
     float4x4 view;
     float4 position;
 };
 
-ConstantBuffer(slot = 2) ProjectionData{
-    float4x4 perspective;
-    float4x4 orthographic;
-};
-
 void main(){
-    float4 bigPos = {1.0f, 2.0f, 3.0f, 4.0f};
-
-    float4 result = ModelData.model * bigPos;
-    result = CameraData.view * result;
-    result = ProjectionData.perspective * result;
 
 }

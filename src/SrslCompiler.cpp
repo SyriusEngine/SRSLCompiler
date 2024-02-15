@@ -29,4 +29,8 @@ namespace Srsl{
     std::shared_ptr<ShaderProgram> createShaderProgram(){
         return std::make_shared<ShaderProgramImpl>();
     }
+
+    std::shared_ptr<ShaderProgram> createShaderProgram(const ShaderLimits& limits){
+        return std::make_shared<ShaderProgramImpl>(limits);
+    }
 }

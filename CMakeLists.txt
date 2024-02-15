@@ -81,13 +81,18 @@ add_library(SRSLCompiler SHARED ${SRSL_SRC})
 target_link_libraries(SRSLCompiler antlr4-runtime)
 
 ################################ Development Executable ################################
+
 include_directories(./include/)
 link_directories(./cmake-build-debug/)
 add_executable(SRSLCompilerDev main.cpp)
 target_link_libraries(SRSLCompilerDev -lSRSLCompiler)
 
+add_dependencies(SRSLCompilerDev SRSLCompiler)
+
 ################################ Test Executable ################################
 
 add_executable(SRSLCompilerTest TestMain.cpp)
 target_link_libraries(SRSLCompilerTest -lSRSLCompiler)
+
+add_dependencies(SRSLCompilerTest SRSLCompiler)
 

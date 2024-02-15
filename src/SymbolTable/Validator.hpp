@@ -7,17 +7,29 @@ namespace Srsl{
     struct ConstantBufferDesc{
         std::string name;
         uint32 slot = 0;
+
+        ConstantBufferDesc();
+
+        ConstantBufferDesc(const std::string& name, uint32 slot);
     };
 
     struct TextureDesc{
         std::string name;
         uint32 slot = 0;
         VariableType type = VT_TEXTURE2D;
+
+        TextureDesc();
+
+        TextureDesc(const std::string& name, uint32 slot, VariableType type);
     };
 
     struct SamplerDesc{
         std::string name;
         uint32 slot = 0;
+
+        SamplerDesc();
+
+        SamplerDesc(const std::string& name, uint32 slot);
     };
 
     class Validator{
@@ -30,7 +42,21 @@ namespace Srsl{
 
         template<typename... Args>
         void addConstantBuffer(Args&&... args){
-            m_ConstantBuffers.emplace_back(std::forward<Args>(args)...);
+            ConstantBufferDesc desc(std::forward<Args>(args)...);
+            // check slot assignment
+            if (desc.slot >= m_Limits.maxConstantBufferSlots){
+                SRSL_THROW_EXCEPTION(
+                        "Constant buffer (%s) is assigned to slot %u, which is greater than the maximum allowed slot %u.",
+                        desc.name.c_str(), desc.slot, m_Limits.maxConstantBufferSlots);
+            }
+            for (const auto& cb: m_ConstantBuffers){
+                if (cb.slot == desc.slot){
+                    SRSL_THROW_EXCEPTION(
+                            "Constant buffer (%s) is assigned to slot %u, which is already used by constant buffer (%s).",
+                            desc.name.c_str(), desc.slot, cb.name.c_str());
+                }
+            }
+            m_ConstantBuffers.emplace_back(std::move(desc));
         }
 
         template<typename... Args>

@@ -24,6 +24,12 @@ namespace Srsl{
         }
     }
 
+    void ConstantBufferNode::validate(Validator &ctx) {
+        ctx.addConstantBuffer(m_Value, m_Slot);
+
+        AbstractNode::validate(ctx);
+    }
+
     void ConstantBufferNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
         exporter->setAppendBuffer(PROGRAM_SECTION_CONSTANT_BUFFER);
         std::string extra;
@@ -57,5 +63,6 @@ namespace Srsl{
         exporter->addLine(extra);
         exporter->setAppendBuffer(PROGRAM_SECTION_DEFAULT);
     }
+
 
 }

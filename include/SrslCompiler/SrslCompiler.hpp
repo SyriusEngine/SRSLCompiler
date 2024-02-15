@@ -111,4 +111,6 @@ namespace Srsl{
 
     SRSL_API std::shared_ptr<ShaderProgram> createShaderProgram();
 
+    SRSL_API std::shared_ptr<ShaderProgram> createShaderProgram(const ShaderLimits& limits);
+
 }
