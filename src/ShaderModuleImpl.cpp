@@ -1,4 +1,5 @@
 #include "ShaderModuleImpl.hpp"
+#include "AbstractSyntaxTree/Internal/TestEvaluationNode.hpp"
 
 namespace Srsl{
 
@@ -132,8 +133,6 @@ namespace Srsl{
         std::vector<TestCaseNode*> testCases;
         m_Program->getTestCases(testCases);
 
-        createTestSSBO(testCases.size());
-
         // obtain the scope for the main function, this scope will contain the test driver code
         auto mainFunction = m_Program->getMainFunction();
         if (mainFunction == nullptr){
@@ -143,25 +142,6 @@ namespace Srsl{
 
         // the last child added to the scopeNode will be a TestEvaluationNode
         // that generate driver code for the test cases
-    }
-
-    void ShaderModuleImpl::createTestSSBO(uint32 testCaseCount) {
-        auto ssbo = m_Program->addChild<ShaderStorageBufferNode>(SRSL_TEST_SSBO_DATA, 0, 0);
-
-        TypeDesc uintDesc;
-        uintDesc.type = VT_UINT;
-        ssbo->addChild<NewVariableNode>("testCount", "", uintDesc, 0);
-        ssbo->addChild<NewVariableNode>("testPassed", "", uintDesc, 0);
-        ssbo->addChild<NewVariableNode>("testFailed", "", uintDesc, 0);
-        ssbo->addChild<NewVariableNode>("testSkipped", "", uintDesc, 0);
-
-        // now add an array of uint32 to store the test results
-        // make sure to pad the array to 16 bytes
-        // a uint is 4 bytes on GPUs, so we need to pad the array to the next multiple of 16
-        uint32 arraySize = (testCaseCount + 3) & ~3;
-        auto uintArrayDesc = uintDesc;
-        uintArrayDesc.arraySizes.push_back(arraySize);
-
-        ssbo->addChild<NewVariableNode>("testResults", "", uintArrayDesc, 0);
+        mainScope->addChild<TestEvaluationNode>(testCases, 0);
     }
 }

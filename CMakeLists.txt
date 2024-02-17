@@ -44,7 +44,9 @@ set(AST_SRC
     src/AbstractSyntaxTree/ScopeNode.cpp
     src/AbstractSyntaxTree/ExpressionNode.cpp
     src/AbstractSyntaxTree/ShaderStorageBufferNode.cpp
-    src/AbstractSyntaxTree/ShaderStorageBufferNode.hpp)
+    src/AbstractSyntaxTree/ShaderStorageBufferNode.hpp
+    src/AbstractSyntaxTree/Internal/TestEvaluationNode.cpp
+    src/AbstractSyntaxTree/Internal/TestEvaluationNode.hpp)
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp

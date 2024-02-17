@@ -49,7 +49,9 @@ namespace Srsl{
     }
 
     void TestCaseNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
-
+        for (const auto& child: m_Children){
+            child->generateCode(exporter, indent);
+        }
     }
 
     void TestCaseNode::getTestCases(std::vector<TestCaseNode*>& testCase) {
@@ -81,5 +83,8 @@ namespace Srsl{
 
         // add the actual value as the right child
         expNode->addExistingChild(std::move(actual));
+
+        // finally, construct the expression node
+        expNode->construct();
     }
 }

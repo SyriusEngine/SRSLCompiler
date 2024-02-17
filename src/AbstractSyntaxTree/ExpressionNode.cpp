@@ -35,6 +35,9 @@ namespace Srsl{
     }
 
     void ExpressionNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
+        SRSL_PRECONDITION(m_Left != nullptr, "Left node is null.");
+        SRSL_PRECONDITION(m_Right != nullptr, "Right node is null.");
+
         bool addParentheses = m_Parent->getType() == AST_NODE_EXPRESSION;
         if (addParentheses){
             exporter->addLine("(");
