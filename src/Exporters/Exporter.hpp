@@ -14,6 +14,8 @@
 #define SRSL_TEXTURE_COLLECTION std::string("__TEXTURES__")
 #define SRSL_SAMPLER_CONNECTION std::string("__SAMPLERS__")
 
+#define SRSL_TEST_SSBO_DATA std::string("__TEST_DATA__")
+
 
 namespace Srsl{
 
@@ -24,8 +26,9 @@ namespace Srsl{
         PROGRAM_SECTION_INPUT   = 0x02,
         PROGRAM_SECTION_OUTPUT  = 0x03,
         PROGRAM_SECTION_CONSTANT_BUFFER = 0x04,
-        PROGRAM_SECTION_TEXTURE  = 0x05,
-        PROGRAM_SECTION_SAMPLER  = 0x06,
+        PROGRAM_SECTION_SHADER_STORAGE_BUFFER = 0x05,
+        PROGRAM_SECTION_TEXTURE  = 0x06,
+        PROGRAM_SECTION_SAMPLER  = 0x07,
     } PROGRAM_SECTION_TYPE;
 
     class Exporter{

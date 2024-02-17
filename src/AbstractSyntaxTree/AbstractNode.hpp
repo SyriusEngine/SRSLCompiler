@@ -74,7 +74,7 @@ namespace Srsl{
          */
         virtual void generateCode(UP<Exporter>& exporter, const std::string& indent) const = 0;
 
-        virtual void createTestCode(std::vector<TestCaseNode*>& testCase);
+        virtual void getTestCases(std::vector<TestCaseNode*>& testCase);
 
         FunctionDeclarationNode* getMainFunction();
 

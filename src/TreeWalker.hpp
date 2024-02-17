@@ -22,6 +22,7 @@
 #include "AbstractSyntaxTree/TestCaseNode.hpp"
 #include "AbstractSyntaxTree/ScopeNode.hpp"
 #include "AbstractSyntaxTree/ExpressionNode.hpp"
+#include "AbstractSyntaxTree/ShaderStorageBufferNode.hpp"
 
 namespace Srsl{
 

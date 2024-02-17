@@ -66,9 +66,9 @@ namespace Srsl{
         }
     }
 
-    void AbstractNode::createTestCode(std::vector<TestCaseNode*>& testCase) {
+    void AbstractNode::getTestCases(std::vector<TestCaseNode*>& testCase) {
         for (const auto& child: m_Children){
-            child->createTestCode(testCase);
+            child->getTestCases(testCase);
         }
     }
 

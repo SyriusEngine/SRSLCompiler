@@ -40,7 +40,11 @@ set(AST_SRC
     src/AbstractSyntaxTree/InterfaceNode.cpp
     src/AbstractSyntaxTree/TextureNode.cpp
     src/AbstractSyntaxTree/FunctionNode.cpp
-    src/AbstractSyntaxTree/TestCaseNode.cpp src/AbstractSyntaxTree/ScopeNode.cpp src/AbstractSyntaxTree/ScopeNode.hpp src/AbstractSyntaxTree/ExpressionNode.cpp src/AbstractSyntaxTree/ExpressionNode.hpp)
+    src/AbstractSyntaxTree/TestCaseNode.cpp
+    src/AbstractSyntaxTree/ScopeNode.cpp
+    src/AbstractSyntaxTree/ExpressionNode.cpp
+    src/AbstractSyntaxTree/ShaderStorageBufferNode.cpp
+    src/AbstractSyntaxTree/ShaderStorageBufferNode.hpp)
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp

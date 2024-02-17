@@ -34,6 +34,8 @@ namespace Srsl{
 
         void generateTestCode();
 
+        void createTestSSBO(uint32 testCaseCount);
+
     private:
         SRSL_SHADER_TYPE m_ShaderType;
         UP<AbstractNode> m_Program;

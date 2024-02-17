@@ -18,6 +18,7 @@ namespace Srsl{
         AST_NODE_SAMPLER_DECLARATION    = 0x0018,
         AST_NODE_CONSTANT_BUFFER_DECLARATION = 0x0019,
         AST_NODE_VECTOR_SWIZZLE         = 0x001A,
+        AST_NODE_SHADER_STORAGE_BUFFER  = 0x001B,
 
         // initializers
         AST_NODE_INITIALIZER_LIST       = 0x0020,
@@ -41,6 +42,9 @@ namespace Srsl{
         AST_NODE_SCOPE_STATEMENT        = 0x0045,
         AST_NODE_CONTROL_FLOW_STATEMENT = 0x0046,
         AST_NODE_RETURN_STATEMENT       = 0x0047,
+
+        // internal
+        AST_NODE_TEST_EVALUATION        = 0x0050,
 
     } AST_NODE_TYPE;
 
