@@ -74,7 +74,7 @@ namespace Srsl{
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
         if (desc.exportTestCases){
-            generateTestCode();
+            generateTestCode(desc);
         }
 
         // determine the target language
@@ -128,10 +128,13 @@ namespace Srsl{
         m_Program->validate(validator);
     }
 
-    void ShaderModuleImpl::generateTestCode() {
+    void ShaderModuleImpl::generateTestCode(ExportDesc &desc) {
         // convert all test case nodes to evaluable code
         std::vector<TestCaseNode*> testCases;
         m_Program->getTestCases(testCases);
+        if (testCases.empty()){
+            return;
+        }
 
         // obtain the scope for the main function, this scope will contain the test driver code
         auto mainFunction = m_Program->getMainFunction();
@@ -142,6 +145,14 @@ namespace Srsl{
 
         // the last child added to the scopeNode will be a TestEvaluationNode
         // that generate driver code for the test cases
-        mainScope->addChild<TestEvaluationNode>(testCases, 0);
+        if (m_ShaderType == SRSL_VERTEX_SHADER){
+            mainScope->addChild<TestEvaluationNode>(testCases, desc.vertexShaderTestDataSlot, 0);
+        }
+        else if (m_ShaderType == SRSL_FRAGMENT_SHADER){
+            mainScope->addChild<TestEvaluationNode>(testCases, desc.fragmentShaderTestDataSlot, 0);
+        }
+        else{
+            SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ShaderType);
+        }
     }
 }

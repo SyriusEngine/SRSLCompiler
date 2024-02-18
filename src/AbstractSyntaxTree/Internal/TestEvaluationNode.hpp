@@ -13,7 +13,7 @@ namespace Srsl{
 
     class TestEvaluationNode: public AbstractNode{
     public:
-        TestEvaluationNode(const std::vector<TestCaseNode*>& testCases, uint64 lineNumber);
+        TestEvaluationNode(const std::vector<TestCaseNode*>& testCases, uint32 ssboSlot, uint64 lineNumber);
 
         ~TestEvaluationNode() override;
 
@@ -28,6 +28,7 @@ namespace Srsl{
     private:
         const std::vector<TestCaseNode*> m_TestCases;
         AbstractNode* m_TestDataSSBO;
+        const uint32 m_TestDataSSBOSlot;
 
     };
 }

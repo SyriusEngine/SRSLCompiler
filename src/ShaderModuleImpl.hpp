@@ -32,7 +32,7 @@ namespace Srsl{
 
     private:
 
-        void generateTestCode();
+        void generateTestCode(ExportDesc &desc);
 
     private:
         SRSL_SHADER_TYPE m_ShaderType;

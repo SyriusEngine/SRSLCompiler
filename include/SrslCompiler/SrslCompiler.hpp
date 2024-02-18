@@ -70,6 +70,8 @@ namespace Srsl{
 
         // export configuration
         bool exportTestCases = false;
+        uint32_t vertexShaderTestDataSlot = 0;
+        uint32_t fragmentShaderTestDataSlot = 1;
         std::string entryPoint = "main";
         SRSL_TARGET_LANGUAGE_TYPE target = SRSL_TARGET_NONE;
         VersionDesc version = {};
