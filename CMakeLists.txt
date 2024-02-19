@@ -55,7 +55,9 @@ set(CONVERTER_SRC
 set(SYMBOL_TABLE_SRC
     src/SymbolTable/Symbol.cpp
     src/SymbolTable/SymbolTable.cpp
-    src/SymbolTable/Validator.cpp )
+    src/SymbolTable/Validator.cpp
+    src/SymbolTable/TestCodeGenerator.cpp
+    src/SymbolTable/TestCodeGenerator.hpp)
 
 set(INTRINSICS_SRC
     src/Intrinsics/Intrinsics.cpp

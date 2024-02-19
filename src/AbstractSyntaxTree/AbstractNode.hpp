@@ -4,6 +4,7 @@
 #include "../Converter/VariableTypes.hpp"
 #include "../SymbolTable/SymbolTable.hpp"
 #include "../SymbolTable/Validator.hpp"
+#include "../SymbolTable/TestCodeGenerator.hpp"
 
 #include "NodeTypes.hpp"
 
@@ -74,7 +75,7 @@ namespace Srsl{
          */
         virtual void generateCode(UP<Exporter>& exporter, const std::string& indent) const = 0;
 
-        virtual void getTestCases(std::vector<TestCaseNode*>& testCase);
+        virtual void createTestCode(TestCodeGenerator& testGen);
 
         FunctionDeclarationNode* getMainFunction();
 

@@ -16,7 +16,7 @@ namespace Srsl{
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
-        void getTestCases(std::vector<TestCaseNode*>& testCase) override;
+        void createTestCode(TestCodeGenerator& testGen) override;
 
     private:
         const std::string m_Compare;

@@ -54,10 +54,10 @@ namespace Srsl{
         }
     }
 
-    void TestCaseNode::getTestCases(std::vector<TestCaseNode*>& testCase) {
-        testCase.push_back(this);
+    void TestCaseNode::createTestCode(TestCodeGenerator& testGen) {
+        testGen.testCases.push_back(this);
         /**
-         * A test case node will transform itself during the getTestCases phase to a expression node that
+         * A test case node will transform itself during the createTestCode phase to a expression node that
          * has a function call as the left child, and the actual value as the right child and the operator as the
          * value of the expression node.
          */

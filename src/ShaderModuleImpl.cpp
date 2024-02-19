@@ -130,9 +130,9 @@ namespace Srsl{
 
     void ShaderModuleImpl::generateTestCode(TestConfig &desc) {
         // convert all test case nodes to evaluable code
-        std::vector<TestCaseNode*> testCases;
-        m_Program->getTestCases(testCases);
-        if (testCases.empty()){
+        TestCodeGenerator codeGenerator;
+        m_Program->createTestCode(codeGenerator);
+        if (codeGenerator.testCases.empty()){
             return;
         }
 
@@ -146,16 +146,16 @@ namespace Srsl{
         // the last child added to the scopeNode will be a TestEvaluationNode
         // that generate driver code for the test cases
         if (m_ShaderType == SRSL_VERTEX_SHADER){
-            mainScope->addChild<TestEvaluationNode>(testCases, desc.vertexShaderTestDataSlot, 0);
+            mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.vertexShaderTestDataSlot, 0);
             // add test case names to the output parameter
-            for (auto testCase : testCases){
+            for (auto testCase : codeGenerator.testCases){
                 desc.vertexShaderTestCases.push_back(testCase->getValue());
             }
         }
         else if (m_ShaderType == SRSL_FRAGMENT_SHADER){
-            mainScope->addChild<TestEvaluationNode>(testCases, desc.fragmentShaderTestDataSlot, 0);
+            mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.fragmentShaderTestDataSlot, 0);
             // add test case names to the output parameter
-            for (auto testCase : testCases){
+            for (auto testCase : codeGenerator.testCases){
                 desc.fragmentShaderTestCases.push_back(testCase->getValue());
             }
         }
