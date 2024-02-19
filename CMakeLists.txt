@@ -83,7 +83,7 @@ set(SRSL_SRC
     src/ShaderModuleImpl.cpp
     src/ShaderProgramImpl.cpp
     src/ParseExceptionHandler.cpp
-    src/TreeWalker.cpp src/TreeWalker.hpp)
+    src/TreeWalker.cpp)
 
 add_library(SRSLCompiler SHARED ${SRSL_SRC})
 target_link_libraries(SRSLCompiler antlr4-runtime)

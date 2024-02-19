@@ -89,6 +89,7 @@ int main(int argc, char** argv){
 
     try{
         for (const auto& [name, test]: testMap){
+            std::cout << "Testing: " << name << std::endl;
             resultFile << "| " << std::setw(26) << name << " | " << std::setw(8) << test.expectedSuccess << " | " << std::setw(3) << testShader(test) << " | " << std::setw(6) << (test.expectedSuccess == testShader(test) ? "Pass" : "FAIL") << " |\n";
         }
     } catch (std::exception& e){

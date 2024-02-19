@@ -19,7 +19,7 @@ void main(){
             continue;
         }
         else{
-            myPos.x =  myPos.x + 1.0;
+            myPos.x = myPos.x + 1.0;
         }
     }
 
