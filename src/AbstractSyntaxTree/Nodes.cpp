@@ -4,7 +4,13 @@ namespace Srsl{
 
     ConstantNode::ConstantNode(const std::string &value, uint64 lineNumber): 
     AbstractNode(value, AST_NODE_CONSTANT, lineNumber) {
-
+        if (m_Value.find('.') != std::string::npos){
+            m_Type.type = VT_FLOAT;
+            m_Type.typeStr = "float";
+        } else {
+            m_Type.type = VT_INT;
+            m_Type.typeStr = "int";
+        }
     }
 
     ConstantNode::~ConstantNode() = default;

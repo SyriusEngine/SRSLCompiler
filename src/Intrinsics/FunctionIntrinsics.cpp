@@ -101,4 +101,28 @@ namespace Srsl{
             return name;
         }
     }
+
+    std::string FunctionIntrinsics::convertComparison(const std::string &op, SRSL_TARGET_LANGUAGE_TYPE type) {
+        if (op == "=="){
+            return convert("equal", type);
+        }
+        else if (op == "!="){
+            return convert("notEqual", type);
+        }
+        else if (op == "<"){
+            return convert("lessThan", type);
+        }
+        else if (op == "<="){
+            return convert("lessThanEqual", type);
+        }
+        else if (op == ">"){
+            return convert("greaterThan", type);
+        }
+        else if (op == ">="){
+            return convert("greaterThanEqual", type);
+        }
+        else{
+            SRSL_THROW_EXCEPTION("Invalid comparison operator: %s", op.c_str());
+        }
+    }
 }

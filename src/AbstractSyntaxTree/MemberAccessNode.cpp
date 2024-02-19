@@ -31,6 +31,9 @@ namespace Srsl{
         auto leftName = m_Left->getValue();
         auto leftSymbol = symbolTable->getSymbol(leftName);
         m_Right->fillSymbolTable(leftSymbol.structTable);
+
+        // the type of this expression is the type of the right element
+        m_Type = m_Right->getType();
     }
 
     void MemberAccessNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {

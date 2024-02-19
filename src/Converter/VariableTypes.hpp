@@ -68,6 +68,8 @@ namespace Srsl{
         bool operator==(const TypeDesc& other) const;
 
         bool operator!=(const TypeDesc& other) const;
+
+        bool equalVectorType(const TypeDesc& other) const;
     };
 
 }

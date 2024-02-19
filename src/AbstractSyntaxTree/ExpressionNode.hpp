@@ -25,7 +25,9 @@ namespace Srsl{
 
         void determineType();
 
-        void checkComparison(const TypeDesc& leftType, const TypeDesc& rightType);
+        void exportBinaryOperation(UP<Exporter>& exporter, const std::string& indent) const;
+
+        void exportVectorComparison(UP<Exporter>& exporter, const std::string& indent) const;
 
     private:
         OPERATION_TYPE m_OperationType;

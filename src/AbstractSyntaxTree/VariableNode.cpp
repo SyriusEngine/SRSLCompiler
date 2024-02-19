@@ -73,7 +73,6 @@ namespace Srsl{
                 exporter->addLine("[" + child->getValue() + "]");
             }
         }
-
     }
 
     TypeConstructorNode::TypeConstructorNode(const TypeDesc &typeDesc, uint64 lineNumber):

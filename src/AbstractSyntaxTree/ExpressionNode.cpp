@@ -51,9 +51,7 @@ namespace Srsl{
                 m_Right->generateCode(exporter, "");
                 break;
             case OPERATION_BINARY:
-                m_Left->generateCode(exporter, indent);
-                exporter->addLine(" " + m_Value + " ");
-                m_Right->generateCode(exporter, indent);
+                exportBinaryOperation(exporter, indent);
                 break;
         }
         if (addParentheses){
@@ -78,7 +76,7 @@ namespace Srsl{
                 m_Value == ">" or
                 m_Value == "<=" or
                 m_Value == ">="){
-                if (leftType != rightType) {
+                if (!leftType.equalVectorType(rightType)) {
                     SRSL_THROW_EXCEPTION("Comparison expression %s (type: %s) %s %s (type: %s) has incompatible types",
                                          m_Left->getValue().c_str(),
                                          leftType.typeStr.c_str(),
@@ -88,5 +86,32 @@ namespace Srsl{
                 }
             }
         }
+    }
+
+    void ExpressionNode::exportBinaryOperation(UP<Exporter> &exporter, const std::string &indent) const {
+        if (m_Value == "==" or
+            m_Value == "!=" or
+            m_Value == "<" or
+            m_Value == ">" or
+            m_Value == "<=" or
+            m_Value == ">="){
+            // column larger than 1 means that we are comparing vectors
+            if (m_Type.columns > 1){
+                return exportVectorComparison(exporter, indent);
+            }
+        }
+        m_Left->generateCode(exporter, indent);
+        exporter->addLine(" " + m_Value + " ");
+        m_Right->generateCode(exporter, indent);
+    }
+
+    void ExpressionNode::exportVectorComparison(UP<Exporter> &exporter, const std::string &indent) const {
+        auto line = exporter->getFunctionIntrinsics().convertComparison(m_Value, exporter->getLanguageType());
+        line += "(";
+        exporter->addLine(indent + line);
+        m_Left->generateCode(exporter, "");
+        exporter->addLine(", ");
+        m_Right->generateCode(exporter, "");
+        exporter->addLine(")");
     }
 }

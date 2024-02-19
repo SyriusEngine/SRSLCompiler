@@ -141,5 +141,9 @@ namespace Srsl{
         return (type != other.type || rows != other.rows || columns != other.columns);
     }
 
+    bool TypeDesc::equalVectorType(const TypeDesc &other) const {
+        return rows == other.rows && columns == other.columns;
+    }
+
 
 }

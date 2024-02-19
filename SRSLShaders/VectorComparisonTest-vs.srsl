@@ -12,14 +12,12 @@ Output vsOut{
     float2 texCoords: TexCoords;
 };
 
+struct SomeData{
+    float3 comp1;
+};
+
 void main(){
-    float f1 = 1.0;
-    float f2 = 2.0;
-
-    bool fEq = f1 == f2;
-
-    uint4 uv = uint4(1, 2, 3, 4);
-    uint4 uv2 = uint4(5, 6, 3, 4);
-
-    bool uvEq = uv == uv2;
+    SomeData p1;
+    p1.comp1 = float3(3.0f, 4.0f, 5.0f);
+    bool3 isEq = p1.comp1 == vsIn.position;
 }
