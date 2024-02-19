@@ -73,8 +73,8 @@ namespace Srsl{
     void ShaderModuleImpl::exportShader(ExportDesc &desc, const ShaderLimits& limits) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
-        if (desc.exportTestCases){
-            generateTestCode(desc);
+        if (desc.testConfig.exportTestCases){
+            generateTestCode(desc.testConfig);
         }
 
         // determine the target language
@@ -128,7 +128,7 @@ namespace Srsl{
         m_Program->validate(validator);
     }
 
-    void ShaderModuleImpl::generateTestCode(ExportDesc &desc) {
+    void ShaderModuleImpl::generateTestCode(TestConfig &desc) {
         // convert all test case nodes to evaluable code
         std::vector<TestCaseNode*> testCases;
         m_Program->getTestCases(testCases);
@@ -147,9 +147,17 @@ namespace Srsl{
         // that generate driver code for the test cases
         if (m_ShaderType == SRSL_VERTEX_SHADER){
             mainScope->addChild<TestEvaluationNode>(testCases, desc.vertexShaderTestDataSlot, 0);
+            // add test case names to the output parameter
+            for (auto testCase : testCases){
+                desc.vertexShaderTestCases.push_back(testCase->getValue());
+            }
         }
         else if (m_ShaderType == SRSL_FRAGMENT_SHADER){
             mainScope->addChild<TestEvaluationNode>(testCases, desc.fragmentShaderTestDataSlot, 0);
+            // add test case names to the output parameter
+            for (auto testCase : testCases){
+                desc.fragmentShaderTestCases.push_back(testCase->getValue());
+            }
         }
         else{
             SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ShaderType);

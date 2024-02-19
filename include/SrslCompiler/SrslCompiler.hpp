@@ -13,6 +13,7 @@
 #endif
 
 #include <string>
+#include <vector>
 #include <cstdint>
 #include <memory>
 
@@ -62,18 +63,26 @@ namespace Srsl{
         SRSL_LOAD_TYPE loadType = SRSL_LOAD_FROM_FILE;
     };
 
+    struct SRSL_API TestConfig{
+        bool exportTestCases = false;
+        uint32_t vertexShaderTestDataSlot = 0;      // Test results will be written to a SSBO at this slot
+        uint32_t fragmentShaderTestDataSlot = 1;
+        std::vector<std::string> vertexShaderTestCases; // output parameter: This vector will contain the test case names for the vertex shader
+        std::vector<std::string> fragmentShaderTestCases; // output parameter: This vector will contain the test case names for the fragment shader
+    };
+
     struct SRSL_API ExportDesc{
         // output configuration
         std::string vertexShaderOut;
         std::string fragmentShaderOut;
         SRSL_WRITE_TYPE writeType = SRSL_WRITE_TO_FILE;
 
-        // export configuration
-        bool exportTestCases = false;
-        uint32_t vertexShaderTestDataSlot = 0;
-        uint32_t fragmentShaderTestDataSlot = 1;
+        // target configuration
         std::string entryPoint = "main";
         SRSL_TARGET_LANGUAGE_TYPE target = SRSL_TARGET_NONE;
+
+        // export configuration
+        TestConfig testConfig = {};
         VersionDesc version = {};
     };
 
