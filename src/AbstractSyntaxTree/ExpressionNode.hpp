@@ -22,6 +22,12 @@ namespace Srsl{
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
     private:
+
+        void determineType();
+
+        void checkComparison(const TypeDesc& leftType, const TypeDesc& rightType);
+
+    private:
         OPERATION_TYPE m_OperationType;
         AbstractNode* m_Left;
         AbstractNode* m_Right;

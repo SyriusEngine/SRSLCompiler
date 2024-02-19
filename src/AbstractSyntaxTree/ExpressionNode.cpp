@@ -34,19 +34,7 @@ namespace Srsl{
         AbstractNode::fillSymbolTable(symbolTable);
 
         // determine the type of the expression
-        if (m_Children.size() == 1){
-            m_Type = m_Right->getType();
-        }
-        else{
-            // check if the operation is valid for the types of the left and right nodes
-            auto leftType = m_Left->getType();
-            auto rightType = m_Right->getType();
-            if (leftType != rightType){
-                SRSL_THROW_EXCEPTION("Invalid operation, left and right types are different, left: %s, right: %s", leftType.typeStr.c_str(), rightType.typeStr.c_str());
-            }
-            m_Type = leftType;
-        }
-
+        determineType();
     }
 
     void ExpressionNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
@@ -74,4 +62,27 @@ namespace Srsl{
 
     }
 
+    void ExpressionNode::determineType() {
+        SRSL_PRECONDITION(m_Right != nullptr, "Right node is null.");
+
+        m_Type = m_Right->getType();
+
+        if (m_Children.size() == 2){
+            auto leftType = m_Left->getType();
+            auto rightType = m_Right->getType();
+
+            // the type check depends on the operation
+            if (m_Value == "==" or
+                m_Value == "!=" or
+                m_Value == "<" or
+                m_Value == ">" or
+                m_Value == "<=" or
+                m_Value == ">="){
+                if (leftType != rightType) {
+                    SRSL_THROW_EXCEPTION("Invalid types for operation %s, left type %s, right type %s", m_Value.c_str(),
+                                         leftType.typeStr.c_str(), rightType.typeStr.c_str());
+                }
+            }
+        }
+    }
 }

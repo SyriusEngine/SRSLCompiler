@@ -70,28 +70,44 @@ bool testShader(const TestData& data){
 
 }
 
-int main(int argc, char** argv){
-    std::map<std::string, TestData> testMap = {
-            {"Variables", {"./SRSLShaders/VariableTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
-            {"Swizzle", {"./SRSLShaders/VectorSwizzleTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
-            {"Flow Control", {"./SRSLShaders/FlowControlTest-vs.srsl", "./SRSLShaders/FlowControlTest-fs.srsl", true}},
-            {"Constant Buffer", {"./SRSLShaders/ConstantBufferTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
-            {"Functions", {"./SRSLShaders/FunctionTest-vs.srsl", "./SRSLShaders/FunctionTest-fs.srsl", true}},
-            {"CB Slot too large", {"./SRSLShaders/CBLargeSlot-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
-            {"CB Slot Taken", {"./SRSLShaders/CBSlotAlreadyTaken-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
-    };
-
+void testAll(const std::map<std::string, TestData>& testMap){
     std::ofstream resultFile("TestResults.txt");
 
     resultFile << "--------------------------------------------------------\n";
     resultFile << "|            name            | Expected | Got | Result |\n";
     resultFile << "--------------------------------------------------------\n";
 
+    for (const auto& [name, test]: testMap){
+        std::cout << "Testing: " << name << std::endl;
+        resultFile << "| " << std::setw(26) << name << " | " << std::setw(8) << test.expectedSuccess << " | " << std::setw(3) << testShader(test) << " | " << std::setw(6) << (test.expectedSuccess == testShader(test) ? "Pass" : "FAIL") << " |\n";
+    }
+
+    resultFile << "--------------------------------------------------------\n";
+    resultFile.close();
+}
+
+int main(int argc, char** argv){
+    std::map<std::string, TestData> testMap = {
+            {"Variables", {"./SRSLShaders/VariableTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
+            {"Swizzle", {"./SRSLShaders/VectorSwizzleTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
+            {"FlowControl", {"./SRSLShaders/FlowControlTest-vs.srsl", "./SRSLShaders/FlowControlTest-fs.srsl", true}},
+            {"ConstantBuffer", {"./SRSLShaders/ConstantBufferTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
+            {"Functions", {"./SRSLShaders/FunctionTest-vs.srsl", "./SRSLShaders/FunctionTest-fs.srsl", true}},
+            {"CBSlotTooLarge", {"./SRSLShaders/CBLargeSlot-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
+            {"CBSlotTaken", {"./SRSLShaders/CBSlotAlreadyTaken-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
+            {"ComparisonFail", {"./SRSLShaders/ComparisonTestFail-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
+    };
+
     try{
-        for (const auto& [name, test]: testMap){
-            std::cout << "Testing: " << name << std::endl;
-            resultFile << "| " << std::setw(26) << name << " | " << std::setw(8) << test.expectedSuccess << " | " << std::setw(3) << testShader(test) << " | " << std::setw(6) << (test.expectedSuccess == testShader(test) ? "Pass" : "FAIL") << " |\n";
+        if (argc < 2){
+            testAll(testMap);
         }
+        for (int i = 1; i < argc; i++){
+            if (testMap.find(argv[i]) != testMap.end()){
+                testShader(testMap[argv[i]]);
+            }
+        }
+
     } catch (std::exception& e){
         std::cerr << "Exception: " << e.what() << std::endl;
         return -1;
@@ -99,8 +115,6 @@ int main(int argc, char** argv){
         std::cerr << "Unknown exception" << std::endl;
         return -1;
     }
-    resultFile << "--------------------------------------------------------\n";
-    resultFile.close();
     return 0;
 
 }

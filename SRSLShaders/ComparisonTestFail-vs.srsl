@@ -1,0 +1,19 @@
+ShaderType = Vertex;
+
+Input vsIn{
+    float3 position: Position;
+    float3 normal: Normal;
+    float2 texCoords: TexCoords;
+};
+
+Output vsOut{
+    float4 position: SRV_POSITION;
+    float3 normal: Normal;
+    float2 texCoords: TexCoords;
+};
+
+void main(){
+    float4 comp1 = float4(vsIn.position, 1.0);
+    float3 comp2 = float4(0.0, 0.0, 0.0);
+    bool comp = comp1 == comp2;
+}
