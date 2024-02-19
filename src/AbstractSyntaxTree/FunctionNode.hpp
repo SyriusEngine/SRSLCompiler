@@ -26,7 +26,7 @@ namespace Srsl{
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
-        ScopeNode* getScope() const;
+        [[nodiscard]] ScopeNode* getScope() const;
 
     private:
 
@@ -45,7 +45,6 @@ namespace Srsl{
     private:
         const std::string m_SemanticName;
         const bool m_HasScope;
-        TypeDesc m_Type;
 
         ScopeNode* m_Scope = nullptr;
         std::vector<AbstractNode*> m_Arguments;

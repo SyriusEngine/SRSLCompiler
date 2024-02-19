@@ -55,9 +55,9 @@ namespace Srsl{
         exporter->addLine(indent + SRSL_TEST_DATA_TEST_FAILED_LIT + " = 0;\n");
 
         for (uint32 i = 0; i < m_TestCases.size(); ++i){
-            exporter->addLine(indent + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
+            exporter->addLine(indent + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = all(");
             m_TestCases[i]->generateCode(exporter, "");
-            exporter->addLine(";\n");
+            exporter->addLine(");\n");
 
             exporter->addLine(indent + SRSL_TEST_DATA_TEST_PASSED_LIT + " += " + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
             exporter->addLine(indent + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");

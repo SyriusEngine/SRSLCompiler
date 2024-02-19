@@ -42,6 +42,8 @@ namespace Srsl{
 
         [[nodiscard]] const TypeDesc& getType() const;
 
+        [[nodiscard]] RCP<SymbolTable> getSymbolTable() const;
+
         /**
          * @brief This function will generate a dot file for the AST. The dot file can be converted to an image using
          *        the dot command line tool.

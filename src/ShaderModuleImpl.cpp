@@ -145,15 +145,16 @@ namespace Srsl{
 
         // the last child added to the scopeNode will be a TestEvaluationNode
         // that generate driver code for the test cases
+        AbstractNode* testEvaluationNode = nullptr;
         if (m_ShaderType == SRSL_VERTEX_SHADER){
-            mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.vertexShaderTestDataSlot, 0);
+            testEvaluationNode = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.vertexShaderTestDataSlot, 0);
             // add test case names to the output parameter
             for (auto testCase : codeGenerator.testCases){
                 desc.vertexShaderTestCases.push_back(testCase->getValue());
             }
         }
         else if (m_ShaderType == SRSL_FRAGMENT_SHADER){
-            mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.fragmentShaderTestDataSlot, 0);
+            testEvaluationNode = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.fragmentShaderTestDataSlot, 0);
             // add test case names to the output parameter
             for (auto testCase : codeGenerator.testCases){
                 desc.fragmentShaderTestCases.push_back(testCase->getValue());

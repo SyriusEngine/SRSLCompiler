@@ -77,6 +77,8 @@ namespace Srsl{
 
     TypeConstructorNode::TypeConstructorNode(const TypeDesc &typeDesc, uint64 lineNumber):
     AbstractNode(typeDesc.typeStr, AST_NODE_INITIALIZER, lineNumber, typeDesc){
+        TypeDesc mT(m_Value);
+        m_Type = mT;
     }
 
     TypeConstructorNode::~TypeConstructorNode() = default;

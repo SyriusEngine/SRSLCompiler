@@ -45,6 +45,10 @@ namespace Srsl{
         return m_Type;
     }
 
+    RCP<SymbolTable> AbstractNode::getSymbolTable() const {
+        return m_SymbolTable;
+    }
+
     void AbstractNode::toDot(std::ofstream &stream) const {
         stream << "\tnode" << this << " [label=\"" << m_Value << "\"];" << std::endl;
         for(const auto& child: m_Children){

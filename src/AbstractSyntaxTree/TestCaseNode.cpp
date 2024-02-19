@@ -86,5 +86,7 @@ namespace Srsl{
 
         // finally, construct the expression node
         expNode->construct();
+        expNode->fillSymbolTable(m_SymbolTable);
+        int x = 0;
     }
 }

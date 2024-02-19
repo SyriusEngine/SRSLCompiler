@@ -3,10 +3,9 @@
 namespace Srsl{
 
     FunctionDeclarationNode::FunctionDeclarationNode(const FunctionDeclarationDesc &desc, uint64 lineNumber):
-    AbstractNode(desc.name, AST_NODE_FUNCTION_DECLARATION, lineNumber),
+    AbstractNode(desc.name, AST_NODE_FUNCTION_DECLARATION, lineNumber, desc.type),
     m_HasScope(desc.hasScope),
-    m_SemanticName(desc.semantic),
-    m_Type(desc.type){
+    m_SemanticName(desc.semantic){
 
     }
 
@@ -249,11 +248,13 @@ namespace Srsl{
     void FunctionCallNode::fillSymbolTable(RCP<SymbolTable> table) {
         m_SymbolTable = table;
         if (m_Value == "main"){
-            throw std::runtime_error("main function is not allowed to be called");
+            SRSL_THROW_EXCEPTION("The main function cannot be called directly but is called at line %d. It is called by the system. ", m_LineNumber);
         }
         if (!table->hasSymbol(m_Value)){
-            throw std::runtime_error("Function " + m_Value + " is not declared");
+            SRSL_THROW_EXCEPTION("Function %s is not defined at line %d", m_Value.c_str(), m_LineNumber);
         }
+        auto symbol = table->getSymbol(m_Value);
+        m_Type = symbol.type;
         for (const auto& child: m_Children){
             child->fillSymbolTable(table);
         }
