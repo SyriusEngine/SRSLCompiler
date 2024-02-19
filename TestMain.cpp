@@ -96,6 +96,7 @@ int main(int argc, char** argv){
             {"CBSlotTooLarge", {"./SRSLShaders/CBLargeSlot-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
             {"CBSlotTaken", {"./SRSLShaders/CBSlotAlreadyTaken-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
             {"ComparisonFail", {"./SRSLShaders/ComparisonTestFail-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", false}},
+            {"VectorComparison", {"./SRSLShaders/VectorComparisonTest-vs.srsl", "./SRSLShaders/VariableTest-fs.srsl", true}},
     };
 
     try{

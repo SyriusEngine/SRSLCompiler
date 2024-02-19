@@ -60,6 +60,9 @@ namespace Srsl{
             SRSL_THROW_EXCEPTION("Variable (%s) not found at (line %d)", m_Value.c_str(), m_LineNumber);
         }
         AbstractNode::fillSymbolTable(symbolTable);
+
+        auto symbol = m_SymbolTable->getSymbol(m_Value);
+        m_Type = symbol.type;
     }
 
     void VariableNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {

@@ -7,9 +7,7 @@ namespace Srsl{
 
     }
 
-    ConstantNode::~ConstantNode() {
-
-    }
+    ConstantNode::~ConstantNode() = default;
 
     void ConstantNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
         exporter->addLine(indent + m_Value);
@@ -17,13 +15,13 @@ namespace Srsl{
 
 
     AssignmentNode::AssignmentNode(uint64 lineNumber) :
-    AbstractNode("=", AST_NODE_ASSIGNMENT, lineNumber) {
+    AbstractNode("=", AST_NODE_ASSIGNMENT, lineNumber),
+    m_Left(nullptr),
+    m_Right(nullptr) {
 
     }
 
-    AssignmentNode::~AssignmentNode() {
-
-    }
+    AssignmentNode::~AssignmentNode() = default;
 
     void AssignmentNode::construct() {
         SRSL_PRECONDITION(m_Children.size() == 2, "Invalid number of children, expected 2 got %s", m_Children.size());
@@ -46,9 +44,7 @@ namespace Srsl{
 
     }
 
-    InitializerListNode::~InitializerListNode() {
-
-    }
+    InitializerListNode::~InitializerListNode() = default;
 
     void InitializerListNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
         exporter->addLine("{");

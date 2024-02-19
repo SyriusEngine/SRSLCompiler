@@ -79,8 +79,12 @@ namespace Srsl{
                 m_Value == "<=" or
                 m_Value == ">="){
                 if (leftType != rightType) {
-                    SRSL_THROW_EXCEPTION("Invalid types for operation %s, left type %s, right type %s", m_Value.c_str(),
-                                         leftType.typeStr.c_str(), rightType.typeStr.c_str());
+                    SRSL_THROW_EXCEPTION("Comparison expression %s (type: %s) %s %s (type: %s) has incompatible types",
+                                         m_Left->getValue().c_str(),
+                                         leftType.typeStr.c_str(),
+                                         m_Value.c_str(),
+                                         m_Right->getValue().c_str(),
+                                         rightType.typeStr.c_str());
                 }
             }
         }
