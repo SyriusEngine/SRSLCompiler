@@ -3,15 +3,11 @@
 namespace Srsl{
 
     NewVariableNode::NewVariableNode(const std::string &name, const std::string &semanticName, const TypeDesc &typeDesc, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_VARIABLE_DECLARATION, lineNumber),
-    m_SemanticName(semanticName),
-    m_Type(typeDesc) {
-
+    AbstractNode(name, AST_NODE_VARIABLE_DECLARATION, lineNumber, typeDesc),
+    m_SemanticName(semanticName){
     }
 
-    NewVariableNode::~NewVariableNode() {
-
-    }
+    NewVariableNode::~NewVariableNode() = default;
 
     void NewVariableNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
         m_SymbolTable = symbolTable;
@@ -40,7 +36,7 @@ namespace Srsl{
             line += "const ";
         }
         line += exporter->getVariableType(m_Type) + " ";
-        if (m_Parent->getType() == AST_NODE_CONSTANT_BUFFER_DECLARATION){
+        if (m_Parent->getNodeType() == AST_NODE_CONSTANT_BUFFER_DECLARATION){
             line += m_Parent->getValue() + SRSL_CONCAT_LIT;
         }
         line += m_Value;
@@ -56,9 +52,7 @@ namespace Srsl{
 
     }
 
-    VariableNode::~VariableNode() {
-
-    }
+    VariableNode::~VariableNode() = default;
 
     void VariableNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
         m_SymbolTable = symbolTable;
@@ -72,7 +66,7 @@ namespace Srsl{
         exporter->addLine(m_Value);
 
         for (const auto& child : m_Children){
-            if (child->getType() == AST_NODE_CONSTANT){
+            if (child->getNodeType() == AST_NODE_CONSTANT){
                 exporter->addLine("[" + child->getValue() + "]");
             }
         }
@@ -80,14 +74,10 @@ namespace Srsl{
     }
 
     TypeConstructorNode::TypeConstructorNode(const TypeDesc &typeDesc, uint64 lineNumber):
-    AbstractNode(typeDesc.typeStr, AST_NODE_INITIALIZER, lineNumber),
-    m_Type(typeDesc) {
-
+    AbstractNode(typeDesc.typeStr, AST_NODE_INITIALIZER, lineNumber, typeDesc){
     }
 
-    TypeConstructorNode::~TypeConstructorNode() {
-
-    }
+    TypeConstructorNode::~TypeConstructorNode() = default;
 
     void TypeConstructorNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
         exporter->addLine(indent + exporter->getVariableType(m_Type) + "(");

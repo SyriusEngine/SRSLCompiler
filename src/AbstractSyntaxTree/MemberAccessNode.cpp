@@ -122,7 +122,7 @@ namespace Srsl{
         /*
          * There are 2 possible nodes for the RHS, a variable node or another member access node (recursive)
          */
-        if (m_Right->getType() == AST_NODE_MEMBER_ACCESS){
+        if (m_Right->getNodeType() == AST_NODE_MEMBER_ACCESS){
             auto rightMemberAccess = dynamic_cast<MemberAccessNode*>(m_Right);
             if (rightMemberAccess){
                 return leftSymbol.structTable->getSymbol(rightMemberAccess->m_Left->getValue());

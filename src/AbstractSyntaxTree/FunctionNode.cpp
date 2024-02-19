@@ -23,7 +23,7 @@ namespace Srsl{
         }
         if (!m_Children.empty()){
             for (uint32 i = 0; i < m_Children.size() - 1; i++){
-                switch (m_Children[i]->getType()) {
+                switch (m_Children[i]->getNodeType()) {
                     case AST_NODE_VARIABLE_DECLARATION: {
                         m_Arguments.push_back(m_Children[i].get());
                         break;
@@ -33,7 +33,8 @@ namespace Srsl{
                         break;
                     }
                     default: {
-                        SRSL_THROW_EXCEPTION("Invalid node type for function declaration %s", m_Children[i]->getType());
+                        SRSL_THROW_EXCEPTION("Invalid node type for function declaration %s",
+                                             m_Children[i]->getNodeType());
                     }
                 }
             }

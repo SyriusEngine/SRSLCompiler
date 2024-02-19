@@ -4,11 +4,10 @@ namespace Srsl{
 
     StructDeclarationNode::StructDeclarationNode(const std::string &name, uint64 lineNumber):
     AbstractNode(name, AST_NODE_STRUCT_DECLARATION, lineNumber) {
+        m_Type.type = VT_STRUCT;
     }
 
-    StructDeclarationNode::~StructDeclarationNode() {
-
-    }
+    StructDeclarationNode::~StructDeclarationNode() = default;
 
     void StructDeclarationNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
         m_SymbolTable = symbolTable;

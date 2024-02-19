@@ -3,8 +3,8 @@
 namespace Srsl{
 
     ExpressionNode::ExpressionNode(const std::string& operation, OperationType opType, uint64 lineNumber):
-            AbstractNode(operation, AST_NODE_EXPRESSION, lineNumber),
-            m_OperationType(opType){
+    AbstractNode(operation, AST_NODE_EXPRESSION, lineNumber),
+    m_OperationType(opType){
 
     }
 
@@ -32,13 +32,28 @@ namespace Srsl{
 
         m_SymbolTable = symbolTable;
         AbstractNode::fillSymbolTable(symbolTable);
+
+        // determine the type of the expression
+        if (m_Children.size() == 1){
+            m_Type = m_Right->getType();
+        }
+        else{
+            // check if the operation is valid for the types of the left and right nodes
+            auto leftType = m_Left->getType();
+            auto rightType = m_Right->getType();
+            if (leftType != rightType){
+                SRSL_THROW_EXCEPTION("Invalid operation, left and right types are different, left: %s, right: %s", leftType.typeStr.c_str(), rightType.typeStr.c_str());
+            }
+            m_Type = leftType;
+        }
+
     }
 
     void ExpressionNode::generateCode(std::unique_ptr<Exporter> &exporter, const std::string &indent) const {
         SRSL_PRECONDITION(m_Left != nullptr, "Left node is null.");
         SRSL_PRECONDITION(m_Right != nullptr, "Right node is null.");
 
-        bool addParentheses = m_Parent->getType() == AST_NODE_EXPRESSION;
+        bool addParentheses = m_Parent->getNodeType() == AST_NODE_EXPRESSION;
         if (addParentheses){
             exporter->addLine("(");
         }

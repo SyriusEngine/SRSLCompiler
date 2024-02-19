@@ -16,7 +16,6 @@ namespace Srsl{
 
     private:
         const std::string m_SemanticName;
-        const TypeDesc m_Type;
 
     };
 
@@ -41,9 +40,6 @@ namespace Srsl{
         ~TypeConstructorNode() override;
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
-
-    private:
-        const TypeDesc m_Type;
     };
 
 

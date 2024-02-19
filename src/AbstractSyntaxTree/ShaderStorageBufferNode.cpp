@@ -5,6 +5,7 @@ namespace Srsl{
     ShaderStorageBufferNode::ShaderStorageBufferNode(const std::string& name, uint32 slot, uint64 lineNumber):
     AbstractNode(name, AST_NODE_SHADER_STORAGE_BUFFER, lineNumber),
     m_Slot(slot){
+        m_Type.type = VT_STRUCT;
     }
 
     ShaderStorageBufferNode::~ShaderStorageBufferNode() = default;

@@ -4,11 +4,19 @@
 namespace Srsl{
 
     AbstractNode::AbstractNode(const std::string& value, AST_NODE_TYPE type, uint64 lineNumber):
-    m_Type(type),
+    m_NodeType(type),
     m_Value(value),
     m_LineNumber(lineNumber),
+    m_Type(),
     m_Parent(nullptr){
+    }
 
+    AbstractNode::AbstractNode(const std::string &value, AST_NODE_TYPE type, uint64 lineNumber, const TypeDesc &typeDesc):
+    m_NodeType(type),
+    m_Value(value),
+    m_LineNumber(lineNumber),
+    m_Type(typeDesc),
+    m_Parent(nullptr){
     }
 
     AbstractNode* AbstractNode::addExistingChild(UP<AbstractNode>&& child){
@@ -21,8 +29,8 @@ namespace Srsl{
         return m_Parent;
     }
 
-    AST_NODE_TYPE AbstractNode::getType() const {
-        return m_Type;
+    AST_NODE_TYPE AbstractNode::getNodeType() const {
+        return m_NodeType;
     }
 
     uint64 AbstractNode::getLineNumber() const {
@@ -31,6 +39,10 @@ namespace Srsl{
 
     const std::string &AbstractNode::getValue() const {
         return m_Value;
+    }
+
+    const TypeDesc &AbstractNode::getType() const {
+        return m_Type;
     }
 
     void AbstractNode::toDot(std::ofstream &stream) const {
@@ -73,7 +85,7 @@ namespace Srsl{
     }
 
     FunctionDeclarationNode* AbstractNode::getMainFunction() {
-        if (m_Type == AST_NODE_FUNCTION_DECLARATION and m_Value == "main") {
+        if (m_NodeType == AST_NODE_FUNCTION_DECLARATION and m_Value == "main") {
             return dynamic_cast<FunctionDeclarationNode *>(this);
         }
         for (const auto& child: m_Children){
@@ -84,4 +96,5 @@ namespace Srsl{
         }
         return nullptr;
     }
+
 }

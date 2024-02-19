@@ -27,7 +27,7 @@ namespace Srsl{
         for (const auto& child: m_Children){
             exporter->addLine(newIndent);
             child->generateCode(exporter, newIndent);
-            auto childType = child->getType();
+            auto childType = child->getNodeType();
             if (childType == AST_NODE_FOR_STATEMENT or
                 childType == AST_NODE_IF_STATEMENT or
                 childType == AST_NODE_ELSE_STATEMENT or

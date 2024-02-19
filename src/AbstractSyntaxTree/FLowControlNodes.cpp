@@ -60,7 +60,7 @@ namespace Srsl{
         m_Increment = dynamic_cast<ExpressionNode*>(m_Children[2].get());
         m_Scope = m_Children[3].get();
         if (m_LoopCondition == nullptr or m_Increment == nullptr){
-            SRSL_THROW_EXCEPTION("Invalid child type, expected ExpressionNode, got %s", m_Children[1]->getType());
+            SRSL_THROW_EXCEPTION("Invalid child type, expected ExpressionNode, got %s", m_Children[1]->getNodeType());
         }
         AbstractNode::construct();
     }

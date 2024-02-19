@@ -34,11 +34,13 @@ namespace Srsl{
 
         [[nodiscard]] AbstractNode* getParent() const;
 
-        [[nodiscard]] AST_NODE_TYPE getType() const;
+        [[nodiscard]] AST_NODE_TYPE getNodeType() const;
 
         [[nodiscard]] uint64 getLineNumber() const;
 
         [[nodiscard]] const std::string& getValue() const;
+
+        [[nodiscard]] const TypeDesc& getType() const;
 
         /**
          * @brief This function will generate a dot file for the AST. The dot file can be converted to an image using
@@ -75,6 +77,11 @@ namespace Srsl{
          */
         virtual void generateCode(UP<Exporter>& exporter, const std::string& indent) const = 0;
 
+        /**
+         * @brief This function will generate test code. It will convert Test Case Nodes to actual code
+         *        and add additional driver code.
+         * @param testGen object that stores some information about the test code.
+         */
         virtual void createTestCode(TestCodeGenerator& testGen);
 
         FunctionDeclarationNode* getMainFunction();
@@ -84,16 +91,19 @@ namespace Srsl{
 
         AbstractNode(const std::string& value, AST_NODE_TYPE type, uint64 lineNumber);
 
+        AbstractNode(const std::string& value, AST_NODE_TYPE type, uint64 lineNumber, const TypeDesc& typeDesc);
+
     protected:
 
         std::vector<UP<AbstractNode>> m_Children;
         AbstractNode* m_Parent;
         std::string m_Value;
         RCP<SymbolTable> m_SymbolTable;
+        TypeDesc m_Type;
         const uint64 m_LineNumber;
 
     private:
-        const AST_NODE_TYPE m_Type;
+        const AST_NODE_TYPE m_NodeType;
 
     };
 

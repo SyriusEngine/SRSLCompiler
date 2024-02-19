@@ -41,7 +41,6 @@ namespace Srsl{
 
     private:
         const uint32 m_Slot;
-        const TypeDesc m_Type;
     };
 
 }
