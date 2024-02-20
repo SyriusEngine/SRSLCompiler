@@ -65,7 +65,6 @@ namespace Srsl{
         file << "<body>" << std::endl;
         file << "<h1>Symbol Tables</h1>" << std::endl;
         m_SymbolTable->toHtml(file);
-        file << "</table>" << std::endl;
         file << "</body>" << std::endl;
         file << "</html>" << std::endl;
     }
@@ -73,8 +72,16 @@ namespace Srsl{
     void ShaderModuleImpl::exportShader(ExportDesc &desc, const ShaderLimits& limits) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
-        if (desc.testConfig.exportTestCases){
-            generateTestCode(desc.testConfig);
+        if (desc.exportTestCases){
+            if (m_ShaderType == SRSL_VERTEX_SHADER) {
+                generateTestCode(desc.vertexShaderTestConfig);
+            }
+            else if (m_ShaderType == SRSL_FRAGMENT_SHADER) {
+                generateTestCode(desc.fragmentShaderTestConfig);
+            }
+            else{
+                SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ShaderType);
+            }
         }
 
         // determine the target language
@@ -122,7 +129,7 @@ namespace Srsl{
         return m_ShaderType;
     }
 
-    void ShaderModuleImpl::validate(Validator& validator) {
+    void ShaderModuleImpl::validate(Executor& validator) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
         m_Program->validate(validator);
@@ -145,23 +152,10 @@ namespace Srsl{
 
         // the last child added to the scopeNode will be a TestEvaluationNode
         // that generate driver code for the test cases
-        AbstractNode* testEvaluationNode = nullptr;
-        if (m_ShaderType == SRSL_VERTEX_SHADER){
-            testEvaluationNode = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.vertexShaderTestDataSlot, 0);
-            // add test case names to the output parameter
-            for (auto testCase : codeGenerator.testCases){
-                desc.vertexShaderTestCases.push_back(testCase->getValue());
-            }
-        }
-        else if (m_ShaderType == SRSL_FRAGMENT_SHADER){
-            testEvaluationNode = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.fragmentShaderTestDataSlot, 0);
-            // add test case names to the output parameter
-            for (auto testCase : codeGenerator.testCases){
-                desc.fragmentShaderTestCases.push_back(testCase->getValue());
-            }
-        }
-        else{
-            SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ShaderType);
+        auto testEvaluationNode = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.ssboSlot, 0);
+        // add test case names to the output parameter
+        for (auto testCase : codeGenerator.testCases){
+            desc.testCaseNames.push_back(testCase->getValue());
         }
     }
 }

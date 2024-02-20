@@ -7,7 +7,8 @@ namespace Srsl{
     AbstractNode("TEST_EVALUATOR", AST_NODE_TEST_EVALUATION, lineNumber),
     m_TestCases(testCases),
     m_TestDataSSBO(nullptr),
-    m_TestDataSSBOSlot(ssboSlot){
+    m_TestDataSSBOSlot(ssboSlot),
+    m_TestDataArraySize(0){
         createTestSSBO();
 
         SRSL_POSTCONDITION(m_TestDataSSBO != nullptr, "TestEvaluationNode::TestEvaluationNode: m_TestDataSSBO is nullptr");
@@ -40,10 +41,10 @@ namespace Srsl{
         // now add an array of uint32 to store the test results
         // make sure to pad the array to 16 bytes
         // a uint is 4 bytes on GPUs, so we need to pad the array to the next multiple of 16
-        uint32 arraySize = (m_TestCases.size() + 3) & ~3;
+        m_TestDataArraySize = (m_TestCases.size() + 3) & ~3;
         TypeDesc boolArrayDesc;
         boolArrayDesc.type = VT_BOOL;
-        boolArrayDesc.arraySizes.push_back(arraySize);
+        boolArrayDesc.arraySizes.push_back(m_TestDataArraySize);
 
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_RESULTS, "", boolArrayDesc, 0);
     }

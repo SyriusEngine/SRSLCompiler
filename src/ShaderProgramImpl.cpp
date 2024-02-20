@@ -29,7 +29,7 @@ namespace Srsl{
 
     void ShaderProgramImpl::link() {
         if (m_VertexShader != nullptr and m_FragmentShader != nullptr) {
-            Validator validator(m_Limits);
+            Executor validator(m_Limits);
             m_VertexShader->validate(validator);
             m_FragmentShader->validate(validator);
 

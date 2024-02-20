@@ -19,6 +19,8 @@ namespace Srsl{
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
+        [[nodiscard]] uint32 getTestDataArraySize() const { return m_TestDataArraySize; }
+
     private:
 
         void createTestSSBO();
@@ -29,6 +31,8 @@ namespace Srsl{
         const std::vector<TestCaseNode*> m_TestCases;
         AbstractNode* m_TestDataSSBO;
         const uint32 m_TestDataSSBOSlot;
+
+        uint32 m_TestDataArraySize;
 
     };
 }

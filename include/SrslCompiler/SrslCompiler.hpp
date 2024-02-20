@@ -64,11 +64,8 @@ namespace Srsl{
     };
 
     struct SRSL_API TestConfig{
-        bool exportTestCases = false;
-        uint32_t vertexShaderTestDataSlot = 0;      // Test results will be written to a SSBO at this slot
-        uint32_t fragmentShaderTestDataSlot = 1;
-        std::vector<std::string> vertexShaderTestCases; // output parameter: This vector will contain the test case names for the vertex shader
-        std::vector<std::string> fragmentShaderTestCases; // output parameter: This vector will contain the test case names for the fragment shader
+        uint32_t ssboSlot = 0;      // Test results will be written to a SSBO at this slot
+        std::vector<std::string> testCaseNames; // output parameter: This vector will contain the test case names for the vertex shader
     };
 
     struct SRSL_API ExportDesc{
@@ -83,6 +80,9 @@ namespace Srsl{
 
         // export configuration
         TestConfig testConfig = {};
+        bool exportTestCases = false;
+        TestConfig vertexShaderTestConfig = {};
+        TestConfig fragmentShaderTestConfig = {};
         VersionDesc version = {};
     };
 
