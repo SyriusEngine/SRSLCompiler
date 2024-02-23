@@ -150,6 +150,13 @@ namespace Srsl{
         return m_Scope;
     }
 
+    void FunctionDeclarationNode::createTestCode(TestCodeGenerator &testGen) {
+        if (m_Value != "main" and m_Scope != nullptr){
+            testGen.functions.push_back(this);
+        }
+        AbstractNode::createTestCode(testGen);
+    }
+
 //    void FunctionDeclarationNode::exportCpp(Cppexporter *cppexporter, const std::string &indent) const {
 //        if (cppexporter->getCppDescriptor().entryPoint == m_Value){
 //            auto fName = "main__" + shaderTypeToString(cppexporter->getShaderType());

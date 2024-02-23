@@ -35,7 +35,8 @@ namespace Srsl{
                 childType == AST_NODE_IF_STATEMENT or
                 childType == AST_NODE_ELSE_STATEMENT or
                 childType == AST_NODE_WHILE_STATEMENT or
-                childType == AST_NODE_SCOPE_STATEMENT
+                childType == AST_NODE_SCOPE_STATEMENT or
+                childType == AST_NODE_TEST_EVALUATION
                     ){
 
             }
@@ -47,7 +48,10 @@ namespace Srsl{
     }
 
     void ScopeNode::createTestCode(TestCodeGenerator &testGen) {
-        testGen.scopes.emplace_back(this);
+        // dont add the main scope to the list of scopes as this scope contains the test driving code
+        if (m_Parent->getValue() != "main"){
+            testGen.scopes.emplace_back(this);
+        }
         AbstractNode::createTestCode(testGen);
     }
 

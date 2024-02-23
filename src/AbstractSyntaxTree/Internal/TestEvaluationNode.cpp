@@ -39,7 +39,14 @@ namespace Srsl{
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_COUNT_LIT, "", uintDesc, 0);
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_PASSED_LIT, "", uintDesc, 0);
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_FAILED_LIT, "", uintDesc, 0);
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_SKIPPED_LIT, "", uintDesc, 0);
+        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_FUNCTION_COUNT_LIT, "", uintDesc, 0);
+        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COUNT_LIT, "", uintDesc, 0);
+
+        // add padding
+        TypeDesc paddingDesc;
+        paddingDesc.type = VT_UINT;
+        paddingDesc.arraySizes.push_back(3);
+        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_PADDING_LIT, "", paddingDesc, 0);
 
         // now add an array of uint32 to store the test results
         // make sure to pad the array to 16 bytes
@@ -59,6 +66,8 @@ namespace Srsl{
         exporter->addLine(m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_COUNT_LIT + " = " + std::to_string(m_TestCases.size()) +";\n");
         exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " = 0;\n");
         exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " = 0;\n");
+        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + " = " + std::to_string(m_FunctionCount) + ";\n");
+        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT + " = " + std::to_string(m_ScopeCount) + ";\n");
 
         for (uint32 i = 0; i < m_TestCases.size(); ++i){
             exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = all(");
@@ -68,7 +77,5 @@ namespace Srsl{
             exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " += " + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
             exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");
         }
-
-        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_SKIPPED_LIT + " = 0"); // the parent ScopeNode will add the semicolon and newline character
     }
 }

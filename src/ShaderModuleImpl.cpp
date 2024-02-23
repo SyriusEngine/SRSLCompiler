@@ -147,7 +147,7 @@ namespace Srsl{
 
 
         // configure output parameters
-        desc.ssboSize = sizeof(uint32) * 4; // header
+        desc.ssboSize = sizeof(uint32) * 8; // header
         desc.ssboSize += sizeof(uint32) * testEvaluationNode->getTestDataArraySize();
 
         for (auto testCase : codeGenerator.testCases){

@@ -26,6 +26,8 @@ namespace Srsl{
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
+        void createTestCode(TestCodeGenerator& testGen) override;
+
         [[nodiscard]] ScopeNode* getScope() const;
 
     private:
