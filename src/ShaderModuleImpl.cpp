@@ -145,7 +145,6 @@ namespace Srsl{
         auto teN = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, tenDesc, 0);
         auto testEvaluationNode = dynamic_cast<TestEvaluationNode*>(teN);
 
-
         // configure output parameters
         desc.ssboSize = sizeof(uint32) * 8; // header
         desc.ssboSize += sizeof(uint32) * testEvaluationNode->getTestDataArraySize();
