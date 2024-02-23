@@ -30,8 +30,6 @@ namespace Srsl{
 
         void validate(Executor& validator);
 
-    private:
-
         void generateTestCode(TestConfig &desc);
 
     private:

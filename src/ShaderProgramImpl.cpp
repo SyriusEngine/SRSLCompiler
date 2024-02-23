@@ -48,4 +48,13 @@ namespace Srsl{
             m_FragmentShader->exportShader(desc, m_Limits);
         }
     }
+
+    void ShaderProgramImpl::generateTestCode(TestConfig &vertexShaderConfig, TestConfig &fragmentShaderConfig) {
+        if (m_VertexShader != nullptr){
+            m_VertexShader->generateTestCode(vertexShaderConfig);
+        }
+        if (m_FragmentShader != nullptr){
+            m_FragmentShader->generateTestCode(fragmentShaderConfig);
+        }
+    }
 }

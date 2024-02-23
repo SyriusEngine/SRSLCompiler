@@ -72,18 +72,6 @@ namespace Srsl{
     void ShaderModuleImpl::exportShader(ExportDesc &desc, const ShaderLimits& limits) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
-        if (desc.exportTestCases){
-            if (m_ShaderType == SRSL_VERTEX_SHADER) {
-                generateTestCode(desc.vertexShaderTestConfig);
-            }
-            else if (m_ShaderType == SRSL_FRAGMENT_SHADER) {
-                generateTestCode(desc.fragmentShaderTestConfig);
-            }
-            else{
-                SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ShaderType);
-            }
-        }
-
         // determine the target language
         UP<Exporter> exporter = nullptr;
         switch (desc.target) {

@@ -14,6 +14,11 @@ namespace Srsl{
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
+        void createTestCode(TestCodeGenerator& testGen) override;
+
+    public:
+        const uint32 m_ScopeId; // used for testing purposes
+
     };
 
 }

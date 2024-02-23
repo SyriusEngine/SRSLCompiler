@@ -64,8 +64,13 @@ namespace Srsl{
     };
 
     struct SRSL_API TestConfig{
-        uint32_t ssboSlot = 0;      // Test results will be written to a SSBO at this slot
-        std::vector<std::string> testCaseNames; // output parameter: This vector will contain the test case names for the vertex shader
+        uint32_t ssboSlot = 0;                  // input parameter: Test results will be written to a SSBO at this slot
+        std::vector<std::string> testCaseNames; // output parameter: contains the names of the test cases in order that they are written to the SSBO by the GPU
+        uint32_t testCaseNamesArraySize = 0;    // output parameter: contains the size of the array in the SSBO of test case names
+        std::vector<std::string> functionNames; // output parameter: names of the tested functions
+        uint32_t functionNamesArraySize = 0;    // output parameter: contains the size of the array in the SSBO of function names
+        std::vector<std::string> scopes;        // output parameter: This vector will contain the scopes for the vertex shader
+        uint32_t scopesArraySize = 0;           // output parameter: contains the size of the array in the SSBO of scopes
     };
 
     struct SRSL_API ExportDesc{
@@ -79,10 +84,6 @@ namespace Srsl{
         SRSL_TARGET_LANGUAGE_TYPE target = SRSL_TARGET_NONE;
 
         // export configuration
-        TestConfig testConfig = {};
-        bool exportTestCases = false;
-        TestConfig vertexShaderTestConfig = {};
-        TestConfig fragmentShaderTestConfig = {};
         VersionDesc version = {};
     };
 
@@ -112,6 +113,8 @@ namespace Srsl{
         virtual void link() = 0;
 
         virtual void exportShader(ExportDesc& desc) = 0;
+
+        virtual void generateTestCode(TestConfig &vertexShaderConfig, TestConfig& fragmentShaderConfig) = 0;
 
     protected:
         ShaderLimits m_Limits;

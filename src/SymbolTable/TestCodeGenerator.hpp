@@ -5,8 +5,11 @@
 namespace Srsl{
 
     class TestCaseNode;
+    class ScopeNode;
 
-    struct TestCodeGenerator{
+    class TestCodeGenerator{
+    public:
         std::vector<TestCaseNode*> testCases;
+        std::vector<ScopeNode*> scopes;
     };
 }

@@ -2,8 +2,11 @@
 
 namespace Srsl{
 
+    static uint32 s_ScopeId = 0;
+
     ScopeNode::ScopeNode(uint64 lineNumber):
-            AbstractNode("", AST_NODE_SCOPE_STATEMENT, lineNumber){
+    AbstractNode("", AST_NODE_SCOPE_STATEMENT, lineNumber),
+    m_ScopeId(s_ScopeId++){
         std::stringstream ss;
         ss << "Scope_" << this;
         m_Value = ss.str();
@@ -41,6 +44,11 @@ namespace Srsl{
             }
         }
         exporter->addLine(indent + "}\n");
+    }
+
+    void ScopeNode::createTestCode(TestCodeGenerator &testGen) {
+        testGen.scopes.emplace_back(this);
+        AbstractNode::createTestCode(testGen);
     }
 
 }
