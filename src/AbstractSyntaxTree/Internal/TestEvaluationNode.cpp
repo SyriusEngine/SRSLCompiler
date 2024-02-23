@@ -3,13 +3,15 @@
 #include "../ShaderStorageBufferNode.hpp"
 
 namespace Srsl{
-    TestEvaluationNode::TestEvaluationNode(const std::vector<TestCaseNode*> &testCases, const std::string& ssboName, uint32 ssboSlot, uint64 lineNumber):
+    TestEvaluationNode::TestEvaluationNode(const std::vector<TestCaseNode*> &testCases, const TestEvaluationNodeDesc& desc, uint64 lineNumber):
     AbstractNode("TEST_EVALUATOR", AST_NODE_TEST_EVALUATION, lineNumber),
     m_TestCases(testCases),
     m_TestDataSSBO(nullptr),
-    m_TestDataSSBOSlot(ssboSlot),
-    m_TestDataSSBOName(ssboName),
-    m_TestDataArraySize(0){
+    m_TestDataSSBOSlot(desc.ssboSlot),
+    m_TestDataSSBOName(desc.ssboName),
+    m_TestDataArraySize(0),
+    m_ScopeCount(desc.scopeCount),
+    m_FunctionCount(desc.functionCount){
         createTestSSBO();
 
         SRSL_POSTCONDITION(m_TestDataSSBO != nullptr, "TestEvaluationNode::TestEvaluationNode: m_TestDataSSBO is nullptr");

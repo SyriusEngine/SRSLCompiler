@@ -125,7 +125,7 @@ namespace Srsl{
 
     void ShaderModuleImpl::generateTestCode(TestConfig &desc) {
         // convert all test case nodes to evaluable code
-        TestCodeGenerator codeGenerator;
+        TestCodeGenerator codeGenerator(desc.ssboName);
         m_Program->createTestCode(codeGenerator);
 
         // obtain the scope for the main function, this scope will contain the test driver code
@@ -137,7 +137,12 @@ namespace Srsl{
 
         // the last child added to the scopeNode will be a TestEvaluationNode
         // that generate driver code for the test cases
-        auto teN = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.ssboName, desc.ssboSlot, 0);
+        TestEvaluationNodeDesc tenDesc;
+        tenDesc.ssboName = desc.ssboName;
+        tenDesc.ssboSlot = desc.ssboSlot;
+        tenDesc.scopeCount = codeGenerator.scopes.size();
+        tenDesc.functionCount = codeGenerator.functions.size();
+        auto teN = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, tenDesc, 0);
         auto testEvaluationNode = dynamic_cast<TestEvaluationNode*>(teN);
 
 

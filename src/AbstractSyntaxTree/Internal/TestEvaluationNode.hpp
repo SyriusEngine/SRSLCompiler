@@ -11,9 +11,16 @@
 
 namespace Srsl{
 
+    struct TestEvaluationNodeDesc{
+        std::string ssboName;
+        uint32 ssboSlot;
+        uint32 scopeCount;
+        uint32 functionCount;
+    };
+
     class TestEvaluationNode: public AbstractNode{
     public:
-        TestEvaluationNode(const std::vector<TestCaseNode*>& testCases, const std::string& ssboName, uint32 ssboSlot, uint64 lineNumber);
+        TestEvaluationNode(const std::vector<TestCaseNode*>& testCases, const TestEvaluationNodeDesc& desc, uint64 lineNumber);
 
         ~TestEvaluationNode() override;
 
@@ -32,6 +39,8 @@ namespace Srsl{
         AbstractNode* m_TestDataSSBO;
         std::string m_TestDataSSBOName;
         const uint32 m_TestDataSSBOSlot;
+        const uint32 m_ScopeCount;
+        const uint32 m_FunctionCount;
 
         uint32 m_TestDataArraySize;
 
