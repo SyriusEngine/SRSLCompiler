@@ -54,19 +54,19 @@ namespace Srsl{
 
     void TestEvaluationNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {
         // set all SSBO values to 0
-        exporter->addLine(SRSL_TEST_DATA_TEST_COUNT_LIT + " = " + std::to_string(m_TestCases.size()) +";\n");
-        exporter->addLine(indent + SRSL_TEST_DATA_TEST_PASSED_LIT + " = 0;\n");
-        exporter->addLine(indent + SRSL_TEST_DATA_TEST_FAILED_LIT + " = 0;\n");
+        exporter->addLine(m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_COUNT_LIT + " = " + std::to_string(m_TestCases.size()) +";\n");
+        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " = 0;\n");
+        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " = 0;\n");
 
         for (uint32 i = 0; i < m_TestCases.size(); ++i){
-            exporter->addLine(indent + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = all(");
+            exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = all(");
             m_TestCases[i]->generateCode(exporter, "");
             exporter->addLine(");\n");
 
-            exporter->addLine(indent + SRSL_TEST_DATA_TEST_PASSED_LIT + " += " + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
-            exporter->addLine(indent + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");
+            exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " += " + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
+            exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");
         }
 
-        exporter->addLine(indent + SRSL_TEST_DATA_TEST_SKIPPED_LIT + " = 0"); // the parent ScopeNode will add the semicolon and newline character
+        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_SKIPPED_LIT + " = 0"); // the parent ScopeNode will add the semicolon and newline character
     }
 }

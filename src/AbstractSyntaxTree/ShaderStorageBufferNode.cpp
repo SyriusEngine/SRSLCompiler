@@ -21,13 +21,13 @@ namespace Srsl{
     }
 
     void ShaderStorageBufferNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {
-        exporter->addLine("layout(std430, binding = " + std::to_string(m_Slot) + ") buffer " + m_Value + " {\n");
+        exporter->addLine("layout(std430, binding = " + std::to_string(m_Slot) + ") buffer " + SRSL_TYPE_DECL + m_Value + " {\n");
         for (auto& child : m_Children){
             exporter->addLine(indent + "\t");
             child->generateCode(exporter, "\t");
             exporter->addLine(";\n");
         }
-        exporter->addLine("};\n");
+        exporter->addLine("} " + m_Value + ";\n");
 
     }
 

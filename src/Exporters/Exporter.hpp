@@ -14,8 +14,6 @@
 #define SRSL_TEXTURE_COLLECTION std::string("__TEXTURES__")
 #define SRSL_SAMPLER_CONNECTION std::string("__SAMPLERS__")
 
-#define SRSL_TEST_SSBO_DATA std::string("SRSL_TEST_DATA")
-
 
 namespace Srsl{
 
