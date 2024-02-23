@@ -32,11 +32,11 @@ namespace Srsl{
         SamplerDesc(const std::string& name, uint32 slot);
     };
 
-    class Executor{
+    class Validator{
     public:
-        explicit Executor(const ShaderLimits& limits);
+        explicit Validator(const ShaderLimits& limits);
 
-        ~Executor();
+        ~Validator();
 
         void validate();
 

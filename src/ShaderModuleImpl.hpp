@@ -28,7 +28,7 @@ namespace Srsl{
 
         [[nodiscard]] SRSL_SHADER_TYPE getShaderType() const override;
 
-        void validate(Executor& validator);
+        void validate(Validator& validator);
 
         void generateTestCode(TestConfig &desc);
 

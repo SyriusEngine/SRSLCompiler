@@ -25,7 +25,7 @@ namespace Srsl{
         }
     }
 
-    void ConstantBufferNode::validate(Executor &ctx) {
+    void ConstantBufferNode::validate(Validator &ctx) {
         ctx.addConstantBuffer(m_Value, m_Slot);
 
         AbstractNode::validate(ctx);

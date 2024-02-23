@@ -70,7 +70,7 @@ namespace Srsl{
         }
     }
 
-    void AbstractNode::validate(Executor& ctx) {
+    void AbstractNode::validate(Validator& ctx) {
         for (const auto& child: m_Children){
             child->validate(ctx);
         }

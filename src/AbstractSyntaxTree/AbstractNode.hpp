@@ -66,7 +66,7 @@ namespace Srsl{
          * @brief validates certain properties of the AST, a Validatior object is passed recursively.
          * @param ctx the validator object.
          */
-        virtual void validate(Executor& ctx);
+        virtual void validate(Validator& ctx);
 
         /**
          * @brief Used to optimize the AST before the actual code is generated. Can change (replace/add/remove) child nodes.

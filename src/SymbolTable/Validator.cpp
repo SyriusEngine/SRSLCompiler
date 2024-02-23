@@ -31,14 +31,14 @@ namespace Srsl{
 
 
 
-    Executor::Executor(const ShaderLimits& limits):
+    Validator::Validator(const ShaderLimits& limits):
     m_Limits(limits){
 
     }
 
-    Executor::~Executor() = default;
+    Validator::~Validator() = default;
 
-    void Executor::validate() {
+    void Validator::validate() {
         SRSL_PRECONDITION(m_InputVertexTable != nullptr, "Input vertex table is not set.");
         SRSL_PRECONDITION(m_OutputVertexTable != nullptr, "Output vertex table is not set.");
         SRSL_PRECONDITION(m_InputFragmentTable != nullptr, "Input fragment table is not set.");

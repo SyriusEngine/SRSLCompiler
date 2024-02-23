@@ -117,7 +117,7 @@ namespace Srsl{
         return m_ShaderType;
     }
 
-    void ShaderModuleImpl::validate(Executor& validator) {
+    void ShaderModuleImpl::validate(Validator& validator) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
         m_Program->validate(validator);
