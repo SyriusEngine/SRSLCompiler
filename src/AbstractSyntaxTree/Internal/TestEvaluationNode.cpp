@@ -3,11 +3,12 @@
 #include "../ShaderStorageBufferNode.hpp"
 
 namespace Srsl{
-    TestEvaluationNode::TestEvaluationNode(const std::vector<TestCaseNode*> &testCases, uint32 ssboSlot, uint64 lineNumber):
+    TestEvaluationNode::TestEvaluationNode(const std::vector<TestCaseNode*> &testCases, const std::string& ssboName, uint32 ssboSlot, uint64 lineNumber):
     AbstractNode("TEST_EVALUATOR", AST_NODE_TEST_EVALUATION, lineNumber),
     m_TestCases(testCases),
     m_TestDataSSBO(nullptr),
     m_TestDataSSBOSlot(ssboSlot),
+    m_TestDataSSBOName(ssboName),
     m_TestDataArraySize(0){
         createTestSSBO();
 
@@ -29,7 +30,7 @@ namespace Srsl{
     }
 
     void TestEvaluationNode::createTestSSBO() {
-        m_TestDataSSBO = addChild<ShaderStorageBufferNode>(SRSL_TEST_SSBO_DATA, m_TestDataSSBOSlot, 0);
+        m_TestDataSSBO = addChild<ShaderStorageBufferNode>(m_TestDataSSBOName, m_TestDataSSBOSlot, 0);
 
         TypeDesc uintDesc;
         uintDesc.type = VT_UINT;
@@ -42,11 +43,13 @@ namespace Srsl{
         // make sure to pad the array to 16 bytes
         // a uint is 4 bytes on GPUs, so we need to pad the array to the next multiple of 16
         m_TestDataArraySize = (m_TestCases.size() + 3) & ~3;
-        TypeDesc boolArrayDesc;
-        boolArrayDesc.type = VT_BOOL;
-        boolArrayDesc.arraySizes.push_back(m_TestDataArraySize);
+        if (!m_TestCases.empty()){ // only add the array if there are test cases
+            TypeDesc boolArrayDesc;
+            boolArrayDesc.type = VT_BOOL;
+            boolArrayDesc.arraySizes.push_back(m_TestDataArraySize);
 
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_RESULTS, "", boolArrayDesc, 0);
+            m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_RESULTS, "", boolArrayDesc, 0);
+        }
     }
 
     void TestEvaluationNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {

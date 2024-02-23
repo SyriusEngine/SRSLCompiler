@@ -64,13 +64,15 @@ namespace Srsl{
     };
 
     struct SRSL_API TestConfig{
-        uint32_t ssboSlot = 0;                  // input parameter: Test results will be written to a SSBO at this slot
-        std::vector<std::string> testCaseNames; // output parameter: contains the names of the test cases in order that they are written to the SSBO by the GPU
-        uint32_t testCaseNamesArraySize = 0;    // output parameter: contains the size of the array in the SSBO of test case names
-        std::vector<std::string> functionNames; // output parameter: names of the tested functions
-        uint32_t functionNamesArraySize = 0;    // output parameter: contains the size of the array in the SSBO of function names
-        std::vector<std::string> scopes;        // output parameter: This vector will contain the scopes for the vertex shader
-        uint32_t scopesArraySize = 0;           // output parameter: contains the size of the array in the SSBO of scopes
+        std::string ssboName = "SRSL_TEST_RESULTS"; // input parameter: Name of the SSBO that will contain the test results
+        uint32_t ssboSlot = 0;                      // input parameter: Test results will be written to a SSBO at this slot
+        uint32_t ssboSize = 0;                      // output parameter: Size of the SSBO that will contain testing info
+        std::vector<std::string> testCaseNames;     // output parameter: contains the names of the test cases in order that they are written to the SSBO by the GPU
+        uint32_t testCaseCount = 0;                 // output parameter: Number of test cases
+        std::vector<std::string> functionNames;     // output parameter: names of the tested functions
+        uint32_t functionCount = 0;                 // output parameter: Number of tested functions
+        std::vector<std::string> scopes;            // output parameter: This vector will contain the scopes for the vertex shader
+        uint32_t scopeCount = 0;                    // output parameter: Number of scopes
     };
 
     struct SRSL_API ExportDesc{

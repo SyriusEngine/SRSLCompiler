@@ -127,9 +127,6 @@ namespace Srsl{
         // convert all test case nodes to evaluable code
         TestCodeGenerator codeGenerator;
         m_Program->createTestCode(codeGenerator);
-        if (codeGenerator.testCases.empty()){
-            return;
-        }
 
         // obtain the scope for the main function, this scope will contain the test driver code
         auto mainFunction = m_Program->getMainFunction();
@@ -140,10 +137,17 @@ namespace Srsl{
 
         // the last child added to the scopeNode will be a TestEvaluationNode
         // that generate driver code for the test cases
-        auto testEvaluationNode = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.ssboSlot, 0);
-        // add test case names to the output parameter
+        auto teN = mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.ssboName, desc.ssboSlot, 0);
+        auto testEvaluationNode = dynamic_cast<TestEvaluationNode*>(teN);
+
+
+        // configure output parameters
+        desc.ssboSize = sizeof(uint32) * 4; // header
+        desc.ssboSize += sizeof(uint32) * testEvaluationNode->getTestDataArraySize();
+
         for (auto testCase : codeGenerator.testCases){
             desc.testCaseNames.push_back(testCase->getValue());
         }
+        desc.testCaseCount = codeGenerator.testCases.size();
     }
 }
