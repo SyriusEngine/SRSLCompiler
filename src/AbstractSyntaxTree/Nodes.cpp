@@ -7,7 +7,12 @@ namespace Srsl{
         if (m_Value.find('.') != std::string::npos){
             m_Type.type = VT_FLOAT;
             m_Type.typeStr = "float";
-        } else {
+        }
+        else if (m_Value == "true" or m_Value == "false"){
+            m_Type.type = VT_BOOL;
+            m_Type.typeStr = "bool";
+        }
+        else {
             m_Type.type = VT_INT;
             m_Type.typeStr = "int";
         }

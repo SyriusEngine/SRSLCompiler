@@ -153,5 +153,18 @@ namespace Srsl{
             desc.testCaseNames.push_back(testCase->getValue());
         }
         desc.testCaseCount = codeGenerator.testCases.size();
+        desc.testCaseArraySize = testEvaluationNode->getTestDataArraySize();
+
+        for (auto scope : codeGenerator.scopes){
+            desc.scopes.push_back(scope->getValue());
+        }
+        desc.scopeCount = codeGenerator.scopes.size();
+        desc.scopeArraySize = testEvaluationNode->getScopeArraySize();
+
+        for (auto function : codeGenerator.functions){
+            desc.functionNames.push_back(function->getValue());
+        }
+        desc.functionCount = codeGenerator.functions.size();
+        desc.functionArraySize = testEvaluationNode->getFunctionArraySize();
     }
 }

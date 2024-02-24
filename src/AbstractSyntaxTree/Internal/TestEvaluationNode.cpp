@@ -11,7 +11,9 @@ namespace Srsl{
     m_TestDataSSBOName(desc.ssboName),
     m_TestDataArraySize(0),
     m_ScopeCount(desc.scopeCount),
-    m_FunctionCount(desc.functionCount){
+    m_FunctionCount(desc.functionCount),
+    m_FunctionArraySize(0),
+    m_ScopeArraySize(0){
         createTestSSBO();
 
         SRSL_POSTCONDITION(m_TestDataSSBO != nullptr, "TestEvaluationNode::TestEvaluationNode: m_TestDataSSBO is nullptr");
@@ -52,12 +54,28 @@ namespace Srsl{
         // make sure to pad the array to 16 bytes
         // a uint is 4 bytes on GPUs, so we need to pad the array to the next multiple of 16
         m_TestDataArraySize = (m_TestCases.size() + 3) & ~3;
+        m_FunctionArraySize = (m_FunctionCount + 3) & ~3;
+        m_ScopeArraySize = (m_ScopeCount + 3) & ~3;
         if (!m_TestCases.empty()){ // only add the array if there are test cases
             TypeDesc boolArrayDesc;
             boolArrayDesc.type = VT_BOOL;
             boolArrayDesc.arraySizes.push_back(m_TestDataArraySize);
 
             m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_RESULTS, "", boolArrayDesc, 0);
+        }
+        if (m_FunctionCount != 0){
+            TypeDesc boolArrayDesc;
+            boolArrayDesc.type = VT_BOOL;
+            boolArrayDesc.arraySizes.push_back(m_FunctionArraySize);
+
+            m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_FUNCTION_COVERAGE, "", boolArrayDesc, 0);
+        }
+        if (m_ScopeCount != 0){
+            TypeDesc boolArrayDesc;
+            boolArrayDesc.type = VT_BOOL;
+            boolArrayDesc.arraySizes.push_back(m_ScopeArraySize);
+
+            m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, "", boolArrayDesc, 0);
         }
     }
 

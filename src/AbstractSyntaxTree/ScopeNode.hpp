@@ -18,6 +18,14 @@ namespace Srsl{
 
         inline uint32 getScopeId() const{ return m_ScopeId; }
 
+    private:
+
+        /**
+         * @brief Adds a assignment node as a first child, this assignment will set TRUE if the scope is entered
+         *        used for generating scope coverage metrics.
+         */
+        void createScopeFlag(TestCodeGenerator &testGen);
+
     public:
         const uint32 m_ScopeId; // used for testing purposes
 

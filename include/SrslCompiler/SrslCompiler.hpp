@@ -69,10 +69,13 @@ namespace Srsl{
         uint32_t ssboSize = 0;                      // output parameter: Size of the SSBO that will contain testing info
         std::vector<std::string> testCaseNames;     // output parameter: contains the names of the test cases in order that they are written to the SSBO by the GPU
         uint32_t testCaseCount = 0;                 // output parameter: Number of test cases
+        uint32_t testCaseArraySize = 0;             // output parameter: Size of the array that will contain the test cases
         std::vector<std::string> functionNames;     // output parameter: names of the tested functions
         uint32_t functionCount = 0;                 // output parameter: Number of tested functions
+        uint32_t functionArraySize = 0;             // output parameter: Size of the array that will contain the tested functions
         std::vector<std::string> scopes;            // output parameter: This vector will contain the scopes for the vertex shader
         uint32_t scopeCount = 0;                    // output parameter: Number of scopes
+        uint32_t scopeArraySize = 0;                // output parameter: Size of the array that will contain the scopes
     };
 
     struct SRSL_API ExportDesc{

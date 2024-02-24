@@ -14,6 +14,17 @@
 #define SRSL_TEXTURE_COLLECTION std::string("__TEXTURES__")
 #define SRSL_SAMPLER_CONNECTION std::string("__SAMPLERS__")
 
+#define SRSL_TEST_DATA_TEST_COUNT_LIT std::string("srslTestCount")
+#define SRSL_TEST_DATA_TEST_PASSED_LIT std::string("srslTestPassed")
+#define SRSL_TEST_DATA_TEST_FAILED_LIT std::string("srslTestFailed")
+#define SRSL_TEST_DATA_SCOPE_COUNT_LIT std::string("srslScopeCount")
+#define SRSL_TEST_DATA_FUNCTION_COUNT_LIT std::string("srslFunctionCount")
+#define SRSL_TEST_DATA_PADDING_LIT std::string("srslPadding")
+
+#define SRSL_TEST_DATA_TEST_RESULTS std::string("srslTestResults")
+#define SRSL_TEST_DATA_SCOPE_COVERAGE std::string("srslScopeCoverage")
+#define SRSL_TEST_DATA_FUNCTION_COVERAGE std::string("srslFunctionCoverage")
+
 
 namespace Srsl{
 

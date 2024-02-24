@@ -1,4 +1,7 @@
 #include "ScopeNode.hpp"
+#include "Nodes.hpp"
+#include "VariableNode.hpp"
+#include "MemberAccessNode.hpp"
 
 namespace Srsl{
 
@@ -51,8 +54,22 @@ namespace Srsl{
         // dont add the main scope to the list of scopes as this scope contains the test driving code
         if (m_Parent->getValue() != "main"){
             testGen.scopes.emplace_back(this);
+            createScopeFlag(testGen);
         }
         AbstractNode::createTestCode(testGen);
+    }
+
+    void ScopeNode::createScopeFlag(TestCodeGenerator &testGen) {
+        auto assignment = addChildFront<AssignmentNode>(m_LineNumber);
+        // LHS is a member access of the SSBO Scope array
+        auto memberAccess = assignment->addChild<MemberAccessNode>(m_LineNumber);
+        memberAccess->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
+        memberAccess->addChild<VariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, m_LineNumber);
+
+        // RHS is a literal TRUE
+        assignment->addChild<ConstantNode>("true", m_LineNumber);
+
+        assignment->construct();
     }
 
 }
