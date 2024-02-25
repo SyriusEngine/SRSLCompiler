@@ -16,6 +16,7 @@ namespace Srsl{
         ST_SAMPLER          = 0x07,
         ST_VECTOR_SWIZZLE   = 0x08,
         ST_TEST_CASE        = 0x09,
+        ST_SHADER_STORAGE_BUFFER = 0x0A,
     } SYMBOL_TYPE;
 
     class SymbolTable;

@@ -65,6 +65,7 @@ namespace Srsl{
     }
 
     void AbstractNode::fillSymbolTable(RCP<SymbolTable> table){
+        m_SymbolTable = table;
         for (const auto& child: m_Children){
             child->fillSymbolTable(table);
         }

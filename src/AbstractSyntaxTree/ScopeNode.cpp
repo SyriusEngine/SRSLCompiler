@@ -70,6 +70,7 @@ namespace Srsl{
         assignment->addChild<ConstantNode>("true", m_LineNumber);
 
         assignment->construct();
+        assignment->fillSymbolTable(m_SymbolTable);
     }
 
 }
