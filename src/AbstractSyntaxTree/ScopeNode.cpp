@@ -60,11 +60,14 @@ namespace Srsl{
     }
 
     void ScopeNode::createScopeFlag(TestCodeGenerator &testGen) {
+        // at the beginning of each scope, add the following syntax
+        // <ShaderType>Results.srslScopeCoverage[<ScopeId>] = true;
         auto assignment = addChildFront<AssignmentNode>(m_LineNumber);
         // LHS is a member access of the SSBO Scope array
         auto memberAccess = assignment->addChild<MemberAccessNode>(m_LineNumber);
         memberAccess->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
-        memberAccess->addChild<VariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, m_LineNumber);
+        auto scopeCoverageArray = memberAccess->addChild<VariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, m_LineNumber);
+        scopeCoverageArray->addChild<ConstantNode>(std::to_string(m_ScopeId), m_LineNumber);
 
         // RHS is a literal TRUE
         assignment->addChild<ConstantNode>("true", m_LineNumber);

@@ -3,9 +3,10 @@
 
 namespace Srsl{
 
-    TreeWalker::TreeWalker(UP<AbstractNode> &rootNode, SRSL_SHADER_TYPE& shaderType):
+    TreeWalker::TreeWalker(UP<AbstractNode> &rootNode, ProgramInfo& programInfo, std::vector<TestCaseNode*>& testCases):
     m_RootNode(rootNode),
-    m_ShaderType(shaderType),
+    m_ProgramInfo(programInfo),
+    m_TestCases(testCases),
     m_CurrentNode(rootNode.get()){
         SRSL_PRECONDITION(m_RootNode == nullptr, "There already exists a root node");
 
@@ -15,15 +16,15 @@ namespace Srsl{
         auto type = ctx->SHADER_TYPE()->getText();
         if (type == "Vertex"){
             m_RootNode = createUP<ShaderTypeNode>(SRSL_VERTEX_SHADER, ctx->start->getLine());
-            m_ShaderType = SRSL_VERTEX_SHADER;
+            m_ProgramInfo.shaderType = SRSL_VERTEX_SHADER;
         }
         else if (type == "Fragment"){
             m_RootNode = createUP<ShaderTypeNode>(SRSL_FRAGMENT_SHADER, ctx->start->getLine());
-            m_ShaderType = SRSL_FRAGMENT_SHADER;
+            m_ProgramInfo.shaderType = SRSL_FRAGMENT_SHADER;
         }
         else if (type == "Geometry"){
             m_RootNode = createUP<ShaderTypeNode>(SRSL_GEOMETRY_SHADER, ctx->start->getLine());
-            m_ShaderType = SRSL_GEOMETRY_SHADER;
+            m_ProgramInfo.shaderType = SRSL_GEOMETRY_SHADER;
         }
         else {
             throw std::runtime_error("Unknown shader type");
@@ -64,6 +65,7 @@ namespace Srsl{
 
         auto newCurrent = m_CurrentNode->addChild<NewVariableNode>(name, semantic, vtDesc, ctx->start->getLine());
         m_CurrentNode = newCurrent;
+        m_ProgramInfo.variableCount++;
     }
 
     void TreeWalker::exitNewVariable(SrslGrammarParser::NewVariableContext *ctx) {
@@ -183,6 +185,7 @@ namespace Srsl{
 
         auto newCurrent = m_CurrentNode->addChild<ScopeNode>(ctx->start->getLine());
         m_CurrentNode = newCurrent;
+        m_ProgramInfo.scopeCount++;
     }
 
     void TreeWalker::exitScope(SrslGrammarParser::ScopeContext *ctx) {
@@ -280,7 +283,7 @@ namespace Srsl{
 
         auto newCurrent = m_CurrentNode->addChild<FunctionDeclarationNode>(desc, ctx->start->getLine());
         m_CurrentNode = newCurrent;
-
+        m_ProgramInfo.functionCount++;
     }
 
     void TreeWalker::exitFunctionDeclaration(SrslGrammarParser::FunctionDeclarationContext *ctx) {
@@ -416,6 +419,8 @@ namespace Srsl{
             or compare == "<=" or compare == ">="){
             auto newCurrent = m_CurrentNode->addChild<TestCaseNode>(ctx->VAR_NAME()->getText(), compare, ctx->start->getLine());
             m_CurrentNode = newCurrent;
+            auto testCaseNode = dynamic_cast<TestCaseNode*>(newCurrent);
+            m_TestCases.push_back(testCaseNode);
         }
         else{
             SRSL_THROW_EXCEPTION("Invalid comparison operator (%s)", compare.c_str())
