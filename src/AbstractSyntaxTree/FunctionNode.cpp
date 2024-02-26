@@ -1,9 +1,14 @@
 #include "FunctionNode.hpp"
+#include "Nodes.hpp"
+#include "MemberAccessNode.hpp"
 
 namespace Srsl{
 
+    static uint32 s_FunctionID = 0;
+
     FunctionDeclarationNode::FunctionDeclarationNode(const FunctionDeclarationDesc &desc, uint64 lineNumber):
     AbstractNode(desc.name, AST_NODE_FUNCTION_DECLARATION, lineNumber, desc.type),
+    m_FunctionID(s_FunctionID++),
     m_HasScope(desc.hasScope),
     m_SemanticName(desc.semantic){
 
@@ -153,8 +158,29 @@ namespace Srsl{
     void FunctionDeclarationNode::createTestCode(TestCodeGenerator &testGen) {
         if (m_Value != "main" and m_Scope != nullptr){
             testGen.functions.push_back(this);
+            createFunctionFlag(testGen);
         }
         AbstractNode::createTestCode(testGen);
+    }
+
+    void FunctionDeclarationNode::createFunctionFlag(TestCodeGenerator &testGen) {
+        SRSL_PRECONDITION(m_Scope != nullptr, "FunctionDeclarationNode::createFunctionFlag() - Scope is not set");
+
+        // at the beginning of each function, add the following syntax
+        // <ShaderType>Results.srslFunctionCoverage[<FunctionID>] = true;
+
+        auto assignment = m_Scope->addChildFront<AssignmentNode>(m_LineNumber);
+        // LHS is a member access of the SSBO Scope array
+        auto memberAccess = assignment->addChild<MemberAccessNode>(m_LineNumber);
+        memberAccess->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
+        auto scopeCoverageArray = memberAccess->addChild<VariableNode>(SRSL_TEST_DATA_FUNCTION_COVERAGE, m_LineNumber);
+        scopeCoverageArray->addChild<ConstantNode>(std::to_string(m_FunctionID), m_LineNumber);
+
+        // RHS is a literal TRUE
+        assignment->addChild<ConstantNode>("true", m_LineNumber);
+
+        assignment->construct();
+        assignment->fillSymbolTable(m_SymbolTable);
     }
 
 //    void FunctionDeclarationNode::exportCpp(Cppexporter *cppexporter, const std::string &indent) const {

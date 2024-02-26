@@ -44,9 +44,13 @@ namespace Srsl{
 //
 //        void cppWriteTextures(CppExporter* cppExporter, const std::string& indent) const;
 
+        void createFunctionFlag(TestCodeGenerator& testGen);
+
     private:
         const std::string m_SemanticName;
         const bool m_HasScope;
+
+        const uint32 m_FunctionID; // used for testing generation
 
         ScopeNode* m_Scope = nullptr;
         std::vector<AbstractNode*> m_Arguments;
