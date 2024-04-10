@@ -45,6 +45,13 @@ namespace Srsl{
             symbol.name = m_Value;
             m_SymbolTable->addSymbol(symbol);
         }
+        auto actualType = m_Actual->getType();
+        m_Type.type = VT_BOOL;
+        m_Type.arraySizes = actualType.arraySizes;
+        m_Type.rows = actualType.rows;
+        m_Type.columns = actualType.columns;
+
+
         AbstractNode::fillSymbolTable(symbolTable);
     }
 
@@ -87,6 +94,5 @@ namespace Srsl{
         // finally, construct the expression node
         expNode->construct();
         expNode->fillSymbolTable(m_SymbolTable);
-        int x = 0;
     }
 }

@@ -88,7 +88,13 @@ namespace Srsl{
         exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT + " = " + std::to_string(m_ScopeCount) + ";\n");
 
         for (uint32 i = 0; i < m_TestCases.size(); ++i){
-            exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = all(");
+            exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
+            if (m_TestCases[i]->getType().columns > 1){
+                exporter->addLine("all(");
+            }
+            else{
+                exporter->addLine("(");
+            }
             m_TestCases[i]->generateCode(exporter, "");
             exporter->addLine(");\n");
 

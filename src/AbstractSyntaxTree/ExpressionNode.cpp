@@ -4,13 +4,13 @@ namespace Srsl{
 
     ExpressionNode::ExpressionNode(const std::string& operation, OperationType opType, uint64 lineNumber):
     AbstractNode(operation, AST_NODE_EXPRESSION, lineNumber),
-    m_OperationType(opType){
+    m_OperationType(opType),
+    m_Left(nullptr),
+    m_Right(nullptr){
 
     }
 
-    ExpressionNode::~ExpressionNode() {
-
-    }
+    ExpressionNode::~ExpressionNode() = default;
 
     void ExpressionNode::construct() {
         if (m_Children.size() == 1){
