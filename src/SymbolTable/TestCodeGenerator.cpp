@@ -3,7 +3,8 @@
 namespace Srsl{
 
     TestCodeGenerator::TestCodeGenerator(const std::string &testSSBOName):
-    testSSBOName(testSSBOName){
+    testSSBOName(testSSBOName),
+    totalLines(0){
 
     }
 

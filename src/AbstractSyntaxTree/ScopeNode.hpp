@@ -18,7 +18,9 @@ namespace Srsl{
 
         void addChildScope(ScopeNode* scope);
 
-        ScopeNode* getParentScope() const;
+        [[nodiscard]] ScopeNode* getParentScope() const;
+
+        uint32 getLineCount() const; // how many lines are in this scope, recusive since scopes can be in scopes
 
     private:
 

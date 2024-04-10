@@ -59,6 +59,8 @@ namespace Srsl{
         if (m_Parent->getValue() != "main"){
             testGen.scopes.emplace_back(this);
             createScopeFlag(testGen);
+            // add the line span of this scope to the total line count
+            testGen.totalLines += getLineCount();
         }
         AbstractNode::createTestCode(testGen);
     }
@@ -86,6 +88,30 @@ namespace Srsl{
 
         assignment->construct();
         assignment->fillSymbolTable(m_SymbolTable);
+    }
+
+    uint32 ScopeNode::getLineCount() const {
+        uint32 lineCount = 0;
+        for (const auto& child: m_Children){
+            auto childType = child->getNodeType();
+            if (childType == AST_NODE_FOR_STATEMENT or
+                childType == AST_NODE_IF_STATEMENT or
+                childType == AST_NODE_ELSE_STATEMENT or
+                childType == AST_NODE_WHILE_STATEMENT or
+                childType == AST_NODE_SCOPE_STATEMENT or
+                childType == AST_NODE_TEST_EVALUATION
+                    ){
+                // all have a scope and are thus part of the scope tree
+            }
+            else{
+                lineCount++; // we manually add a semicolon to the end of the line inside the scopenode
+                // we therefore now that each statement is on a new line
+            }
+        }
+        for (const auto& childScope: m_ChildScopes){
+            lineCount += childScope->getLineCount();
+        }
+        return lineCount;
     }
 
 

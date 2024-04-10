@@ -170,5 +170,7 @@ namespace Srsl{
         }
         desc.functionCount = codeGenerator.functions.size();
         desc.functionArraySize = testEvaluationNode->getFunctionArraySize();
+
+        desc.totalLineCount = codeGenerator.totalLines;
     }
 }

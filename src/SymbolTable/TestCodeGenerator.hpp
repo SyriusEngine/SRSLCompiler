@@ -20,5 +20,6 @@ namespace Srsl{
         std::vector<TestCaseNode*> testCases;
         std::vector<ScopeNode*> scopes;
         std::vector<FunctionDeclarationNode*> functions;
+        uint32 totalLines;
     };
 }

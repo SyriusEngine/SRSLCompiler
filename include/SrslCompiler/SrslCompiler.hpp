@@ -76,6 +76,7 @@ namespace Srsl{
         std::vector<std::string> scopes;            // output parameter: This vector will contain the scopes for the vertex shader
         uint32_t scopeCount = 0;                    // output parameter: Number of scopes
         uint32_t scopeArraySize = 0;                // output parameter: Size of the array that will contain the scopes
+        uint32_t totalLineCount = 0;                // output parameter: Total number of lines in the shader
     };
 
     struct SRSL_API ExportDesc{
