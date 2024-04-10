@@ -147,6 +147,7 @@ namespace Srsl{
         std::vector<TestCaseNode*>& m_TestCases;
 
         std::stack<AbstractNode*> m_BracketStack;
+        ScopeNode* m_CurrentScope;
 
     };
 

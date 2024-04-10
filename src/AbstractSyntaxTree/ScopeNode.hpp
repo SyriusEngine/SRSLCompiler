@@ -6,7 +6,7 @@ namespace Srsl{
 
     class ScopeNode: public AbstractNode{
     public:
-        explicit ScopeNode(uint64 lineNumber);
+        ScopeNode(uint64 lineNumber, ScopeNode* parentScope);
 
         ~ScopeNode() override;
 
@@ -15,6 +15,10 @@ namespace Srsl{
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
         void createTestCode(TestCodeGenerator& testGen) override;
+
+        void addChildScope(ScopeNode* scope);
+
+        ScopeNode* getParentScope() const;
 
     private:
 
@@ -27,6 +31,8 @@ namespace Srsl{
     private:
         const uint32 m_ScopeId; // used for testing generation
 
+        ScopeNode* m_ParentScope;
+        std::vector<ScopeNode*> m_ChildScopes;
     };
 
 }

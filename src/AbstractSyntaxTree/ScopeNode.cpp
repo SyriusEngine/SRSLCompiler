@@ -7,9 +7,11 @@ namespace Srsl{
 
     static uint32 s_ScopeId = 0;
 
-    ScopeNode::ScopeNode(uint64 lineNumber):
+    ScopeNode::ScopeNode(uint64 lineNumber, ScopeNode* parentScope):
     AbstractNode("", AST_NODE_SCOPE_STATEMENT, lineNumber),
-    m_ScopeId(s_ScopeId++){
+    m_ScopeId(s_ScopeId++),
+    m_ParentScope(parentScope),
+    m_ChildScopes(){
         std::stringstream ss;
         ss << "Scope_" << this;
         m_Value = ss.str();
@@ -33,6 +35,8 @@ namespace Srsl{
         for (const auto& child: m_Children){
             exporter->addLine(newIndent);
             child->generateCode(exporter, newIndent);
+
+            // only add a semicolon if the child is not a scope or a control statement
             auto childType = child->getNodeType();
             if (childType == AST_NODE_FOR_STATEMENT or
                 childType == AST_NODE_IF_STATEMENT or
@@ -59,6 +63,14 @@ namespace Srsl{
         AbstractNode::createTestCode(testGen);
     }
 
+    void ScopeNode::addChildScope(ScopeNode *scope) {
+        m_ChildScopes.push_back(scope);
+    }
+
+    ScopeNode *ScopeNode::getParentScope() const {
+        return m_ParentScope;
+    }
+
     void ScopeNode::createScopeFlag(TestCodeGenerator &testGen) {
         // at the beginning of each scope, add the following syntax
         // <ShaderType>Results.srslScopeCoverage[<ScopeId>] = true;
@@ -75,5 +87,6 @@ namespace Srsl{
         assignment->construct();
         assignment->fillSymbolTable(m_SymbolTable);
     }
+
 
 }

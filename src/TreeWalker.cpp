@@ -7,7 +7,8 @@ namespace Srsl{
     m_RootNode(rootNode),
     m_ProgramInfo(programInfo),
     m_TestCases(testCases),
-    m_CurrentNode(rootNode.get()){
+    m_CurrentNode(rootNode.get()),
+    m_CurrentScope(nullptr){
         SRSL_PRECONDITION(m_RootNode == nullptr, "There already exists a root node");
 
     }
@@ -183,12 +184,22 @@ namespace Srsl{
     void TreeWalker::enterScope(SrslGrammarParser::ScopeContext *ctx) {
         SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
 
-        auto newCurrent = m_CurrentNode->addChild<ScopeNode>(ctx->start->getLine());
+        auto newCurrent = m_CurrentNode->addChild<ScopeNode>(ctx->start->getLine(), m_CurrentScope);
         m_CurrentNode = newCurrent;
         m_ProgramInfo.scopeCount++;
+        auto scopeNode = dynamic_cast<ScopeNode*>(newCurrent);
+        SRSL_ASSERT(scopeNode != nullptr, "[TreeWalker]: Scope node is null")
+        if (m_CurrentScope != nullptr){
+            m_CurrentScope->addChildScope(scopeNode);
+
+        }
+        m_CurrentScope = scopeNode;
     }
 
     void TreeWalker::exitScope(SrslGrammarParser::ScopeContext *ctx) {
+        auto scopeNode = dynamic_cast<ScopeNode*>(m_CurrentNode);
+        SRSL_ASSERT(scopeNode != nullptr, "[TreeWalker]: Scope node is null")
+        m_CurrentScope = scopeNode->getParentScope();
         m_CurrentNode = m_CurrentNode->getParent();
     }
 
