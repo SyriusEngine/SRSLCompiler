@@ -45,12 +45,14 @@ namespace Srsl{
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COUNT_LIT, "", uintDesc, 0);
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT, "", uintDesc, 0);
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TOTAL_LINE_COUNT_LIT, "", uintDesc, 0);
+        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_LOCK_LIT, "", uintDesc, 0);
 
-        // add padding
-        TypeDesc paddingDesc;
-        paddingDesc.type = VT_UINT;
-        // paddingDesc.arraySizes.push_back(3);
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_PADDING_LIT, "", paddingDesc, 0);
+//        // add padding
+//        TypeDesc paddingDesc;
+//        paddingDesc.type = VT_UINT;
+//        // paddingDesc.arraySizes.push_back(3);
+//        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_PADDING_LIT, "", paddingDesc, 0);
+
 
         // now add an array of uint32 to store the test results
         // make sure to pad the array to 16 bytes
@@ -82,12 +84,22 @@ namespace Srsl{
     }
 
     void TestEvaluationNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {
+        exporter->addLine("memoryBarrierBuffer();\n");
+        /*
+         * Since shader invocations are not guaranteed to be executed in order, we need to lock the SSBO to ensure that all invocations have finished writing to the SSBO.
+         * Thus only the last invocation will write actual test data to the SSBO.
+         */
+        std::string lockingCode = indent + "uint lockAcquired = 0;\n\twhile (lockAcquired == 0){\n";
+        lockingCode += indent + "\tlockAcquired = atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_LOCK_LIT + ", 1);\n";
+        lockingCode += indent + "}\n";
+        exporter->addLine(lockingCode);
+
         // set all SSBO values to 0
-        exporter->addLine(m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_COUNT_LIT + " = " + std::to_string(m_TestCases.size()) +";\n");
-        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " = 0;\n");
-        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " = 0;\n");
-        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + " = " + std::to_string(m_FunctionCount) + ";\n");
-        exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT  + " = " + std::to_string(m_ScopeCount) + ";\n");
+        exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_TEST_COUNT_LIT + ", " + std::to_string(m_TestCases.size()) + ");\n");
+        exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + ", 0);\n");
+        exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + ", 0);\n");
+        exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + ", " + std::to_string(m_FunctionCount) + ");\n");
+        exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT  + ", " + std::to_string(m_ScopeCount) + ");\n");
 
         for (uint32 i = 0; i < m_TestCases.size(); ++i){
             exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
@@ -100,8 +112,13 @@ namespace Srsl{
             m_TestCases[i]->generateCode(exporter, "");
             exporter->addLine(");\n");
 
-            exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " += " + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
+            exporter->addLine(indent + "atomicAdd(" + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_PASSED_LIT + ", " + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0);\n");
             exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");
         }
+        /*
+         * Release the lock
+         */
+        exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_LOCK_LIT + ", 0);\n");
+        exporter->addLine("\tmemoryBarrierBuffer();\n");
     }
 }
