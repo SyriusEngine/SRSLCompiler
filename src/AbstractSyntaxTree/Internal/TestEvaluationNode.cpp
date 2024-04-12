@@ -100,6 +100,7 @@ namespace Srsl{
         exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + ", 0);\n");
         exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + ", " + std::to_string(m_FunctionCount) + ");\n");
         exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT  + ", " + std::to_string(m_ScopeCount) + ");\n");
+        exporter->addLine(indent + "atomicExchange(" + m_TestDataSSBOName + "." + SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT + ", 0);\n");
 
         for (uint32 i = 0; i < m_TestCases.size(); ++i){
             exporter->addLine(indent + m_TestDataSSBOName+ "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
