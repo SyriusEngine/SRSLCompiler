@@ -6,7 +6,7 @@ namespace Srsl{
 
     class ScopeNode: public AbstractNode{
     public:
-        ScopeNode(uint64 lineNumber, ScopeNode* parentScope);
+        ScopeNode(uint64 lineNumber, uint32 scopeID, ScopeNode* parentScope);
 
         ~ScopeNode() override;
 
@@ -20,7 +20,7 @@ namespace Srsl{
 
         [[nodiscard]] ScopeNode* getParentScope() const;
 
-        uint32 getLineCount() const; // how many lines are in this scope, recusive since scopes can be in scopes
+        [[nodiscard]] uint32 getLineCount() const; // how many lines are in this scope, recusive since scopes can be in scopes
 
     private:
 

@@ -6,11 +6,9 @@
 
 namespace Srsl{
 
-    static uint32 s_ScopeId = 0;
-
-    ScopeNode::ScopeNode(uint64 lineNumber, ScopeNode* parentScope):
+    ScopeNode::ScopeNode(uint64 lineNumber, uint32 scopeID, ScopeNode* parentScope):
     AbstractNode("", AST_NODE_SCOPE_STATEMENT, lineNumber),
-    m_ScopeId(s_ScopeId++),
+    m_ScopeId(scopeID),
     m_ParentScope(parentScope),
     m_ChildScopes(){
         std::stringstream ss;
@@ -110,7 +108,7 @@ namespace Srsl{
         comparisonNode->addChild<ConstantNode>("false", m_LineNumber);
 
         // then add the body, which increments the covered line count by the line count of the scope
-        auto scopeNode = ifStatement->addChild<ScopeNode>(m_LineNumber, this);
+        auto scopeNode = ifStatement->addChild<ScopeNode>(m_LineNumber, m_ScopeId, this);
         auto assignment2 = scopeNode->addChild<AssignmentNode>(m_LineNumber);
         // LHS is the covered line count
         auto memberAccess3 = assignment2->addChild<MemberAccessNode>(m_LineNumber);

@@ -4,11 +4,9 @@
 
 namespace Srsl{
 
-    static uint32 s_FunctionID = 0;
-
-    FunctionDeclarationNode::FunctionDeclarationNode(const FunctionDeclarationDesc &desc, uint64 lineNumber):
+    FunctionDeclarationNode::FunctionDeclarationNode(const FunctionDeclarationDesc &desc, uint32 functionID, uint64 lineNumber):
     AbstractNode(desc.name, AST_NODE_FUNCTION_DECLARATION, lineNumber, desc.type),
-    m_FunctionID(s_FunctionID++),
+    m_FunctionID(functionID),
     m_HasScope(desc.hasScope),
     m_SemanticName(desc.semantic){
 

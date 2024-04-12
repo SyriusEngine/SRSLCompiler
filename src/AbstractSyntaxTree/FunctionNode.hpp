@@ -16,7 +16,7 @@ namespace Srsl{
 
     class FunctionDeclarationNode: public AbstractNode{
     public:
-        FunctionDeclarationNode(const FunctionDeclarationDesc& desc, uint64 lineNumber);
+        FunctionDeclarationNode(const FunctionDeclarationDesc& desc, uint32 functionID, uint64 lineNumber);
 
         ~FunctionDeclarationNode() override;
 
