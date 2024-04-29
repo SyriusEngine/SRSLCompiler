@@ -40,6 +40,11 @@ namespace Srsl{
 
         [[nodiscard]] const std::string& getValue() const;
 
+        /**
+         * @brief Returns the type of the node. This is always the base type meaning that a variable node will return
+         *       the type of the variable and not the type of the variable with all its array sizes.
+         * @return the type of the node.
+         */
         [[nodiscard]] const TypeDesc& getType() const;
 
         /**
@@ -76,6 +81,15 @@ namespace Srsl{
          * @param exporter the exporter to use.
          */
         virtual void generateCode(UP<Exporter>& exporter, const std::string& indent) const = 0;
+
+        /**
+         * @brief This function returns a TypeDesc object that represents the type of the node after all children have
+         *        been evaluated. For example, if the node is a variable node, the type of the variable will be returned.
+         *        If the node is an expression node, the type of the expression will be returned. If the variable has
+         *        array accesses, the type after the array access will be returned.
+         * @return the TypeDesc object.
+         */
+        virtual TypeDesc getEvaluatedType() const;
 
         /**
          * @brief This function will generate test code. It will convert Test Case Nodes to actual code

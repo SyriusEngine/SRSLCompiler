@@ -65,6 +65,23 @@ namespace Srsl{
         m_Type = symbol.type;
     }
 
+    TypeDesc VariableNode::getEvaluatedType() const {
+        auto retVal = m_Type;
+        // subtract array accesses
+        for (const auto& child : m_Children){
+            if (retVal.arraySizes.empty() and retVal.columns > 1 and retVal.rows > 1) {
+                retVal.rows = 1;
+            }
+            else if (retVal.arraySizes.empty() and retVal.columns > 1){
+                retVal.columns = 1;
+            }
+            else{
+                retVal.arraySizes.pop_back();
+            }
+        }
+        return retVal;
+    }
+
     void VariableNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
         exporter->addLine(m_Value);
 

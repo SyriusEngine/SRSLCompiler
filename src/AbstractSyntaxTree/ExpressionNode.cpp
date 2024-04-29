@@ -4,7 +4,9 @@ namespace Srsl{
 
     ExpressionNode::ExpressionNode(const std::string& operation, OperationType opType, uint64 lineNumber):
     AbstractNode(operation, AST_NODE_EXPRESSION, lineNumber),
-    m_OperationType(opType){
+    m_OperationType(opType),
+    m_Left(nullptr),
+    m_Right(nullptr){
 
     }
 
@@ -63,7 +65,7 @@ namespace Srsl{
     void ExpressionNode::determineType() {
         SRSL_PRECONDITION(m_Right != nullptr, "Right node is null.");
 
-        m_Type = m_Right->getType();
+        m_Type = m_Right->getEvaluatedType();
 
         if (m_Children.size() == 2){
             auto leftType = m_Left->getType();

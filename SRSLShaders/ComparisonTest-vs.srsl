@@ -18,8 +18,8 @@ void main(){
 
     bool fEq = f1 == f2;
 
-    uint4 uv = uint4(1, 2, 3, 4);
+    uint4 uv1 = uint4(1, 2, 3, 4);
     uint4 uv2 = uint4(5, 6, 3, 4);
 
-    bool uvEq = uv == uv2;
+    bool uvEq = uv1 == uv2;
 }
