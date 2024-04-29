@@ -110,14 +110,19 @@ namespace Srsl{
 
         // then add the body, which increments the covered line count by the line count of the scope
         auto scopeNode = ifStatement->addChild<ScopeNode>(m_LineNumber, m_ScopeId, this);
-        // TODO: This is a nast solution that only works for GLSL, but i dont have the time to implement a proper solution
-        auto functionCallNode = scopeNode->addChild<FunctionCallNode>("atomicAdd", m_LineNumber);
         // first argument is the SSBO member access
-        auto memberAccess3 = functionCallNode->addChild<MemberAccessNode>(m_LineNumber);
+        auto assignment2 = scopeNode->addChild<AssignmentNode>(m_LineNumber);
+        // LHS is a member access of the SSBO Scope array
+        auto memberAccess3 = assignment2->addChild<MemberAccessNode>(m_LineNumber);
         memberAccess3->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
         auto coveredLineCount = memberAccess3->addChild<VariableNode>(SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT, m_LineNumber);
-        // second argument is the line count of the scope
-        functionCallNode->addChild<ConstantNode>(std::to_string(getLineCount()), m_LineNumber);
+
+        // RHS is the current value of the covered line count plus the line count of the scope
+        auto expressionNode = assignment2->addChild<ExpressionNode>("+", OPERATION_BINARY, m_LineNumber);
+        auto memberAccess4 = expressionNode->addChild<MemberAccessNode>(m_LineNumber);
+        memberAccess4->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
+        auto coveredLineCount2 = memberAccess4->addChild<VariableNode>(SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT, m_LineNumber);
+        expressionNode->addChild<ConstantNode>(std::to_string(getLineCount()), m_LineNumber);
 
         ifStatement->construct();
         ifStatement->fillSymbolTable(m_SymbolTable);
