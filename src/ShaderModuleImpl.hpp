@@ -30,13 +30,13 @@ namespace Srsl{
 
         void validate(Validator& validator);
 
-    private:
-
         void generateTestCode(TestConfig &desc);
 
     private:
-        SRSL_SHADER_TYPE m_ShaderType;
+        ProgramInfo m_ProgramInfo;
         UP<AbstractNode> m_Program;
         RCP<SymbolTable> m_SymbolTable;
+
+        std::vector<TestCaseNode*> m_TestCases;
     };
 }

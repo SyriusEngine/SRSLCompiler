@@ -10,9 +10,7 @@ namespace Srsl{
 
     }
 
-    ExpressionNode::~ExpressionNode() {
-
-    }
+    ExpressionNode::~ExpressionNode() = default;
 
     void ExpressionNode::construct() {
         if (m_Children.size() == 1){

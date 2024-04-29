@@ -19,6 +19,8 @@ namespace Srsl{
 
         void exportShader(ExportDesc& desc) override;
 
+        void generateTestCode(TestConfig &vertexShaderConfig, TestConfig& fragmentShaderConfig) override;
+
     private:
         RCP<ShaderModuleImpl> m_VertexShader;
         RCP<ShaderModuleImpl> m_FragmentShader;

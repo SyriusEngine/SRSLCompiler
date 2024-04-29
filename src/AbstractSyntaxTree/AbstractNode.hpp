@@ -32,6 +32,14 @@ namespace Srsl{
 
         AbstractNode* addExistingChild(UP<AbstractNode>&& child);
 
+        template<typename T, typename... Args>
+        AbstractNode* addChildFront(Args&&... args){
+            m_Children.insert(m_Children.begin(), createUP<T>(std::forward<Args>(args)...));
+            auto retVal = m_Children.front().get();
+            retVal->m_Parent = this;
+            return retVal;
+        }
+
         [[nodiscard]] AbstractNode* getParent() const;
 
         [[nodiscard]] AST_NODE_TYPE getNodeType() const;
@@ -46,6 +54,8 @@ namespace Srsl{
          * @return the type of the node.
          */
         [[nodiscard]] const TypeDesc& getType() const;
+
+        [[nodiscard]] RCP<SymbolTable> getSymbolTable() const;
 
         /**
          * @brief This function will generate a dot file for the AST. The dot file can be converted to an image using

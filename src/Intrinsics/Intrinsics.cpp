@@ -71,6 +71,16 @@ namespace Srsl{
 
         // Texture functions
         table->addSymbol({"sampleTexture", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+
+        // Atomic functions
+        table->addSymbol({"atomicAdd", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"atomicAnd", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"atomicOr", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"atomicXor", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"atomicMin", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"atomicMax", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"atomicExchange", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"atomicCompSwap", "", intrinsicType, ST_FUNCTION, nullptr, 0});
     }
 
 }

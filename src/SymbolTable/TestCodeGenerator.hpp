@@ -5,8 +5,21 @@
 namespace Srsl{
 
     class TestCaseNode;
+    class ScopeNode;
+    class FunctionDeclarationNode;
 
-    struct TestCodeGenerator{
+    class TestCodeGenerator{
+    public:
+        TestCodeGenerator(const std::string& testSSBOName);
+
+        ~TestCodeGenerator();
+
+    public:
+        const std::string testSSBOName;
+
         std::vector<TestCaseNode*> testCases;
+        std::vector<ScopeNode*> scopes;
+        std::vector<FunctionDeclarationNode*> functions;
+        uint32 totalLines;
     };
 }

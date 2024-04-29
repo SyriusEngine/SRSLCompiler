@@ -26,9 +26,16 @@
 
 namespace Srsl{
 
+    struct ProgramInfo{
+        SRSL_SHADER_TYPE shaderType;
+        uint32 scopeCount = 0;
+        uint32 variableCount = 0;
+        uint32 functionCount = 0;
+    };
+
     class TreeWalker: public SrslGrammarBaseListener{
     public:
-        TreeWalker(UP<AbstractNode>& rootNode, SRSL_SHADER_TYPE& shaderType);
+        TreeWalker(UP<AbstractNode>& rootNode, ProgramInfo& programInfo, std::vector<TestCaseNode*>& testCases);
 
         ~TreeWalker() override = default;
 
@@ -133,11 +140,14 @@ namespace Srsl{
         void exitTestCase(SrslGrammarParser::TestCaseContext * ctx) override;
 
     private:
-        SRSL_SHADER_TYPE& m_ShaderType;
+        ProgramInfo& m_ProgramInfo;
+
         UP<AbstractNode>& m_RootNode;
         AbstractNode* m_CurrentNode;
+        std::vector<TestCaseNode*>& m_TestCases;
 
         std::stack<AbstractNode*> m_BracketStack;
+        ScopeNode* m_CurrentScope;
 
     };
 

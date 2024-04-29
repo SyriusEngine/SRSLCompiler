@@ -5,8 +5,8 @@ namespace Srsl{
 
     ShaderModuleImpl::ShaderModuleImpl(const ImportDesc &desc):
     ShaderModule(),
-    m_SymbolTable(createRCP<SymbolTable>("GLOBAL")),
-    m_ShaderType(SRSL_SHADER_NONE){
+    m_SymbolTable(createRCP<SymbolTable>("GLOBAL")){
+        m_ProgramInfo.shaderType = SRSL_SHADER_NONE;
         UP<antlr4::ANTLRInputStream> input = nullptr;
         if (desc.loadType == SRSL_LOAD_FROM_FILE){
             std::ifstream file(desc.source);
@@ -26,7 +26,7 @@ namespace Srsl{
         parser.addErrorListener(errorListener.get());
         antlr4::tree::ParseTree* tree = parser.file();
 
-        TreeWalker walker(m_Program, m_ShaderType);
+        TreeWalker walker(m_Program, m_ProgramInfo, m_TestCases);
         antlr4::tree::ParseTreeWalker::DEFAULT.walk(&walker, tree);
 
         SRSL_ASSERT(m_Program != nullptr, "Program (%p) is null", this);
@@ -39,7 +39,7 @@ namespace Srsl{
 
         m_Program->optimize();
 
-        SRSL_POSTCONDITION(m_ShaderType != SRSL_SHADER_NONE, "Shader type is (%d)", m_ShaderType);
+        SRSL_POSTCONDITION(m_ProgramInfo.shaderType != SRSL_SHADER_NONE, "Shader type is (%d)", m_ProgramInfo.shaderType);
     }
 
     ShaderModuleImpl::~ShaderModuleImpl() = default;
@@ -65,7 +65,6 @@ namespace Srsl{
         file << "<body>" << std::endl;
         file << "<h1>Symbol Tables</h1>" << std::endl;
         m_SymbolTable->toHtml(file);
-        file << "</table>" << std::endl;
         file << "</body>" << std::endl;
         file << "</html>" << std::endl;
     }
@@ -73,18 +72,14 @@ namespace Srsl{
     void ShaderModuleImpl::exportShader(ExportDesc &desc, const ShaderLimits& limits) {
         SRSL_PRECONDITION(m_Program != nullptr, "Program is null")
 
-        if (desc.testConfig.exportTestCases){
-            generateTestCode(desc.testConfig);
-        }
-
         // determine the target language
         UP<Exporter> exporter = nullptr;
         switch (desc.target) {
             case SRSL_TARGET_GLSL:
-                exporter = createUP<GlslExporter>(desc, m_ShaderType, limits);
+                exporter = createUP<GlslExporter>(desc, m_ProgramInfo.shaderType, limits);
                 break;
             case SRSL_TARGET_HLSL:
-                exporter = createUP<HlslExporter>(desc, m_ShaderType, limits);
+                exporter = createUP<HlslExporter>(desc, m_ProgramInfo.shaderType, limits);
                 break;
             case SRSL_TARGET_CPP:
 //                exporter = createUP<CppExporter>(desc, m_ShaderType);
@@ -95,10 +90,10 @@ namespace Srsl{
 
         // determine output buffer
         std::string* out = nullptr;
-        switch (m_ShaderType) {
+        switch (m_ProgramInfo.shaderType){
             case SRSL_VERTEX_SHADER: out = &desc.vertexShaderOut; break;
             case SRSL_FRAGMENT_SHADER: out = &desc.fragmentShaderOut; break;
-            default: SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ShaderType);
+            default: SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ProgramInfo.shaderType);
         }
 
         SRSL_ASSERT(out != nullptr, "Output buffer is null")
@@ -119,7 +114,7 @@ namespace Srsl{
     }
 
     SRSL_SHADER_TYPE ShaderModuleImpl::getShaderType() const {
-        return m_ShaderType;
+        return m_ProgramInfo.shaderType;
     }
 
     void ShaderModuleImpl::validate(Validator& validator) {
@@ -129,13 +124,6 @@ namespace Srsl{
     }
 
     void ShaderModuleImpl::generateTestCode(TestConfig &desc) {
-        // convert all test case nodes to evaluable code
-        TestCodeGenerator codeGenerator;
-        m_Program->createTestCode(codeGenerator);
-        if (codeGenerator.testCases.empty()){
-            return;
-        }
-
         // obtain the scope for the main function, this scope will contain the test driver code
         auto mainFunction = m_Program->getMainFunction();
         if (mainFunction == nullptr){
@@ -145,22 +133,44 @@ namespace Srsl{
 
         // the last child added to the scopeNode will be a TestEvaluationNode
         // that generate driver code for the test cases
-        if (m_ShaderType == SRSL_VERTEX_SHADER){
-            mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.vertexShaderTestDataSlot, 0);
-            // add test case names to the output parameter
-            for (auto testCase : codeGenerator.testCases){
-                desc.vertexShaderTestCases.push_back(testCase->getValue());
-            }
+        TestEvaluationNodeDesc tenDesc;
+        tenDesc.ssboName = desc.ssboName;
+        tenDesc.ssboSlot = desc.ssboSlot;
+        tenDesc.scopeCount = m_ProgramInfo.scopeCount - 1; // exclude the main function's scope
+        tenDesc.functionCount = m_ProgramInfo.functionCount - 1; // exclude the main function
+        auto teN = mainScope->addChild<TestEvaluationNode>(m_TestCases, tenDesc, 0);
+        auto testEvaluationNode = dynamic_cast<TestEvaluationNode*>(teN);
+        teN->construct();
+        teN->fillSymbolTable(m_SymbolTable);
+
+        // convert all test case nodes to evaluable code
+        TestCodeGenerator codeGenerator(desc.ssboName);
+        m_Program->createTestCode(codeGenerator);
+
+        // configure output parameters
+        desc.ssboSize = sizeof(uint32) * 8; // header
+        desc.ssboSize += sizeof(uint32) * testEvaluationNode->getTestDataArraySize();
+        desc.ssboSize += sizeof(uint32) * testEvaluationNode->getScopeArraySize();
+        desc.ssboSize += sizeof(uint32) * testEvaluationNode->getFunctionArraySize();
+
+        for (auto testCase : codeGenerator.testCases){
+            desc.testCaseNames.push_back(testCase->getValue());
         }
-        else if (m_ShaderType == SRSL_FRAGMENT_SHADER){
-            mainScope->addChild<TestEvaluationNode>(codeGenerator.testCases, desc.fragmentShaderTestDataSlot, 0);
-            // add test case names to the output parameter
-            for (auto testCase : codeGenerator.testCases){
-                desc.fragmentShaderTestCases.push_back(testCase->getValue());
-            }
+        desc.testCaseCount = codeGenerator.testCases.size();
+        desc.testCaseArraySize = testEvaluationNode->getTestDataArraySize();
+
+        for (auto scope : codeGenerator.scopes){
+            desc.scopes.push_back(scope->getValue());
         }
-        else{
-            SRSL_THROW_EXCEPTION("Invalid shader type (%d)", m_ShaderType);
+        desc.scopeCount = codeGenerator.scopes.size();
+        desc.scopeArraySize = testEvaluationNode->getScopeArraySize();
+
+        for (auto function : codeGenerator.functions){
+            desc.functionNames.push_back(function->getValue());
         }
+        desc.functionCount = codeGenerator.functions.size();
+        desc.functionArraySize = testEvaluationNode->getFunctionArraySize();
+
+        desc.totalLineCount = codeGenerator.totalLines;
     }
 }

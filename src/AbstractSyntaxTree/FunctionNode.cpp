@@ -1,12 +1,14 @@
 #include "FunctionNode.hpp"
+#include "Nodes.hpp"
+#include "MemberAccessNode.hpp"
 
 namespace Srsl{
 
-    FunctionDeclarationNode::FunctionDeclarationNode(const FunctionDeclarationDesc &desc, uint64 lineNumber):
-    AbstractNode(desc.name, AST_NODE_FUNCTION_DECLARATION, lineNumber),
+    FunctionDeclarationNode::FunctionDeclarationNode(const FunctionDeclarationDesc &desc, uint32 functionID, uint64 lineNumber):
+    AbstractNode(desc.name, AST_NODE_FUNCTION_DECLARATION, lineNumber, desc.type),
+    m_FunctionID(functionID),
     m_HasScope(desc.hasScope),
-    m_SemanticName(desc.semantic),
-    m_Type(desc.type){
+    m_SemanticName(desc.semantic){
 
     }
 
@@ -151,6 +153,34 @@ namespace Srsl{
         return m_Scope;
     }
 
+    void FunctionDeclarationNode::createTestCode(TestCodeGenerator &testGen) {
+        if (m_Value != "main" and m_Scope != nullptr){
+            testGen.functions.push_back(this);
+            createFunctionFlag(testGen);
+        }
+        AbstractNode::createTestCode(testGen);
+    }
+
+    void FunctionDeclarationNode::createFunctionFlag(TestCodeGenerator &testGen) {
+        SRSL_PRECONDITION(m_Scope != nullptr, "FunctionDeclarationNode::createFunctionFlag() - Scope is not set");
+
+        // at the beginning of each function, add the following syntax
+        // <ShaderType>Results.srslFunctionCoverage[<FunctionID>] = true;
+
+        auto assignment = m_Scope->addChildFront<AssignmentNode>(m_LineNumber);
+        // LHS is a member access of the SSBO Scope array
+        auto memberAccess = assignment->addChild<MemberAccessNode>(m_LineNumber);
+        memberAccess->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
+        auto scopeCoverageArray = memberAccess->addChild<VariableNode>(SRSL_TEST_DATA_FUNCTION_COVERAGE, m_LineNumber);
+        scopeCoverageArray->addChild<ConstantNode>(std::to_string(m_FunctionID), m_LineNumber);
+
+        // RHS is a literal TRUE
+        assignment->addChild<ConstantNode>("true", m_LineNumber);
+
+        assignment->construct();
+        assignment->fillSymbolTable(m_SymbolTable);
+    }
+
 //    void FunctionDeclarationNode::exportCpp(Cppexporter *cppexporter, const std::string &indent) const {
 //        if (cppexporter->getCppDescriptor().entryPoint == m_Value){
 //            auto fName = "main__" + shaderTypeToString(cppexporter->getShaderType());
@@ -249,11 +279,13 @@ namespace Srsl{
     void FunctionCallNode::fillSymbolTable(RCP<SymbolTable> table) {
         m_SymbolTable = table;
         if (m_Value == "main"){
-            throw std::runtime_error("main function is not allowed to be called");
+            SRSL_THROW_EXCEPTION("The main function cannot be called directly but is called at line %d. It is called by the system. ", m_LineNumber);
         }
         if (!table->hasSymbol(m_Value)){
-            throw std::runtime_error("Function " + m_Value + " is not declared");
+            SRSL_THROW_EXCEPTION("Function %s is not defined at line %d", m_Value.c_str(), m_LineNumber);
         }
+        auto symbol = table->getSymbol(m_Value);
+        m_Type = symbol.type;
         for (const auto& child: m_Children){
             child->fillSymbolTable(table);
         }

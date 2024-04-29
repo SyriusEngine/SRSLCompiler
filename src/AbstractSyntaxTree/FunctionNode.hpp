@@ -16,7 +16,7 @@ namespace Srsl{
 
     class FunctionDeclarationNode: public AbstractNode{
     public:
-        FunctionDeclarationNode(const FunctionDeclarationDesc& desc, uint64 lineNumber);
+        FunctionDeclarationNode(const FunctionDeclarationDesc& desc, uint32 functionID, uint64 lineNumber);
 
         ~FunctionDeclarationNode() override;
 
@@ -26,7 +26,9 @@ namespace Srsl{
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
-        ScopeNode* getScope() const;
+        void createTestCode(TestCodeGenerator& testGen) override;
+
+        [[nodiscard]] ScopeNode* getScope() const;
 
     private:
 
@@ -42,10 +44,13 @@ namespace Srsl{
 //
 //        void cppWriteTextures(CppExporter* cppExporter, const std::string& indent) const;
 
+        void createFunctionFlag(TestCodeGenerator& testGen);
+
     private:
         const std::string m_SemanticName;
         const bool m_HasScope;
-        TypeDesc m_Type;
+
+        const uint32 m_FunctionID; // used for testing generation
 
         ScopeNode* m_Scope = nullptr;
         std::vector<AbstractNode*> m_Arguments;

@@ -10,6 +10,20 @@ namespace Srsl{
 
     ShaderStorageBufferNode::~ShaderStorageBufferNode() = default;
 
+    void ShaderStorageBufferNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
+        m_SymbolTable = symbolTable;
+        Symbol symbol;
+        symbol.name = m_Value;
+        symbol.slot = m_Slot;
+        symbol.symbolType = ST_SHADER_STORAGE_BUFFER;
+        symbol.structTable = createRCP<SymbolTable>(m_Value);
+        symbolTable->addChild(symbol.structTable);
+        symbolTable->addSymbol(symbol);
+        for (auto& child : m_Children){
+            child->fillSymbolTable(symbol.structTable);
+        }
+    }
+
     void ShaderStorageBufferNode::generateCode(UP<Exporter>& exporter, const std::string& indent) const {
         exporter->setAppendBuffer(PROGRAM_SECTION_SHADER_STORAGE_BUFFER);
         switch (exporter->getLanguageType()) {
@@ -21,13 +35,13 @@ namespace Srsl{
     }
 
     void ShaderStorageBufferNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {
-        exporter->addLine("layout(std430, binding = " + std::to_string(m_Slot) + ") buffer " + m_Value + " {\n");
+        exporter->addLine("layout(std430, binding = " + std::to_string(m_Slot) + ") buffer " + SRSL_TYPE_DECL + m_Value + " {\n");
         for (auto& child : m_Children){
             exporter->addLine(indent + "\t");
             child->generateCode(exporter, "\t");
             exporter->addLine(";\n");
         }
-        exporter->addLine("};\n");
+        exporter->addLine("} " + m_Value + ";\n");
 
     }
 
@@ -42,4 +56,5 @@ namespace Srsl{
 
         exporter->addLine("RWStructuredBuffer<" + SRSL_TYPE_DECL + m_Value + "> " + m_Value + " : register(u" + std::to_string(m_Slot) + ");\n");
     }
+
 }
