@@ -13,6 +13,7 @@ namespace Srsl{
         uint32 scopeCount = 0;
         uint32 variableCount = 0;
         uint32 functionCount = 0;
+        uint32 totalLines = 0;
         FunctionDeclarationNode* mainFunction = nullptr;
         std::vector<FunctionDeclarationNode*> functions;
         std::vector<TestCaseNode*> testCases;

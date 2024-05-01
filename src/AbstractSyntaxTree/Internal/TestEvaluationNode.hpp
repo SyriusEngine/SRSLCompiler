@@ -25,7 +25,7 @@ namespace Srsl{
     private:
         std::string m_SSBOName;
         uint32 m_SSBOBindingSlot;
-        ProgramInfo& m_ProgramInfo;
+        ProgramInfo m_ProgramInfo;
 
         ShaderStorageBufferNode* m_TestDataSSBO;
 

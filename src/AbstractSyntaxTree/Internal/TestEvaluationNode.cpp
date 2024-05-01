@@ -2,7 +2,7 @@
 
 namespace Srsl{
 
-    TestEvaluationNode::TestEvaluationNode(const std::string &ssboName, uint32 ssboSlot, ProgramInfo &programInfo):
+    TestEvaluationNode::TestEvaluationNode(const std::string &ssboName, uint32 ssboSlot, ProgramInfo& programInfo):
     AbstractNode(ssboName, AST_NODE_TEST_EVALUATION, programInfo.mainFunction->getLineNumber()),
     m_SSBOName(ssboName),
     m_SSBOBindingSlot(ssboSlot),
@@ -12,6 +12,20 @@ namespace Srsl{
     m_FunctionArraySize(0),
     m_ScopeArraySize(0){
         createSSBODeclaration();
+
+        // remove the main function from the list of functions, since we don't want to run it as a test
+        m_ProgramInfo.functions.erase(std::remove_if(m_ProgramInfo.functions.begin(), m_ProgramInfo.functions.end(), [](const auto& function){
+            return function->getValue() == "main";
+        }), m_ProgramInfo.functions.end());
+        m_ProgramInfo.functionCount--;
+
+        // same for the corresponding scope
+        m_ProgramInfo.scopes.erase(std::remove_if(m_ProgramInfo.scopes.begin(), m_ProgramInfo.scopes.end(), [](const auto& scope){
+            return scope->getParent()->getValue() == "main";
+        }), m_ProgramInfo.scopes.end());
+        m_ProgramInfo.scopeCount--;
+
+
 
         SRSL_POSTCONDITION(m_TestDataSSBO != nullptr, "TestEvaluationNode::TestEvaluationNode: m_TestDataSSBO is (%d)", m_TestDataSSBO);
     }
@@ -76,7 +90,7 @@ namespace Srsl{
         for (uint32 i = 0; i < m_ProgramInfo.testCases.size(); i++){
             exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
             exporter->addLine(m_ProgramInfo.testCases[i]->getValue() + "();\n"); // call the test case function
-            exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + "+= " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
+            exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " += " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
             exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");
         }
     }
