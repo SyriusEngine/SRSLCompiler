@@ -22,6 +22,7 @@
 #include "AbstractSyntaxTree/ScopeNode.hpp"
 #include "AbstractSyntaxTree/ExpressionNode.hpp"
 #include "AbstractSyntaxTree/ShaderStorageBufferNode.hpp"
+#include "AbstractSyntaxTree/TestCaseNode.hpp"
 
 namespace Srsl{
 
@@ -133,6 +134,10 @@ namespace Srsl{
         void enterMemberAccess(SrslGrammarParser::MemberAccessContext * ctx) override;
 
         void exitMemberAccess(SrslGrammarParser::MemberAccessContext * ctx) override;
+
+        void enterTestCase(SrslGrammarParser::TestCaseContext * ctx) override;
+
+        void exitTestCase(SrslGrammarParser::TestCaseContext * ctx) override;
 
     private:
         ProgramInfo& m_ProgramInfo;

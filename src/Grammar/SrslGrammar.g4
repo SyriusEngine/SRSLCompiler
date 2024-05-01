@@ -25,7 +25,8 @@ statement:
     samplerDeclaration EOL |
     textureDeclaration EOL |
     shaderInterface EOL |
-    constantBufferDeclaration EOL;
+    constantBufferDeclaration EOL |
+    testCase;
 
 forLoop: FOR PARENO statement expression EOL expression PARENC scope;
 whileLoop: WHILE PARENO expression PARENC scope;
@@ -44,6 +45,8 @@ functionCall: VAR_NAME PARENO (expression (COMMA expression)*)? PARENC;
 returnStatement: RETURN expression?;
 
 scope: CBRACKO statement* CBRACKC;
+
+testCase: AT TEST PARENO VAR_NAME COMMA VAR_NAME PARENC CBRACKO statement* CBRACKC;
 
 structDeclaration: STRUCT VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
 
@@ -107,7 +110,7 @@ CONTROL_FLOW: 'continue' | 'break' | 'discard';
 STRUCT: 'struct';
 SHADER_INPUT: 'Input';
 SHADER_OUTPUT: 'Output';
-TEST: 'test';
+TEST: 'TEST';
 
 // types
 TYPE:

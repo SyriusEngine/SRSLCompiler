@@ -420,4 +420,19 @@ namespace Srsl{
     void TreeWalker::exitMemberAccess(SrslGrammarParser::MemberAccessContext *ctx) {
         m_CurrentNode = m_CurrentNode->getParent();
     }
+
+    void TreeWalker::enterTestCase(SrslGrammarParser::TestCaseContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
+        SRSL_PRECONDITION(ctx->VAR_NAME().size() == 2, "Test case does not have two names (size = %i)", ctx->VAR_NAME().size())
+
+        std::string suiteName = ctx->VAR_NAME()[0]->getText();
+        std::string testName = ctx->VAR_NAME()[1]->getText();
+
+        auto newCurrent = m_CurrentNode->addChild<TestCaseNode>(suiteName, testName, ctx->start->getLine());
+        m_CurrentNode = newCurrent;
+    }
+
+    void TreeWalker::exitTestCase(SrslGrammarParser::TestCaseContext *ctx) {
+        m_CurrentNode = m_CurrentNode->getParent();
+    }
 }

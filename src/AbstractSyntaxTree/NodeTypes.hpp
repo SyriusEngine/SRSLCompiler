@@ -28,7 +28,7 @@ namespace Srsl{
         // expressions
         AST_NODE_EXPRESSION             = 0x0030,
         AST_NODE_ASSIGNMENT             = 0x0031,
-//        AST_NODE_TEST_CASE              = 0x0032,
+        AST_NODE_TEST_CASE              = 0x0032,
         AST_NODE_MEMBER_ACCESS          = 0x0033,
         AST_NODE_ARRAY_ACCESS           = 0x0034,
         AST_NODE_SHADER_INTERFACE       = 0x0035,
@@ -44,7 +44,7 @@ namespace Srsl{
         AST_NODE_RETURN_STATEMENT       = 0x0047,
 
         // internal
-//        AST_NODE_TEST_EVALUATION        = 0x0050,
+        AST_NODE_TEST_EVALUATION        = 0x0050,
 
     } AST_NODE_TYPE;
 

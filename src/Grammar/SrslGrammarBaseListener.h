@@ -73,6 +73,9 @@ public:
   virtual void enterScope(SrslGrammarParser::ScopeContext * /*ctx*/) override { }
   virtual void exitScope(SrslGrammarParser::ScopeContext * /*ctx*/) override { }
 
+  virtual void enterTestCase(SrslGrammarParser::TestCaseContext * /*ctx*/) override { }
+  virtual void exitTestCase(SrslGrammarParser::TestCaseContext * /*ctx*/) override { }
+
   virtual void enterStructDeclaration(SrslGrammarParser::StructDeclarationContext * /*ctx*/) override { }
   virtual void exitStructDeclaration(SrslGrammarParser::StructDeclarationContext * /*ctx*/) override { }
 
