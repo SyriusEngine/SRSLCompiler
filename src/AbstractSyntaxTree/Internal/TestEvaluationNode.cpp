@@ -19,7 +19,13 @@ namespace Srsl{
     TestEvaluationNode::~TestEvaluationNode() = default;
 
     void TestEvaluationNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
+        m_TestDataSSBO->generateCode(exporter, "");
 
+        switch (exporter->getLanguageType()) {
+            case SRSL_TARGET_GLSL:  generateGlsl(exporter, indent); break;
+            case SRSL_TARGET_HLSL:  SRSL_THROW_EXCEPTION("HLSL not supported yet"); break;
+            default: SRSL_THROW_EXCEPTION("Unsupported language type (%d)", exporter->getLanguageType());
+        }
     }
 
     void TestEvaluationNode::createSSBODeclaration() {
@@ -56,5 +62,22 @@ namespace Srsl{
         boolArrayDesc.arraySizes.clear();
         boolArrayDesc.arraySizes.push_back(m_ScopeArraySize);
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, "", boolArrayDesc, 0);
+    }
+
+    void TestEvaluationNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {
+        exporter->addLine( m_SSBOName + "." + SRSL_TEST_DATA_TEST_COUNT_LIT + " = " + std::to_string(m_ProgramInfo.testCaseCount) + ";\n");
+        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " = 0;\n");
+        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + "= 0;\n");
+        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + " = " + std::to_string(m_ProgramInfo.functionCount) + ";\n");
+        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT  + " = " + std::to_string(m_ProgramInfo.scopeCount) + ";\n");
+        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT + " = 0;\n");
+        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TOTAL_LINE_COUNT_LIT + " = " + std::to_string(0) + ";\n");
+
+        for (uint32 i = 0; i < m_ProgramInfo.testCases.size(); i++){
+            exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
+            exporter->addLine(m_ProgramInfo.testCases[i]->getValue() + "();\n"); // call the test case function
+            exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + "+= " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
+            exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");
+        }
     }
 }

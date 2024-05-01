@@ -18,6 +18,8 @@ namespace Srsl{
 
         void createSSBODeclaration();
 
+        void generateGlsl(UP<Exporter>& exporter, const std::string& indent) const;
+
     private:
         std::string m_SSBOName;
         uint32 m_SSBOBindingSlot;
