@@ -76,9 +76,6 @@ public:
   virtual void enterStructDeclaration(SrslGrammarParser::StructDeclarationContext * /*ctx*/) override { }
   virtual void exitStructDeclaration(SrslGrammarParser::StructDeclarationContext * /*ctx*/) override { }
 
-  virtual void enterTestCase(SrslGrammarParser::TestCaseContext * /*ctx*/) override { }
-  virtual void exitTestCase(SrslGrammarParser::TestCaseContext * /*ctx*/) override { }
-
   virtual void enterAssignment(SrslGrammarParser::AssignmentContext * /*ctx*/) override { }
   virtual void exitAssignment(SrslGrammarParser::AssignmentContext * /*ctx*/) override { }
 

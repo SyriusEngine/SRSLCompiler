@@ -54,7 +54,6 @@ namespace Srsl{
 
         ScopeNode* m_Scope = nullptr;
         std::vector<AbstractNode*> m_Arguments;
-        std::vector<AbstractNode*> m_TestCases;
     };
 
     class FunctionCallNode: public AbstractNode{

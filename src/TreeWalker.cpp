@@ -420,25 +420,4 @@ namespace Srsl{
     void TreeWalker::exitMemberAccess(SrslGrammarParser::MemberAccessContext *ctx) {
         m_CurrentNode = m_CurrentNode->getParent();
     }
-
-    void TreeWalker::enterTestCase(SrslGrammarParser::TestCaseContext *ctx) {
-        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
-
-        auto compare = ctx->OPERATION()->getText();
-        if (compare == "==" or compare == "!="
-            or compare == "<" or compare == ">"
-            or compare == "<=" or compare == ">="){
-            auto newCurrent = m_CurrentNode->addChild<TestCaseNode>(ctx->VAR_NAME()->getText(), compare, ctx->start->getLine());
-            m_CurrentNode = newCurrent;
-            auto testCaseNode = dynamic_cast<TestCaseNode*>(newCurrent);
-            m_TestCases.push_back(testCaseNode);
-        }
-        else{
-            SRSL_THROW_EXCEPTION("Invalid comparison operator (%s)", compare.c_str())
-        }
-    }
-
-    void TreeWalker::exitTestCase(SrslGrammarParser::TestCaseContext *ctx) {
-        m_CurrentNode = m_CurrentNode->getParent();
-    }
 }

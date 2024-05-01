@@ -42,8 +42,7 @@ namespace Srsl{
                 childType == AST_NODE_IF_STATEMENT or
                 childType == AST_NODE_ELSE_STATEMENT or
                 childType == AST_NODE_WHILE_STATEMENT or
-                childType == AST_NODE_SCOPE_STATEMENT or
-                childType == AST_NODE_TEST_EVALUATION
+                childType == AST_NODE_SCOPE_STATEMENT
                     ){
 
             }
@@ -137,8 +136,7 @@ namespace Srsl{
                 childType == AST_NODE_IF_STATEMENT or
                 childType == AST_NODE_ELSE_STATEMENT or
                 childType == AST_NODE_WHILE_STATEMENT or
-                childType == AST_NODE_SCOPE_STATEMENT or
-                childType == AST_NODE_TEST_EVALUATION
+                childType == AST_NODE_SCOPE_STATEMENT
                     ){
                 // all have a scope and are thus part of the scope tree
             }

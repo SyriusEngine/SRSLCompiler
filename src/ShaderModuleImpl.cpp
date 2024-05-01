@@ -1,5 +1,4 @@
 #include "ShaderModuleImpl.hpp"
-#include "AbstractSyntaxTree/Internal/TestEvaluationNode.hpp"
 
 namespace Srsl{
 
@@ -131,46 +130,8 @@ namespace Srsl{
         }
         auto mainScope = mainFunction->getScope();
 
-        // the last child added to the scopeNode will be a TestEvaluationNode
-        // that generate driver code for the test cases
-        TestEvaluationNodeDesc tenDesc;
-        tenDesc.ssboName = desc.ssboName;
-        tenDesc.ssboSlot = desc.ssboSlot;
-        tenDesc.scopeCount = m_ProgramInfo.scopeCount - 1; // exclude the main function's scope
-        tenDesc.functionCount = m_ProgramInfo.functionCount - 1; // exclude the main function
-        auto teN = mainScope->addChild<TestEvaluationNode>(m_TestCases, tenDesc, 0);
-        auto testEvaluationNode = dynamic_cast<TestEvaluationNode*>(teN);
-        teN->construct();
-        teN->fillSymbolTable(m_SymbolTable);
-
         // convert all test case nodes to evaluable code
         TestCodeGenerator codeGenerator(desc.ssboName);
         m_Program->createTestCode(codeGenerator);
-
-        // configure output parameters
-        desc.ssboSize = sizeof(uint32) * 8; // header
-        desc.ssboSize += sizeof(uint32) * testEvaluationNode->getTestDataArraySize();
-        desc.ssboSize += sizeof(uint32) * testEvaluationNode->getScopeArraySize();
-        desc.ssboSize += sizeof(uint32) * testEvaluationNode->getFunctionArraySize();
-
-        for (auto testCase : codeGenerator.testCases){
-            desc.testCaseNames.push_back(testCase->getValue());
-        }
-        desc.testCaseCount = codeGenerator.testCases.size();
-        desc.testCaseArraySize = testEvaluationNode->getTestDataArraySize();
-
-        for (auto scope : codeGenerator.scopes){
-            desc.scopes.push_back(scope->getValue());
-        }
-        desc.scopeCount = codeGenerator.scopes.size();
-        desc.scopeArraySize = testEvaluationNode->getScopeArraySize();
-
-        for (auto function : codeGenerator.functions){
-            desc.functionNames.push_back(function->getValue());
-        }
-        desc.functionCount = codeGenerator.functions.size();
-        desc.functionArraySize = testEvaluationNode->getFunctionArraySize();
-
-        desc.totalLineCount = codeGenerator.totalLines;
     }
 }

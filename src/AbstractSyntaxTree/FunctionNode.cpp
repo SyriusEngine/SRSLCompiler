@@ -30,10 +30,6 @@ namespace Srsl{
                         m_Arguments.push_back(m_Children[i].get());
                         break;
                     }
-                    case AST_NODE_TEST_CASE: {
-                        m_TestCases.push_back(m_Children[i].get());
-                        break;
-                    }
                     default: {
                         SRSL_THROW_EXCEPTION("Invalid node type for function declaration %s",
                                              m_Children[i]->getNodeType());

@@ -74,9 +74,6 @@ public:
   virtual void enterStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) = 0;
   virtual void exitStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) = 0;
 
-  virtual void enterTestCase(SrslGrammarParser::TestCaseContext *ctx) = 0;
-  virtual void exitTestCase(SrslGrammarParser::TestCaseContext *ctx) = 0;
-
   virtual void enterAssignment(SrslGrammarParser::AssignmentContext *ctx) = 0;
   virtual void exitAssignment(SrslGrammarParser::AssignmentContext *ctx) = 0;
 

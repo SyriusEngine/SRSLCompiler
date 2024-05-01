@@ -39,15 +39,13 @@ samplerDeclaration: SAMPLER_TYPE PARENO SLOT ASSIGN NUMBER PARENC VAR_NAME;
 constantBufferDeclaration: CONSTANT_BUFFER PARENO SLOT ASSIGN NUMBER PARENC VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
 shaderInterface: (SHADER_INPUT | SHADER_OUTPUT) VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
 
-functionDeclaration: testCase* CONST* (TYPE | VAR_NAME) VAR_NAME PARENO (newVariable (COMMA newVariable)*)? PARENC (COLON VAR_NAME)? (scope | EOL);
+functionDeclaration: CONST* (TYPE | VAR_NAME) VAR_NAME PARENO (newVariable (COMMA newVariable)*)? PARENC (COLON VAR_NAME)? (scope | EOL);
 functionCall: VAR_NAME PARENO (expression (COMMA expression)*)? PARENC;
 returnStatement: RETURN expression?;
 
 scope: CBRACKO statement* CBRACKC;
 
 structDeclaration: STRUCT VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
-
-testCase: AT TEST VAR_NAME CBRACKO (expression COMMA)* OPERATION COMMA expression CBRACKC;
 
 assignment: lvalue ASSIGN expression;
 
