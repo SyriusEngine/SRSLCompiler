@@ -22,7 +22,6 @@
 #define SRSL_TEST_DATA_PADDING_LIT std::string("srslPadding")
 #define SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT std::string("srslCoveredLineCount")
 #define SRSL_TEST_DATA_TOTAL_LINE_COUNT_LIT std::string("srslTotalLineCount")
-#define SRSL_TEST_DATA_LOCK_LIT std::string("srslLock")
 
 #define SRSL_TEST_DATA_TEST_RESULTS std::string("srslTestResults")
 #define SRSL_TEST_DATA_SCOPE_COVERAGE std::string("srslScopeCoverage")

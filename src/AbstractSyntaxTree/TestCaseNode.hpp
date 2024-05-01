@@ -20,8 +20,5 @@ namespace Srsl{
     private:
         const std::string m_TestSuiteName;
         const std::string m_TestName;
-
-        ScopeNode*  m_TestScope;
-
     };
 }
