@@ -139,5 +139,8 @@ namespace Srsl{
         TestCodeGenerator codeGenerator;
         codeGenerator.testSSBOName = desc.ssboName;
         m_Program->createTestCode(codeGenerator);
+
+        // fill in the output params of the testConfig
+        ten->configureTestConfig(desc);
     }
 }

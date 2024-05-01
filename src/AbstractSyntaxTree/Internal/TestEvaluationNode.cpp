@@ -80,4 +80,29 @@ namespace Srsl{
             exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");
         }
     }
+
+    void TestEvaluationNode::configureTestConfig(TestConfig &desc) const {
+        desc.ssboSize = sizeof(uint32) * 8; // header
+        desc.ssboSize += sizeof(uint32) * m_TestCasesArraySize;
+        desc.ssboSize += sizeof(uint32) * m_ScopeArraySize;
+        desc.ssboSize += sizeof(uint32) * m_FunctionArraySize;
+
+        desc.testCaseCount = m_ProgramInfo.testCaseCount;
+        desc.testCaseArraySize = m_TestCasesArraySize;
+        for (const auto& testCase: m_ProgramInfo.testCases){
+            desc.testCaseNames.push_back(testCase->getValue());
+        }
+
+        desc.functionCount = m_ProgramInfo.functionCount;
+        desc.functionArraySize = m_FunctionArraySize;
+        for (const auto& function: m_ProgramInfo.functions){
+            desc.functionNames.push_back(function->getValue());
+        }
+
+        desc.scopeCount = m_ProgramInfo.scopeCount;
+        desc.scopeArraySize = m_ScopeArraySize;
+        for (const auto& scope: m_ProgramInfo.scopes){
+            desc.scopes.push_back(scope->getValue());
+        }
+    }
 }
