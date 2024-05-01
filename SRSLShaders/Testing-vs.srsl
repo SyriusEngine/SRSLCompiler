@@ -41,5 +41,7 @@ float4 move(float4 position, float d){
 }
 
 void main(){
-
+    vsOut.position = move(float4(vsIn.position, 1.0f), 4.0f);
+    vsOut.normal = vsIn.normal;
+    vsOut.texCoords = vsIn.texCoords;
 }

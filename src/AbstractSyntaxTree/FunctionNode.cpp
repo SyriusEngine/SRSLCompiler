@@ -151,7 +151,6 @@ namespace Srsl{
 
     void FunctionDeclarationNode::createTestCode(TestCodeGenerator &testGen) {
         if (m_Value != "main" and m_Scope != nullptr){
-            testGen.functions.push_back(this);
             createFunctionFlag(testGen);
         }
         AbstractNode::createTestCode(testGen);

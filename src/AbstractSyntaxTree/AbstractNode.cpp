@@ -93,17 +93,4 @@ namespace Srsl{
         return m_Type;
     }
 
-    FunctionDeclarationNode* AbstractNode::getMainFunction() {
-        if (m_NodeType == AST_NODE_FUNCTION_DECLARATION and m_Value == "main") {
-            return dynamic_cast<FunctionDeclarationNode *>(this);
-        }
-        for (const auto& child: m_Children){
-            auto result = child->getMainFunction();
-            if (result != nullptr) {
-                return result;
-            }
-        }
-        return nullptr;
-    }
-
 }

@@ -4,7 +4,6 @@
 #include "../Converter/VariableTypes.hpp"
 #include "../SymbolTable/SymbolTable.hpp"
 #include "../SymbolTable/Validator.hpp"
-#include "../SymbolTable/TestCodeGenerator.hpp"
 
 #include "NodeTypes.hpp"
 
@@ -14,8 +13,14 @@
 
 namespace Srsl{
 
-    class TestCaseNode;
-    class FunctionDeclarationNode;
+    struct TestCodeGenerator{
+        std::string testSSBOName;
+
+        uint32 scopeCount       = 0;
+        uint32 functionCount    = 0;
+        uint32 testCaseCount    = 0;
+        uint32 totalLines       = 0;
+    };
 
     class AbstractNode{
     public:
@@ -107,8 +112,6 @@ namespace Srsl{
          * @param testGen object that stores some information about the test code.
          */
         virtual void createTestCode(TestCodeGenerator& testGen);
-
-        FunctionDeclarationNode* getMainFunction();
 
 
     protected:

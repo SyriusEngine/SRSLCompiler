@@ -24,18 +24,13 @@
 #include "AbstractSyntaxTree/ShaderStorageBufferNode.hpp"
 #include "AbstractSyntaxTree/TestCaseNode.hpp"
 
-namespace Srsl{
+#include "ProgramInfo.hpp"
 
-    struct ProgramInfo{
-        SRSL_SHADER_TYPE shaderType;
-        uint32 scopeCount = 0;
-        uint32 variableCount = 0;
-        uint32 functionCount = 0;
-    };
+namespace Srsl{
 
     class TreeWalker: public SrslGrammarBaseListener{
     public:
-        TreeWalker(UP<AbstractNode>& rootNode, ProgramInfo& programInfo, std::vector<TestCaseNode*>& testCases);
+        TreeWalker(UP<AbstractNode>& rootNode, ProgramInfo& programInfo);
 
         ~TreeWalker() override = default;
 
@@ -144,7 +139,6 @@ namespace Srsl{
 
         UP<AbstractNode>& m_RootNode;
         AbstractNode* m_CurrentNode;
-        std::vector<TestCaseNode*>& m_TestCases;
 
         std::stack<AbstractNode*> m_BracketStack;
         ScopeNode* m_CurrentScope;

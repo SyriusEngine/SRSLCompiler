@@ -1,4 +1,5 @@
 #include "ShaderModuleImpl.hpp"
+#include "AbstractSyntaxTree/Internal/TestEvaluationNode.hpp"
 
 namespace Srsl{
 
@@ -25,7 +26,7 @@ namespace Srsl{
         parser.addErrorListener(errorListener.get());
         antlr4::tree::ParseTree* tree = parser.file();
 
-        TreeWalker walker(m_Program, m_ProgramInfo, m_TestCases);
+        TreeWalker walker(m_Program, m_ProgramInfo);
         antlr4::tree::ParseTreeWalker::DEFAULT.walk(&walker, tree);
 
         SRSL_ASSERT(m_Program != nullptr, "Program (%p) is null", this);
@@ -39,6 +40,9 @@ namespace Srsl{
         m_Program->optimize();
 
         SRSL_POSTCONDITION(m_ProgramInfo.shaderType != SRSL_SHADER_NONE, "Shader type is (%d)", m_ProgramInfo.shaderType);
+        SRSL_POSTCONDITION(m_Program != nullptr, "Program is (%d)", m_Program.get());
+        SRSL_POSTCONDITION(m_ProgramInfo.mainFunction != nullptr, "Main function is (%d)", m_ProgramInfo.mainFunction);
+
     }
 
     ShaderModuleImpl::~ShaderModuleImpl() = default;
@@ -124,14 +128,16 @@ namespace Srsl{
 
     void ShaderModuleImpl::generateTestCode(TestConfig &desc) {
         // obtain the scope for the main function, this scope will contain the test driver code
-        auto mainFunction = m_Program->getMainFunction();
-        if (mainFunction == nullptr){
-            SRSL_THROW_EXCEPTION("Main function (%p) is null", mainFunction);
-        }
-        auto mainScope = mainFunction->getScope();
+        auto mainScope = m_ProgramInfo.mainFunction->getScope();
+
+        auto testEvaluationNode = mainScope->addChild<TestEvaluationNode>(desc.ssboName, desc.ssboSlot, m_ProgramInfo);
+        auto ten = dynamic_cast<TestEvaluationNode*>(testEvaluationNode);
+        ten->construct();
+        ten->fillSymbolTable(m_SymbolTable);
 
         // convert all test case nodes to evaluable code
-        TestCodeGenerator codeGenerator(desc.ssboName);
+        TestCodeGenerator codeGenerator;
+        codeGenerator.testSSBOName = desc.ssboName;
         m_Program->createTestCode(codeGenerator);
     }
 }

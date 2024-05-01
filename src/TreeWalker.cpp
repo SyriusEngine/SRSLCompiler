@@ -3,10 +3,9 @@
 
 namespace Srsl{
 
-    TreeWalker::TreeWalker(UP<AbstractNode> &rootNode, ProgramInfo& programInfo, std::vector<TestCaseNode*>& testCases):
+    TreeWalker::TreeWalker(UP<AbstractNode> &rootNode, ProgramInfo& programInfo):
     m_RootNode(rootNode),
     m_ProgramInfo(programInfo),
-    m_TestCases(testCases),
     m_CurrentNode(rootNode.get()),
     m_CurrentScope(nullptr),
     m_BracketStack(){
@@ -187,9 +186,12 @@ namespace Srsl{
 
         auto newCurrent = m_CurrentNode->addChild<ScopeNode>(ctx->start->getLine(), m_ProgramInfo.scopeCount, m_CurrentScope);
         m_CurrentNode = newCurrent;
-        m_ProgramInfo.scopeCount++;
+
         auto scopeNode = dynamic_cast<ScopeNode*>(newCurrent);
         SRSL_ASSERT(scopeNode != nullptr, "[TreeWalker]: Scope node is null")
+        m_ProgramInfo.scopes.push_back(scopeNode);
+        m_ProgramInfo.scopeCount++;
+
         if (m_CurrentScope != nullptr){
             m_CurrentScope->addChildScope(scopeNode);
         }
@@ -293,6 +295,12 @@ namespace Srsl{
         desc.hasScope = (ctx->scope() != nullptr);
 
         auto newCurrent = m_CurrentNode->addChild<FunctionDeclarationNode>(desc, m_ProgramInfo.functionCount, ctx->start->getLine());
+        if (desc.name == "main"){
+            m_ProgramInfo.mainFunction = dynamic_cast<FunctionDeclarationNode*>(newCurrent);
+        }
+        if (desc.hasScope){
+            m_ProgramInfo.functions.push_back(dynamic_cast<FunctionDeclarationNode*>(newCurrent));
+        }
         m_CurrentNode = newCurrent;
         m_ProgramInfo.functionCount++;
     }
@@ -430,6 +438,9 @@ namespace Srsl{
 
         auto newCurrent = m_CurrentNode->addChild<TestCaseNode>(suiteName, testName, ctx->start->getLine());
         m_CurrentNode = newCurrent;
+
+        m_ProgramInfo.testCaseCount++;
+        m_ProgramInfo.testCases.push_back(dynamic_cast<TestCaseNode*>(newCurrent));
     }
 
     void TreeWalker::exitTestCase(SrslGrammarParser::TestCaseContext *ctx) {

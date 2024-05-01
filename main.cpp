@@ -41,6 +41,15 @@ int main(int argc, char** argv){
             shaderProgram->addShaderModule(vertexShaderModule);
             shaderProgram->addShaderModule(fragmentShaderModule);
             shaderProgram->link();
+
+            TestConfig vsConfig;
+            vsConfig.ssboName = "VertexShaderTestResults";
+            vsConfig.ssboSlot = 0;
+            TestConfig fsConfig;
+            fsConfig.ssboName = "FragmentShaderTestResults";
+            fsConfig.ssboSlot = 1;
+            shaderProgram->generateTestCode(vsConfig, fsConfig);
+
             shaderProgram->exportShader(exportGlsl);
             shaderProgram->exportShader(exportHlsl);
 

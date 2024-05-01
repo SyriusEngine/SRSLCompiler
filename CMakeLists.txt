@@ -43,7 +43,7 @@ set(AST_SRC
     src/AbstractSyntaxTree/ScopeNode.cpp
     src/AbstractSyntaxTree/ExpressionNode.cpp
     src/AbstractSyntaxTree/ShaderStorageBufferNode.cpp
-    src/AbstractSyntaxTree/TestCaseNode.cpp )
+    src/AbstractSyntaxTree/TestCaseNode.cpp src/AbstractSyntaxTree/Internal/TestEvaluationNode.cpp src/AbstractSyntaxTree/Internal/TestEvaluationNode.hpp)
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp
@@ -53,8 +53,7 @@ set(SYMBOL_TABLE_SRC
     src/SymbolTable/Symbol.cpp
     src/SymbolTable/SymbolTable.cpp
     src/SymbolTable/Validator.cpp
-    src/SymbolTable/TestCodeGenerator.cpp
-    src/SymbolTable/TestCodeGenerator.hpp)
+    )
 
 set(INTRINSICS_SRC
     src/Intrinsics/Intrinsics.cpp
@@ -80,7 +79,7 @@ set(SRSL_SRC
     src/ShaderModuleImpl.cpp
     src/ShaderProgramImpl.cpp
     src/ParseExceptionHandler.cpp
-    src/TreeWalker.cpp)
+    src/TreeWalker.cpp src/ProgramInfo.hpp)
 
 add_library(SRSLCompiler SHARED ${SRSL_SRC})
 target_link_libraries(SRSLCompiler antlr4-runtime)

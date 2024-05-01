@@ -36,7 +36,5 @@ namespace Srsl{
         ProgramInfo m_ProgramInfo;
         UP<AbstractNode> m_Program;
         RCP<SymbolTable> m_SymbolTable;
-
-        std::vector<TestCaseNode*> m_TestCases;
     };
 }

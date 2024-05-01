@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AbstractNode.hpp"
+#include "ScopeNode.hpp"
 
 namespace Srsl{
 

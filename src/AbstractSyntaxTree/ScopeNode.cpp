@@ -57,7 +57,6 @@ namespace Srsl{
         // dont add the main scope to the list of scopes as this scope contains the test driving code
         AbstractNode::createTestCode(testGen);
         if (m_Parent->getValue() != "main"){
-            testGen.scopes.emplace_back(this);
             createScopeFlag(testGen);
             // add the line span of this scope to the total line count
             testGen.totalLines += getLineCount();
