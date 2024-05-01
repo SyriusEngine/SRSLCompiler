@@ -23,8 +23,7 @@ namespace Srsl{
     }
 
     void TestEvaluationNode::createSSBODeclaration() {
-        auto globalScope = m_ProgramInfo.mainFunction->getParent();
-        auto ssbo = globalScope->addChild<ShaderStorageBufferNode>(m_SSBOName, m_SSBOBindingSlot, 0);
+        auto ssbo = addChild<ShaderStorageBufferNode>(m_SSBOName, m_SSBOBindingSlot, 0);
         m_TestDataSSBO = dynamic_cast<ShaderStorageBufferNode*>(ssbo);
 
         TypeDesc uintDesc;
