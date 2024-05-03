@@ -104,46 +104,12 @@ namespace Srsl{
         auto scopeCoverageArray = memberAccess->addChild<VariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, m_LineNumber);
         scopeCoverageArray->addChild<ConstantNode>(std::to_string(m_ScopeId), m_LineNumber);
 
-        // RHS is a literal TRUE
-        assignment->addChild<ConstantNode>("true", m_LineNumber);
+        // RHS is the line count of the scope, if the scope is entered, the value will be the number of lines
+        // if the scope is not entered, the value will be 0, this is used to calculate the coverage percentage
+        assignment->addChild<ConstantNode>(std::to_string(m_LineCount), m_LineNumber);
 
         assignment->construct();
         assignment->fillSymbolTable(m_SymbolTable);
-
-        /*
-         * To calculate the lcov metric, we first check if the scope already has been visited, if yes, do nothing.
-         * if no, add the scope line count to the covered line count parameter (stored in the test SSBO)
-         */
-        // first check if the scope has been visited
-        auto ifStatement = addChildFront<IfNode>(m_LineNumber);
-        // first add the condition
-        auto comparisonNode = ifStatement->addChild<ExpressionNode>("==", OPERATION_BINARY, m_LineNumber);
-        // LHS of the condition
-        auto memberAccess2 = comparisonNode->addChild<MemberAccessNode>(m_LineNumber);
-        memberAccess2->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
-        auto scopeCoverageArray2 = memberAccess2->addChild<VariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, m_LineNumber);
-        scopeCoverageArray2->addChild<ConstantNode>(std::to_string(m_ScopeId), m_LineNumber);
-        // RHS is a literal False
-        comparisonNode->addChild<ConstantNode>("false", m_LineNumber);
-
-        // then add the body, which increments the covered line count by the line count of the scope
-        auto scopeNode = ifStatement->addChild<ScopeNode>(m_LineNumber, m_ScopeId, this);
-        // first argument is the SSBO member access
-        auto assignment2 = scopeNode->addChild<AssignmentNode>(m_LineNumber);
-        // LHS is a member access of the SSBO Scope array
-        auto memberAccess3 = assignment2->addChild<MemberAccessNode>(m_LineNumber);
-        memberAccess3->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
-        auto coveredLineCount = memberAccess3->addChild<VariableNode>(SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT, m_LineNumber);
-
-        // RHS is the current value of the covered line count plus the line count of the scope
-        auto expressionNode = assignment2->addChild<ExpressionNode>("+", OPERATION_BINARY, m_LineNumber);
-        auto memberAccess4 = expressionNode->addChild<MemberAccessNode>(m_LineNumber);
-        memberAccess4->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
-        auto coveredLineCount2 = memberAccess4->addChild<VariableNode>(SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT, m_LineNumber);
-        expressionNode->addChild<ConstantNode>(std::to_string(m_LineCount), m_LineNumber);
-
-        ifStatement->construct();
-        ifStatement->fillSymbolTable(m_SymbolTable);
 
     }
 

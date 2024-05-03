@@ -53,8 +53,8 @@ namespace Srsl{
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_FAILED_LIT, "", uintDesc, 0);
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_FUNCTION_COUNT_LIT, "", uintDesc, 0);
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COUNT_LIT, "", uintDesc, 0);
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT, "", uintDesc, 0);
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TOTAL_LINE_COUNT_LIT, "", uintDesc, 0);
+
+        uintDesc.arraySizes.push_back(3); // pad header to 8 uints
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_PADDING_LIT, "", uintDesc, 0);
 
         // now add an array of uint32 to store the test results
@@ -73,9 +73,10 @@ namespace Srsl{
         boolArrayDesc.arraySizes.push_back(m_FunctionArraySize);
         m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_FUNCTION_COVERAGE, "", boolArrayDesc, 0);
 
-        boolArrayDesc.arraySizes.clear();
-        boolArrayDesc.arraySizes.push_back(m_ScopeArraySize);
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, "", boolArrayDesc, 0);
+        TypeDesc uintArrayDesc;
+        uintArrayDesc.type = VT_UINT;
+        uintArrayDesc.arraySizes.push_back(m_ScopeArraySize);
+        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, "", uintArrayDesc, 0);
     }
 
     void TestEvaluationNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {
@@ -84,8 +85,6 @@ namespace Srsl{
         exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + "= 0;\n");
         exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + " = " + std::to_string(m_ProgramInfo.functionCount) + ";\n");
         exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT  + " = " + std::to_string(m_ProgramInfo.scopeCount) + ";\n");
-        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT + " = 0;\n");
-        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TOTAL_LINE_COUNT_LIT + " = " + std::to_string(0) + ";\n");
 
         for (uint32 i = 0; i < m_ProgramInfo.testCases.size(); i++){
             exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
