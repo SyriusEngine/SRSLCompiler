@@ -80,7 +80,8 @@ namespace Srsl{
     }
 
     void TestEvaluationNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {
-        exporter->addLine( m_SSBOName + "." + SRSL_TEST_DATA_TEST_COUNT_LIT + " = " + std::to_string(m_ProgramInfo.testCaseCount) + ";\n");
+        exporter->addLine("memoryBarrierBuffer();\n");
+        exporter->addLine(indent +  m_SSBOName + "." + SRSL_TEST_DATA_TEST_COUNT_LIT + " = " + std::to_string(m_ProgramInfo.testCaseCount) + ";\n");
         exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " = 0;\n");
         exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + "= 0;\n");
         exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + " = " + std::to_string(m_ProgramInfo.functionCount) + ";\n");
@@ -89,9 +90,11 @@ namespace Srsl{
         for (uint32 i = 0; i < m_ProgramInfo.testCases.size(); i++){
             exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
             exporter->addLine(m_ProgramInfo.testCases[i]->getValue() + "();\n"); // call the test case function
-            exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " += " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0;\n");
-            exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + " += " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0;\n");
+            exporter->addLine(indent + "atomicAdd(" + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + ", " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0);\n");
+            exporter->addLine(indent + "atomicAdd(" + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + ", " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0);\n");
         }
+
+        exporter->addLine(indent + "memoryBarrierBuffer();\n");
     }
 
     void TestEvaluationNode::configureTestConfig(TestConfig &desc) const {
