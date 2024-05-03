@@ -116,4 +116,9 @@ namespace Srsl{
     uint32 ScopeNode::getLineCount() const {
         return m_LineCount;
     }
+
+    size_t ScopeNode::findInsertionLocation() const {
+        return 0;
+    }
+
 }
