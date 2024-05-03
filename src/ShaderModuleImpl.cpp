@@ -142,6 +142,6 @@ namespace Srsl{
 
         // fill in the output params of the testConfig
         ten->configureTestConfig(desc);
-        desc.totalLineCount = codeGenerator.totalLines - mainScope->getLineCount();
+        desc.totalLineCount = codeGenerator.totalLines;
     }
 }

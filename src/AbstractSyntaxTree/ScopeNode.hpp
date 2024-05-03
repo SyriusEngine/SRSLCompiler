@@ -10,6 +10,8 @@ namespace Srsl{
 
         ~ScopeNode() override;
 
+        void construct() override;
+
         void fillSymbolTable(RCP<SymbolTable> table) override;
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
@@ -20,7 +22,7 @@ namespace Srsl{
 
         [[nodiscard]] ScopeNode* getParentScope() const;
 
-        [[nodiscard]] uint32 getLineCount() const; // how many lines are in this scope, recusive since scopes can be in scopes
+        [[nodiscard]] uint32 getLineCount() const;
 
     private:
 
@@ -32,6 +34,7 @@ namespace Srsl{
 
     private:
         const uint32 m_ScopeId; // used for testing generation
+        uint32 m_LineCount;
 
         ScopeNode* m_ParentScope;
         std::vector<ScopeNode*> m_ChildScopes;

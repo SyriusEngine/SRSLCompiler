@@ -191,7 +191,6 @@ namespace Srsl{
         SRSL_ASSERT(scopeNode != nullptr, "[TreeWalker]: Scope node is null")
         m_ProgramInfo.scopes.push_back(scopeNode);
         m_ProgramInfo.scopeCount++;
-        m_ProgramInfo.totalLines += scopeNode->getLineCount();
 
         if (m_CurrentScope != nullptr){
             m_CurrentScope->addChildScope(scopeNode);

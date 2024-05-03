@@ -40,7 +40,7 @@ namespace Srsl{
             child->generateCode(exporter, newIndent);
             exporter->addLine(";\n");
         }
-        exporter->addLine(indent + "}\n");
+        exporter->addLine(indent + "}\n\n");
     }
 
 }

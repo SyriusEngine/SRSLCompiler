@@ -3,7 +3,6 @@
 #include "VariableNode.hpp"
 #include "FLowControlNodes.hpp"
 #include "MemberAccessNode.hpp"
-#include "FunctionNode.hpp"
 
 namespace Srsl{
 
@@ -11,6 +10,7 @@ namespace Srsl{
     AbstractNode("", AST_NODE_SCOPE_STATEMENT, lineNumber),
     m_ScopeId(scopeID),
     m_ParentScope(parentScope),
+    m_LineCount(0),
     m_ChildScopes(){
         std::stringstream ss;
         ss << "Scope_" << this;
@@ -19,6 +19,27 @@ namespace Srsl{
     }
 
     ScopeNode::~ScopeNode() = default;
+
+    void ScopeNode::construct() {
+        AbstractNode::construct();
+
+        m_LineCount = 0;
+        for (const auto& child: m_Children){
+            auto childType = child->getNodeType();
+            if (childType == AST_NODE_FOR_STATEMENT or
+                childType == AST_NODE_IF_STATEMENT or
+                childType == AST_NODE_ELSE_STATEMENT or
+                childType == AST_NODE_WHILE_STATEMENT or
+                childType == AST_NODE_SCOPE_STATEMENT
+                    ){
+                // all have a scope and are thus part of the scope tree
+            }
+            else{
+                m_LineCount++; // we manually add a semicolon to the end of the line inside the scopenode
+                // we therefore now that each statement is on a new line
+            }
+        }
+    }
 
     void ScopeNode::fillSymbolTable(RCP<SymbolTable> table) {
         m_SymbolTable = table;
@@ -58,8 +79,8 @@ namespace Srsl{
         AbstractNode::createTestCode(testGen);
         if (m_Parent->getValue() != "main"){
             createScopeFlag(testGen);
-            // add the line span of this scope to the total line count
-            testGen.totalLines += getLineCount();
+
+            testGen.totalLines += m_LineCount;
         }
     }
 
@@ -75,7 +96,6 @@ namespace Srsl{
         /*
          * at the beginning of each scope, add the following syntax
          * <ShaderType>Results.srslScopeCoverage[<ScopeId>] = true;
-         *
          */
         auto assignment = addChildFront<AssignmentNode>(m_LineNumber);
         // LHS is a member access of the SSBO Scope array
@@ -120,7 +140,7 @@ namespace Srsl{
         auto memberAccess4 = expressionNode->addChild<MemberAccessNode>(m_LineNumber);
         memberAccess4->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);
         auto coveredLineCount2 = memberAccess4->addChild<VariableNode>(SRSL_TEST_DATA_COVERED_LINE_COUNT_LIT, m_LineNumber);
-        expressionNode->addChild<ConstantNode>(std::to_string(getLineCount()), m_LineNumber);
+        expressionNode->addChild<ConstantNode>(std::to_string(m_LineCount), m_LineNumber);
 
         ifStatement->construct();
         ifStatement->fillSymbolTable(m_SymbolTable);
@@ -128,24 +148,6 @@ namespace Srsl{
     }
 
     uint32 ScopeNode::getLineCount() const {
-        uint32 lineCount = 0;
-        for (const auto& child: m_Children){
-            auto childType = child->getNodeType();
-            if (childType == AST_NODE_FOR_STATEMENT or
-                childType == AST_NODE_IF_STATEMENT or
-                childType == AST_NODE_ELSE_STATEMENT or
-                childType == AST_NODE_WHILE_STATEMENT or
-                childType == AST_NODE_SCOPE_STATEMENT
-                    ){
-                // all have a scope and are thus part of the scope tree
-            }
-            else{
-                lineCount++; // we manually add a semicolon to the end of the line inside the scopenode
-                // we therefore now that each statement is on a new line
-            }
-        }
-        return lineCount;
+        return m_LineCount;
     }
-
-
 }
