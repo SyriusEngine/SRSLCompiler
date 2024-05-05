@@ -30,7 +30,7 @@ set(ANTLR4_SRC
 
 set(AST_SRC
     src/AbstractSyntaxTree/AbstractNode.cpp
-    src/AbstractSyntaxTree/NodeTypes.cpp
+    src/AbstractSyntaxTree/Internal/NodeTypes.cpp
     src/AbstractSyntaxTree/ShaderTypeNode.cpp
     src/AbstractSyntaxTree/Nodes.cpp
     src/AbstractSyntaxTree/VariableNode.cpp
@@ -98,10 +98,16 @@ add_dependencies(SRSLCompiler CopyDLL)
 
 include_directories(./include/)
 link_directories(./cmake-build-debug/)
+
 add_executable(SRSLCompilerDev main.cpp)
 target_link_libraries(SRSLCompilerDev -lSRSLCompiler)
-
 add_dependencies(SRSLCompilerDev SRSLCompiler)
+
+################################ benchmark Executable ################################
+
+add_executable(SRSLCompilerBenchmark Benchmark.cpp)
+target_link_libraries(SRSLCompilerBenchmark -lSRSLCompiler)
+add_dependencies(SRSLCompilerBenchmark SRSLCompiler)
 
 ################################ Test Executable ################################
 

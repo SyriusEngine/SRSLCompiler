@@ -1,0 +1,34 @@
+ShaderType = Fragment;
+
+Input fsIn{
+    float4 position: SRV_POSITION;
+    float3 normal: Normal;
+    float2 texCoords: TexCoords;
+};
+
+Output fsOut{
+    float4 color: SRV_TARGET0;
+};
+
+Texture2D(slot = 1) color;
+Sampler(slot = 0) splr;
+
+float4 sampleFromTexture(float2 texCoords){
+    float4 texel = sampleTexture(color, splr, texCoords);
+    if (texel.a < 0.1){
+        discard;
+    }
+    return texel;
+}
+
+void emptyFunction(float3 param1){
+    uint aPos = 0;
+    uint bPos = 1;
+
+    return;
+}
+
+void main(){
+    float4 texel = sampleFromTexture(fsIn.texCoords);
+    fsOut.color = texel;
+}

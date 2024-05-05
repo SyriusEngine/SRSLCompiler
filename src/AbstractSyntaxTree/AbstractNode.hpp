@@ -5,7 +5,7 @@
 #include "../SymbolTable/SymbolTable.hpp"
 #include "../SymbolTable/Validator.hpp"
 
-#include "NodeTypes.hpp"
+#include "Internal/NodeTypes.hpp"
 
 #include "../Exporters/Exporter.hpp"
 #include "../Exporters/GlslExporter.hpp"
