@@ -6,7 +6,7 @@
 #include "SrslGrammarLexer.h"
 #include "SrslGrammarParser.h"
 
-#include "Utils.hpp"
+#include "Utils/Utils.hpp"
 #include "AbstractSyntaxTree/AbstractNode.hpp"
 #include "AbstractSyntaxTree/ShaderTypeNode.hpp"
 #include "AbstractSyntaxTree/Nodes.hpp"

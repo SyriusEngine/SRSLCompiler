@@ -70,6 +70,11 @@ set(EXPORTER_SRC
     src/Exporters/HlslExporter.cpp
     )
 
+set(UTILS_SRC
+    src/Utils/Exception.cpp
+    src/Utils/Utils.cpp
+)
+
 set(SRSL_SRC
     ${ANTLR4_SRC}
     ${AST_SRC}
@@ -77,12 +82,13 @@ set(SRSL_SRC
     ${SYMBOL_TABLE_SRC}
     ${INTRINSICS_SRC}
     ${EXPORTER_SRC}
+    ${UTILS_SRC}
 
     src/SrslCompiler.cpp
     src/ShaderModuleImpl.cpp
     src/ShaderProgramImpl.cpp
     src/ParseExceptionHandler.cpp
-    src/TreeWalker.cpp src/ProgramInfo.hpp)
+    src/TreeWalker.cpp )
 
 add_library(SRSLCompiler SHARED ${SRSL_SRC})
 target_link_libraries(SRSLCompiler antlr4-runtime)

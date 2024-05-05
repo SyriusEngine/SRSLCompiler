@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Utils.hpp"
+#include "Utils/Utils.hpp"
 #include "ShaderModuleImpl.hpp"
 
 namespace Srsl{

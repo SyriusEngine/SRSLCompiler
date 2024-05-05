@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Utils.hpp"
+#include "../Utils/Utils.hpp"
 #include "../Converter/VariableTypes.hpp"
 #include "../SymbolTable/SymbolTable.hpp"
 #include "../SymbolTable/Validator.hpp"

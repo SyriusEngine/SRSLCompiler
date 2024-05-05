@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Utils.hpp"
+#include "Utils/Utils.hpp"
 #include "AbstractSyntaxTree/FunctionNode.hpp"
 #include "AbstractSyntaxTree/TestCaseNode.hpp"
 #include "AbstractSyntaxTree/ScopeNode.hpp"
