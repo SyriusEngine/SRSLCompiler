@@ -16,6 +16,25 @@ namespace Srsl{
                 excMsg +=  " (" + std::string(ex.what()) + ")";
             }
         }
-        SRSL_THROW_EXCEPTION("%s", excMsg.c_str());
+        throw SyntaxError(excMsg, line, charPositionInLine);
+    }
+
+    void SrslErrorListener::reportAmbiguity(antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
+                                            size_t stopIndex, bool exact, const antlrcpp::BitSet &ambigAlts,
+                                            antlr4::atn::ATNConfigSet *configs) {
+
+    }
+
+    void SrslErrorListener::reportAttemptingFullContext(antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa,
+                                                        size_t startIndex, size_t stopIndex,
+                                                        const antlrcpp::BitSet &conflictingAlts,
+                                                        antlr4::atn::ATNConfigSet *configs) {
+
+    }
+
+    void SrslErrorListener::reportContextSensitivity(antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa,
+                                                     size_t startIndex, size_t stopIndex, size_t prediction,
+                                                     antlr4::atn::ATNConfigSet *configs) {
+
     }
 }

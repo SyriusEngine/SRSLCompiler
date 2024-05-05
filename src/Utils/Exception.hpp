@@ -19,14 +19,17 @@ namespace Srsl{
 
     class SyntaxError: public SrslException{
     public:
-        SyntaxError(const std::string& message, uint64 lineNumber);
+        SyntaxError(const std::string& message, uint64 lineNumber, uint64 charPosition);
 
         ~SyntaxError() override;
 
         [[nodiscard]] uint64 getLineNumber() const;
 
+        [[nodiscard]] uint64 getCharPosition() const;
+
     private:
         uint64 m_LineNumber;
+        uint64 m_CharPosition;
     };
 
     class ValidationError: public SrslException{

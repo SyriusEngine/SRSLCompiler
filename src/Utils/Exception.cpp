@@ -12,9 +12,10 @@ namespace Srsl{
         return m_Message.c_str();
     }
 
-    SyntaxError::SyntaxError(const std::string &message, uint64 lineNumber):
+    SyntaxError::SyntaxError(const std::string &message, uint64 lineNumber, uint64 charPosition):
     SrslException(message),
-    m_LineNumber(lineNumber){
+    m_LineNumber(lineNumber),
+    m_CharPosition(charPosition){
 
     }
 
@@ -24,10 +25,10 @@ namespace Srsl{
         return m_LineNumber;
     }
 
-    ValidationError::~ValidationError() = default;
-
-    const char *ValidationError::what() const noexcept {
-        return m_Message.c_str();
+    uint64 SyntaxError::getCharPosition() const {
+        return m_CharPosition;
     }
+
+    ValidationError::~ValidationError() = default;
 
 }
