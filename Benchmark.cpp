@@ -18,29 +18,15 @@ void compileShader(const std::string& vertexShader, const std::string& fragmentS
     fragmentShaderModule->exportAstDot("./Dev-fs.dot");
     fragmentShaderModule->exportSymbolTableHtml("./Dev-fs.html");
 
-    ExportDesc exportGlsl;
+    ExportDesc exportGlsl = createGlslDefaultExportDesc();
     exportGlsl.vertexShaderOut = "./Dev-vs.glsl";
     exportGlsl.fragmentShaderOut = "./Dev-fs.glsl";
-    exportGlsl.target = SRSL_TARGET_GLSL;
-    exportGlsl.version.majorVersion = 4;
-    exportGlsl.version.minorVersion = 6;
 
-    ExportDesc exportHlsl;
+    ExportDesc exportHlsl = createHlslDefaultExportDesc();
     exportHlsl.vertexShaderOut = "./Dev-vs.hlsl";
     exportHlsl.fragmentShaderOut = "./Dev-fs.hlsl";
-    exportHlsl.target = SRSL_TARGET_HLSL;
-    exportHlsl.version.majorVersion = 5;
-    exportHlsl.version.minorVersion = 0;
 
-    ShaderLimits limits;
-    limits.maxVertexAttributes = 16;
-    limits.maxConstantBufferSize = 16384;
-    limits.maxTextureUnits = 16;
-    limits.maxSamplers = 16;
-    limits.maxConstantBufferSlots = 32;
-
-
-    auto shaderProgram = createShaderProgram(limits);
+    auto shaderProgram = createShaderProgram();
     shaderProgram->addShaderModule(vertexShaderModule);
     shaderProgram->addShaderModule(fragmentShaderModule);
     shaderProgram->link();

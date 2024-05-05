@@ -13,4 +13,10 @@ namespace Srsl{
 
     SRSL_API std::shared_ptr<ShaderProgram> createShaderProgram(const ShaderLimits& limits);
 
+    SRSL_API ExportDesc createGlslDefaultExportDesc();
+
+    SRSL_API ExportDesc createHlslDefaultExportDesc();
+
+    SRSL_API ShaderLimits createDefaultShaderLimits();
+
 }

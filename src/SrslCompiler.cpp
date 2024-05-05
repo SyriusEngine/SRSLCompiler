@@ -29,4 +29,25 @@ namespace Srsl{
     std::shared_ptr<ShaderProgram> createShaderProgram(const ShaderLimits& limits){
         return std::make_shared<ShaderProgramImpl>(limits);
     }
+
+    ExportDesc createGlslDefaultExportDesc(){
+        ExportDesc exportGlsl;
+        exportGlsl.target = SRSL_TARGET_GLSL;
+        exportGlsl.version.majorVersion = 4;
+        exportGlsl.version.minorVersion = 6;
+        return exportGlsl;
+    }
+
+    ExportDesc createHlslDefaultExportDesc(){
+        ExportDesc exportHlsl;
+        exportHlsl.target = SRSL_TARGET_HLSL;
+        exportHlsl.version.majorVersion = 5;
+        exportHlsl.version.minorVersion = 0;
+        return exportHlsl;
+    }
+
+    ShaderLimits createDefaultShaderLimits(){
+        ShaderLimits limits;
+        return limits;
+    }
 }
