@@ -6,25 +6,27 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_compile_definitions(SRSL_EXPORT_DLL)
 
-include_directories(src/Grammar/)
-if (WIN32)
-    link_directories(Dependencies/antlr4/WIN32/lib/)
-    link_directories(Dependencies/antlr4/WIN32/bin/)
+add_subdirectory(./src/antlr4/)
 
-    link_directories(Dependencies/glslang/lib/)
+include_directories(src/antlr4/runtime/src/)
+set(SRSL_DEPENDENCIES_DLL
+    ${CMAKE_CURRENT_BINARY_DIR}/src/antlr4/runtime/libantlr4-runtime.dll
+)
 
-    file(GLOB ANTLR_RUNTIME_DLL "./Dependencies/antlr4/WIN32/bin/*.dll")
-    file(COPY ${ANTLR_RUNTIME_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_target(CopyDLL ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SRSL_DEPENDENCIES_DLL} ${CMAKE_CURRENT_BINARY_DIR}
+    DEPENDS ${SRSL_DEPENDENCIES_DLL}
+    COMMENT "Copying DLLs to build tree")
+add_dependencies(CopyDLL antlr4_shared)
 
-elseif (UNIX)
-    message("Linux not supported")
-endif ()
+link_directories(${CMAKE_CURRENT_BINARY_DIR}/src/antlr4/runtime/)
+
 
 set(ANTLR4_SRC
-    src/Grammar/SrslGrammarBaseListener.cpp
-    src/Grammar/SrslGrammarLexer.cpp
-    src/Grammar/SrslGrammarListener.cpp
-    src/Grammar/SrslGrammarParser.cpp)
+    src/antlr4/runtime/src/SrslGrammarBaseListener.cpp
+    src/antlr4/runtime/src/SrslGrammarLexer.cpp
+    src/antlr4/runtime/src/SrslGrammarListener.cpp
+    src/antlr4/runtime/src/SrslGrammarParser.cpp)
 
 set(AST_SRC
     src/AbstractSyntaxTree/AbstractNode.cpp
@@ -43,7 +45,8 @@ set(AST_SRC
     src/AbstractSyntaxTree/ScopeNode.cpp
     src/AbstractSyntaxTree/ExpressionNode.cpp
     src/AbstractSyntaxTree/ShaderStorageBufferNode.cpp
-    src/AbstractSyntaxTree/TestCaseNode.cpp src/AbstractSyntaxTree/Internal/TestEvaluationNode.cpp src/AbstractSyntaxTree/Internal/TestEvaluationNode.hpp)
+    src/AbstractSyntaxTree/TestCaseNode.cpp
+    src/AbstractSyntaxTree/Internal/TestEvaluationNode.cpp )
 
 set(CONVERTER_SRC
     src/Converter/VariableTypes.cpp
@@ -83,6 +86,7 @@ set(SRSL_SRC
 
 add_library(SRSLCompiler SHARED ${SRSL_SRC})
 target_link_libraries(SRSLCompiler antlr4-runtime)
+add_dependencies(SRSLCompiler CopyDLL)
 
 ################################ Development Executable ################################
 
