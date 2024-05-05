@@ -59,6 +59,7 @@ int main(int argc, char** argv){
         std::string shaderDirectory = argv[1];
         std::unordered_map<std::string, bool> shaderNames;
         discoverShaders(shaderDirectory, shaderNames);
+        std::cout << "Found " << shaderNames.size() << " shaders to test" << std::endl;
 
         std::ofstream resultFile("TestResults.txt");
         resultFile << "--------------------------------------------------------\n";

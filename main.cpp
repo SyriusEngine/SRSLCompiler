@@ -6,49 +6,35 @@ int main(int argc, char** argv){
         if (argc > 2){
             using namespace Srsl;
 
-            ImportDesc vertexDesc;
-            vertexDesc.source = argv[1];
-            vertexDesc.loadType = SRSL_LOAD_FROM_FILE;
-            auto vertexShaderModule = createShaderModule(vertexDesc);
+            auto vertexShaderModule = createShaderModuleFromFile(argv[1]);
             vertexShaderModule->exportAstDot("./Dev-vs.dot");
             vertexShaderModule->exportSymbolTableHtml("./Dev-vs.html");
 
-            ImportDesc fragmentDesc;
-            fragmentDesc.source = argv[2];
-            fragmentDesc.loadType = SRSL_LOAD_FROM_FILE;
-            auto fragmentShaderModule = createShaderModule(fragmentDesc);
+            auto fragmentShaderModule = createShaderModuleFromFile(argv[2]);
             fragmentShaderModule->exportAstDot("./Dev-fs.dot");
             fragmentShaderModule->exportSymbolTableHtml("./Dev-fs.html");
 
 
-            ExportDesc exportGlsl;
+            ExportDesc exportGlsl = createGlslDefaultExportDesc();
             exportGlsl.vertexShaderOut = "./Dev-vs.glsl";
             exportGlsl.fragmentShaderOut = "./Dev-fs.glsl";
-            exportGlsl.writeType = SRSL_WRITE_TO_FILE;
-            exportGlsl.target = SRSL_TARGET_GLSL;
-            exportGlsl.version.majorVersion = 4;
-            exportGlsl.version.minorVersion = 6;
 
-            ExportDesc exportHlsl;
+            ExportDesc exportHlsl = createHlslDefaultExportDesc();
             exportHlsl.vertexShaderOut = "./Dev-vs.hlsl";
             exportHlsl.fragmentShaderOut = "./Dev-fs.hlsl";
-            exportHlsl.writeType = SRSL_WRITE_TO_FILE;
-            exportHlsl.target = SRSL_TARGET_HLSL;
-            exportHlsl.version.majorVersion = 5;
-            exportHlsl.version.minorVersion = 0;
 
             auto shaderProgram = createShaderProgram();
             shaderProgram->addShaderModule(vertexShaderModule);
             shaderProgram->addShaderModule(fragmentShaderModule);
             shaderProgram->link();
 
-            TestConfig vsConfig;
-            vsConfig.ssboName = "VertexShaderTestResults";
-            vsConfig.ssboSlot = 0;
-            TestConfig fsConfig;
-            fsConfig.ssboName = "FragmentShaderTestResults";
-            fsConfig.ssboSlot = 1;
-            shaderProgram->generateTestCode(vsConfig, fsConfig);
+//            TestConfig vsConfig;
+//            vsConfig.ssboName = "VertexShaderTestResults";
+//            vsConfig.ssboSlot = 0;
+//            TestConfig fsConfig;
+//            fsConfig.ssboName = "FragmentShaderTestResults";
+//            fsConfig.ssboSlot = 1;
+//            shaderProgram->generateTestCode(vsConfig, fsConfig);
 
             shaderProgram->exportShader(exportGlsl);
             shaderProgram->exportShader(exportHlsl);

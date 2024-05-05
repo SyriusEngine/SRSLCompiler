@@ -30,7 +30,7 @@ namespace Srsl{
             return m_Parent->getSymbol(name);
         }
         else {
-            SRSL_THROW_EXCEPTION("SymbolTable: %s does not contain symbol: %s", m_Name.c_str(), name.c_str());
+            throw UndefinedSymbolError(name, m_Name, 0);
         }
     }
 

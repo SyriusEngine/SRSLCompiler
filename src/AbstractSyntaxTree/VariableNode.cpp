@@ -12,7 +12,7 @@ namespace Srsl{
     void NewVariableNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
         m_SymbolTable = symbolTable;
         if (m_SymbolTable->hasSymbol(m_Value)){
-            SRSL_THROW_EXCEPTION("Redefinition of symbol (%s) at line %d", m_Value.c_str(), m_LineNumber);
+            throw RedefinitionError(m_Value, m_SymbolTable->getName(), m_LineNumber);
         }
 
         Symbol symbol;
@@ -57,7 +57,7 @@ namespace Srsl{
     void VariableNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
         m_SymbolTable = symbolTable;
         if (!m_SymbolTable->hasSymbol(m_Value)){
-            SRSL_THROW_EXCEPTION("Variable (%s) not found at (line %d)", m_Value.c_str(), m_LineNumber);
+            throw UndefinedSymbolError(m_Value, m_SymbolTable->getName(), m_LineNumber);
         }
         AbstractNode::fillSymbolTable(symbolTable);
 

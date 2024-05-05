@@ -29,6 +29,49 @@ namespace Srsl{
         return m_CharPosition;
     }
 
-    ValidationError::~ValidationError() = default;
+    UndefinedSymbolError::UndefinedSymbolError(const std::string &symbolName, const std::string& tableName, uint64 lineNumber) :
+    SrslException("Undefined symbol: " + symbolName + " at line: " + std::to_string(lineNumber) + " in scope: " + tableName),
+    m_SymbolName(symbolName),
+    m_TableName(tableName),
+    m_LineNumber(lineNumber){
 
+    }
+
+    UndefinedSymbolError::~UndefinedSymbolError() = default;
+
+    const std::string &UndefinedSymbolError::getSymbolName() const {
+        return m_SymbolName;
+    }
+
+    const std::string &UndefinedSymbolError::getTableName() const {
+        return m_TableName;
+    }
+
+    uint64 UndefinedSymbolError::getLineNumber() const {
+        return m_LineNumber;
+    }
+
+    RedefinitionError::RedefinitionError(const std::string &symbolName, const std::string &tableName, uint64 lineNumber):
+    SrslException("Undefined symbol: " + symbolName + " at line: " + std::to_string(lineNumber) + " in scope: " + tableName),
+    m_SymbolName(symbolName),
+    m_TableName(tableName),
+    m_LineNumber(lineNumber){
+
+    }
+
+    RedefinitionError::~RedefinitionError() = default;
+
+    const std::string &RedefinitionError::getSymbolName() const {
+        return m_SymbolName;
+    }
+
+    const std::string &RedefinitionError::getTableName() const {
+        return m_TableName;
+    }
+
+    uint64 RedefinitionError::getLineNumber() const {
+        return m_LineNumber;
+    }
+
+    ValidationError::~ValidationError() = default;
 }

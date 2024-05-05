@@ -60,7 +60,7 @@ namespace Srsl{
         else{
             auto& symbol = table->getSymbol(m_Value);
             if (symbol.symbolType != ST_FUNCTION or symbol.type != m_Type){
-                SRSL_THROW_EXCEPTION("Redefinition of symbol %s", m_Value.c_str());
+                throw RedefinitionError(m_Value, m_SymbolTable->getName(), m_LineNumber);
             }
             // this functions has been forward declared, now we need to fill the symbol table with the actual function
             if (m_HasScope){
@@ -277,7 +277,7 @@ namespace Srsl{
             SRSL_THROW_EXCEPTION("The main function cannot be called directly but is called at line %d. It is called by the system. ", m_LineNumber);
         }
         if (!table->hasSymbol(m_Value)){
-            SRSL_THROW_EXCEPTION("Function %s is not defined at line %d", m_Value.c_str(), m_LineNumber);
+            throw UndefinedSymbolError(m_Value, m_SymbolTable->getName(), m_LineNumber);
         }
         auto symbol = table->getSymbol(m_Value);
         m_Type = symbol.type;
