@@ -43,8 +43,7 @@ namespace Srsl{
     }
 
     void TestEvaluationNode::createSSBODeclaration() {
-        auto ssbo = addChild<ShaderStorageBufferNode>(m_SSBOName, m_SSBOBindingSlot, 0);
-        m_TestDataSSBO = dynamic_cast<ShaderStorageBufferNode*>(ssbo);
+        m_TestDataSSBO = addChild<ShaderStorageBufferNode>(m_SSBOName, m_SSBOBindingSlot, 0);
 
         TypeDesc uintDesc;
         uintDesc.type = VT_UINT;

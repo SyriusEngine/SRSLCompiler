@@ -16,7 +16,7 @@ namespace Srsl{
 
     class ShaderModuleImpl: public ShaderModule{
     public:
-        explicit ShaderModuleImpl(const ImportDesc& desc);
+        explicit ShaderModuleImpl(const std::string& source);
 
         ~ShaderModuleImpl() override;
 

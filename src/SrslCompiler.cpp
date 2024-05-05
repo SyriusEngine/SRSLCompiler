@@ -5,25 +5,21 @@
 
 namespace Srsl{
 
-    ShaderModule::ShaderModule() = default;
-
-    ShaderModule::~ShaderModule() = default;
-
-    ShaderProgram::ShaderProgram():
-    m_Limits(){
-
+    std::shared_ptr<ShaderModule> createShaderModuleFromFile(const std::string& fileName){
+        std::ifstream file(fileName);
+        if(!file.is_open()){
+            return nullptr;
+        }
+        std::string source;
+        std::string line;
+        while(std::getline(file, line)){
+            source += line + "\n";
+        }
+        return createShaderModuleFromSource(source);
     }
 
-    ShaderProgram::ShaderProgram(const ShaderLimits &limits):
-    m_Limits(limits){
-
-    }
-
-    ShaderProgram::~ShaderProgram() = default;
-
-
-    std::shared_ptr<ShaderModule> createShaderModule(const ImportDesc& desc){
-        return std::make_shared<ShaderModuleImpl>(desc);
+    std::shared_ptr<ShaderModule> createShaderModuleFromSource(const std::string& source){
+        return std::make_shared<ShaderModuleImpl>(source);
     }
 
     std::shared_ptr<ShaderProgram> createShaderProgram(){

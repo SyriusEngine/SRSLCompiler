@@ -10,24 +10,17 @@
 using namespace Srsl;
 
 void compileShader(const std::string& vertexShader, const std::string& fragmentShader){
-    ImportDesc vertexDesc;
-    vertexDesc.source = vertexShader;
-    vertexDesc.loadType = SRSL_LOAD_FROM_FILE;
-    auto vertexShaderModule = createShaderModule(vertexDesc);
+    auto vertexShaderModule = createShaderModuleFromFile(vertexShader);
     vertexShaderModule->exportAstDot("./Dev-vs.dot");
     vertexShaderModule->exportSymbolTableHtml("./Dev-vs.html");
 
-    ImportDesc fragmentDesc;
-    fragmentDesc.source = fragmentShader;
-    fragmentDesc.loadType = SRSL_LOAD_FROM_FILE;
-    auto fragmentShaderModule = createShaderModule(fragmentDesc);
+    auto fragmentShaderModule = createShaderModuleFromFile(fragmentShader);
     fragmentShaderModule->exportAstDot("./Dev-fs.dot");
     fragmentShaderModule->exportSymbolTableHtml("./Dev-fs.html");
 
     ExportDesc exportGlsl;
     exportGlsl.vertexShaderOut = "./Dev-vs.glsl";
     exportGlsl.fragmentShaderOut = "./Dev-fs.glsl";
-    exportGlsl.writeType = SRSL_WRITE_TO_FILE;
     exportGlsl.target = SRSL_TARGET_GLSL;
     exportGlsl.version.majorVersion = 4;
     exportGlsl.version.minorVersion = 6;
@@ -35,7 +28,6 @@ void compileShader(const std::string& vertexShader, const std::string& fragmentS
     ExportDesc exportHlsl;
     exportHlsl.vertexShaderOut = "./Dev-vs.hlsl";
     exportHlsl.fragmentShaderOut = "./Dev-fs.hlsl";
-    exportHlsl.writeType = SRSL_WRITE_TO_FILE;
     exportHlsl.target = SRSL_TARGET_HLSL;
     exportHlsl.version.majorVersion = 5;
     exportHlsl.version.minorVersion = 0;
@@ -97,7 +89,7 @@ int main(int argc, char** argv){
             }
             resultFile << "| " << std::setw(26) << shaderName << " | " << std::setw(8) << shouldFail << " | " << std::setw(3) << success << " | " << std::setw(6) << (shouldFail == success ? "PASS" : "FAIL") << " |\n";
         }
-        resultFile << "--------------------------------------------------------\n";
+        resultFile << "--------------------------------------------------------";
         resultFile.close();
     } catch (const std::exception& e){
         std::cout << "Error: " << e.what() << std::endl;

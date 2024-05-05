@@ -3,21 +3,11 @@
 
 namespace Srsl{
 
-    ShaderModuleImpl::ShaderModuleImpl(const ImportDesc &desc):
+    ShaderModuleImpl::ShaderModuleImpl(const std::string& source):
     ShaderModule(),
     m_SymbolTable(createRCP<SymbolTable>("GLOBAL")){
         m_ProgramInfo.shaderType = SRSL_SHADER_NONE;
-        UP<antlr4::ANTLRInputStream> input = nullptr;
-        if (desc.loadType == SRSL_LOAD_FROM_FILE){
-            std::ifstream file(desc.source);
-            input = createUP<antlr4::ANTLRInputStream>(file);
-        }
-        else if (desc.loadType == SRSL_LOAD_FROM_MEMORY){
-            input = createUP<antlr4::ANTLRInputStream>(desc.source);
-        }
-        else{
-            throw std::runtime_error("Invalid load type");
-        }
+        UP<antlr4::ANTLRInputStream> input = createUP<antlr4::ANTLRInputStream>(source);
         SrslGrammarLexer lexer(input.get());
         antlr4::CommonTokenStream tokens(&lexer);
         SrslGrammarParser parser(&tokens);
@@ -102,7 +92,7 @@ namespace Srsl{
         SRSL_ASSERT(out != nullptr, "Output buffer is null")
 
         // how to export?
-        if (desc.writeType == SRSL_WRITE_TO_FILE){
+        if (desc.writeToFile){
             std::string buffer;
             m_Program->generateCode(exporter, "");
             exporter->getShaderCode(buffer);

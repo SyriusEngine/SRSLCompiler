@@ -29,10 +29,10 @@ namespace Srsl{
         virtual ~AbstractNode() = default;
 
         template<typename T, typename... Args>
-        AbstractNode* addChild(Args&&... args){
+        T* addChild(Args&&... args){
             auto& retVal = m_Children.emplace_back(createUP<T>(std::forward<Args>(args)...));
             retVal->m_Parent = this;
-            return retVal.get();
+            return static_cast<T*>(retVal.get());
         }
 
         AbstractNode* addExistingChild(UP<AbstractNode>&& child);
