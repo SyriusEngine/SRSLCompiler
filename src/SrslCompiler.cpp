@@ -1,4 +1,5 @@
 #include "SrslCompiler/SrslCompiler.hpp"
+#include <filesystem>
 
 #include "ShaderModuleImpl.hpp"
 #include "ShaderProgramImpl.hpp"
@@ -6,10 +7,9 @@
 namespace Srsl{
 
     std::shared_ptr<ShaderModule> createShaderModuleFromFile(const std::string& fileName){
+        SRSL_PRECONDITION(std::filesystem::exists(fileName), "File %s does not exist", fileName.c_str());
+
         std::ifstream file(fileName);
-        if(!file.is_open()){
-            return nullptr;
-        }
         std::string source;
         std::string line;
         while(std::getline(file, line)){
