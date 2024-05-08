@@ -37,20 +37,28 @@ namespace Srsl {
         uint32_t minorVersion = 0;
     };
 
+    struct SRSL_API TestDataBufferDesc{
+        std::string name = "SRSL_TEST_DATA";
+        uint32_t slot = 0;
+    };
+
+    struct SRSL_API TestParameters{
+        uint32_t ssboSize = 0;
+        std::vector<std::string> testCaseNames;
+        uint32_t testCaseCount = 0;
+        uint32_t testCaseArraySize = 0;
+        std::vector<std::string> functionNames;
+        uint32_t functionCount = 0;
+        uint32_t functionArraySize = 0;
+        std::vector<std::string> scopes;
+        uint32_t scopeCount = 0;
+        uint32_t scopeArraySize = 0;
+        uint32_t totalLineCount = 0;
+    };
+
     struct SRSL_API TestConfig{
-        std::string ssboName = "SRSL_TEST_RESULTS"; // input parameter: Name of the SSBO that will contain the test results
-        uint32_t ssboSlot = 0;                      // input parameter: Test results will be written to a SSBO at this slot
-        uint32_t ssboSize = 0;                      // output parameter: Size of the SSBO that will contain testing info
-        std::vector<std::string> testCaseNames;     // output parameter: contains the names of the test cases in order that they are written to the SSBO by the GPU
-        uint32_t testCaseCount = 0;                 // output parameter: Number of test cases
-        uint32_t testCaseArraySize = 0;             // output parameter: Size of the array that will contain the test cases
-        std::vector<std::string> functionNames;     // output parameter: names of the tested functions
-        uint32_t functionCount = 0;                 // output parameter: Number of tested functions
-        uint32_t functionArraySize = 0;             // output parameter: Size of the array that will contain the tested functions
-        std::vector<std::string> scopes;            // output parameter: This vector will contain the scopes for the vertex shader
-        uint32_t scopeCount = 0;                    // output parameter: Number of scopes
-        uint32_t scopeArraySize = 0;                // output parameter: Size of the array that will contain the scopes
-        uint32_t totalLineCount = 0;                // output parameter: Total number of lines in the shader
+        TestParameters vertexShaderParameters;
+        TestParameters fragmentShaderParameters;
     };
 
     struct SRSL_API ExportDesc{

@@ -18,7 +18,7 @@ namespace Srsl {
 
         virtual void exportShader(ExportDesc& desc) = 0;
 
-        virtual void generateTestCode(TestConfig &vertexShaderConfig, TestConfig& fragmentShaderConfig) = 0;
+        virtual TestConfig generateTestCode(const TestDataBufferDesc& vertexShaderSSBO, const TestDataBufferDesc& fragmentShaderSSBO) = 0;
 
     protected:
         ShaderLimits m_Limits;

@@ -49,12 +49,14 @@ namespace Srsl{
         }
     }
 
-    void ShaderProgramImpl::generateTestCode(TestConfig &vertexShaderConfig, TestConfig &fragmentShaderConfig) {
+    TestConfig ShaderProgramImpl::generateTestCode(const TestDataBufferDesc& vertexShaderSSBO, const TestDataBufferDesc& fragmentShaderSSBO) {
+        TestConfig config;
         if (m_VertexShader != nullptr){
-            m_VertexShader->generateTestCode(vertexShaderConfig);
+            config.vertexShaderParameters = m_VertexShader->generateTestCode(vertexShaderSSBO);
         }
         if (m_FragmentShader != nullptr){
-            m_FragmentShader->generateTestCode(fragmentShaderConfig);
+            config.fragmentShaderParameters = m_FragmentShader->generateTestCode(fragmentShaderSSBO);
         }
+        return config;
     }
 }

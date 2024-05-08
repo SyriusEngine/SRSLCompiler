@@ -2,10 +2,10 @@
 
 namespace Srsl{
 
-    TestEvaluationNode::TestEvaluationNode(const std::string &ssboName, uint32 ssboSlot, ProgramInfo& programInfo):
-    AbstractNode(ssboName, AST_NODE_TEST_EVALUATION, programInfo.mainFunction->getLineNumber()),
-    m_SSBOName(ssboName),
-    m_SSBOBindingSlot(ssboSlot),
+    TestEvaluationNode::TestEvaluationNode(const TestDataBufferDesc& bufferDesc, ProgramInfo& programInfo):
+    AbstractNode("TEST_EVALUATION", AST_NODE_TEST_EVALUATION, programInfo.mainFunction->getLineNumber()),
+    m_SSBOName(bufferDesc.name),
+    m_SSBOBindingSlot(bufferDesc.slot),
     m_TestDataSSBO(nullptr),
     m_ProgramInfo(programInfo),
     m_TestCasesArraySize(0),
@@ -96,7 +96,7 @@ namespace Srsl{
         exporter->addLine(indent + "memoryBarrierBuffer();\n");
     }
 
-    void TestEvaluationNode::configureTestConfig(TestConfig &desc) const {
+    void TestEvaluationNode::configureTestConfig(TestParameters &desc) const {
         desc.ssboSize = sizeof(uint32) * 8; // header
         desc.ssboSize += sizeof(uint32) * m_TestCasesArraySize;
         desc.ssboSize += sizeof(uint32) * m_ScopeArraySize;

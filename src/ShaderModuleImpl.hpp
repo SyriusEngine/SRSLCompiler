@@ -30,7 +30,7 @@ namespace Srsl{
 
         void validate(Validator& validator);
 
-        void generateTestCode(TestConfig &desc);
+        TestParameters generateTestCode(const TestDataBufferDesc& bufferDesc);
 
     private:
         ProgramInfo m_ProgramInfo;

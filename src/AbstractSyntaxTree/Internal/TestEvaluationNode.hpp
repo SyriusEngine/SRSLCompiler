@@ -8,13 +8,13 @@ namespace Srsl{
 
     class TestEvaluationNode: public AbstractNode{
     public:
-        TestEvaluationNode(const std::string& ssboName, uint32 ssboSlot, ProgramInfo& programInfo);
+        TestEvaluationNode(const TestDataBufferDesc& bufferDesc, ProgramInfo& programInfo);
 
         ~TestEvaluationNode() override;
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
-        void configureTestConfig(TestConfig &desc) const;
+        void configureTestConfig(TestParameters &desc) const;
 
     private:
 

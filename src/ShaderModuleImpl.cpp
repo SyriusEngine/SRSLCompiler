@@ -116,22 +116,24 @@ namespace Srsl{
         m_Program->validate(validator);
     }
 
-    void ShaderModuleImpl::generateTestCode(TestConfig &desc) {
+    TestParameters ShaderModuleImpl::generateTestCode(const TestDataBufferDesc& bufferDesc) {
         // obtain the scope for the main function, this scope will contain the test driver code
         auto mainScope = m_ProgramInfo.mainFunction->getScope();
 
-        auto testEvaluationNode = mainScope->addChild<TestEvaluationNode>(desc.ssboName, desc.ssboSlot, m_ProgramInfo);
+        auto testEvaluationNode = mainScope->addChild<TestEvaluationNode>(bufferDesc, m_ProgramInfo);
         auto ten = dynamic_cast<TestEvaluationNode*>(testEvaluationNode);
         ten->construct();
         ten->fillSymbolTable(m_SymbolTable);
 
         // convert all test case nodes to evaluable code
         TestCodeGenerator codeGenerator;
-        codeGenerator.testSSBOName = desc.ssboName;
+        codeGenerator.testSSBOName = bufferDesc.name;
         m_Program->createTestCode(codeGenerator);
 
         // fill in the output params of the testConfig
+        TestParameters desc;
         ten->configureTestConfig(desc);
         desc.totalLineCount = codeGenerator.totalLines;
+        return desc;
     }
 }
