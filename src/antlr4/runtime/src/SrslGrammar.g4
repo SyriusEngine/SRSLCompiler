@@ -46,7 +46,8 @@ returnStatement: RETURN expression?;
 
 scope: CBRACKO statement* CBRACKC;
 
-testCase: AT TEST PARENO VAR_NAME COMMA VAR_NAME PARENC CBRACKO statement* CBRACKC;
+testCase: AT TEST PARENO VAR_NAME COMMA VAR_NAME PARENC CBRACKO (statement | testAssertion)* CBRACKC;
+testAssertion: TEST_ASSERT_TYPE PARENO expression COMMA expression PARENC EOL;
 
 structDeclaration: STRUCT VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
 
@@ -111,6 +112,7 @@ STRUCT: 'struct';
 SHADER_INPUT: 'Input';
 SHADER_OUTPUT: 'Output';
 TEST: 'TEST';
+TEST_ASSERT_TYPE: 'EXPECT_EQ' | 'EXPECT_NE' | 'EXPECT_LT' | 'EXPECT_GT' | 'EXPECT_LE' | 'EXPECT_GE';
 
 // types
 TYPE:

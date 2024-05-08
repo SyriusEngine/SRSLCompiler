@@ -1,5 +1,5 @@
 
-// Generated from .\SrslGrammar.g4 by ANTLR 4.11.1
+// Generated from SrslGrammar.g4 by ANTLR 4.11.1
 
 #pragma once
 
@@ -73,6 +73,9 @@ public:
 
   virtual void enterTestCase(SrslGrammarParser::TestCaseContext *ctx) = 0;
   virtual void exitTestCase(SrslGrammarParser::TestCaseContext *ctx) = 0;
+
+  virtual void enterTestAssertion(SrslGrammarParser::TestAssertionContext *ctx) = 0;
+  virtual void exitTestAssertion(SrslGrammarParser::TestAssertionContext *ctx) = 0;
 
   virtual void enterStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) = 0;
   virtual void exitStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) = 0;

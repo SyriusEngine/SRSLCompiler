@@ -1,5 +1,5 @@
 
-// Generated from .\SrslGrammar.g4 by ANTLR 4.11.1
+// Generated from SrslGrammar.g4 by ANTLR 4.11.1
 
 
 #include "SrslGrammarListener.h"
@@ -47,164 +47,168 @@ void srslgrammarParserInitialize() {
       "statement", "forLoop", "whileLoop", "ifStatement", "optionalStatement", 
       "elseIfStatement", "elseStatement", "textureDeclaration", "samplerDeclaration", 
       "constantBufferDeclaration", "shaderInterface", "functionDeclaration", 
-      "functionCall", "returnStatement", "scope", "testCase", "structDeclaration", 
-      "assignment", "expression", "initializerList", "lvalue", "rvalue", 
-      "memberAccess", "newVariable", "variable", "constant", "controlFlow", 
-      "typeConstructor"
+      "functionCall", "returnStatement", "scope", "testCase", "testAssertion", 
+      "structDeclaration", "assignment", "expression", "initializerList", 
+      "lvalue", "rvalue", "memberAccess", "newVariable", "variable", "constant", 
+      "controlFlow", "typeConstructor"
     },
     std::vector<std::string>{
       "", "", "'['", "']'", "'{'", "'}'", "'('", "')'", "'const'", "'for'", 
       "'while'", "'if'", "'else'", "'else if'", "'return'", "", "'struct'", 
-      "'Input'", "'Output'", "'TEST'", "", "", "'Sampler'", "'ConstantBuffer'", 
+      "'Input'", "'Output'", "'TEST'", "", "", "", "'Sampler'", "'ConstantBuffer'", 
       "'slot'", "", "", "'ShaderType = '", "", "';'", "','", "':'", "", 
       "", "'='", "'.'", "'@'", "'+'", "'-'", "'*'", "'/'", "", "", "'!'"
     },
     std::vector<std::string>{
       "", "WS", "SBRACKO", "SBRACKC", "CBRACKO", "CBRACKC", "PARENO", "PARENC", 
       "CONST", "FOR", "WHILE", "IF", "ELSE", "ELSEIF", "RETURN", "CONTROL_FLOW", 
-      "STRUCT", "SHADER_INPUT", "SHADER_OUTPUT", "TEST", "TYPE", "TEXTURE_TYPES", 
-      "SAMPLER_TYPE", "CONSTANT_BUFFER", "SLOT", "COMMENT", "MCOMMENT", 
-      "SHADER_TYPE_LIT", "SHADER_TYPE", "EOL", "COMMA", "COLON", "FLOATING_POINT", 
-      "NUMBER", "ASSIGN", "DOT", "AT", "PLUS", "MINUS", "MULTIPLY", "DIVIDE", 
-      "OPERATION", "CREMENT", "NOT", "VAR_NAME"
+      "STRUCT", "SHADER_INPUT", "SHADER_OUTPUT", "TEST", "TEST_ASSERT_TYPE", 
+      "TYPE", "TEXTURE_TYPES", "SAMPLER_TYPE", "CONSTANT_BUFFER", "SLOT", 
+      "COMMENT", "MCOMMENT", "SHADER_TYPE_LIT", "SHADER_TYPE", "EOL", "COMMA", 
+      "COLON", "FLOATING_POINT", "NUMBER", "ASSIGN", "DOT", "AT", "PLUS", 
+      "MINUS", "MULTIPLY", "DIVIDE", "OPERATION", "CREMENT", "NOT", "VAR_NAME"
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,44,407,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
+  	4,1,45,418,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
   	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,
   	14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,2,21,7,
   	21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,2,27,7,27,2,28,7,
-  	28,2,29,7,29,2,30,7,30,2,31,7,31,1,0,1,0,1,0,1,0,5,0,69,8,0,10,0,12,0,
-  	72,9,0,1,1,1,1,1,1,1,1,1,2,1,2,1,3,1,3,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,
-  	4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,
-  	1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,120,8,4,1,5,1,
-  	5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,6,1,6,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,
-  	1,7,1,7,3,7,143,8,7,1,8,1,8,3,8,147,8,8,1,9,1,9,1,9,1,9,1,9,1,9,1,9,3,
-  	9,156,8,9,1,10,1,10,1,10,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,12,
-  	1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,13,1,13,1,13,1,13,1,13,1,13,1,13,
-  	1,13,1,13,1,13,1,13,5,13,188,8,13,10,13,12,13,191,9,13,1,13,1,13,1,14,
-  	1,14,1,14,1,14,1,14,1,14,5,14,201,8,14,10,14,12,14,204,9,14,1,14,1,14,
-  	1,15,5,15,209,8,15,10,15,12,15,212,9,15,1,15,1,15,1,15,1,15,1,15,1,15,
-  	5,15,220,8,15,10,15,12,15,223,9,15,3,15,225,8,15,1,15,1,15,1,15,3,15,
-  	230,8,15,1,15,1,15,3,15,234,8,15,1,16,1,16,1,16,1,16,1,16,5,16,241,8,
-  	16,10,16,12,16,244,9,16,3,16,246,8,16,1,16,1,16,1,17,1,17,3,17,252,8,
-  	17,1,18,1,18,5,18,256,8,18,10,18,12,18,259,9,18,1,18,1,18,1,19,1,19,1,
-  	19,1,19,1,19,1,19,1,19,1,19,1,19,5,19,272,8,19,10,19,12,19,275,9,19,1,
-  	19,1,19,1,20,1,20,1,20,1,20,1,20,1,20,5,20,285,8,20,10,20,12,20,288,9,
-  	20,1,20,1,20,1,21,1,21,1,21,1,21,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,
-  	22,1,22,1,22,1,22,1,22,3,22,308,8,22,1,22,1,22,1,22,1,22,1,22,1,22,1,
-  	22,1,22,1,22,1,22,1,22,5,22,321,8,22,10,22,12,22,324,9,22,1,23,1,23,1,
-  	23,1,23,5,23,330,8,23,10,23,12,23,333,9,23,3,23,335,8,23,1,23,1,23,1,
-  	24,1,24,1,24,3,24,342,8,24,1,25,1,25,1,25,1,25,1,25,1,25,3,25,350,8,25,
-  	1,26,1,26,3,26,354,8,26,1,26,1,26,1,26,3,26,359,8,26,1,27,5,27,362,8,
-  	27,10,27,12,27,365,9,27,1,27,1,27,1,27,1,27,1,27,5,27,372,8,27,10,27,
-  	12,27,375,9,27,1,27,1,27,3,27,379,8,27,1,28,1,28,1,28,1,28,1,28,5,28,
-  	386,8,28,10,28,12,28,389,9,28,1,29,1,29,1,30,1,30,1,31,1,31,1,31,1,31,
-  	1,31,5,31,400,8,31,10,31,12,31,403,9,31,1,31,1,31,1,31,0,1,44,32,0,2,
-  	4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,
-  	52,54,56,58,60,62,0,5,1,0,17,18,2,0,20,20,44,44,1,0,39,40,1,0,37,38,1,
-  	0,32,33,432,0,64,1,0,0,0,2,73,1,0,0,0,4,77,1,0,0,0,6,79,1,0,0,0,8,119,
-  	1,0,0,0,10,121,1,0,0,0,12,130,1,0,0,0,14,136,1,0,0,0,16,146,1,0,0,0,18,
-  	148,1,0,0,0,20,157,1,0,0,0,22,160,1,0,0,0,24,168,1,0,0,0,26,176,1,0,0,
-  	0,28,194,1,0,0,0,30,210,1,0,0,0,32,235,1,0,0,0,34,249,1,0,0,0,36,253,
-  	1,0,0,0,38,262,1,0,0,0,40,278,1,0,0,0,42,291,1,0,0,0,44,307,1,0,0,0,46,
-  	325,1,0,0,0,48,341,1,0,0,0,50,349,1,0,0,0,52,353,1,0,0,0,54,363,1,0,0,
-  	0,56,380,1,0,0,0,58,390,1,0,0,0,60,392,1,0,0,0,62,394,1,0,0,0,64,70,3,
-  	2,1,0,65,69,3,4,2,0,66,69,3,6,3,0,67,69,3,8,4,0,68,65,1,0,0,0,68,66,1,
-  	0,0,0,68,67,1,0,0,0,69,72,1,0,0,0,70,68,1,0,0,0,70,71,1,0,0,0,71,1,1,
-  	0,0,0,72,70,1,0,0,0,73,74,5,27,0,0,74,75,5,28,0,0,75,76,5,29,0,0,76,3,
-  	1,0,0,0,77,78,5,26,0,0,78,5,1,0,0,0,79,80,5,25,0,0,80,7,1,0,0,0,81,82,
-  	3,48,24,0,82,83,5,29,0,0,83,120,1,0,0,0,84,85,3,42,21,0,85,86,5,29,0,
-  	0,86,120,1,0,0,0,87,88,3,44,22,0,88,89,5,29,0,0,89,120,1,0,0,0,90,91,
-  	3,60,30,0,91,92,5,29,0,0,92,120,1,0,0,0,93,120,3,10,5,0,94,120,3,12,6,
-  	0,95,120,3,14,7,0,96,97,3,34,17,0,97,98,5,29,0,0,98,120,1,0,0,0,99,120,
-  	3,30,15,0,100,101,3,32,16,0,101,102,5,29,0,0,102,120,1,0,0,0,103,104,
-  	3,40,20,0,104,105,5,29,0,0,105,120,1,0,0,0,106,107,3,24,12,0,107,108,
-  	5,29,0,0,108,120,1,0,0,0,109,110,3,22,11,0,110,111,5,29,0,0,111,120,1,
-  	0,0,0,112,113,3,28,14,0,113,114,5,29,0,0,114,120,1,0,0,0,115,116,3,26,
-  	13,0,116,117,5,29,0,0,117,120,1,0,0,0,118,120,3,38,19,0,119,81,1,0,0,
-  	0,119,84,1,0,0,0,119,87,1,0,0,0,119,90,1,0,0,0,119,93,1,0,0,0,119,94,
-  	1,0,0,0,119,95,1,0,0,0,119,96,1,0,0,0,119,99,1,0,0,0,119,100,1,0,0,0,
-  	119,103,1,0,0,0,119,106,1,0,0,0,119,109,1,0,0,0,119,112,1,0,0,0,119,115,
-  	1,0,0,0,119,118,1,0,0,0,120,9,1,0,0,0,121,122,5,9,0,0,122,123,5,6,0,0,
-  	123,124,3,8,4,0,124,125,3,44,22,0,125,126,5,29,0,0,126,127,3,44,22,0,
-  	127,128,5,7,0,0,128,129,3,36,18,0,129,11,1,0,0,0,130,131,5,10,0,0,131,
-  	132,5,6,0,0,132,133,3,44,22,0,133,134,5,7,0,0,134,135,3,36,18,0,135,13,
-  	1,0,0,0,136,137,5,11,0,0,137,138,5,6,0,0,138,139,3,44,22,0,139,140,5,
-  	7,0,0,140,142,3,36,18,0,141,143,3,16,8,0,142,141,1,0,0,0,142,143,1,0,
-  	0,0,143,15,1,0,0,0,144,147,3,20,10,0,145,147,3,18,9,0,146,144,1,0,0,0,
-  	146,145,1,0,0,0,147,17,1,0,0,0,148,149,5,12,0,0,149,150,5,11,0,0,150,
-  	151,5,6,0,0,151,152,3,44,22,0,152,153,5,7,0,0,153,155,3,36,18,0,154,156,
-  	3,16,8,0,155,154,1,0,0,0,155,156,1,0,0,0,156,19,1,0,0,0,157,158,5,12,
-  	0,0,158,159,3,36,18,0,159,21,1,0,0,0,160,161,5,21,0,0,161,162,5,6,0,0,
-  	162,163,5,24,0,0,163,164,5,34,0,0,164,165,5,33,0,0,165,166,5,7,0,0,166,
-  	167,5,44,0,0,167,23,1,0,0,0,168,169,5,22,0,0,169,170,5,6,0,0,170,171,
-  	5,24,0,0,171,172,5,34,0,0,172,173,5,33,0,0,173,174,5,7,0,0,174,175,5,
-  	44,0,0,175,25,1,0,0,0,176,177,5,23,0,0,177,178,5,6,0,0,178,179,5,24,0,
-  	0,179,180,5,34,0,0,180,181,5,33,0,0,181,182,5,7,0,0,182,183,5,44,0,0,
-  	183,189,5,4,0,0,184,185,3,54,27,0,185,186,5,29,0,0,186,188,1,0,0,0,187,
-  	184,1,0,0,0,188,191,1,0,0,0,189,187,1,0,0,0,189,190,1,0,0,0,190,192,1,
-  	0,0,0,191,189,1,0,0,0,192,193,5,5,0,0,193,27,1,0,0,0,194,195,7,0,0,0,
-  	195,196,5,44,0,0,196,202,5,4,0,0,197,198,3,54,27,0,198,199,5,29,0,0,199,
-  	201,1,0,0,0,200,197,1,0,0,0,201,204,1,0,0,0,202,200,1,0,0,0,202,203,1,
-  	0,0,0,203,205,1,0,0,0,204,202,1,0,0,0,205,206,5,5,0,0,206,29,1,0,0,0,
-  	207,209,5,8,0,0,208,207,1,0,0,0,209,212,1,0,0,0,210,208,1,0,0,0,210,211,
-  	1,0,0,0,211,213,1,0,0,0,212,210,1,0,0,0,213,214,7,1,0,0,214,215,5,44,
-  	0,0,215,224,5,6,0,0,216,221,3,54,27,0,217,218,5,30,0,0,218,220,3,54,27,
-  	0,219,217,1,0,0,0,220,223,1,0,0,0,221,219,1,0,0,0,221,222,1,0,0,0,222,
-  	225,1,0,0,0,223,221,1,0,0,0,224,216,1,0,0,0,224,225,1,0,0,0,225,226,1,
-  	0,0,0,226,229,5,7,0,0,227,228,5,31,0,0,228,230,5,44,0,0,229,227,1,0,0,
-  	0,229,230,1,0,0,0,230,233,1,0,0,0,231,234,3,36,18,0,232,234,5,29,0,0,
-  	233,231,1,0,0,0,233,232,1,0,0,0,234,31,1,0,0,0,235,236,5,44,0,0,236,245,
-  	5,6,0,0,237,242,3,44,22,0,238,239,5,30,0,0,239,241,3,44,22,0,240,238,
-  	1,0,0,0,241,244,1,0,0,0,242,240,1,0,0,0,242,243,1,0,0,0,243,246,1,0,0,
-  	0,244,242,1,0,0,0,245,237,1,0,0,0,245,246,1,0,0,0,246,247,1,0,0,0,247,
-  	248,5,7,0,0,248,33,1,0,0,0,249,251,5,14,0,0,250,252,3,44,22,0,251,250,
-  	1,0,0,0,251,252,1,0,0,0,252,35,1,0,0,0,253,257,5,4,0,0,254,256,3,8,4,
-  	0,255,254,1,0,0,0,256,259,1,0,0,0,257,255,1,0,0,0,257,258,1,0,0,0,258,
-  	260,1,0,0,0,259,257,1,0,0,0,260,261,5,5,0,0,261,37,1,0,0,0,262,263,5,
-  	36,0,0,263,264,5,19,0,0,264,265,5,6,0,0,265,266,5,44,0,0,266,267,5,30,
-  	0,0,267,268,5,44,0,0,268,269,5,7,0,0,269,273,5,4,0,0,270,272,3,8,4,0,
-  	271,270,1,0,0,0,272,275,1,0,0,0,273,271,1,0,0,0,273,274,1,0,0,0,274,276,
-  	1,0,0,0,275,273,1,0,0,0,276,277,5,5,0,0,277,39,1,0,0,0,278,279,5,16,0,
-  	0,279,280,5,44,0,0,280,286,5,4,0,0,281,282,3,54,27,0,282,283,5,29,0,0,
-  	283,285,1,0,0,0,284,281,1,0,0,0,285,288,1,0,0,0,286,284,1,0,0,0,286,287,
-  	1,0,0,0,287,289,1,0,0,0,288,286,1,0,0,0,289,290,5,5,0,0,290,41,1,0,0,
-  	0,291,292,3,48,24,0,292,293,5,34,0,0,293,294,3,44,22,0,294,43,1,0,0,0,
-  	295,296,6,22,-1,0,296,297,5,6,0,0,297,298,3,44,22,0,298,299,5,7,0,0,299,
-  	308,1,0,0,0,300,301,5,42,0,0,301,308,3,44,22,5,302,303,5,43,0,0,303,308,
-  	3,44,22,3,304,305,5,38,0,0,305,308,3,44,22,2,306,308,3,50,25,0,307,295,
-  	1,0,0,0,307,300,1,0,0,0,307,302,1,0,0,0,307,304,1,0,0,0,307,306,1,0,0,
-  	0,308,322,1,0,0,0,309,310,10,9,0,0,310,311,7,2,0,0,311,321,3,44,22,10,
-  	312,313,10,8,0,0,313,314,7,3,0,0,314,321,3,44,22,9,315,316,10,7,0,0,316,
-  	317,5,41,0,0,317,321,3,44,22,8,318,319,10,4,0,0,319,321,5,42,0,0,320,
-  	309,1,0,0,0,320,312,1,0,0,0,320,315,1,0,0,0,320,318,1,0,0,0,321,324,1,
-  	0,0,0,322,320,1,0,0,0,322,323,1,0,0,0,323,45,1,0,0,0,324,322,1,0,0,0,
-  	325,334,5,4,0,0,326,331,3,44,22,0,327,328,5,30,0,0,328,330,3,44,22,0,
-  	329,327,1,0,0,0,330,333,1,0,0,0,331,329,1,0,0,0,331,332,1,0,0,0,332,335,
-  	1,0,0,0,333,331,1,0,0,0,334,326,1,0,0,0,334,335,1,0,0,0,335,336,1,0,0,
-  	0,336,337,5,5,0,0,337,47,1,0,0,0,338,342,3,54,27,0,339,342,3,56,28,0,
-  	340,342,3,52,26,0,341,338,1,0,0,0,341,339,1,0,0,0,341,340,1,0,0,0,342,
-  	49,1,0,0,0,343,350,3,56,28,0,344,350,3,58,29,0,345,350,3,32,16,0,346,
-  	350,3,62,31,0,347,350,3,52,26,0,348,350,3,46,23,0,349,343,1,0,0,0,349,
-  	344,1,0,0,0,349,345,1,0,0,0,349,346,1,0,0,0,349,347,1,0,0,0,349,348,1,
-  	0,0,0,350,51,1,0,0,0,351,354,3,56,28,0,352,354,3,32,16,0,353,351,1,0,
-  	0,0,353,352,1,0,0,0,354,355,1,0,0,0,355,358,5,35,0,0,356,359,3,56,28,
-  	0,357,359,3,52,26,0,358,356,1,0,0,0,358,357,1,0,0,0,359,53,1,0,0,0,360,
-  	362,5,8,0,0,361,360,1,0,0,0,362,365,1,0,0,0,363,361,1,0,0,0,363,364,1,
-  	0,0,0,364,366,1,0,0,0,365,363,1,0,0,0,366,367,7,1,0,0,367,373,5,44,0,
-  	0,368,369,5,2,0,0,369,370,5,33,0,0,370,372,5,3,0,0,371,368,1,0,0,0,372,
-  	375,1,0,0,0,373,371,1,0,0,0,373,374,1,0,0,0,374,378,1,0,0,0,375,373,1,
-  	0,0,0,376,377,5,31,0,0,377,379,5,44,0,0,378,376,1,0,0,0,378,379,1,0,0,
-  	0,379,55,1,0,0,0,380,387,5,44,0,0,381,382,5,2,0,0,382,383,3,44,22,0,383,
-  	384,5,3,0,0,384,386,1,0,0,0,385,381,1,0,0,0,386,389,1,0,0,0,387,385,1,
-  	0,0,0,387,388,1,0,0,0,388,57,1,0,0,0,389,387,1,0,0,0,390,391,7,4,0,0,
-  	391,59,1,0,0,0,392,393,5,15,0,0,393,61,1,0,0,0,394,395,5,20,0,0,395,396,
-  	5,6,0,0,396,401,3,44,22,0,397,398,5,30,0,0,398,400,3,44,22,0,399,397,
-  	1,0,0,0,400,403,1,0,0,0,401,399,1,0,0,0,401,402,1,0,0,0,402,404,1,0,0,
-  	0,403,401,1,0,0,0,404,405,5,7,0,0,405,63,1,0,0,0,33,68,70,119,142,146,
-  	155,189,202,210,221,224,229,233,242,245,251,257,273,286,307,320,322,331,
-  	334,341,349,353,358,363,373,378,387,401
+  	28,2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,1,0,1,0,1,0,1,0,5,0,71,8,0,
+  	10,0,12,0,74,9,0,1,1,1,1,1,1,1,1,1,2,1,2,1,3,1,3,1,4,1,4,1,4,1,4,1,4,
+  	1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,
+  	4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,122,
+  	8,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,6,1,6,1,6,1,6,1,6,1,6,1,7,1,
+  	7,1,7,1,7,1,7,1,7,3,7,145,8,7,1,8,1,8,3,8,149,8,8,1,9,1,9,1,9,1,9,1,9,
+  	1,9,1,9,3,9,158,8,9,1,10,1,10,1,10,1,11,1,11,1,11,1,11,1,11,1,11,1,11,
+  	1,11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,13,1,13,1,13,1,13,1,13,
+  	1,13,1,13,1,13,1,13,1,13,1,13,5,13,190,8,13,10,13,12,13,193,9,13,1,13,
+  	1,13,1,14,1,14,1,14,1,14,1,14,1,14,5,14,203,8,14,10,14,12,14,206,9,14,
+  	1,14,1,14,1,15,5,15,211,8,15,10,15,12,15,214,9,15,1,15,1,15,1,15,1,15,
+  	1,15,1,15,5,15,222,8,15,10,15,12,15,225,9,15,3,15,227,8,15,1,15,1,15,
+  	1,15,3,15,232,8,15,1,15,1,15,3,15,236,8,15,1,16,1,16,1,16,1,16,1,16,5,
+  	16,243,8,16,10,16,12,16,246,9,16,3,16,248,8,16,1,16,1,16,1,17,1,17,3,
+  	17,254,8,17,1,18,1,18,5,18,258,8,18,10,18,12,18,261,9,18,1,18,1,18,1,
+  	19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,5,19,275,8,19,10,19,12,
+  	19,278,9,19,1,19,1,19,1,20,1,20,1,20,1,20,1,20,1,20,1,20,1,20,1,21,1,
+  	21,1,21,1,21,1,21,1,21,5,21,296,8,21,10,21,12,21,299,9,21,1,21,1,21,1,
+  	22,1,22,1,22,1,22,1,23,1,23,1,23,1,23,1,23,1,23,1,23,1,23,1,23,1,23,1,
+  	23,1,23,3,23,319,8,23,1,23,1,23,1,23,1,23,1,23,1,23,1,23,1,23,1,23,1,
+  	23,1,23,5,23,332,8,23,10,23,12,23,335,9,23,1,24,1,24,1,24,1,24,5,24,341,
+  	8,24,10,24,12,24,344,9,24,3,24,346,8,24,1,24,1,24,1,25,1,25,1,25,3,25,
+  	353,8,25,1,26,1,26,1,26,1,26,1,26,1,26,3,26,361,8,26,1,27,1,27,3,27,365,
+  	8,27,1,27,1,27,1,27,3,27,370,8,27,1,28,5,28,373,8,28,10,28,12,28,376,
+  	9,28,1,28,1,28,1,28,1,28,1,28,5,28,383,8,28,10,28,12,28,386,9,28,1,28,
+  	1,28,3,28,390,8,28,1,29,1,29,1,29,1,29,1,29,5,29,397,8,29,10,29,12,29,
+  	400,9,29,1,30,1,30,1,31,1,31,1,32,1,32,1,32,1,32,1,32,5,32,411,8,32,10,
+  	32,12,32,414,9,32,1,32,1,32,1,32,0,1,46,33,0,2,4,6,8,10,12,14,16,18,20,
+  	22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,0,5,
+  	1,0,17,18,2,0,21,21,45,45,1,0,40,41,1,0,38,39,1,0,33,34,443,0,66,1,0,
+  	0,0,2,75,1,0,0,0,4,79,1,0,0,0,6,81,1,0,0,0,8,121,1,0,0,0,10,123,1,0,0,
+  	0,12,132,1,0,0,0,14,138,1,0,0,0,16,148,1,0,0,0,18,150,1,0,0,0,20,159,
+  	1,0,0,0,22,162,1,0,0,0,24,170,1,0,0,0,26,178,1,0,0,0,28,196,1,0,0,0,30,
+  	212,1,0,0,0,32,237,1,0,0,0,34,251,1,0,0,0,36,255,1,0,0,0,38,264,1,0,0,
+  	0,40,281,1,0,0,0,42,289,1,0,0,0,44,302,1,0,0,0,46,318,1,0,0,0,48,336,
+  	1,0,0,0,50,352,1,0,0,0,52,360,1,0,0,0,54,364,1,0,0,0,56,374,1,0,0,0,58,
+  	391,1,0,0,0,60,401,1,0,0,0,62,403,1,0,0,0,64,405,1,0,0,0,66,72,3,2,1,
+  	0,67,71,3,4,2,0,68,71,3,6,3,0,69,71,3,8,4,0,70,67,1,0,0,0,70,68,1,0,0,
+  	0,70,69,1,0,0,0,71,74,1,0,0,0,72,70,1,0,0,0,72,73,1,0,0,0,73,1,1,0,0,
+  	0,74,72,1,0,0,0,75,76,5,28,0,0,76,77,5,29,0,0,77,78,5,30,0,0,78,3,1,0,
+  	0,0,79,80,5,27,0,0,80,5,1,0,0,0,81,82,5,26,0,0,82,7,1,0,0,0,83,84,3,50,
+  	25,0,84,85,5,30,0,0,85,122,1,0,0,0,86,87,3,44,22,0,87,88,5,30,0,0,88,
+  	122,1,0,0,0,89,90,3,46,23,0,90,91,5,30,0,0,91,122,1,0,0,0,92,93,3,62,
+  	31,0,93,94,5,30,0,0,94,122,1,0,0,0,95,122,3,10,5,0,96,122,3,12,6,0,97,
+  	122,3,14,7,0,98,99,3,34,17,0,99,100,5,30,0,0,100,122,1,0,0,0,101,122,
+  	3,30,15,0,102,103,3,32,16,0,103,104,5,30,0,0,104,122,1,0,0,0,105,106,
+  	3,42,21,0,106,107,5,30,0,0,107,122,1,0,0,0,108,109,3,24,12,0,109,110,
+  	5,30,0,0,110,122,1,0,0,0,111,112,3,22,11,0,112,113,5,30,0,0,113,122,1,
+  	0,0,0,114,115,3,28,14,0,115,116,5,30,0,0,116,122,1,0,0,0,117,118,3,26,
+  	13,0,118,119,5,30,0,0,119,122,1,0,0,0,120,122,3,38,19,0,121,83,1,0,0,
+  	0,121,86,1,0,0,0,121,89,1,0,0,0,121,92,1,0,0,0,121,95,1,0,0,0,121,96,
+  	1,0,0,0,121,97,1,0,0,0,121,98,1,0,0,0,121,101,1,0,0,0,121,102,1,0,0,0,
+  	121,105,1,0,0,0,121,108,1,0,0,0,121,111,1,0,0,0,121,114,1,0,0,0,121,117,
+  	1,0,0,0,121,120,1,0,0,0,122,9,1,0,0,0,123,124,5,9,0,0,124,125,5,6,0,0,
+  	125,126,3,8,4,0,126,127,3,46,23,0,127,128,5,30,0,0,128,129,3,46,23,0,
+  	129,130,5,7,0,0,130,131,3,36,18,0,131,11,1,0,0,0,132,133,5,10,0,0,133,
+  	134,5,6,0,0,134,135,3,46,23,0,135,136,5,7,0,0,136,137,3,36,18,0,137,13,
+  	1,0,0,0,138,139,5,11,0,0,139,140,5,6,0,0,140,141,3,46,23,0,141,142,5,
+  	7,0,0,142,144,3,36,18,0,143,145,3,16,8,0,144,143,1,0,0,0,144,145,1,0,
+  	0,0,145,15,1,0,0,0,146,149,3,20,10,0,147,149,3,18,9,0,148,146,1,0,0,0,
+  	148,147,1,0,0,0,149,17,1,0,0,0,150,151,5,12,0,0,151,152,5,11,0,0,152,
+  	153,5,6,0,0,153,154,3,46,23,0,154,155,5,7,0,0,155,157,3,36,18,0,156,158,
+  	3,16,8,0,157,156,1,0,0,0,157,158,1,0,0,0,158,19,1,0,0,0,159,160,5,12,
+  	0,0,160,161,3,36,18,0,161,21,1,0,0,0,162,163,5,22,0,0,163,164,5,6,0,0,
+  	164,165,5,25,0,0,165,166,5,35,0,0,166,167,5,34,0,0,167,168,5,7,0,0,168,
+  	169,5,45,0,0,169,23,1,0,0,0,170,171,5,23,0,0,171,172,5,6,0,0,172,173,
+  	5,25,0,0,173,174,5,35,0,0,174,175,5,34,0,0,175,176,5,7,0,0,176,177,5,
+  	45,0,0,177,25,1,0,0,0,178,179,5,24,0,0,179,180,5,6,0,0,180,181,5,25,0,
+  	0,181,182,5,35,0,0,182,183,5,34,0,0,183,184,5,7,0,0,184,185,5,45,0,0,
+  	185,191,5,4,0,0,186,187,3,56,28,0,187,188,5,30,0,0,188,190,1,0,0,0,189,
+  	186,1,0,0,0,190,193,1,0,0,0,191,189,1,0,0,0,191,192,1,0,0,0,192,194,1,
+  	0,0,0,193,191,1,0,0,0,194,195,5,5,0,0,195,27,1,0,0,0,196,197,7,0,0,0,
+  	197,198,5,45,0,0,198,204,5,4,0,0,199,200,3,56,28,0,200,201,5,30,0,0,201,
+  	203,1,0,0,0,202,199,1,0,0,0,203,206,1,0,0,0,204,202,1,0,0,0,204,205,1,
+  	0,0,0,205,207,1,0,0,0,206,204,1,0,0,0,207,208,5,5,0,0,208,29,1,0,0,0,
+  	209,211,5,8,0,0,210,209,1,0,0,0,211,214,1,0,0,0,212,210,1,0,0,0,212,213,
+  	1,0,0,0,213,215,1,0,0,0,214,212,1,0,0,0,215,216,7,1,0,0,216,217,5,45,
+  	0,0,217,226,5,6,0,0,218,223,3,56,28,0,219,220,5,31,0,0,220,222,3,56,28,
+  	0,221,219,1,0,0,0,222,225,1,0,0,0,223,221,1,0,0,0,223,224,1,0,0,0,224,
+  	227,1,0,0,0,225,223,1,0,0,0,226,218,1,0,0,0,226,227,1,0,0,0,227,228,1,
+  	0,0,0,228,231,5,7,0,0,229,230,5,32,0,0,230,232,5,45,0,0,231,229,1,0,0,
+  	0,231,232,1,0,0,0,232,235,1,0,0,0,233,236,3,36,18,0,234,236,5,30,0,0,
+  	235,233,1,0,0,0,235,234,1,0,0,0,236,31,1,0,0,0,237,238,5,45,0,0,238,247,
+  	5,6,0,0,239,244,3,46,23,0,240,241,5,31,0,0,241,243,3,46,23,0,242,240,
+  	1,0,0,0,243,246,1,0,0,0,244,242,1,0,0,0,244,245,1,0,0,0,245,248,1,0,0,
+  	0,246,244,1,0,0,0,247,239,1,0,0,0,247,248,1,0,0,0,248,249,1,0,0,0,249,
+  	250,5,7,0,0,250,33,1,0,0,0,251,253,5,14,0,0,252,254,3,46,23,0,253,252,
+  	1,0,0,0,253,254,1,0,0,0,254,35,1,0,0,0,255,259,5,4,0,0,256,258,3,8,4,
+  	0,257,256,1,0,0,0,258,261,1,0,0,0,259,257,1,0,0,0,259,260,1,0,0,0,260,
+  	262,1,0,0,0,261,259,1,0,0,0,262,263,5,5,0,0,263,37,1,0,0,0,264,265,5,
+  	37,0,0,265,266,5,19,0,0,266,267,5,6,0,0,267,268,5,45,0,0,268,269,5,31,
+  	0,0,269,270,5,45,0,0,270,271,5,7,0,0,271,276,5,4,0,0,272,275,3,8,4,0,
+  	273,275,3,40,20,0,274,272,1,0,0,0,274,273,1,0,0,0,275,278,1,0,0,0,276,
+  	274,1,0,0,0,276,277,1,0,0,0,277,279,1,0,0,0,278,276,1,0,0,0,279,280,5,
+  	5,0,0,280,39,1,0,0,0,281,282,5,20,0,0,282,283,5,6,0,0,283,284,3,46,23,
+  	0,284,285,5,31,0,0,285,286,3,46,23,0,286,287,5,7,0,0,287,288,5,30,0,0,
+  	288,41,1,0,0,0,289,290,5,16,0,0,290,291,5,45,0,0,291,297,5,4,0,0,292,
+  	293,3,56,28,0,293,294,5,30,0,0,294,296,1,0,0,0,295,292,1,0,0,0,296,299,
+  	1,0,0,0,297,295,1,0,0,0,297,298,1,0,0,0,298,300,1,0,0,0,299,297,1,0,0,
+  	0,300,301,5,5,0,0,301,43,1,0,0,0,302,303,3,50,25,0,303,304,5,35,0,0,304,
+  	305,3,46,23,0,305,45,1,0,0,0,306,307,6,23,-1,0,307,308,5,6,0,0,308,309,
+  	3,46,23,0,309,310,5,7,0,0,310,319,1,0,0,0,311,312,5,43,0,0,312,319,3,
+  	46,23,5,313,314,5,44,0,0,314,319,3,46,23,3,315,316,5,39,0,0,316,319,3,
+  	46,23,2,317,319,3,52,26,0,318,306,1,0,0,0,318,311,1,0,0,0,318,313,1,0,
+  	0,0,318,315,1,0,0,0,318,317,1,0,0,0,319,333,1,0,0,0,320,321,10,9,0,0,
+  	321,322,7,2,0,0,322,332,3,46,23,10,323,324,10,8,0,0,324,325,7,3,0,0,325,
+  	332,3,46,23,9,326,327,10,7,0,0,327,328,5,42,0,0,328,332,3,46,23,8,329,
+  	330,10,4,0,0,330,332,5,43,0,0,331,320,1,0,0,0,331,323,1,0,0,0,331,326,
+  	1,0,0,0,331,329,1,0,0,0,332,335,1,0,0,0,333,331,1,0,0,0,333,334,1,0,0,
+  	0,334,47,1,0,0,0,335,333,1,0,0,0,336,345,5,4,0,0,337,342,3,46,23,0,338,
+  	339,5,31,0,0,339,341,3,46,23,0,340,338,1,0,0,0,341,344,1,0,0,0,342,340,
+  	1,0,0,0,342,343,1,0,0,0,343,346,1,0,0,0,344,342,1,0,0,0,345,337,1,0,0,
+  	0,345,346,1,0,0,0,346,347,1,0,0,0,347,348,5,5,0,0,348,49,1,0,0,0,349,
+  	353,3,56,28,0,350,353,3,58,29,0,351,353,3,54,27,0,352,349,1,0,0,0,352,
+  	350,1,0,0,0,352,351,1,0,0,0,353,51,1,0,0,0,354,361,3,58,29,0,355,361,
+  	3,60,30,0,356,361,3,32,16,0,357,361,3,64,32,0,358,361,3,54,27,0,359,361,
+  	3,48,24,0,360,354,1,0,0,0,360,355,1,0,0,0,360,356,1,0,0,0,360,357,1,0,
+  	0,0,360,358,1,0,0,0,360,359,1,0,0,0,361,53,1,0,0,0,362,365,3,58,29,0,
+  	363,365,3,32,16,0,364,362,1,0,0,0,364,363,1,0,0,0,365,366,1,0,0,0,366,
+  	369,5,36,0,0,367,370,3,58,29,0,368,370,3,54,27,0,369,367,1,0,0,0,369,
+  	368,1,0,0,0,370,55,1,0,0,0,371,373,5,8,0,0,372,371,1,0,0,0,373,376,1,
+  	0,0,0,374,372,1,0,0,0,374,375,1,0,0,0,375,377,1,0,0,0,376,374,1,0,0,0,
+  	377,378,7,1,0,0,378,384,5,45,0,0,379,380,5,2,0,0,380,381,5,34,0,0,381,
+  	383,5,3,0,0,382,379,1,0,0,0,383,386,1,0,0,0,384,382,1,0,0,0,384,385,1,
+  	0,0,0,385,389,1,0,0,0,386,384,1,0,0,0,387,388,5,32,0,0,388,390,5,45,0,
+  	0,389,387,1,0,0,0,389,390,1,0,0,0,390,57,1,0,0,0,391,398,5,45,0,0,392,
+  	393,5,2,0,0,393,394,3,46,23,0,394,395,5,3,0,0,395,397,1,0,0,0,396,392,
+  	1,0,0,0,397,400,1,0,0,0,398,396,1,0,0,0,398,399,1,0,0,0,399,59,1,0,0,
+  	0,400,398,1,0,0,0,401,402,7,4,0,0,402,61,1,0,0,0,403,404,5,15,0,0,404,
+  	63,1,0,0,0,405,406,5,21,0,0,406,407,5,6,0,0,407,412,3,46,23,0,408,409,
+  	5,31,0,0,409,411,3,46,23,0,410,408,1,0,0,0,411,414,1,0,0,0,412,410,1,
+  	0,0,0,412,413,1,0,0,0,413,415,1,0,0,0,414,412,1,0,0,0,415,416,5,7,0,0,
+  	416,65,1,0,0,0,34,70,72,121,144,148,157,191,204,212,223,226,231,235,244,
+  	247,253,259,274,276,297,318,331,333,342,345,352,360,364,369,374,384,389,
+  	398,412
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
 
@@ -318,24 +322,24 @@ SrslGrammarParser::FileContext* SrslGrammarParser::file() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(64);
+    setState(66);
     shaderTypeSpec();
-    setState(70);
+    setState(72);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 31142924767056) != 0) {
-      setState(68);
+      ((1ULL << _la) & 62285849022288) != 0) {
+      setState(70);
       _errHandler->sync(this);
       switch (_input->LA(1)) {
         case SrslGrammarParser::MCOMMENT: {
-          setState(65);
+          setState(67);
           multilineComment();
           break;
         }
 
         case SrslGrammarParser::COMMENT: {
-          setState(66);
+          setState(68);
           singlelinecomment();
           break;
         }
@@ -362,7 +366,7 @@ SrslGrammarParser::FileContext* SrslGrammarParser::file() {
         case SrslGrammarParser::CREMENT:
         case SrslGrammarParser::NOT:
         case SrslGrammarParser::VAR_NAME: {
-          setState(67);
+          setState(69);
           statement();
           break;
         }
@@ -370,7 +374,7 @@ SrslGrammarParser::FileContext* SrslGrammarParser::file() {
       default:
         throw NoViableAltException(this);
       }
-      setState(72);
+      setState(74);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
@@ -433,11 +437,11 @@ SrslGrammarParser::ShaderTypeSpecContext* SrslGrammarParser::shaderTypeSpec() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(73);
-    match(SrslGrammarParser::SHADER_TYPE_LIT);
-    setState(74);
-    match(SrslGrammarParser::SHADER_TYPE);
     setState(75);
+    match(SrslGrammarParser::SHADER_TYPE_LIT);
+    setState(76);
+    match(SrslGrammarParser::SHADER_TYPE);
+    setState(77);
     match(SrslGrammarParser::EOL);
    
   }
@@ -490,7 +494,7 @@ SrslGrammarParser::MultilineCommentContext* SrslGrammarParser::multilineComment(
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(77);
+    setState(79);
     match(SrslGrammarParser::MCOMMENT);
    
   }
@@ -543,7 +547,7 @@ SrslGrammarParser::SinglelinecommentContext* SrslGrammarParser::singlelinecommen
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(79);
+    setState(81);
     match(SrslGrammarParser::COMMENT);
    
   }
@@ -659,139 +663,139 @@ SrslGrammarParser::StatementContext* SrslGrammarParser::statement() {
     exitRule();
   });
   try {
-    setState(119);
+    setState(121);
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 2, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(81);
+      setState(83);
       lvalue();
-      setState(82);
+      setState(84);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(84);
+      setState(86);
       assignment();
-      setState(85);
+      setState(87);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(87);
+      setState(89);
       expression(0);
-      setState(88);
+      setState(90);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 4: {
       enterOuterAlt(_localctx, 4);
-      setState(90);
+      setState(92);
       controlFlow();
-      setState(91);
+      setState(93);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 5: {
       enterOuterAlt(_localctx, 5);
-      setState(93);
+      setState(95);
       forLoop();
       break;
     }
 
     case 6: {
       enterOuterAlt(_localctx, 6);
-      setState(94);
+      setState(96);
       whileLoop();
       break;
     }
 
     case 7: {
       enterOuterAlt(_localctx, 7);
-      setState(95);
+      setState(97);
       ifStatement();
       break;
     }
 
     case 8: {
       enterOuterAlt(_localctx, 8);
-      setState(96);
+      setState(98);
       returnStatement();
-      setState(97);
+      setState(99);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 9: {
       enterOuterAlt(_localctx, 9);
-      setState(99);
+      setState(101);
       functionDeclaration();
       break;
     }
 
     case 10: {
       enterOuterAlt(_localctx, 10);
-      setState(100);
+      setState(102);
       functionCall();
-      setState(101);
+      setState(103);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 11: {
       enterOuterAlt(_localctx, 11);
-      setState(103);
+      setState(105);
       structDeclaration();
-      setState(104);
+      setState(106);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 12: {
       enterOuterAlt(_localctx, 12);
-      setState(106);
+      setState(108);
       samplerDeclaration();
-      setState(107);
+      setState(109);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 13: {
       enterOuterAlt(_localctx, 13);
-      setState(109);
+      setState(111);
       textureDeclaration();
-      setState(110);
+      setState(112);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 14: {
       enterOuterAlt(_localctx, 14);
-      setState(112);
+      setState(114);
       shaderInterface();
-      setState(113);
+      setState(115);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 15: {
       enterOuterAlt(_localctx, 15);
-      setState(115);
+      setState(117);
       constantBufferDeclaration();
-      setState(116);
+      setState(118);
       match(SrslGrammarParser::EOL);
       break;
     }
 
     case 16: {
       enterOuterAlt(_localctx, 16);
-      setState(118);
+      setState(120);
       testCase();
       break;
     }
@@ -878,21 +882,21 @@ SrslGrammarParser::ForLoopContext* SrslGrammarParser::forLoop() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(121);
-    match(SrslGrammarParser::FOR);
-    setState(122);
-    match(SrslGrammarParser::PARENO);
     setState(123);
-    statement();
+    match(SrslGrammarParser::FOR);
     setState(124);
-    expression(0);
+    match(SrslGrammarParser::PARENO);
     setState(125);
-    match(SrslGrammarParser::EOL);
+    statement();
     setState(126);
     expression(0);
     setState(127);
-    match(SrslGrammarParser::PARENC);
+    match(SrslGrammarParser::EOL);
     setState(128);
+    expression(0);
+    setState(129);
+    match(SrslGrammarParser::PARENC);
+    setState(130);
     scope();
    
   }
@@ -961,15 +965,15 @@ SrslGrammarParser::WhileLoopContext* SrslGrammarParser::whileLoop() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(130);
-    match(SrslGrammarParser::WHILE);
-    setState(131);
-    match(SrslGrammarParser::PARENO);
     setState(132);
-    expression(0);
+    match(SrslGrammarParser::WHILE);
     setState(133);
-    match(SrslGrammarParser::PARENC);
+    match(SrslGrammarParser::PARENO);
     setState(134);
+    expression(0);
+    setState(135);
+    match(SrslGrammarParser::PARENC);
+    setState(136);
     scope();
    
   }
@@ -1043,22 +1047,22 @@ SrslGrammarParser::IfStatementContext* SrslGrammarParser::ifStatement() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(136);
-    match(SrslGrammarParser::IF);
-    setState(137);
-    match(SrslGrammarParser::PARENO);
     setState(138);
-    expression(0);
+    match(SrslGrammarParser::IF);
     setState(139);
-    match(SrslGrammarParser::PARENC);
+    match(SrslGrammarParser::PARENO);
     setState(140);
-    scope();
+    expression(0);
+    setState(141);
+    match(SrslGrammarParser::PARENC);
     setState(142);
+    scope();
+    setState(144);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == SrslGrammarParser::ELSE) {
-      setState(141);
+      setState(143);
       optionalStatement();
     }
    
@@ -1115,19 +1119,19 @@ SrslGrammarParser::OptionalStatementContext* SrslGrammarParser::optionalStatemen
     exitRule();
   });
   try {
-    setState(146);
+    setState(148);
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 4, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(144);
+      setState(146);
       elseStatement();
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(145);
+      setState(147);
       elseIfStatement();
       break;
     }
@@ -1211,24 +1215,24 @@ SrslGrammarParser::ElseIfStatementContext* SrslGrammarParser::elseIfStatement() 
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(148);
-    match(SrslGrammarParser::ELSE);
-    setState(149);
-    match(SrslGrammarParser::IF);
     setState(150);
-    match(SrslGrammarParser::PARENO);
+    match(SrslGrammarParser::ELSE);
     setState(151);
-    expression(0);
+    match(SrslGrammarParser::IF);
     setState(152);
-    match(SrslGrammarParser::PARENC);
+    match(SrslGrammarParser::PARENO);
     setState(153);
-    scope();
+    expression(0);
+    setState(154);
+    match(SrslGrammarParser::PARENC);
     setState(155);
+    scope();
+    setState(157);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == SrslGrammarParser::ELSE) {
-      setState(154);
+      setState(156);
       optionalStatement();
     }
    
@@ -1286,9 +1290,9 @@ SrslGrammarParser::ElseStatementContext* SrslGrammarParser::elseStatement() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(157);
+    setState(159);
     match(SrslGrammarParser::ELSE);
-    setState(158);
+    setState(160);
     scope();
    
   }
@@ -1365,19 +1369,19 @@ SrslGrammarParser::TextureDeclarationContext* SrslGrammarParser::textureDeclarat
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(160);
-    match(SrslGrammarParser::TEXTURE_TYPES);
-    setState(161);
-    match(SrslGrammarParser::PARENO);
     setState(162);
-    match(SrslGrammarParser::SLOT);
+    match(SrslGrammarParser::TEXTURE_TYPES);
     setState(163);
-    match(SrslGrammarParser::ASSIGN);
+    match(SrslGrammarParser::PARENO);
     setState(164);
-    match(SrslGrammarParser::NUMBER);
+    match(SrslGrammarParser::SLOT);
     setState(165);
-    match(SrslGrammarParser::PARENC);
+    match(SrslGrammarParser::ASSIGN);
     setState(166);
+    match(SrslGrammarParser::NUMBER);
+    setState(167);
+    match(SrslGrammarParser::PARENC);
+    setState(168);
     match(SrslGrammarParser::VAR_NAME);
    
   }
@@ -1454,19 +1458,19 @@ SrslGrammarParser::SamplerDeclarationContext* SrslGrammarParser::samplerDeclarat
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(168);
-    match(SrslGrammarParser::SAMPLER_TYPE);
-    setState(169);
-    match(SrslGrammarParser::PARENO);
     setState(170);
-    match(SrslGrammarParser::SLOT);
+    match(SrslGrammarParser::SAMPLER_TYPE);
     setState(171);
-    match(SrslGrammarParser::ASSIGN);
+    match(SrslGrammarParser::PARENO);
     setState(172);
-    match(SrslGrammarParser::NUMBER);
+    match(SrslGrammarParser::SLOT);
     setState(173);
-    match(SrslGrammarParser::PARENC);
+    match(SrslGrammarParser::ASSIGN);
     setState(174);
+    match(SrslGrammarParser::NUMBER);
+    setState(175);
+    match(SrslGrammarParser::PARENC);
+    setState(176);
     match(SrslGrammarParser::VAR_NAME);
    
   }
@@ -1568,36 +1572,36 @@ SrslGrammarParser::ConstantBufferDeclarationContext* SrslGrammarParser::constant
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(176);
-    match(SrslGrammarParser::CONSTANT_BUFFER);
-    setState(177);
-    match(SrslGrammarParser::PARENO);
     setState(178);
-    match(SrslGrammarParser::SLOT);
+    match(SrslGrammarParser::CONSTANT_BUFFER);
     setState(179);
-    match(SrslGrammarParser::ASSIGN);
+    match(SrslGrammarParser::PARENO);
     setState(180);
-    match(SrslGrammarParser::NUMBER);
+    match(SrslGrammarParser::SLOT);
     setState(181);
-    match(SrslGrammarParser::PARENC);
+    match(SrslGrammarParser::ASSIGN);
     setState(182);
-    match(SrslGrammarParser::VAR_NAME);
+    match(SrslGrammarParser::NUMBER);
     setState(183);
+    match(SrslGrammarParser::PARENC);
+    setState(184);
+    match(SrslGrammarParser::VAR_NAME);
+    setState(185);
     match(SrslGrammarParser::CBRACKO);
-    setState(189);
+    setState(191);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 17592187093248) != 0) {
-      setState(184);
+      ((1ULL << _la) & 35184374186240) != 0) {
+      setState(186);
       newVariable();
-      setState(185);
+      setState(187);
       match(SrslGrammarParser::EOL);
-      setState(191);
+      setState(193);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(192);
+    setState(194);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -1683,7 +1687,7 @@ SrslGrammarParser::ShaderInterfaceContext* SrslGrammarParser::shaderInterface() 
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(194);
+    setState(196);
     _la = _input->LA(1);
     if (!(_la == SrslGrammarParser::SHADER_INPUT
 
@@ -1694,24 +1698,24 @@ SrslGrammarParser::ShaderInterfaceContext* SrslGrammarParser::shaderInterface() 
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(195);
+    setState(197);
     match(SrslGrammarParser::VAR_NAME);
-    setState(196);
+    setState(198);
     match(SrslGrammarParser::CBRACKO);
-    setState(202);
+    setState(204);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 17592187093248) != 0) {
-      setState(197);
+      ((1ULL << _la) & 35184374186240) != 0) {
+      setState(199);
       newVariable();
-      setState(198);
+      setState(200);
       match(SrslGrammarParser::EOL);
-      setState(204);
+      setState(206);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(205);
+    setState(207);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -1817,17 +1821,17 @@ SrslGrammarParser::FunctionDeclarationContext* SrslGrammarParser::functionDeclar
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(210);
+    setState(212);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == SrslGrammarParser::CONST) {
-      setState(207);
+      setState(209);
       match(SrslGrammarParser::CONST);
-      setState(212);
+      setState(214);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(213);
+    setState(215);
     _la = _input->LA(1);
     if (!(_la == SrslGrammarParser::TYPE
 
@@ -1838,54 +1842,54 @@ SrslGrammarParser::FunctionDeclarationContext* SrslGrammarParser::functionDeclar
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(214);
+    setState(216);
     match(SrslGrammarParser::VAR_NAME);
-    setState(215);
+    setState(217);
     match(SrslGrammarParser::PARENO);
-    setState(224);
+    setState(226);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 17592187093248) != 0) {
-      setState(216);
+      ((1ULL << _la) & 35184374186240) != 0) {
+      setState(218);
       newVariable();
-      setState(221);
+      setState(223);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == SrslGrammarParser::COMMA) {
-        setState(217);
+        setState(219);
         match(SrslGrammarParser::COMMA);
-        setState(218);
+        setState(220);
         newVariable();
-        setState(223);
+        setState(225);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
     }
-    setState(226);
+    setState(228);
     match(SrslGrammarParser::PARENC);
-    setState(229);
+    setState(231);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == SrslGrammarParser::COLON) {
-      setState(227);
+      setState(229);
       match(SrslGrammarParser::COLON);
-      setState(228);
+      setState(230);
       match(SrslGrammarParser::VAR_NAME);
     }
-    setState(233);
+    setState(235);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SrslGrammarParser::CBRACKO: {
-        setState(231);
+        setState(233);
         scope();
         break;
       }
 
       case SrslGrammarParser::EOL: {
-        setState(232);
+        setState(234);
         match(SrslGrammarParser::EOL);
         break;
       }
@@ -1969,32 +1973,32 @@ SrslGrammarParser::FunctionCallContext* SrslGrammarParser::functionCall() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(235);
+    setState(237);
     match(SrslGrammarParser::VAR_NAME);
-    setState(236);
+    setState(238);
     match(SrslGrammarParser::PARENO);
-    setState(245);
+    setState(247);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 31074089435216) != 0) {
-      setState(237);
+      ((1ULL << _la) & 62148178870352) != 0) {
+      setState(239);
       expression(0);
-      setState(242);
+      setState(244);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == SrslGrammarParser::COMMA) {
-        setState(238);
+        setState(240);
         match(SrslGrammarParser::COMMA);
-        setState(239);
+        setState(241);
         expression(0);
-        setState(244);
+        setState(246);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
     }
-    setState(247);
+    setState(249);
     match(SrslGrammarParser::PARENC);
    
   }
@@ -2052,15 +2056,15 @@ SrslGrammarParser::ReturnStatementContext* SrslGrammarParser::returnStatement() 
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(249);
-    match(SrslGrammarParser::RETURN);
     setState(251);
+    match(SrslGrammarParser::RETURN);
+    setState(253);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 31074089435216) != 0) {
-      setState(250);
+      ((1ULL << _la) & 62148178870352) != 0) {
+      setState(252);
       expression(0);
     }
    
@@ -2127,20 +2131,20 @@ SrslGrammarParser::ScopeContext* SrslGrammarParser::scope() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(253);
+    setState(255);
     match(SrslGrammarParser::CBRACKO);
-    setState(257);
+    setState(259);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 31142824103760) != 0) {
-      setState(254);
+      ((1ULL << _la) & 62285647695696) != 0) {
+      setState(256);
       statement();
-      setState(259);
+      setState(261);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(260);
+    setState(262);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -2203,6 +2207,14 @@ SrslGrammarParser::StatementContext* SrslGrammarParser::TestCaseContext::stateme
   return getRuleContext<SrslGrammarParser::StatementContext>(i);
 }
 
+std::vector<SrslGrammarParser::TestAssertionContext *> SrslGrammarParser::TestCaseContext::testAssertion() {
+  return getRuleContexts<SrslGrammarParser::TestAssertionContext>();
+}
+
+SrslGrammarParser::TestAssertionContext* SrslGrammarParser::TestCaseContext::testAssertion(size_t i) {
+  return getRuleContext<SrslGrammarParser::TestAssertionContext>(i);
+}
+
 
 size_t SrslGrammarParser::TestCaseContext::getRuleIndex() const {
   return SrslGrammarParser::RuleTestCase;
@@ -2234,35 +2246,161 @@ SrslGrammarParser::TestCaseContext* SrslGrammarParser::testCase() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(262);
-    match(SrslGrammarParser::AT);
-    setState(263);
-    match(SrslGrammarParser::TEST);
     setState(264);
-    match(SrslGrammarParser::PARENO);
+    match(SrslGrammarParser::AT);
     setState(265);
-    match(SrslGrammarParser::VAR_NAME);
+    match(SrslGrammarParser::TEST);
     setState(266);
-    match(SrslGrammarParser::COMMA);
+    match(SrslGrammarParser::PARENO);
     setState(267);
     match(SrslGrammarParser::VAR_NAME);
     setState(268);
-    match(SrslGrammarParser::PARENC);
+    match(SrslGrammarParser::COMMA);
     setState(269);
+    match(SrslGrammarParser::VAR_NAME);
+    setState(270);
+    match(SrslGrammarParser::PARENC);
+    setState(271);
     match(SrslGrammarParser::CBRACKO);
-    setState(273);
+    setState(276);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 31142824103760) != 0) {
-      setState(270);
-      statement();
-      setState(275);
+      ((1ULL << _la) & 62285648744272) != 0) {
+      setState(274);
+      _errHandler->sync(this);
+      switch (_input->LA(1)) {
+        case SrslGrammarParser::CBRACKO:
+        case SrslGrammarParser::PARENO:
+        case SrslGrammarParser::CONST:
+        case SrslGrammarParser::FOR:
+        case SrslGrammarParser::WHILE:
+        case SrslGrammarParser::IF:
+        case SrslGrammarParser::RETURN:
+        case SrslGrammarParser::CONTROL_FLOW:
+        case SrslGrammarParser::STRUCT:
+        case SrslGrammarParser::SHADER_INPUT:
+        case SrslGrammarParser::SHADER_OUTPUT:
+        case SrslGrammarParser::TYPE:
+        case SrslGrammarParser::TEXTURE_TYPES:
+        case SrslGrammarParser::SAMPLER_TYPE:
+        case SrslGrammarParser::CONSTANT_BUFFER:
+        case SrslGrammarParser::FLOATING_POINT:
+        case SrslGrammarParser::NUMBER:
+        case SrslGrammarParser::AT:
+        case SrslGrammarParser::MINUS:
+        case SrslGrammarParser::CREMENT:
+        case SrslGrammarParser::NOT:
+        case SrslGrammarParser::VAR_NAME: {
+          setState(272);
+          statement();
+          break;
+        }
+
+        case SrslGrammarParser::TEST_ASSERT_TYPE: {
+          setState(273);
+          testAssertion();
+          break;
+        }
+
+      default:
+        throw NoViableAltException(this);
+      }
+      setState(278);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(276);
+    setState(279);
     match(SrslGrammarParser::CBRACKC);
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- TestAssertionContext ------------------------------------------------------------------
+
+SrslGrammarParser::TestAssertionContext::TestAssertionContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* SrslGrammarParser::TestAssertionContext::TEST_ASSERT_TYPE() {
+  return getToken(SrslGrammarParser::TEST_ASSERT_TYPE, 0);
+}
+
+tree::TerminalNode* SrslGrammarParser::TestAssertionContext::PARENO() {
+  return getToken(SrslGrammarParser::PARENO, 0);
+}
+
+std::vector<SrslGrammarParser::ExpressionContext *> SrslGrammarParser::TestAssertionContext::expression() {
+  return getRuleContexts<SrslGrammarParser::ExpressionContext>();
+}
+
+SrslGrammarParser::ExpressionContext* SrslGrammarParser::TestAssertionContext::expression(size_t i) {
+  return getRuleContext<SrslGrammarParser::ExpressionContext>(i);
+}
+
+tree::TerminalNode* SrslGrammarParser::TestAssertionContext::COMMA() {
+  return getToken(SrslGrammarParser::COMMA, 0);
+}
+
+tree::TerminalNode* SrslGrammarParser::TestAssertionContext::PARENC() {
+  return getToken(SrslGrammarParser::PARENC, 0);
+}
+
+tree::TerminalNode* SrslGrammarParser::TestAssertionContext::EOL() {
+  return getToken(SrslGrammarParser::EOL, 0);
+}
+
+
+size_t SrslGrammarParser::TestAssertionContext::getRuleIndex() const {
+  return SrslGrammarParser::RuleTestAssertion;
+}
+
+void SrslGrammarParser::TestAssertionContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<SrslGrammarListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterTestAssertion(this);
+}
+
+void SrslGrammarParser::TestAssertionContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<SrslGrammarListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitTestAssertion(this);
+}
+
+SrslGrammarParser::TestAssertionContext* SrslGrammarParser::testAssertion() {
+  TestAssertionContext *_localctx = _tracker.createInstance<TestAssertionContext>(_ctx, getState());
+  enterRule(_localctx, 40, SrslGrammarParser::RuleTestAssertion);
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(281);
+    match(SrslGrammarParser::TEST_ASSERT_TYPE);
+    setState(282);
+    match(SrslGrammarParser::PARENO);
+    setState(283);
+    expression(0);
+    setState(284);
+    match(SrslGrammarParser::COMMA);
+    setState(285);
+    expression(0);
+    setState(286);
+    match(SrslGrammarParser::PARENC);
+    setState(287);
+    match(SrslGrammarParser::EOL);
    
   }
   catch (RecognitionException &e) {
@@ -2331,7 +2469,7 @@ void SrslGrammarParser::StructDeclarationContext::exitRule(tree::ParseTreeListen
 
 SrslGrammarParser::StructDeclarationContext* SrslGrammarParser::structDeclaration() {
   StructDeclarationContext *_localctx = _tracker.createInstance<StructDeclarationContext>(_ctx, getState());
-  enterRule(_localctx, 40, SrslGrammarParser::RuleStructDeclaration);
+  enterRule(_localctx, 42, SrslGrammarParser::RuleStructDeclaration);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -2343,26 +2481,26 @@ SrslGrammarParser::StructDeclarationContext* SrslGrammarParser::structDeclaratio
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(278);
+    setState(289);
     match(SrslGrammarParser::STRUCT);
-    setState(279);
+    setState(290);
     match(SrslGrammarParser::VAR_NAME);
-    setState(280);
+    setState(291);
     match(SrslGrammarParser::CBRACKO);
-    setState(286);
+    setState(297);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 17592187093248) != 0) {
-      setState(281);
+      ((1ULL << _la) & 35184374186240) != 0) {
+      setState(292);
       newVariable();
-      setState(282);
+      setState(293);
       match(SrslGrammarParser::EOL);
-      setState(288);
+      setState(299);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(289);
+    setState(300);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -2412,7 +2550,7 @@ void SrslGrammarParser::AssignmentContext::exitRule(tree::ParseTreeListener *lis
 
 SrslGrammarParser::AssignmentContext* SrslGrammarParser::assignment() {
   AssignmentContext *_localctx = _tracker.createInstance<AssignmentContext>(_ctx, getState());
-  enterRule(_localctx, 42, SrslGrammarParser::RuleAssignment);
+  enterRule(_localctx, 44, SrslGrammarParser::RuleAssignment);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -2423,11 +2561,11 @@ SrslGrammarParser::AssignmentContext* SrslGrammarParser::assignment() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(291);
+    setState(302);
     lvalue();
-    setState(292);
+    setState(303);
     match(SrslGrammarParser::ASSIGN);
-    setState(293);
+    setState(304);
     expression(0);
    
   }
@@ -2522,8 +2660,8 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
   SrslGrammarParser::ExpressionContext *_localctx = _tracker.createInstance<ExpressionContext>(_ctx, parentState);
   SrslGrammarParser::ExpressionContext *previousContext = _localctx;
   (void)previousContext; // Silence compiler, in case the context is not used by generated code.
-  size_t startState = 44;
-  enterRecursionRule(_localctx, 44, SrslGrammarParser::RuleExpression, precedence);
+  size_t startState = 46;
+  enterRecursionRule(_localctx, 46, SrslGrammarParser::RuleExpression, precedence);
 
     size_t _la = 0;
 
@@ -2537,39 +2675,39 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(307);
+    setState(318);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case SrslGrammarParser::PARENO: {
-        setState(296);
+        setState(307);
         match(SrslGrammarParser::PARENO);
-        setState(297);
+        setState(308);
         expression(0);
-        setState(298);
+        setState(309);
         match(SrslGrammarParser::PARENC);
         break;
       }
 
       case SrslGrammarParser::CREMENT: {
-        setState(300);
+        setState(311);
         match(SrslGrammarParser::CREMENT);
-        setState(301);
+        setState(312);
         expression(5);
         break;
       }
 
       case SrslGrammarParser::NOT: {
-        setState(302);
+        setState(313);
         match(SrslGrammarParser::NOT);
-        setState(303);
+        setState(314);
         expression(3);
         break;
       }
 
       case SrslGrammarParser::MINUS: {
-        setState(304);
+        setState(315);
         match(SrslGrammarParser::MINUS);
-        setState(305);
+        setState(316);
         expression(2);
         break;
       }
@@ -2579,7 +2717,7 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
       case SrslGrammarParser::FLOATING_POINT:
       case SrslGrammarParser::NUMBER:
       case SrslGrammarParser::VAR_NAME: {
-        setState(306);
+        setState(317);
         rvalue();
         break;
       }
@@ -2588,24 +2726,24 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
       throw NoViableAltException(this);
     }
     _ctx->stop = _input->LT(-1);
-    setState(322);
+    setState(333);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 22, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
         if (!_parseListeners.empty())
           triggerExitRuleEvent();
         previousContext = _localctx;
-        setState(320);
+        setState(331);
         _errHandler->sync(this);
-        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 20, _ctx)) {
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx)) {
         case 1: {
           _localctx = _tracker.createInstance<ExpressionContext>(parentContext, parentState);
           pushNewRecursionContext(_localctx, startState, RuleExpression);
-          setState(309);
+          setState(320);
 
           if (!(precpred(_ctx, 9))) throw FailedPredicateException(this, "precpred(_ctx, 9)");
-          setState(310);
+          setState(321);
           _la = _input->LA(1);
           if (!(_la == SrslGrammarParser::MULTIPLY
 
@@ -2616,7 +2754,7 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(311);
+          setState(322);
           expression(10);
           break;
         }
@@ -2624,10 +2762,10 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
         case 2: {
           _localctx = _tracker.createInstance<ExpressionContext>(parentContext, parentState);
           pushNewRecursionContext(_localctx, startState, RuleExpression);
-          setState(312);
+          setState(323);
 
           if (!(precpred(_ctx, 8))) throw FailedPredicateException(this, "precpred(_ctx, 8)");
-          setState(313);
+          setState(324);
           _la = _input->LA(1);
           if (!(_la == SrslGrammarParser::PLUS
 
@@ -2638,7 +2776,7 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(314);
+          setState(325);
           expression(9);
           break;
         }
@@ -2646,12 +2784,12 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
         case 3: {
           _localctx = _tracker.createInstance<ExpressionContext>(parentContext, parentState);
           pushNewRecursionContext(_localctx, startState, RuleExpression);
-          setState(315);
+          setState(326);
 
           if (!(precpred(_ctx, 7))) throw FailedPredicateException(this, "precpred(_ctx, 7)");
-          setState(316);
+          setState(327);
           match(SrslGrammarParser::OPERATION);
-          setState(317);
+          setState(328);
           expression(8);
           break;
         }
@@ -2659,10 +2797,10 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
         case 4: {
           _localctx = _tracker.createInstance<ExpressionContext>(parentContext, parentState);
           pushNewRecursionContext(_localctx, startState, RuleExpression);
-          setState(318);
+          setState(329);
 
           if (!(precpred(_ctx, 4))) throw FailedPredicateException(this, "precpred(_ctx, 4)");
-          setState(319);
+          setState(330);
           match(SrslGrammarParser::CREMENT);
           break;
         }
@@ -2671,9 +2809,9 @@ SrslGrammarParser::ExpressionContext* SrslGrammarParser::expression(int preceden
           break;
         } 
       }
-      setState(324);
+      setState(335);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 22, _ctx);
     }
   }
   catch (RecognitionException &e) {
@@ -2733,7 +2871,7 @@ void SrslGrammarParser::InitializerListContext::exitRule(tree::ParseTreeListener
 
 SrslGrammarParser::InitializerListContext* SrslGrammarParser::initializerList() {
   InitializerListContext *_localctx = _tracker.createInstance<InitializerListContext>(_ctx, getState());
-  enterRule(_localctx, 46, SrslGrammarParser::RuleInitializerList);
+  enterRule(_localctx, 48, SrslGrammarParser::RuleInitializerList);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -2745,30 +2883,30 @@ SrslGrammarParser::InitializerListContext* SrslGrammarParser::initializerList() 
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(325);
+    setState(336);
     match(SrslGrammarParser::CBRACKO);
-    setState(334);
+    setState(345);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 31074089435216) != 0) {
-      setState(326);
+      ((1ULL << _la) & 62148178870352) != 0) {
+      setState(337);
       expression(0);
-      setState(331);
+      setState(342);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == SrslGrammarParser::COMMA) {
-        setState(327);
+        setState(338);
         match(SrslGrammarParser::COMMA);
-        setState(328);
+        setState(339);
         expression(0);
-        setState(333);
+        setState(344);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
     }
-    setState(336);
+    setState(347);
     match(SrslGrammarParser::CBRACKC);
    
   }
@@ -2818,7 +2956,7 @@ void SrslGrammarParser::LvalueContext::exitRule(tree::ParseTreeListener *listene
 
 SrslGrammarParser::LvalueContext* SrslGrammarParser::lvalue() {
   LvalueContext *_localctx = _tracker.createInstance<LvalueContext>(_ctx, getState());
-  enterRule(_localctx, 48, SrslGrammarParser::RuleLvalue);
+  enterRule(_localctx, 50, SrslGrammarParser::RuleLvalue);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -2828,26 +2966,26 @@ SrslGrammarParser::LvalueContext* SrslGrammarParser::lvalue() {
     exitRule();
   });
   try {
-    setState(341);
+    setState(352);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 24, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(338);
+      setState(349);
       newVariable();
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(339);
+      setState(350);
       variable();
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(340);
+      setState(351);
       memberAccess();
       break;
     }
@@ -2915,7 +3053,7 @@ void SrslGrammarParser::RvalueContext::exitRule(tree::ParseTreeListener *listene
 
 SrslGrammarParser::RvalueContext* SrslGrammarParser::rvalue() {
   RvalueContext *_localctx = _tracker.createInstance<RvalueContext>(_ctx, getState());
-  enterRule(_localctx, 50, SrslGrammarParser::RuleRvalue);
+  enterRule(_localctx, 52, SrslGrammarParser::RuleRvalue);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -2925,47 +3063,47 @@ SrslGrammarParser::RvalueContext* SrslGrammarParser::rvalue() {
     exitRule();
   });
   try {
-    setState(349);
+    setState(360);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 26, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(343);
+      setState(354);
       variable();
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(344);
+      setState(355);
       constant();
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(345);
+      setState(356);
       functionCall();
       break;
     }
 
     case 4: {
       enterOuterAlt(_localctx, 4);
-      setState(346);
+      setState(357);
       typeConstructor();
       break;
     }
 
     case 5: {
       enterOuterAlt(_localctx, 5);
-      setState(347);
+      setState(358);
       memberAccess();
       break;
     }
 
     case 6: {
       enterOuterAlt(_localctx, 6);
-      setState(348);
+      setState(359);
       initializerList();
       break;
     }
@@ -3029,7 +3167,7 @@ void SrslGrammarParser::MemberAccessContext::exitRule(tree::ParseTreeListener *l
 
 SrslGrammarParser::MemberAccessContext* SrslGrammarParser::memberAccess() {
   MemberAccessContext *_localctx = _tracker.createInstance<MemberAccessContext>(_ctx, getState());
-  enterRule(_localctx, 52, SrslGrammarParser::RuleMemberAccess);
+  enterRule(_localctx, 54, SrslGrammarParser::RuleMemberAccess);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -3040,17 +3178,17 @@ SrslGrammarParser::MemberAccessContext* SrslGrammarParser::memberAccess() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(353);
+    setState(364);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 26, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 27, _ctx)) {
     case 1: {
-      setState(351);
+      setState(362);
       variable();
       break;
     }
 
     case 2: {
-      setState(352);
+      setState(363);
       functionCall();
       break;
     }
@@ -3058,19 +3196,19 @@ SrslGrammarParser::MemberAccessContext* SrslGrammarParser::memberAccess() {
     default:
       break;
     }
-    setState(355);
+    setState(366);
     match(SrslGrammarParser::DOT);
-    setState(358);
+    setState(369);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 27, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 28, _ctx)) {
     case 1: {
-      setState(356);
+      setState(367);
       variable();
       break;
     }
 
     case 2: {
-      setState(357);
+      setState(368);
       memberAccess();
       break;
     }
@@ -3162,7 +3300,7 @@ void SrslGrammarParser::NewVariableContext::exitRule(tree::ParseTreeListener *li
 
 SrslGrammarParser::NewVariableContext* SrslGrammarParser::newVariable() {
   NewVariableContext *_localctx = _tracker.createInstance<NewVariableContext>(_ctx, getState());
-  enterRule(_localctx, 54, SrslGrammarParser::RuleNewVariable);
+  enterRule(_localctx, 56, SrslGrammarParser::RuleNewVariable);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -3174,17 +3312,17 @@ SrslGrammarParser::NewVariableContext* SrslGrammarParser::newVariable() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(363);
+    setState(374);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == SrslGrammarParser::CONST) {
-      setState(360);
+      setState(371);
       match(SrslGrammarParser::CONST);
-      setState(365);
+      setState(376);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(366);
+    setState(377);
     _la = _input->LA(1);
     if (!(_la == SrslGrammarParser::TYPE
 
@@ -3195,30 +3333,30 @@ SrslGrammarParser::NewVariableContext* SrslGrammarParser::newVariable() {
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(367);
+    setState(378);
     match(SrslGrammarParser::VAR_NAME);
-    setState(373);
+    setState(384);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == SrslGrammarParser::SBRACKO) {
-      setState(368);
+      setState(379);
       match(SrslGrammarParser::SBRACKO);
-      setState(369);
+      setState(380);
       match(SrslGrammarParser::NUMBER);
-      setState(370);
+      setState(381);
       match(SrslGrammarParser::SBRACKC);
-      setState(375);
+      setState(386);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(378);
+    setState(389);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == SrslGrammarParser::COLON) {
-      setState(376);
+      setState(387);
       match(SrslGrammarParser::COLON);
-      setState(377);
+      setState(388);
       match(SrslGrammarParser::VAR_NAME);
     }
    
@@ -3285,7 +3423,7 @@ void SrslGrammarParser::VariableContext::exitRule(tree::ParseTreeListener *liste
 
 SrslGrammarParser::VariableContext* SrslGrammarParser::variable() {
   VariableContext *_localctx = _tracker.createInstance<VariableContext>(_ctx, getState());
-  enterRule(_localctx, 56, SrslGrammarParser::RuleVariable);
+  enterRule(_localctx, 58, SrslGrammarParser::RuleVariable);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -3297,23 +3435,23 @@ SrslGrammarParser::VariableContext* SrslGrammarParser::variable() {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(380);
+    setState(391);
     match(SrslGrammarParser::VAR_NAME);
-    setState(387);
+    setState(398);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 31, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 32, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
-        setState(381);
+        setState(392);
         match(SrslGrammarParser::SBRACKO);
-        setState(382);
+        setState(393);
         expression(0);
-        setState(383);
+        setState(394);
         match(SrslGrammarParser::SBRACKC); 
       }
-      setState(389);
+      setState(400);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 31, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 32, _ctx);
     }
    
   }
@@ -3359,7 +3497,7 @@ void SrslGrammarParser::ConstantContext::exitRule(tree::ParseTreeListener *liste
 
 SrslGrammarParser::ConstantContext* SrslGrammarParser::constant() {
   ConstantContext *_localctx = _tracker.createInstance<ConstantContext>(_ctx, getState());
-  enterRule(_localctx, 58, SrslGrammarParser::RuleConstant);
+  enterRule(_localctx, 60, SrslGrammarParser::RuleConstant);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -3371,7 +3509,7 @@ SrslGrammarParser::ConstantContext* SrslGrammarParser::constant() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(390);
+    setState(401);
     _la = _input->LA(1);
     if (!(_la == SrslGrammarParser::FLOATING_POINT
 
@@ -3422,7 +3560,7 @@ void SrslGrammarParser::ControlFlowContext::exitRule(tree::ParseTreeListener *li
 
 SrslGrammarParser::ControlFlowContext* SrslGrammarParser::controlFlow() {
   ControlFlowContext *_localctx = _tracker.createInstance<ControlFlowContext>(_ctx, getState());
-  enterRule(_localctx, 60, SrslGrammarParser::RuleControlFlow);
+  enterRule(_localctx, 62, SrslGrammarParser::RuleControlFlow);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -3433,7 +3571,7 @@ SrslGrammarParser::ControlFlowContext* SrslGrammarParser::controlFlow() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(392);
+    setState(403);
     match(SrslGrammarParser::CONTROL_FLOW);
    
   }
@@ -3499,7 +3637,7 @@ void SrslGrammarParser::TypeConstructorContext::exitRule(tree::ParseTreeListener
 
 SrslGrammarParser::TypeConstructorContext* SrslGrammarParser::typeConstructor() {
   TypeConstructorContext *_localctx = _tracker.createInstance<TypeConstructorContext>(_ctx, getState());
-  enterRule(_localctx, 62, SrslGrammarParser::RuleTypeConstructor);
+  enterRule(_localctx, 64, SrslGrammarParser::RuleTypeConstructor);
   size_t _la = 0;
 
 #if __cplusplus > 201703L
@@ -3511,25 +3649,25 @@ SrslGrammarParser::TypeConstructorContext* SrslGrammarParser::typeConstructor() 
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(394);
+    setState(405);
     match(SrslGrammarParser::TYPE);
-    setState(395);
+    setState(406);
     match(SrslGrammarParser::PARENO);
-    setState(396);
+    setState(407);
     expression(0);
-    setState(401);
+    setState(412);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == SrslGrammarParser::COMMA) {
-      setState(397);
+      setState(408);
       match(SrslGrammarParser::COMMA);
-      setState(398);
+      setState(409);
       expression(0);
-      setState(403);
+      setState(414);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(404);
+    setState(415);
     match(SrslGrammarParser::PARENC);
    
   }
@@ -3544,7 +3682,7 @@ SrslGrammarParser::TypeConstructorContext* SrslGrammarParser::typeConstructor() 
 
 bool SrslGrammarParser::sempred(RuleContext *context, size_t ruleIndex, size_t predicateIndex) {
   switch (ruleIndex) {
-    case 22: return expressionSempred(antlrcpp::downCast<ExpressionContext *>(context), predicateIndex);
+    case 23: return expressionSempred(antlrcpp::downCast<ExpressionContext *>(context), predicateIndex);
 
   default:
     break;

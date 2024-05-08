@@ -32,6 +32,7 @@ namespace Srsl{
         AST_NODE_MEMBER_ACCESS          = 0x0033,
         AST_NODE_ARRAY_ACCESS           = 0x0034,
         AST_NODE_SHADER_INTERFACE       = 0x0035,
+        AST_NODE_TEST_ASSERTION         = 0x0036,
 
         // control flow
         AST_NODE_IF_STATEMENT           = 0x0040,

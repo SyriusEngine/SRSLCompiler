@@ -23,6 +23,7 @@
 #include "AbstractSyntaxTree/ExpressionNode.hpp"
 #include "AbstractSyntaxTree/ShaderStorageBufferNode.hpp"
 #include "AbstractSyntaxTree/TestCaseNode.hpp"
+#include "AbstractSyntaxTree/TestAssertionNode.hpp"
 
 #include "ProgramInfo.hpp"
 
@@ -133,6 +134,10 @@ namespace Srsl{
         void enterTestCase(SrslGrammarParser::TestCaseContext * ctx) override;
 
         void exitTestCase(SrslGrammarParser::TestCaseContext * ctx) override;
+
+        void enterTestAssertion(SrslGrammarParser::TestAssertionContext * ctx) override;
+
+        void exitTestAssertion(SrslGrammarParser::TestAssertionContext * ctx) override;
 
     private:
         ProgramInfo& m_ProgramInfo;

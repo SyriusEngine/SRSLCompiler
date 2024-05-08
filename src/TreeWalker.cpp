@@ -445,4 +445,20 @@ namespace Srsl{
     void TreeWalker::exitTestCase(SrslGrammarParser::TestCaseContext *ctx) {
         m_CurrentNode = m_CurrentNode->getParent();
     }
+
+    void TreeWalker::enterTestAssertion(SrslGrammarParser::TestAssertionContext *ctx) {
+        SRSL_PRECONDITION(m_CurrentNode != nullptr, "Current node is null")
+
+        auto operation = ctx->TEST_ASSERT_TYPE()->getText();
+        auto prefixPos = operation.find("EXPECT_");
+        if (prefixPos != std::string::npos){
+            operation = operation.substr(prefixPos + 7);
+        }
+        auto newCurrent = m_CurrentNode->addChild<TestAssertionNode>(operation, ctx->start->getLine());
+        m_CurrentNode = newCurrent;
+    }
+
+    void TreeWalker::exitTestAssertion(SrslGrammarParser::TestAssertionContext *ctx) {
+        m_CurrentNode = m_CurrentNode->getParent();
+    }
 }

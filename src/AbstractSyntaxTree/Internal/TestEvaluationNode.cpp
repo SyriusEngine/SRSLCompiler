@@ -65,26 +65,32 @@ namespace Srsl{
 
         TypeDesc boolArrayDesc;
         boolArrayDesc.type = VT_BOOL;
-        boolArrayDesc.arraySizes.push_back(m_TestCasesArraySize);
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_RESULTS, "", boolArrayDesc, 0);
-
+        if (m_TestCasesArraySize != 0){
+            boolArrayDesc.arraySizes.push_back(m_TestCasesArraySize);
+            m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_TEST_RESULTS, "", boolArrayDesc, 0);
+        }
         boolArrayDesc.arraySizes.clear();
-        boolArrayDesc.arraySizes.push_back(m_FunctionArraySize);
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_FUNCTION_COVERAGE, "", boolArrayDesc, 0);
+
+        if (m_FunctionArraySize != 0){
+            boolArrayDesc.arraySizes.push_back(m_FunctionArraySize);
+            m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_FUNCTION_COVERAGE, "", boolArrayDesc, 0);
+        }
 
         TypeDesc uintArrayDesc;
         uintArrayDesc.type = VT_UINT;
-        uintArrayDesc.arraySizes.push_back(m_ScopeArraySize);
-        m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, "", uintArrayDesc, 0);
+        if (m_ScopeArraySize != 0) {
+            uintArrayDesc.arraySizes.push_back(m_ScopeArraySize);
+            m_TestDataSSBO->addChild<NewVariableNode>(SRSL_TEST_DATA_SCOPE_COVERAGE, "", uintArrayDesc, 0);
+        }
     }
 
     void TestEvaluationNode::generateGlsl(UP<Exporter> &exporter, const std::string &indent) const {
         exporter->addLine("memoryBarrierBuffer();\n");
-        exporter->addLine(indent +  m_SSBOName + "." + SRSL_TEST_DATA_TEST_COUNT_LIT + " = " + std::to_string(m_ProgramInfo.testCaseCount) + ";\n");
-        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + " = 0;\n");
-        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + "= 0;\n");
-        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + " = " + std::to_string(m_ProgramInfo.functionCount) + ";\n");
-        exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT  + " = " + std::to_string(m_ProgramInfo.scopeCount) + ";\n");
+        exporter->addLine(indent + "atomicExchange(" + m_SSBOName + "." + SRSL_TEST_DATA_TEST_COUNT_LIT + ", " + std::to_string(m_ProgramInfo.testCaseCount) + ");\n");
+        exporter->addLine(indent + "atomicExchange(" + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + ", 0);\n");
+        exporter->addLine(indent + "atomicExchange(" + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + ", 0);\n");
+        exporter->addLine(indent + "atomicExchange(" + m_SSBOName + "." + SRSL_TEST_DATA_FUNCTION_COUNT_LIT + ", " + std::to_string(m_ProgramInfo.functionCount) + ");\n");
+        exporter->addLine(indent + "atomicExchange(" + m_SSBOName + "." + SRSL_TEST_DATA_SCOPE_COUNT_LIT  + ", " + std::to_string(m_ProgramInfo.scopeCount) + ");\n");
 
         for (uint32 i = 0; i < m_ProgramInfo.testCases.size(); i++){
             exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
@@ -93,7 +99,7 @@ namespace Srsl{
             exporter->addLine(indent + "atomicAdd(" + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + ", " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0);\n");
         }
 
-        exporter->addLine(indent + "memoryBarrierBuffer();\n");
+        exporter->addLine(indent + "memoryBarrierBuffer()");
     }
 
     void TestEvaluationNode::configureTestConfig(TestParameters &desc) const {
