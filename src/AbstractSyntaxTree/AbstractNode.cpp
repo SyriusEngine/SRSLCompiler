@@ -35,6 +35,10 @@ namespace Srsl{
         return m_NodeType;
     }
 
+    AST_NODE_CLASS AbstractNode::getNodeClass() const {
+        return m_NodeClass;
+    }
+
     uint64 AbstractNode::getLineNumber() const {
         return m_LineNumber;
     }

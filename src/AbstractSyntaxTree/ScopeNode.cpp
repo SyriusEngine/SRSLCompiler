@@ -94,10 +94,21 @@ namespace Srsl{
 
     void ScopeNode::createScopeFlag(TestCodeGenerator &testGen) {
         /*
-         * at the beginning of each scope, add the following syntax
-         * <ShaderType>Results.srslScopeCoverage[<ScopeId>] = true;
+         * add the following syntax
+         * <ShaderType>Results.srslScopeCoverage[<ScopeId>] = LineCount;
+         *
+         * at the end of a scope but before the first unconditional jump statement (return, break, continue)
          */
-        auto assignment = addChildFront<AssignmentNode>(m_LineNumber);
+        // find the first unconditional jump statement
+        uint32 i = 0;
+        for (i = 0; i < m_Children.size(); i++){
+            auto& child = m_Children[i];
+            if (child->getNodeClass() == AST_NODE_CLASS_UNCONDITIONAL_JUMP){
+                break;
+            }
+        }
+
+        auto assignment = addChildAt<AssignmentNode>(i, m_LineNumber);
         // LHS is a member access of the SSBO Scope array
         auto memberAccess = assignment->addChild<MemberAccessNode>(m_LineNumber);
         memberAccess->addChild<VariableNode>(testGen.testSSBOName, m_LineNumber);

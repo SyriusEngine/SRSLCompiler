@@ -45,9 +45,17 @@ namespace Srsl{
             return retVal;
         }
 
+        template<typename T, typename... Args>
+        T* addChildAt(uint32 index, Args&&... args){
+            m_Children.insert(m_Children.begin() + index, createUP<T>(std::forward<Args>(args)...));
+            return static_cast<T*>(m_Children[index].get());
+        }
+
         [[nodiscard]] AbstractNode* getParent() const;
 
         [[nodiscard]] AST_NODE_TYPE getNodeType() const;
+
+        [[nodiscard]] AST_NODE_CLASS getNodeClass() const;
 
         [[nodiscard]] uint64 getLineNumber() const;
 
