@@ -32,6 +32,7 @@ namespace Srsl{
     void TestCaseNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
         /*
          * The test case node will be generated as a function declaration that returns a boolean value.
+         * The last statement is a return true; statement.
          */
         exporter->addLine(indent + exporter->getVariableType(m_Type) + " " + m_Value + "(){\n");
         auto newIndent = indent + "\t";
@@ -40,6 +41,7 @@ namespace Srsl{
             child->generateCode(exporter, newIndent);
             exporter->addLine(";\n");
         }
+        exporter->addLine(newIndent + "return true;\n");
         exporter->addLine(indent + "}\n\n");
     }
 

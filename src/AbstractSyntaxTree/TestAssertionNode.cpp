@@ -23,12 +23,12 @@ namespace Srsl{
     }
 
     void TestAssertionNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
-        exporter->addLine(indent + "if (!(");
+        exporter->addLine("if (!(");
         m_Left->generateCode(exporter, "");
         exporter->addLine(" " + getTargetOperator() + " ");
         m_Right->generateCode(exporter, "");
-        exporter->addLine(")){");
-        exporter->addLine(indent + "    return false;");
+        exporter->addLine(")){\n");
+        exporter->addLine(indent + "\treturn false;\n");
         exporter->addLine(indent + "}");
     }
 
