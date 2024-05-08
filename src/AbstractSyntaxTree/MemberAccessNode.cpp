@@ -3,7 +3,7 @@
 namespace Srsl{
 
     MemberAccessNode::MemberAccessNode(uint64 lineNumber):
-    AbstractNode(".", AST_NODE_MEMBER_ACCESS, lineNumber),
+    AbstractNode(".", AST_NODE_CLASS_TYPED, AST_NODE_MEMBER_ACCESS, lineNumber),
     m_Left(nullptr),
     m_Right(nullptr){
     }

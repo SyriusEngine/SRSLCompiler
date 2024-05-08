@@ -116,9 +116,9 @@ namespace Srsl{
 
     protected:
 
-        AbstractNode(const std::string& value, AST_NODE_TYPE type, uint64 lineNumber);
+        AbstractNode(const std::string& value, AST_NODE_CLASS c, AST_NODE_TYPE type, uint64 lineNumber);
 
-        AbstractNode(const std::string& value, AST_NODE_TYPE type, uint64 lineNumber, const TypeDesc& typeDesc);
+        AbstractNode(const std::string& value, AST_NODE_CLASS c, AST_NODE_TYPE type, uint64 lineNumber, const TypeDesc& typeDesc);
 
     protected:
 
@@ -131,6 +131,7 @@ namespace Srsl{
 
     private:
         const AST_NODE_TYPE m_NodeType;
+        const AST_NODE_CLASS m_NodeClass;
 
     };
 

@@ -3,7 +3,7 @@
 namespace Srsl{
 
     SamplerNode::SamplerNode(const std::string &name, uint32 slot, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_SAMPLER_DECLARATION, lineNumber),
+    AbstractNode(name, AST_NODE_CLASS_TYPED, AST_NODE_SAMPLER_DECLARATION, lineNumber),
     m_Slot(slot){
         m_Type.type = VT_SAMPLER;
     }
@@ -49,7 +49,7 @@ namespace Srsl{
 //    }
 
     TextureNode::TextureNode(const std::string &name, uint32 slot, const TypeDesc& type, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_TEXTURE_DECLARATION, lineNumber, type),
+    AbstractNode(name, AST_NODE_CLASS_TYPED, AST_NODE_TEXTURE_DECLARATION, lineNumber, type),
     m_Slot(slot){
 
     }

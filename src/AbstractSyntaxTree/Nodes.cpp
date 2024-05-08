@@ -3,7 +3,7 @@
 namespace Srsl{
 
     ConstantNode::ConstantNode(const std::string &value, uint64 lineNumber): 
-    AbstractNode(value, AST_NODE_CONSTANT, lineNumber) {
+    AbstractNode(value, AST_NODE_CLASS_TYPED, AST_NODE_CONSTANT, lineNumber) {
         if (m_Value.find('.') != std::string::npos){
             m_Type.type = VT_FLOAT;
             m_Type.typeStr = "float";
@@ -26,7 +26,7 @@ namespace Srsl{
 
 
     AssignmentNode::AssignmentNode(uint64 lineNumber) :
-    AbstractNode("=", AST_NODE_ASSIGNMENT, lineNumber),
+    AbstractNode("=", AST_NODE_CLASS_DEFAULT, AST_NODE_ASSIGNMENT, lineNumber),
     m_Left(nullptr),
     m_Right(nullptr) {
 
@@ -51,7 +51,7 @@ namespace Srsl{
     }
 
     InitializerListNode::InitializerListNode(uint32 initializerCount, uint64 lineNumber):
-    AbstractNode("{ }", AST_NODE_INITIALIZER_LIST, lineNumber){
+    AbstractNode("{ }", AST_NODE_CLASS_TYPED, AST_NODE_INITIALIZER_LIST, lineNumber){
 
     }
 

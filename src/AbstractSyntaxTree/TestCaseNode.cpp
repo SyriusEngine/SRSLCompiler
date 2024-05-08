@@ -3,7 +3,7 @@
 namespace Srsl{
 
     TestCaseNode::TestCaseNode(const std::string& testSuiteName, const std::string& testName, uint64 lineNumber):
-    AbstractNode(testName, AST_NODE_TEST_CASE, lineNumber),
+    AbstractNode(testName, AST_NODE_CLASS_SCOPE, AST_NODE_TEST_CASE, lineNumber),
     m_TestSuiteName(testSuiteName),
     m_TestName(testName){
         m_Type.type = VT_BOOL;

@@ -3,16 +3,18 @@
 
 namespace Srsl{
 
-    AbstractNode::AbstractNode(const std::string& value, AST_NODE_TYPE type, uint64 lineNumber):
+    AbstractNode::AbstractNode(const std::string& value, AST_NODE_CLASS c, AST_NODE_TYPE type, uint64 lineNumber):
     m_NodeType(type),
+    m_NodeClass(c),
     m_Value(value),
     m_LineNumber(lineNumber),
     m_Type(),
     m_Parent(nullptr){
     }
 
-    AbstractNode::AbstractNode(const std::string &value, AST_NODE_TYPE type, uint64 lineNumber, const TypeDesc &typeDesc):
+    AbstractNode::AbstractNode(const std::string &value, AST_NODE_CLASS c, AST_NODE_TYPE type, uint64 lineNumber, const TypeDesc &typeDesc):
     m_NodeType(type),
+    m_NodeClass(c),
     m_Value(value),
     m_LineNumber(lineNumber),
     m_Type(typeDesc),

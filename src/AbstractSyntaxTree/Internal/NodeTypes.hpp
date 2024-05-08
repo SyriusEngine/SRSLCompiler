@@ -49,4 +49,11 @@ namespace Srsl{
 
     } AST_NODE_TYPE;
 
+    typedef enum AST_NODE_CLASS {
+        AST_NODE_CLASS_DEFAULT              = 0x0000,
+        AST_NODE_CLASS_TYPED                = 0x0001,
+        AST_NODE_CLASS_SCOPE                = 0x0002,
+        AST_NODE_CLASS_UNCONDITIONAL_JUMP   = 0x0003,
+    } AST_NODE_CLASS;
+
 }

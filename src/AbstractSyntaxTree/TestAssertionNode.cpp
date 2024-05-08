@@ -3,7 +3,7 @@
 namespace Srsl{
 
     TestAssertionNode::TestAssertionNode(const std::string& op, uint64 lineNumber):
-    AbstractNode(op, AST_NODE_TEST_ASSERTION, lineNumber),
+    AbstractNode(op, AST_NODE_CLASS_TYPED, AST_NODE_TEST_ASSERTION, lineNumber),
     m_Operator(op),
     m_Left(nullptr),
     m_Right(nullptr){

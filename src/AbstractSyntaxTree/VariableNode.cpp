@@ -3,7 +3,7 @@
 namespace Srsl{
 
     NewVariableNode::NewVariableNode(const std::string &name, const std::string &semanticName, const TypeDesc &typeDesc, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_VARIABLE_DECLARATION, lineNumber, typeDesc),
+    AbstractNode(name, AST_NODE_CLASS_TYPED, AST_NODE_VARIABLE_DECLARATION, lineNumber, typeDesc),
     m_SemanticName(semanticName){
     }
 
@@ -48,7 +48,7 @@ namespace Srsl{
     }
 
     VariableNode::VariableNode(const std::string& name, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_VARIABLE, lineNumber){
+    AbstractNode(name, AST_NODE_CLASS_TYPED, AST_NODE_VARIABLE, lineNumber){
 
     }
 
@@ -93,7 +93,7 @@ namespace Srsl{
     }
 
     TypeConstructorNode::TypeConstructorNode(const TypeDesc &typeDesc, uint64 lineNumber):
-    AbstractNode(typeDesc.typeStr, AST_NODE_INITIALIZER, lineNumber, typeDesc){
+    AbstractNode(typeDesc.typeStr, AST_NODE_CLASS_TYPED, AST_NODE_INITIALIZER, lineNumber, typeDesc){
         TypeDesc mT(m_Value);
         m_Type = mT;
     }

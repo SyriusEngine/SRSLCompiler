@@ -7,7 +7,7 @@
 namespace Srsl{
 
     ScopeNode::ScopeNode(uint64 lineNumber, uint32 scopeID, ScopeNode* parentScope):
-    AbstractNode("", AST_NODE_SCOPE_STATEMENT, lineNumber),
+    AbstractNode("", AST_NODE_CLASS_SCOPE, AST_NODE_SCOPE_STATEMENT, lineNumber),
     m_ScopeId(scopeID),
     m_ParentScope(parentScope),
     m_LineCount(0),

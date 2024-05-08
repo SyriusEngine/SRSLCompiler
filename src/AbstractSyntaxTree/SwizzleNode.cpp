@@ -3,7 +3,7 @@
 namespace Srsl{
 
     SwizzleNode::SwizzleNode(const std::string& swizzle, uint64 lineNumber):
-    AbstractNode(swizzle, AST_NODE_VECTOR_SWIZZLE, lineNumber){
+    AbstractNode(swizzle, AST_NODE_CLASS_TYPED, AST_NODE_VECTOR_SWIZZLE, lineNumber){
 
     }
 

@@ -3,7 +3,7 @@
 namespace Srsl{
 
     ShaderTypeNode::ShaderTypeNode(SRSL_SHADER_TYPE type, uint64 lineNumber) :
-    AbstractNode(shaderTypeToString(type), AST_NODE_SHADER_TYPE, lineNumber),
+    AbstractNode(shaderTypeToString(type), AST_NODE_CLASS_DEFAULT, AST_NODE_SHADER_TYPE, lineNumber),
     m_ShaderType(type) {
 
     }

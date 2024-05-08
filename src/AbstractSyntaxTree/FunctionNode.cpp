@@ -5,7 +5,7 @@
 namespace Srsl{
 
     FunctionDeclarationNode::FunctionDeclarationNode(const FunctionDeclarationDesc &desc, uint32 functionID, uint64 lineNumber):
-    AbstractNode(desc.name, AST_NODE_FUNCTION_DECLARATION, lineNumber, desc.type),
+    AbstractNode(desc.name, AST_NODE_CLASS_SCOPE, AST_NODE_FUNCTION_DECLARATION, lineNumber, desc.type),
     m_FunctionID(functionID),
     m_HasScope(desc.hasScope),
     m_SemanticName(desc.semantic){
@@ -265,7 +265,7 @@ namespace Srsl{
 
 
     FunctionCallNode::FunctionCallNode(const std::string &name, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_FUNCTION_CALL, lineNumber){
+    AbstractNode(name, AST_NODE_CLASS_TYPED, AST_NODE_FUNCTION_CALL, lineNumber){
 
     }
 

@@ -3,7 +3,7 @@
 namespace Srsl{
 
     InterfaceNode::InterfaceNode(InterfaceType type, const std::string& name, uint64 lineNumber) :
-    AbstractNode(name, AST_NODE_SHADER_INTERFACE, lineNumber),
+    AbstractNode(name, AST_NODE_CLASS_TYPED, AST_NODE_SHADER_INTERFACE, lineNumber),
     m_InterfaceType(type){
     }
 

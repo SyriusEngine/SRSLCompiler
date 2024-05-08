@@ -3,7 +3,7 @@
 namespace Srsl{
 
     ConstantBufferNode::ConstantBufferNode(const std::string &name, uint32 slot, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_CONSTANT_BUFFER_DECLARATION, lineNumber),
+    AbstractNode(name, AST_NODE_CLASS_TYPED, AST_NODE_CONSTANT_BUFFER_DECLARATION, lineNumber),
     m_Slot(slot){
         m_Type.type = VT_STRUCT;
     }

@@ -3,7 +3,7 @@
 namespace Srsl{
 
     TestEvaluationNode::TestEvaluationNode(const TestDataBufferDesc& bufferDesc, ProgramInfo& programInfo):
-    AbstractNode("TEST_EVALUATION", AST_NODE_TEST_EVALUATION, programInfo.mainFunction->getLineNumber()),
+    AbstractNode("TEST_EVALUATION", AST_NODE_CLASS_DEFAULT, AST_NODE_TEST_EVALUATION, programInfo.mainFunction->getLineNumber()),
     m_SSBOName(bufferDesc.name),
     m_SSBOBindingSlot(bufferDesc.slot),
     m_TestDataSSBO(nullptr),

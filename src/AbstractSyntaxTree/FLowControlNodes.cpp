@@ -3,7 +3,7 @@
 namespace Srsl{
 
     FlowControlNode::FlowControlNode(const std::string &value, uint64 lineNumber):
-    AbstractNode(value, AST_NODE_CONTROL_FLOW_STATEMENT, lineNumber){
+    AbstractNode(value, AST_NODE_CLASS_UNCONDITIONAL_JUMP, AST_NODE_CONTROL_FLOW_STATEMENT, lineNumber){
 
     }
 
@@ -20,7 +20,7 @@ namespace Srsl{
 
 
     WhileNode::WhileNode(uint64 lineNumber):
-    AbstractNode("while", AST_NODE_WHILE_STATEMENT, lineNumber){
+    AbstractNode("while", AST_NODE_CLASS_SCOPE, AST_NODE_WHILE_STATEMENT, lineNumber){
 
     }
 
@@ -46,7 +46,7 @@ namespace Srsl{
 
 
     ForNode::ForNode(uint64 lineNumber):
-    AbstractNode("for", AST_NODE_FOR_STATEMENT, lineNumber){
+    AbstractNode("for", AST_NODE_CLASS_SCOPE, AST_NODE_FOR_STATEMENT, lineNumber){
     }
 
     ForNode::~ForNode() = default;
@@ -78,7 +78,7 @@ namespace Srsl{
 
 
     IfNode::IfNode(uint64 lineNumber) :
-    AbstractNode("if", AST_NODE_IF_STATEMENT, lineNumber),
+    AbstractNode("if", AST_NODE_CLASS_SCOPE, AST_NODE_IF_STATEMENT, lineNumber),
     m_Scope(nullptr),
     m_Condition(nullptr),
     m_optional(nullptr){
@@ -109,7 +109,7 @@ namespace Srsl{
     }
 
     ElseNode::ElseNode(uint64 lineNumber):
-    AbstractNode("else", AST_NODE_ELSE_STATEMENT, lineNumber),
+    AbstractNode("else", AST_NODE_CLASS_SCOPE, AST_NODE_ELSE_STATEMENT, lineNumber),
     m_Scope(nullptr){
     }
 
@@ -132,7 +132,7 @@ namespace Srsl{
 
 
     ElseIfNode::ElseIfNode(uint64 lineNumber):
-    AbstractNode("else if", AST_NODE_IF_ELSE_STATEMENT, lineNumber){
+    AbstractNode("else if", AST_NODE_CLASS_SCOPE, AST_NODE_IF_ELSE_STATEMENT, lineNumber){
     }
 
     ElseIfNode::~ElseIfNode() = default;
@@ -158,7 +158,7 @@ namespace Srsl{
 
 
     ReturnNode::ReturnNode(uint64 lineNumber):
-    AbstractNode("return", AST_NODE_RETURN_STATEMENT, lineNumber){
+    AbstractNode("return", AST_NODE_CLASS_UNCONDITIONAL_JUMP, AST_NODE_RETURN_STATEMENT, lineNumber){
     }
 
     ReturnNode::~ReturnNode() = default;

@@ -3,7 +3,7 @@
 namespace Srsl{
 
     StructDeclarationNode::StructDeclarationNode(const std::string &name, uint64 lineNumber):
-    AbstractNode(name, AST_NODE_STRUCT_DECLARATION, lineNumber) {
+    AbstractNode(name, AST_NODE_CLASS_TYPED, AST_NODE_STRUCT_DECLARATION, lineNumber) {
         m_Type.type = VT_STRUCT;
     }
 
