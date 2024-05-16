@@ -1,0 +1,38 @@
+ShaderType = Vertex;
+
+Input vsIn{
+    float3 position: Position;
+    float3 normal: Normal;
+    float2 texCoords: TexCoords;
+};
+
+Output vsOut{
+    float4 position: SRV_POSITION;
+    float3 normal: Normal;
+    float2 texCoords: TexCoords;
+};
+
+float3 transformNormal(float3 n){
+    n = normalize(n * 2.0f - 1.0f);
+    return n;
+}
+
+@TEST(TransformNormalTestSuite, TransformNormalTest1){
+    float3 n = float3(1.0f, 1.0f, 1.0f);
+    float3 result = transformNormal(n);
+    float3 expected = normalize(n * 2.0f - 1.0f);
+    EXPECT_EQ(result, expected);
+}
+
+@TEST(TransformNormalTestSuite, TransformNormalTest2){
+    float3 n = float3(0.0f, 0.0f, 0.0f);
+    float3 result = transformNormal(n);
+    float3 expected = normalize(n * 2.0f - 1.0f);
+    EXPECT_EQ(result, expected);
+}
+
+void main(){
+    vsOut.position = float4(vsIn.position, 1.0f);
+    vsOut.normal = vsIn.normal;
+    vsOut.texCoords = vsIn.texCoords;
+}

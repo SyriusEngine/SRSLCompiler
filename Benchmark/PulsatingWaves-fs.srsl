@@ -1,0 +1,40 @@
+ShaderType = Fragment;
+
+Input fsIn{
+    float4 position: SRV_POSITION;
+    float3 normal: Normal;
+    float2 texCoords: TexCoords;
+};
+
+Output fsOut{
+    float4 color: SRV_TARGET0;
+};
+
+float3 palette(float t){
+    float3 a = float3(0.5f, 0.5f, 0.5f);
+    float3 b = float3(0.5f, 0.5f, 0.5f);
+    float3 c = float3(1.0f, 1.0f, 1.0f);
+    float3 d = float3(0.263f, 0.416f, 0.557f);
+    return a + b * cos(6.28318f * (c * t + d));
+}
+
+float3 calculateColor(float2 uv, float time){
+    float2 uv0 = uv;
+    float3 finalColor = float3(0.0f, 0.0f, 0.0f);
+    for (float i = 0.0f; i < 4.0f; i++){
+        uv = fract(uv * 1.5f) - 0.5f;
+        float d = length(uv) * exp(-length(uv0));
+        float3 col = palette(length(uv0) + i * 0.4f + time * 0.4f);
+
+        d = sin(d * 8.0f + time) / 8.0f;
+        d = abs(d);
+        d = pow(0.01f / d, 1.2f);
+        finalColor = finalColor + col * d;
+    }
+    return finalColor;
+}
+
+
+void main(){
+    fsOut.color = float4(calculateColor(fsIn.texCoords, 0.0f), 1.0f);
+}
