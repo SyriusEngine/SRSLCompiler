@@ -60,6 +60,7 @@ namespace Srsl{
         m_IntrinsicMap.insert({"inversesqrt", {"inversesqrt", "inversesqrt", "inversesqrt", "glm::inversesqrt"}});
         m_IntrinsicMap.insert({"determinant", {"determinant", "determinant", "determinant", "GLM_NOT_IMPLEMENTED"}});
         m_IntrinsicMap.insert({"sign", {"sign", "sign", "sign", "glm::sign"}});
+        m_IntrinsicMap.insert({"fract", {"fract", "fract", "fract", "glm::fract"}});
 
         m_IntrinsicMap.insert({"transpose", {"transpose", "transpose", "transpose", "glm::transpose"}});
         m_IntrinsicMap.insert({"inverse", {"inverse", "inverse", "inverse", "glm::inverse"}});
