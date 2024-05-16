@@ -17,6 +17,12 @@ namespace Srsl{
 
         void generateCode(UP<Exporter>& exporter, const std::string& indent) const override;
 
+        [[nodiscard]] std::string getCallableName() const;
+
+        [[nodiscard]] const std::string& getTestSuiteName() const { return m_TestSuiteName; }
+
+        [[nodiscard]] const std::string& getTestName() const { return m_TestName; }
+
     private:
         const std::string m_TestSuiteName;
         const std::string m_TestName;

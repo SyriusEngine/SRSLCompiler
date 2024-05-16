@@ -44,7 +44,7 @@ namespace Srsl {
 
     struct SRSL_API TestParameters{
         uint32_t ssboSize = 0;
-        std::vector<std::string> testCaseNames;
+        std::vector<std::pair<std::string, std::string>> testCaseNames;
         uint32_t testCaseCount = 0;
         uint32_t testCaseArraySize = 0;
         std::vector<std::string> functionNames;

@@ -94,7 +94,7 @@ namespace Srsl{
 
         for (uint32 i = 0; i < m_ProgramInfo.testCases.size(); i++){
             exporter->addLine(indent + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] = ");
-            exporter->addLine(m_ProgramInfo.testCases[i]->getValue() + "();\n"); // call the test case function
+            exporter->addLine(m_ProgramInfo.testCases[i]->getCallableName() + "();\n"); // call the test case function
             exporter->addLine(indent + "atomicAdd(" + m_SSBOName + "." + SRSL_TEST_DATA_TEST_PASSED_LIT + ", " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == true ? 1 : 0);\n");
             exporter->addLine(indent + "atomicAdd(" + m_SSBOName + "." + SRSL_TEST_DATA_TEST_FAILED_LIT + ", " + m_SSBOName + "." + SRSL_TEST_DATA_TEST_RESULTS + "[" + std::to_string(i) + "] == false ? 1 : 0);\n");
         }
@@ -111,7 +111,7 @@ namespace Srsl{
         desc.testCaseCount = m_ProgramInfo.testCaseCount;
         desc.testCaseArraySize = m_TestCasesArraySize;
         for (const auto& testCase: m_ProgramInfo.testCases){
-            desc.testCaseNames.push_back(testCase->getValue());
+            desc.testCaseNames.emplace_back(testCase->getTestSuiteName(), testCase->getTestName());
         }
 
         desc.functionCount = m_ProgramInfo.functionCount;

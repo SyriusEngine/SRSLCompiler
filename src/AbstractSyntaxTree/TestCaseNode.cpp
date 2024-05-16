@@ -34,7 +34,7 @@ namespace Srsl{
          * The test case node will be generated as a function declaration that returns a boolean value.
          * The last statement is a return true; statement.
          */
-        exporter->addLine(indent + exporter->getVariableType(m_Type) + " " + m_Value + "(){\n");
+        exporter->addLine(indent + exporter->getVariableType(m_Type) + " " + getCallableName() + "(){\n");
         auto newIndent = indent + "\t";
         for (const auto& child: m_Children){
             exporter->addLine(newIndent);
@@ -43,6 +43,10 @@ namespace Srsl{
         }
         exporter->addLine(newIndent + "return true;\n");
         exporter->addLine(indent + "}\n\n");
+    }
+
+    std::string TestCaseNode::getCallableName() const {
+        return m_TestSuiteName + SRSL_CONCAT_LIT + m_TestName;
     }
 
 }
