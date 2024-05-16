@@ -119,6 +119,7 @@ namespace Srsl{
     TestParameters ShaderModuleImpl::generateTestCode(const TestDataBufferDesc& bufferDesc) {
         // obtain the scope for the main function, this scope will contain the test driver code
         auto mainScope = m_ProgramInfo.mainFunction->getScope();
+        mainScope->clearChildren();
 
         auto testEvaluationNode = mainScope->addChild<TestEvaluationNode>(bufferDesc, m_ProgramInfo);
         auto ten = dynamic_cast<TestEvaluationNode*>(testEvaluationNode);

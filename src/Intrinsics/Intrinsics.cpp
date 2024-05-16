@@ -64,6 +64,7 @@ namespace Srsl{
         table->addSymbol({"dfdy", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"inversesqrt", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"determinant", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"sign", "", intrinsicType, ST_FUNCTION, nullptr, 0});
 
         // Matrix functions
         table->addSymbol({"transpose", "", intrinsicType, ST_FUNCTION, nullptr, 0});

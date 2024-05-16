@@ -51,6 +51,8 @@ namespace Srsl{
             return static_cast<T*>(m_Children[index].get());
         }
 
+        void clearChildren();
+
         [[nodiscard]] AbstractNode* getParent() const;
 
         [[nodiscard]] AST_NODE_TYPE getNodeType() const;

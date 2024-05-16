@@ -27,6 +27,10 @@ namespace Srsl{
         return m_Children.back().get();
     }
 
+    void AbstractNode::clearChildren() {
+        m_Children.clear();
+    }
+
     AbstractNode *AbstractNode::getParent() const {
         return m_Parent;
     }
