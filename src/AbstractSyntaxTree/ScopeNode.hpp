@@ -32,11 +32,7 @@ namespace Srsl{
          */
         void createScopeFlag(TestCodeGenerator &testGen);
 
-        /**
-         * @brief Return an index in the m_Children array where the test driver code should be inserted
-         * @return index
-         */
-        [[nodiscard]] size_t findInsertionLocation() const;
+        void dotScopeTree(std::ofstream &file) const;
 
     private:
         const uint32 m_ScopeId; // used for testing generation

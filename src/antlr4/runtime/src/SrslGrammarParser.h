@@ -20,7 +20,7 @@ public:
     SHADER_TYPE = 29, EOL = 30, COMMA = 31, COLON = 32, FLOATING_POINT = 33, 
     NUMBER = 34, ASSIGN = 35, DOT = 36, AT = 37, PLUS = 38, MINUS = 39, 
     MULTIPLY = 40, DIVIDE = 41, OPERATION = 42, CREMENT = 43, NOT = 44, 
-    VAR_NAME = 45
+    BOOL = 45, VAR_NAME = 46
   };
 
   enum {
@@ -657,6 +657,7 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *NUMBER();
     antlr4::tree::TerminalNode *FLOATING_POINT();
+    antlr4::tree::TerminalNode *BOOL();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

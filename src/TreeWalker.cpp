@@ -175,6 +175,12 @@ namespace Srsl{
         else if (ctx->FLOATING_POINT()){
             m_CurrentNode->addChild<ConstantNode>(ctx->FLOATING_POINT()->getText(), ctx->start->getLine());
         }
+        else if (ctx->BOOL()) {
+            m_CurrentNode->addChild<ConstantNode>(ctx->BOOL()->getText(), ctx->start->getLine());
+        }
+        else{
+            SRSL_THROW_EXCEPTION("Unknown constant type")
+        }
     }
 
     void TreeWalker::exitConstant(SrslGrammarParser::ConstantContext *ctx) {

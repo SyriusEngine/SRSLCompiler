@@ -86,7 +86,7 @@ memberAccess: (variable | functionCall) DOT ( variable | memberAccess);
 
 newVariable: CONST* (TYPE | VAR_NAME) VAR_NAME (SBRACKO NUMBER SBRACKC)* (COLON VAR_NAME)?;
 variable:  VAR_NAME (SBRACKO expression SBRACKC)*;
-constant: NUMBER | FLOATING_POINT;
+constant: NUMBER | FLOATING_POINT | BOOL;
 controlFlow: CONTROL_FLOW;
 typeConstructor: TYPE PARENO expression (COMMA expression)* PARENC;
 
@@ -162,5 +162,6 @@ DIVIDE: '/';
 OPERATION: '%' | '==' | '!=' | '>' | '<' | '>=' | '<=' | '&&' | '||' | '<<' | '>>' | '&' | '|' | '^';
 CREMENT: '++' | '--';
 NOT: '!';
+BOOL: 'true' | 'false';
 
 VAR_NAME: [a-zA-Z_][a-zA-Z0-9_]*;

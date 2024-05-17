@@ -10,7 +10,7 @@ namespace Srsl{
     AbstractNode("", AST_NODE_CLASS_SCOPE, AST_NODE_SCOPE_STATEMENT, lineNumber),
     m_ScopeId(scopeID),
     m_ParentScope(parentScope),
-    m_LineCount(0),
+    m_LineCount(1),
     m_ChildScopes(){
         std::stringstream ss;
         ss << "Scope_" << this;
@@ -23,7 +23,7 @@ namespace Srsl{
     void ScopeNode::construct() {
         AbstractNode::construct();
 
-        m_LineCount = 0;
+        m_LineCount = 2;
         for (const auto& child: m_Children){
             auto childType = child->getNodeType();
             if (childType == AST_NODE_FOR_STATEMENT or
@@ -128,8 +128,12 @@ namespace Srsl{
         return m_LineCount;
     }
 
-    size_t ScopeNode::findInsertionLocation() const {
-        return 0;
+    void ScopeNode::dotScopeTree(std::ofstream &file) const {
+        file << m_Value << " [label=\"" + m_Value + "\nLC:" + std::to_string(m_LineCount) + "\"];\n";
+        for (const auto& child: m_ChildScopes){
+            child->dotScopeTree(file);
+            file << m_Value << " -> " << child->getValue() << ";\n";
+        }
     }
 
 }
