@@ -47,6 +47,10 @@ namespace Srsl{
         m_Left->generateCode(exporter, indent);
         exporter->addLine(" = ");
         m_Right->generateCode(exporter, "");
+        // TODO: Dirty fix for global variables
+        if (m_Parent->getNodeType() == AST_NODE_SHADER_TYPE){
+            exporter->addLine(";\n");
+        }
 
     }
 
