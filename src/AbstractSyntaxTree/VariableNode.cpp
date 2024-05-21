@@ -43,6 +43,11 @@ namespace Srsl{
         for (auto m_ArraySize : m_Type.arraySizes){
             line += "[" + std::to_string(m_ArraySize) + "]";
         }
+
+        // TODO: Dirty fix for global variables
+        if (m_Parent->getNodeType() == AST_NODE_SHADER_TYPE){
+            line += ";\n";
+        }
         exporter->addLine(line);
 
     }
