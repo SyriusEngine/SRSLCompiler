@@ -91,6 +91,7 @@ namespace Srsl{
     private:
         AbstractNode* m_Scope;
         AbstractNode* m_Condition;
+        AbstractNode* m_Optional;
     };
 
     class ReturnNode : public AbstractNode{

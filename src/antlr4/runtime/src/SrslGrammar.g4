@@ -105,7 +105,6 @@ FOR: 'for';
 WHILE: 'while';
 IF: 'if';
 ELSE: 'else';
-ELSEIF: 'else if';
 RETURN: 'return';
 CONTROL_FLOW: 'continue' | 'break' | 'discard';
 STRUCT: 'struct';

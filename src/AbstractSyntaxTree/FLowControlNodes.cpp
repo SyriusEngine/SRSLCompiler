@@ -132,17 +132,20 @@ namespace Srsl{
 
 
     ElseIfNode::ElseIfNode(uint64 lineNumber):
-    AbstractNode("else if", AST_NODE_CLASS_SCOPE, AST_NODE_IF_ELSE_STATEMENT, lineNumber){
+    AbstractNode("else if", AST_NODE_CLASS_SCOPE, AST_NODE_IF_ELSE_STATEMENT, lineNumber),
+    m_Scope(nullptr),
+    m_Condition(nullptr),
+    m_Optional(nullptr){
     }
 
     ElseIfNode::~ElseIfNode() = default;
 
     void ElseIfNode::construct() {
-        if (m_Children.size() != 2){
-            SRSL_THROW_EXCEPTION("Invalid number of children, expected 2 got %s", m_Children.size());
-        }
         m_Condition = m_Children[0].get();
         m_Scope = m_Children[1].get();
+        if (m_Children.size() == 3){
+            m_Optional = m_Children[2].get();
+        }
         AbstractNode::construct();
     }
 
@@ -154,6 +157,10 @@ namespace Srsl{
         m_Condition->generateCode(exporter, "");
         exporter->addLine(")");
         m_Scope->generateCode(exporter, indent);
+
+        if (m_Optional){
+            m_Optional->generateCode(exporter, indent);
+        }
     }
 
 
