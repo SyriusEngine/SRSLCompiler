@@ -18,6 +18,8 @@ namespace Srsl{
         m_Left = m_Children[0].get();
         m_Right = m_Children[1].get();
 
+        AbstractNode::construct();
+
         SRSL_POSTCONDITION(m_Left != nullptr, "Left child is nullptr");
         SRSL_POSTCONDITION(m_Right != nullptr, "Right child is nullptr");
     }

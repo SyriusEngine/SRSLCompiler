@@ -8,9 +8,7 @@ namespace Srsl{
     m_Right(nullptr){
     }
 
-    MemberAccessNode::~MemberAccessNode() {
-
-    }
+    MemberAccessNode::~MemberAccessNode() = default;
 
     void MemberAccessNode::construct() {
         SRSL_PRECONDITION(m_Children.size() == 2, "Invalid number of children, expected 2 got %s", m_Children.size());
@@ -21,6 +19,10 @@ namespace Srsl{
     }
 
     void MemberAccessNode::fillSymbolTable(RCP<SymbolTable> symbolTable) {
+        if (m_Left == nullptr){
+            printf("Left is null\n");
+        }
+
         SRSL_PRECONDITION(m_Left != nullptr, "Left element is null");
         SRSL_PRECONDITION(m_Right != nullptr, "Right element is null");
 
