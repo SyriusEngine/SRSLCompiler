@@ -18,6 +18,9 @@ namespace Srsl{
         table->addSymbol({"exp2", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"floor", "", intrinsicType, ST_FUNCTION, nullptr, 0});
         table->addSymbol({"ceil", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"round", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"trunc", "", intrinsicType, ST_FUNCTION, nullptr, 0});
+        table->addSymbol({"mod", "", intrinsicType, ST_FUNCTION, nullptr, 0});
 
         // Trigonometric functions
         table->addSymbol({"sin", "", intrinsicType, ST_FUNCTION, nullptr, 0});

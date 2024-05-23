@@ -17,6 +17,9 @@ namespace Srsl{
         m_IntrinsicMap.insert({"exp2", {"exp2", "exp2", "exp2", "glm::exp2"}});
         m_IntrinsicMap.insert({"floor", {"floor", "floor", "floor", "glm::floor"}});
         m_IntrinsicMap.insert({"ceil", {"ceil", "ceil", "ceil", "glm::ceil"}});
+        m_IntrinsicMap.insert({"round", {"round", "round", "round", "glm::round"}});
+        m_IntrinsicMap.insert({"trunc", {"trunc", "trunc", "trunc", "glm::trunc"}});
+        m_IntrinsicMap.insert({"mod", {"mod", "mod", "mod", "glm::mod"}});
 
         m_IntrinsicMap.insert({"sin", {"sin", "sin", "sin", "glm::sin"}});
         m_IntrinsicMap.insert({"cos", {"cos", "cos", "cos", "glm::cos"}});

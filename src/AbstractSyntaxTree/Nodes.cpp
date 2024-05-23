@@ -37,6 +37,10 @@ namespace Srsl{
     void AssignmentNode::construct() {
         SRSL_PRECONDITION(m_Children.size() == 2, "Invalid number of children, expected 2 got %s", m_Children.size());
 
+        if (m_Parent == nullptr){
+            printf("Parent is null\n");
+        }
+
         m_Left = m_Children[0].get();
         m_Right = m_Children[1].get();
 
@@ -44,6 +48,10 @@ namespace Srsl{
     }
 
     void AssignmentNode::generateCode(UP<Exporter> &exporter, const std::string &indent) const {
+        SRSL_PRECONDITION(m_Left != nullptr, "Left side of assignment is null");
+        SRSL_PRECONDITION(m_Right != nullptr, "Right side of assignment is null");
+        SRSL_PRECONDITION(m_Parent != nullptr, "Parent of assignment is null")
+
         m_Left->generateCode(exporter, indent);
         exporter->addLine(" = ");
         m_Right->generateCode(exporter, "");

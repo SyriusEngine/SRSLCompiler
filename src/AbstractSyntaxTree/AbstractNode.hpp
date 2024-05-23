@@ -47,7 +47,8 @@ namespace Srsl{
 
         template<typename T, typename... Args>
         T* addChildAt(uint32 index, Args&&... args){
-            m_Children.insert(m_Children.begin() + index, createUP<T>(std::forward<Args>(args)...));
+            auto elem = m_Children.insert(m_Children.begin() + index, createUP<T>(std::forward<Args>(args)...));
+            elem->get()->m_Parent = this;
             return static_cast<T*>(m_Children[index].get());
         }
 
