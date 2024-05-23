@@ -37,10 +37,6 @@ namespace Srsl{
     void AssignmentNode::construct() {
         SRSL_PRECONDITION(m_Children.size() == 2, "Invalid number of children, expected 2 got %s", m_Children.size());
 
-        if (m_Parent == nullptr){
-            printf("Parent is null\n");
-        }
-
         m_Left = m_Children[0].get();
         m_Right = m_Children[1].get();
 
