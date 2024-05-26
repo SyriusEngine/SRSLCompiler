@@ -52,8 +52,11 @@ public:
   virtual void enterConstantBufferDeclaration(SrslGrammarParser::ConstantBufferDeclarationContext * /*ctx*/) override { }
   virtual void exitConstantBufferDeclaration(SrslGrammarParser::ConstantBufferDeclarationContext * /*ctx*/) override { }
 
-  virtual void enterShaderInterface(SrslGrammarParser::ShaderInterfaceContext * /*ctx*/) override { }
-  virtual void exitShaderInterface(SrslGrammarParser::ShaderInterfaceContext * /*ctx*/) override { }
+  virtual void enterShaderInput(SrslGrammarParser::ShaderInputContext * /*ctx*/) override { }
+  virtual void exitShaderInput(SrslGrammarParser::ShaderInputContext * /*ctx*/) override { }
+
+  virtual void enterShaderOutput(SrslGrammarParser::ShaderOutputContext * /*ctx*/) override { }
+  virtual void exitShaderOutput(SrslGrammarParser::ShaderOutputContext * /*ctx*/) override { }
 
   virtual void enterFunctionDeclaration(SrslGrammarParser::FunctionDeclarationContext * /*ctx*/) override { }
   virtual void exitFunctionDeclaration(SrslGrammarParser::FunctionDeclarationContext * /*ctx*/) override { }

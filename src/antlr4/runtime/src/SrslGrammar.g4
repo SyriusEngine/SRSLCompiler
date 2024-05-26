@@ -9,7 +9,7 @@ shaderTypeSpec:
     SHADER_TYPE_LIT SHADER_TYPE EOL;
 
 statement:
-    lvalue EOL |
+    newVariable EOL |
     assignment EOL |
     expression EOL |
     controlFlow EOL |
@@ -22,7 +22,8 @@ statement:
     structDeclaration EOL |
     samplerDeclaration EOL |
     textureDeclaration EOL |
-    shaderInterface EOL |
+    shaderInput EOL |
+    shaderOutput EOL |
     constantBufferDeclaration EOL;
 
 forStatement : FOR PARENO statement expression EOL expression PARENC scope;
@@ -35,7 +36,8 @@ elseStatement: ELSE scope;
 textureDeclaration: TEXTURE_TYPES PARENO SLOT ASSIGN NUMBER PARENC VAR_NAME;
 samplerDeclaration: SAMPLER_TYPE PARENO SLOT ASSIGN NUMBER PARENC VAR_NAME;
 constantBufferDeclaration: CONSTANT_BUFFER PARENO SLOT ASSIGN NUMBER PARENC VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
-shaderInterface: (SHADER_INPUT | SHADER_OUTPUT) VAR_NAME CBRACKO (newVariable COLON VAR_NAME EOL)* CBRACKC;
+shaderInput: SHADER_INPUT VAR_NAME CBRACKO (newVariable COLON VAR_NAME EOL)* CBRACKC;
+shaderOutput: SHADER_OUTPUT VAR_NAME CBRACKO (newVariable COLON VAR_NAME EOL)* CBRACKC;
 
 functionDeclaration: CONST* (TYPE | VAR_NAME) VAR_NAME PARENO (newVariable (COMMA newVariable)*)? PARENC (scope | EOL);
 functionCall: VAR_NAME PARENO (expression (COMMA expression)*)? PARENC;
@@ -45,7 +47,7 @@ scope: CBRACKO statement* CBRACKC;
 
 structDeclaration: STRUCT VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
 
-assignment: lvalue ASSIGN expression;
+assignment: lvalue (ASSIGN | ASSIGN_OP) expression;
 
 expression:
     expression (MULTIPLY |
@@ -77,7 +79,7 @@ rvalue:
 memberAccess: (variable | functionCall) DOT ( variable | memberAccess);
 
 newVariable: CONST* (TYPE | VAR_NAME) VAR_NAME (SBRACKO NUMBER SBRACKC)*;
-variable:  VAR_NAME;
+variable:  VAR_NAME (SBRACKO expression SBRACKC)*;
 constant: NUMBER | FLOATING_POINT | BOOL;
 controlFlow: CONTROL_FLOW;
 typeConstructor: TYPE PARENO expression (COMMA expression)* PARENC;
@@ -142,6 +144,7 @@ PLUS: '+';
 MINUS: '-';
 MULTIPLY: '*';
 DIVIDE: '/';
+ASSIGN_OP: '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | '|=' | '^=';
 OPERATION: '%' | '==' | '!=' | '>' | '<' | '>=' | '<=' | '&&' | '||' | '<<' | '>>' | '&' | '|' | '^';
 CREMENT: '++' | '--';
 NOT: '!';
