@@ -8,20 +8,13 @@ namespace Srsl {
     public:
         ShaderProgram();
 
-        explicit ShaderProgram(const ShaderLimits& limits);
-
         virtual ~ShaderProgram();
 
         virtual void addShaderModule(std::shared_ptr<ShaderModule> shaderModule) = 0;
 
         virtual void link() = 0;
 
-        virtual void exportShader(ExportDesc& desc) = 0;
-
-        virtual TestConfig generateTestCode(const TestDataBufferDesc& vertexShaderSSBO, const TestDataBufferDesc& fragmentShaderSSBO) = 0;
-
-    protected:
-        ShaderLimits m_Limits;
+        virtual void exportShader(const ProgramExportDesc& programExportDesc) = 0;
 
     };
 

@@ -1,0 +1,18 @@
+ShaderType = Fragment;
+
+Input fsIn{
+    float4 position : SRV_POSITION;
+    float3 normal : NORMAL;
+    float2 uv : TEXCOORD0;
+}
+
+Output fsOut{
+    float4 color : SRV_TARGET0;
+}
+
+Texture2D(slot = 0) texture0;
+SamplerState(slot = 0) sampler0;
+
+void main(){
+    fsOut. color = sampleTexture(texture0, sampler0, fsIn.uv);
+}

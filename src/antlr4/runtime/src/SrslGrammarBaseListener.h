@@ -22,20 +22,14 @@ public:
   virtual void enterShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext * /*ctx*/) override { }
   virtual void exitShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext * /*ctx*/) override { }
 
-  virtual void enterMultilineComment(SrslGrammarParser::MultilineCommentContext * /*ctx*/) override { }
-  virtual void exitMultilineComment(SrslGrammarParser::MultilineCommentContext * /*ctx*/) override { }
-
-  virtual void enterSinglelinecomment(SrslGrammarParser::SinglelinecommentContext * /*ctx*/) override { }
-  virtual void exitSinglelinecomment(SrslGrammarParser::SinglelinecommentContext * /*ctx*/) override { }
-
   virtual void enterStatement(SrslGrammarParser::StatementContext * /*ctx*/) override { }
   virtual void exitStatement(SrslGrammarParser::StatementContext * /*ctx*/) override { }
 
-  virtual void enterForLoop(SrslGrammarParser::ForLoopContext * /*ctx*/) override { }
-  virtual void exitForLoop(SrslGrammarParser::ForLoopContext * /*ctx*/) override { }
+  virtual void enterForStatement(SrslGrammarParser::ForStatementContext * /*ctx*/) override { }
+  virtual void exitForStatement(SrslGrammarParser::ForStatementContext * /*ctx*/) override { }
 
-  virtual void enterWhileLoop(SrslGrammarParser::WhileLoopContext * /*ctx*/) override { }
-  virtual void exitWhileLoop(SrslGrammarParser::WhileLoopContext * /*ctx*/) override { }
+  virtual void enterWhileStatement(SrslGrammarParser::WhileStatementContext * /*ctx*/) override { }
+  virtual void exitWhileStatement(SrslGrammarParser::WhileStatementContext * /*ctx*/) override { }
 
   virtual void enterIfStatement(SrslGrammarParser::IfStatementContext * /*ctx*/) override { }
   virtual void exitIfStatement(SrslGrammarParser::IfStatementContext * /*ctx*/) override { }
@@ -73,12 +67,6 @@ public:
   virtual void enterScope(SrslGrammarParser::ScopeContext * /*ctx*/) override { }
   virtual void exitScope(SrslGrammarParser::ScopeContext * /*ctx*/) override { }
 
-  virtual void enterTestCase(SrslGrammarParser::TestCaseContext * /*ctx*/) override { }
-  virtual void exitTestCase(SrslGrammarParser::TestCaseContext * /*ctx*/) override { }
-
-  virtual void enterTestAssertion(SrslGrammarParser::TestAssertionContext * /*ctx*/) override { }
-  virtual void exitTestAssertion(SrslGrammarParser::TestAssertionContext * /*ctx*/) override { }
-
   virtual void enterStructDeclaration(SrslGrammarParser::StructDeclarationContext * /*ctx*/) override { }
   virtual void exitStructDeclaration(SrslGrammarParser::StructDeclarationContext * /*ctx*/) override { }
 
@@ -87,9 +75,6 @@ public:
 
   virtual void enterExpression(SrslGrammarParser::ExpressionContext * /*ctx*/) override { }
   virtual void exitExpression(SrslGrammarParser::ExpressionContext * /*ctx*/) override { }
-
-  virtual void enterInitializerList(SrslGrammarParser::InitializerListContext * /*ctx*/) override { }
-  virtual void exitInitializerList(SrslGrammarParser::InitializerListContext * /*ctx*/) override { }
 
   virtual void enterLvalue(SrslGrammarParser::LvalueContext * /*ctx*/) override { }
   virtual void exitLvalue(SrslGrammarParser::LvalueContext * /*ctx*/) override { }
@@ -114,6 +99,9 @@ public:
 
   virtual void enterTypeConstructor(SrslGrammarParser::TypeConstructorContext * /*ctx*/) override { }
   virtual void exitTypeConstructor(SrslGrammarParser::TypeConstructorContext * /*ctx*/) override { }
+
+  virtual void enterInitializerList(SrslGrammarParser::InitializerListContext * /*ctx*/) override { }
+  virtual void exitInitializerList(SrslGrammarParser::InitializerListContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

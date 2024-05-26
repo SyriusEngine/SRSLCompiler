@@ -6,30 +6,6 @@
 
 namespace Srsl{
 
-    std::shared_ptr<ShaderModule> createShaderModuleFromFile(const std::string& fileName){
-        SRSL_PRECONDITION(std::filesystem::exists(fileName), "File %s does not exist", fileName.c_str());
-
-        std::ifstream file(fileName);
-        std::string source;
-        std::string line;
-        while(std::getline(file, line)){
-            source += line + "\n";
-        }
-        return createShaderModuleFromSource(source);
-    }
-
-    std::shared_ptr<ShaderModule> createShaderModuleFromSource(const std::string& source){
-        return std::make_shared<ShaderModuleImpl>(source);
-    }
-
-    std::shared_ptr<ShaderProgram> createShaderProgram(){
-        return std::make_shared<ShaderProgramImpl>();
-    }
-
-    std::shared_ptr<ShaderProgram> createShaderProgram(const ShaderLimits& limits){
-        return std::make_shared<ShaderProgramImpl>(limits);
-    }
-
     ExportDesc createGlslDefaultExportDesc(){
         ExportDesc exportGlsl;
         exportGlsl.target = SRSL_TARGET_GLSL;
@@ -49,5 +25,26 @@ namespace Srsl{
     ShaderLimits createDefaultShaderLimits(){
         ShaderLimits limits;
         return limits;
+    }
+
+    std::shared_ptr<ShaderModule> createShaderModuleFromFile(const std::string& fileName, const ShaderLimits& limits){
+        if (!std::filesystem::exists(fileName)){
+            throw FileNotFoundException(fileName);
+        }
+        std::ifstream file(fileName);
+        std::string source;
+        std::string line;
+        while(std::getline(file, line)){
+            source += line + "\n";
+        }
+        return createShaderModuleFromSource(source, limits);
+    }
+
+    std::shared_ptr<ShaderModule> createShaderModuleFromSource(const std::string& source, const ShaderLimits& limits){
+        return std::make_shared<ShaderModuleImpl>(source, limits);
+    }
+
+    std::shared_ptr<ShaderProgram> createShaderProgram(){
+        return std::make_shared<ShaderProgramImpl>();
     }
 }

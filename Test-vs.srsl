@@ -1,0 +1,23 @@
+ShaderType = Vertex;
+
+Input vsIn{
+    float3 position : POSITION;
+    float3 normal : NORMAL;
+    float2 uv : TEXCOORD0;
+};
+
+Output vsOut{
+    float4 position : SRV_POSITION;
+    float3 normal : NORMAL;
+    float2 uv : TEXCOORD0;
+};
+
+ConstantBuffer(slot = 0) ModelData{
+    float4x4 model;
+};
+
+void main(){
+    vsOut.position = ModelData.model * float4(vsIn.position, 1.0f);
+    vsOut.normal = vsIn.normal;
+    vsOut.uv = vsIn.uv;
+}

@@ -12,28 +12,26 @@
 class  SrslGrammarParser : public antlr4::Parser {
 public:
   enum {
-    WS = 1, SBRACKO = 2, SBRACKC = 3, CBRACKO = 4, CBRACKC = 5, PARENO = 6, 
-    PARENC = 7, CONST = 8, FOR = 9, WHILE = 10, IF = 11, ELSE = 12, RETURN = 13, 
-    CONTROL_FLOW = 14, STRUCT = 15, SHADER_INPUT = 16, SHADER_OUTPUT = 17, 
-    TEST = 18, TEST_ASSERT_TYPE = 19, TYPE = 20, TEXTURE_TYPES = 21, SAMPLER_TYPE = 22, 
-    CONSTANT_BUFFER = 23, SLOT = 24, COMMENT = 25, MCOMMENT = 26, SHADER_TYPE_LIT = 27, 
-    SHADER_TYPE = 28, EOL = 29, COMMA = 30, COLON = 31, FLOATING_POINT = 32, 
-    NUMBER = 33, ASSIGN = 34, DOT = 35, AT = 36, PLUS = 37, MINUS = 38, 
-    MULTIPLY = 39, DIVIDE = 40, OPERATION = 41, CREMENT = 42, NOT = 43, 
-    BOOL = 44, VAR_NAME = 45
+    WS = 1, COMMENT = 2, SBRACKO = 3, SBRACKC = 4, CBRACKO = 5, CBRACKC = 6, 
+    PARENO = 7, PARENC = 8, CONST = 9, FOR = 10, WHILE = 11, IF = 12, ELSE = 13, 
+    RETURN = 14, CONTROL_FLOW = 15, STRUCT = 16, SHADER_INPUT = 17, SHADER_OUTPUT = 18, 
+    TYPE = 19, TEXTURE_TYPES = 20, SAMPLER_TYPE = 21, CONSTANT_BUFFER = 22, 
+    SLOT = 23, SHADER_TYPE_LIT = 24, SHADER_TYPE = 25, EOL = 26, COMMA = 27, 
+    COLON = 28, FLOATING_POINT = 29, NUMBER = 30, ASSIGN = 31, DOT = 32, 
+    AT = 33, PLUS = 34, MINUS = 35, MULTIPLY = 36, DIVIDE = 37, OPERATION = 38, 
+    CREMENT = 39, NOT = 40, BOOL = 41, VAR_NAME = 42
   };
 
   enum {
-    RuleFile = 0, RuleShaderTypeSpec = 1, RuleMultilineComment = 2, RuleSinglelinecomment = 3, 
-    RuleStatement = 4, RuleForLoop = 5, RuleWhileLoop = 6, RuleIfStatement = 7, 
-    RuleOptionalStatement = 8, RuleElseIfStatement = 9, RuleElseStatement = 10, 
-    RuleTextureDeclaration = 11, RuleSamplerDeclaration = 12, RuleConstantBufferDeclaration = 13, 
-    RuleShaderInterface = 14, RuleFunctionDeclaration = 15, RuleFunctionCall = 16, 
-    RuleReturnStatement = 17, RuleScope = 18, RuleTestCase = 19, RuleTestAssertion = 20, 
-    RuleStructDeclaration = 21, RuleAssignment = 22, RuleExpression = 23, 
-    RuleInitializerList = 24, RuleLvalue = 25, RuleRvalue = 26, RuleMemberAccess = 27, 
-    RuleNewVariable = 28, RuleVariable = 29, RuleConstant = 30, RuleControlFlow = 31, 
-    RuleTypeConstructor = 32
+    RuleFile = 0, RuleShaderTypeSpec = 1, RuleStatement = 2, RuleForStatement = 3, 
+    RuleWhileStatement = 4, RuleIfStatement = 5, RuleOptionalStatement = 6, 
+    RuleElseIfStatement = 7, RuleElseStatement = 8, RuleTextureDeclaration = 9, 
+    RuleSamplerDeclaration = 10, RuleConstantBufferDeclaration = 11, RuleShaderInterface = 12, 
+    RuleFunctionDeclaration = 13, RuleFunctionCall = 14, RuleReturnStatement = 15, 
+    RuleScope = 16, RuleStructDeclaration = 17, RuleAssignment = 18, RuleExpression = 19, 
+    RuleLvalue = 20, RuleRvalue = 21, RuleMemberAccess = 22, RuleNewVariable = 23, 
+    RuleVariable = 24, RuleConstant = 25, RuleControlFlow = 26, RuleTypeConstructor = 27, 
+    RuleInitializerList = 28
   };
 
   explicit SrslGrammarParser(antlr4::TokenStream *input);
@@ -55,11 +53,9 @@ public:
 
   class FileContext;
   class ShaderTypeSpecContext;
-  class MultilineCommentContext;
-  class SinglelinecommentContext;
   class StatementContext;
-  class ForLoopContext;
-  class WhileLoopContext;
+  class ForStatementContext;
+  class WhileStatementContext;
   class IfStatementContext;
   class OptionalStatementContext;
   class ElseIfStatementContext;
@@ -72,12 +68,9 @@ public:
   class FunctionCallContext;
   class ReturnStatementContext;
   class ScopeContext;
-  class TestCaseContext;
-  class TestAssertionContext;
   class StructDeclarationContext;
   class AssignmentContext;
   class ExpressionContext;
-  class InitializerListContext;
   class LvalueContext;
   class RvalueContext;
   class MemberAccessContext;
@@ -85,17 +78,14 @@ public:
   class VariableContext;
   class ConstantContext;
   class ControlFlowContext;
-  class TypeConstructorContext; 
+  class TypeConstructorContext;
+  class InitializerListContext; 
 
   class  FileContext : public antlr4::ParserRuleContext {
   public:
     FileContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     ShaderTypeSpecContext *shaderTypeSpec();
-    std::vector<MultilineCommentContext *> multilineComment();
-    MultilineCommentContext* multilineComment(size_t i);
-    std::vector<SinglelinecommentContext *> singlelinecomment();
-    SinglelinecommentContext* singlelinecomment(size_t i);
     std::vector<StatementContext *> statement();
     StatementContext* statement(size_t i);
 
@@ -121,32 +111,6 @@ public:
 
   ShaderTypeSpecContext* shaderTypeSpec();
 
-  class  MultilineCommentContext : public antlr4::ParserRuleContext {
-  public:
-    MultilineCommentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *MCOMMENT();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  MultilineCommentContext* multilineComment();
-
-  class  SinglelinecommentContext : public antlr4::ParserRuleContext {
-  public:
-    SinglelinecommentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *COMMENT();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  SinglelinecommentContext* singlelinecomment();
-
   class  StatementContext : public antlr4::ParserRuleContext {
   public:
     StatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -156,8 +120,8 @@ public:
     AssignmentContext *assignment();
     ExpressionContext *expression();
     ControlFlowContext *controlFlow();
-    ForLoopContext *forLoop();
-    WhileLoopContext *whileLoop();
+    ForStatementContext *forStatement();
+    WhileStatementContext *whileStatement();
     IfStatementContext *ifStatement();
     ReturnStatementContext *returnStatement();
     FunctionDeclarationContext *functionDeclaration();
@@ -167,7 +131,6 @@ public:
     TextureDeclarationContext *textureDeclaration();
     ShaderInterfaceContext *shaderInterface();
     ConstantBufferDeclarationContext *constantBufferDeclaration();
-    TestCaseContext *testCase();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -176,9 +139,9 @@ public:
 
   StatementContext* statement();
 
-  class  ForLoopContext : public antlr4::ParserRuleContext {
+  class  ForStatementContext : public antlr4::ParserRuleContext {
   public:
-    ForLoopContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    ForStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *FOR();
     antlr4::tree::TerminalNode *PARENO();
@@ -194,11 +157,11 @@ public:
    
   };
 
-  ForLoopContext* forLoop();
+  ForStatementContext* forStatement();
 
-  class  WhileLoopContext : public antlr4::ParserRuleContext {
+  class  WhileStatementContext : public antlr4::ParserRuleContext {
   public:
-    WhileLoopContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    WhileStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *WHILE();
     antlr4::tree::TerminalNode *PARENO();
@@ -211,7 +174,7 @@ public:
    
   };
 
-  WhileLoopContext* whileLoop();
+  WhileStatementContext* whileStatement();
 
   class  IfStatementContext : public antlr4::ParserRuleContext {
   public:
@@ -345,13 +308,16 @@ public:
   public:
     ShaderInterfaceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *VAR_NAME();
+    std::vector<antlr4::tree::TerminalNode *> VAR_NAME();
+    antlr4::tree::TerminalNode* VAR_NAME(size_t i);
     antlr4::tree::TerminalNode *CBRACKO();
     antlr4::tree::TerminalNode *CBRACKC();
     antlr4::tree::TerminalNode *SHADER_INPUT();
     antlr4::tree::TerminalNode *SHADER_OUTPUT();
     std::vector<NewVariableContext *> newVariable();
     NewVariableContext* newVariable(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> COLON();
+    antlr4::tree::TerminalNode* COLON(size_t i);
     std::vector<antlr4::tree::TerminalNode *> EOL();
     antlr4::tree::TerminalNode* EOL(size_t i);
 
@@ -377,7 +343,6 @@ public:
     antlr4::tree::TerminalNode* CONST(size_t i);
     std::vector<NewVariableContext *> newVariable();
     NewVariableContext* newVariable(size_t i);
-    antlr4::tree::TerminalNode *COLON();
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
 
@@ -436,50 +401,6 @@ public:
   };
 
   ScopeContext* scope();
-
-  class  TestCaseContext : public antlr4::ParserRuleContext {
-  public:
-    TestCaseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *AT();
-    antlr4::tree::TerminalNode *TEST();
-    antlr4::tree::TerminalNode *PARENO();
-    std::vector<antlr4::tree::TerminalNode *> VAR_NAME();
-    antlr4::tree::TerminalNode* VAR_NAME(size_t i);
-    antlr4::tree::TerminalNode *COMMA();
-    antlr4::tree::TerminalNode *PARENC();
-    antlr4::tree::TerminalNode *CBRACKO();
-    antlr4::tree::TerminalNode *CBRACKC();
-    std::vector<StatementContext *> statement();
-    StatementContext* statement(size_t i);
-    std::vector<TestAssertionContext *> testAssertion();
-    TestAssertionContext* testAssertion(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  TestCaseContext* testCase();
-
-  class  TestAssertionContext : public antlr4::ParserRuleContext {
-  public:
-    TestAssertionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *TEST_ASSERT_TYPE();
-    antlr4::tree::TerminalNode *PARENO();
-    std::vector<ExpressionContext *> expression();
-    ExpressionContext* expression(size_t i);
-    antlr4::tree::TerminalNode *COMMA();
-    antlr4::tree::TerminalNode *PARENC();
-    antlr4::tree::TerminalNode *EOL();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  TestAssertionContext* testAssertion();
 
   class  StructDeclarationContext : public antlr4::ParserRuleContext {
   public:
@@ -540,24 +461,6 @@ public:
 
   ExpressionContext* expression();
   ExpressionContext* expression(int precedence);
-  class  InitializerListContext : public antlr4::ParserRuleContext {
-  public:
-    InitializerListContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *CBRACKO();
-    antlr4::tree::TerminalNode *CBRACKC();
-    std::vector<ExpressionContext *> expression();
-    ExpressionContext* expression(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> COMMA();
-    antlr4::tree::TerminalNode* COMMA(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  InitializerListContext* initializerList();
-
   class  LvalueContext : public antlr4::ParserRuleContext {
   public:
     LvalueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -623,7 +526,6 @@ public:
     antlr4::tree::TerminalNode* NUMBER(size_t i);
     std::vector<antlr4::tree::TerminalNode *> SBRACKC();
     antlr4::tree::TerminalNode* SBRACKC(size_t i);
-    antlr4::tree::TerminalNode *COLON();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -637,12 +539,6 @@ public:
     VariableContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *VAR_NAME();
-    std::vector<antlr4::tree::TerminalNode *> SBRACKO();
-    antlr4::tree::TerminalNode* SBRACKO(size_t i);
-    std::vector<ExpressionContext *> expression();
-    ExpressionContext* expression(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> SBRACKC();
-    antlr4::tree::TerminalNode* SBRACKC(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -697,6 +593,24 @@ public:
   };
 
   TypeConstructorContext* typeConstructor();
+
+  class  InitializerListContext : public antlr4::ParserRuleContext {
+  public:
+    InitializerListContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *CBRACKO();
+    antlr4::tree::TerminalNode *CBRACKC();
+    std::vector<ExpressionContext *> expression();
+    ExpressionContext* expression(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> COMMA();
+    antlr4::tree::TerminalNode* COMMA(size_t i);
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  InitializerListContext* initializerList();
 
 
   bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;

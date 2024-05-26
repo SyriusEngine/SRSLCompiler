@@ -1,22 +1,20 @@
 grammar SrslGrammar;
 WS: [ \t\r\n]+ -> skip;
+COMMENT: ('//' ~('\n'|'\r')* '\r'? '\n' |   '/*' (.)*? '*/') -> skip ;
 
 file:
-    shaderTypeSpec ( multilineComment | singlelinecomment | statement)*;
+    shaderTypeSpec (statement)*;
 
 shaderTypeSpec:
     SHADER_TYPE_LIT SHADER_TYPE EOL;
-
-multilineComment : MCOMMENT;
-singlelinecomment : COMMENT;
 
 statement:
     lvalue EOL |
     assignment EOL |
     expression EOL |
     controlFlow EOL |
-    forLoop |
-    whileLoop |
+    forStatement |
+    whileStatement |
     ifStatement |
     returnStatement EOL |
     functionDeclaration |
@@ -25,11 +23,10 @@ statement:
     samplerDeclaration EOL |
     textureDeclaration EOL |
     shaderInterface EOL |
-    constantBufferDeclaration EOL |
-    testCase;
+    constantBufferDeclaration EOL;
 
-forLoop: FOR PARENO statement expression EOL expression PARENC scope;
-whileLoop: WHILE PARENO expression PARENC scope;
+forStatement : FOR PARENO statement expression EOL expression PARENC scope;
+whileStatement: WHILE PARENO expression PARENC scope;
 ifStatement: IF PARENO expression PARENC scope optionalStatement?;
 optionalStatement: elseStatement | elseIfStatement;
 elseIfStatement: ELSE IF PARENO expression PARENC scope optionalStatement?;
@@ -38,16 +35,13 @@ elseStatement: ELSE scope;
 textureDeclaration: TEXTURE_TYPES PARENO SLOT ASSIGN NUMBER PARENC VAR_NAME;
 samplerDeclaration: SAMPLER_TYPE PARENO SLOT ASSIGN NUMBER PARENC VAR_NAME;
 constantBufferDeclaration: CONSTANT_BUFFER PARENO SLOT ASSIGN NUMBER PARENC VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
-shaderInterface: (SHADER_INPUT | SHADER_OUTPUT) VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
+shaderInterface: (SHADER_INPUT | SHADER_OUTPUT) VAR_NAME CBRACKO (newVariable COLON VAR_NAME EOL)* CBRACKC;
 
-functionDeclaration: CONST* (TYPE | VAR_NAME) VAR_NAME PARENO (newVariable (COMMA newVariable)*)? PARENC (COLON VAR_NAME)? (scope | EOL);
+functionDeclaration: CONST* (TYPE | VAR_NAME) VAR_NAME PARENO (newVariable (COMMA newVariable)*)? PARENC (scope | EOL);
 functionCall: VAR_NAME PARENO (expression (COMMA expression)*)? PARENC;
 returnStatement: RETURN expression?;
 
 scope: CBRACKO statement* CBRACKC;
-
-testCase: AT TEST PARENO VAR_NAME COMMA VAR_NAME PARENC CBRACKO (statement | testAssertion)* CBRACKC;
-testAssertion: TEST_ASSERT_TYPE PARENO expression COMMA expression PARENC EOL;
 
 structDeclaration: STRUCT VAR_NAME CBRACKO (newVariable EOL)* CBRACKC;
 
@@ -66,8 +60,6 @@ expression:
     MINUS expression |
     rvalue;
 
-initializerList: CBRACKO (expression (COMMA expression)*)? CBRACKC;
-
 
 lvalue:
     newVariable |
@@ -84,11 +76,12 @@ rvalue:
 
 memberAccess: (variable | functionCall) DOT ( variable | memberAccess);
 
-newVariable: CONST* (TYPE | VAR_NAME) VAR_NAME (SBRACKO NUMBER SBRACKC)* (COLON VAR_NAME)?;
-variable:  VAR_NAME (SBRACKO expression SBRACKC)*;
+newVariable: CONST* (TYPE | VAR_NAME) VAR_NAME (SBRACKO NUMBER SBRACKC)*;
+variable:  VAR_NAME;
 constant: NUMBER | FLOATING_POINT | BOOL;
 controlFlow: CONTROL_FLOW;
 typeConstructor: TYPE PARENO expression (COMMA expression)* PARENC;
+initializerList: CBRACKO (expression (COMMA expression)*)? CBRACKC;
 
 
 // brackets
@@ -110,8 +103,6 @@ CONTROL_FLOW: 'continue' | 'break' | 'discard';
 STRUCT: 'struct';
 SHADER_INPUT: 'Input';
 SHADER_OUTPUT: 'Output';
-TEST: 'TEST';
-TEST_ASSERT_TYPE: 'EXPECT_EQ' | 'EXPECT_NE' | 'EXPECT_LT' | 'EXPECT_GT' | 'EXPECT_LE' | 'EXPECT_GE';
 
 // types
 TYPE:
@@ -127,21 +118,14 @@ TEXTURE_TYPES:
     'Texture1D' | 'Texture2D' | 'Texture3D' | 'TextureCube'|
     'Texture1DArray' | 'Texture2DArray' | 'Texture3DArray' | 'TextureCubeArray';
 
-SAMPLER_TYPE:
-    'Sampler';
+SAMPLER_TYPE: 'Sampler';
 
-CONSTANT_BUFFER:
-    'ConstantBuffer';
+CONSTANT_BUFFER: 'ConstantBuffer';
 
-SLOT:
-    'slot';
-
-//comments
-COMMENT : '//' ~[\n]* [\n];
-MCOMMENT : '/*' (~[\n]* [\n] '*')* (~[\n]* [\n])? '*/';
+SLOT: 'slot';
 
 SHADER_TYPE_LIT: 'ShaderType = ';
-SHADER_TYPE: 'Vertex' | 'Fragment' | 'Geometry' | 'TesselationControl' | 'TesselationEvalutation';
+SHADER_TYPE: 'Vertex' | 'Fragment';
 
 EOL : ';';
 COMMA: ',';

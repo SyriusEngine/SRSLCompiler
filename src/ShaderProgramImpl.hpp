@@ -9,17 +9,13 @@ namespace Srsl{
     public:
         ShaderProgramImpl();
 
-        explicit ShaderProgramImpl(const ShaderLimits& limits);
-
         ~ShaderProgramImpl() override;
 
         void addShaderModule(std::shared_ptr<ShaderModule> shaderModule) override;
 
         void link() override;
 
-        void exportShader(ExportDesc& desc) override;
-
-        TestConfig generateTestCode(const TestDataBufferDesc& vertexShaderSSBO, const TestDataBufferDesc& fragmentShaderSSBO) override;
+        void exportShader(const ProgramExportDesc& programExportDesc) override;
 
     private:
         RCP<ShaderModuleImpl> m_VertexShader;

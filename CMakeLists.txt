@@ -13,11 +13,11 @@ set(SRSL_DEPENDENCIES_DLL
     ${CMAKE_CURRENT_BINARY_DIR}/src/antlr4/runtime/libantlr4-runtime.dll
 )
 
-add_custom_target(CopyDLL ALL
+add_custom_target(CopySRSLCompiler4DLL ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SRSL_DEPENDENCIES_DLL} ${CMAKE_CURRENT_BINARY_DIR}
     DEPENDS ${SRSL_DEPENDENCIES_DLL}
     COMMENT "Copying DLLs to build tree")
-add_dependencies(CopyDLL antlr4_shared)
+add_dependencies(CopySRSLCompiler4DLL antlr4_shared)
 
 link_directories(${CMAKE_CURRENT_BINARY_DIR}/src/antlr4/runtime/)
 
@@ -29,46 +29,10 @@ set(ANTLR4_SRC
     src/antlr4/runtime/src/SrslGrammarParser.cpp)
 
 set(AST_SRC
-    src/AbstractSyntaxTree/AbstractNode.cpp
-    src/AbstractSyntaxTree/Internal/NodeTypes.cpp
-    src/AbstractSyntaxTree/ShaderTypeNode.cpp
-    src/AbstractSyntaxTree/Nodes.cpp
-    src/AbstractSyntaxTree/VariableNode.cpp
-    src/AbstractSyntaxTree/MemberAccessNode.cpp
-    src/AbstractSyntaxTree/StructDeclarationNode.cpp
-    src/AbstractSyntaxTree/SwizzleNode.cpp
-    src/AbstractSyntaxTree/ConstantBufferNode.cpp
-    src/AbstractSyntaxTree/FLowControlNodes.cpp
-    src/AbstractSyntaxTree/InterfaceNode.cpp
-    src/AbstractSyntaxTree/TextureNode.cpp
-    src/AbstractSyntaxTree/FunctionNode.cpp
-    src/AbstractSyntaxTree/ScopeNode.cpp
-    src/AbstractSyntaxTree/ExpressionNode.cpp
-    src/AbstractSyntaxTree/ShaderStorageBufferNode.cpp
-    src/AbstractSyntaxTree/TestCaseNode.cpp
-    src/AbstractSyntaxTree/Internal/TestEvaluationNode.cpp
-    src/AbstractSyntaxTree/TestAssertionNode.cpp)
+    )
 
 set(CONVERTER_SRC
-    src/Converter/VariableTypes.cpp
-    )
 
-set(SYMBOL_TABLE_SRC
-    src/SymbolTable/Symbol.cpp
-    src/SymbolTable/SymbolTable.cpp
-    src/SymbolTable/Validator.cpp
-    )
-
-set(INTRINSICS_SRC
-    src/Intrinsics/Intrinsics.cpp
-    src/Intrinsics/FunctionIntrinsics.cpp
-    src/Intrinsics/VariableIntrinsics.cpp
-    )
-
-set(EXPORTER_SRC
-    src/Exporters/Exporter.cpp
-    src/Exporters/GlslExporter.cpp
-    src/Exporters/HlslExporter.cpp
     )
 
 set(UTILS_SRC
@@ -79,10 +43,6 @@ set(UTILS_SRC
 set(SRSL_SRC
     ${ANTLR4_SRC}
     ${AST_SRC}
-    ${CONVERTER_SRC}
-    ${SYMBOL_TABLE_SRC}
-    ${INTRINSICS_SRC}
-    ${EXPORTER_SRC}
     ${UTILS_SRC}
 
     src/SrslCompiler.cpp
@@ -95,7 +55,7 @@ set(SRSL_SRC
 
 add_library(SRSLCompiler SHARED ${SRSL_SRC})
 target_link_libraries(SRSLCompiler antlr4-runtime)
-add_dependencies(SRSLCompiler CopyDLL)
+add_dependencies(SRSLCompiler CopySRSLCompiler4DLL)
 
 ################################ Development Executable ################################
 
@@ -113,9 +73,16 @@ target_link_libraries(SRSLCompilerBenchmark -lSRSLCompiler)
 add_dependencies(SRSLCompilerBenchmark SRSLCompiler)
 
 ################################ Test Executable ################################
+include_directories(./Dependencies/gtest/include/)
+link_directories(./Dependencies/gtest/lib/)
 
-add_executable(SRSLCompilerTest TestMain.cpp)
-target_link_libraries(SRSLCompilerTest -lSRSLCompiler)
+set(SRSL_COMPILER_TEST_SRC
+    )
 
-add_dependencies(SRSLCompilerTest SRSLCompiler)
+add_executable(SyriusCoreTest ${SYRIUSCORE_SRC} ${SR_CORE_TEST_SRC} TestMain.cpp)
 
+if (MSVC)
+    target_link_libraries(SyriusCoreTest ${SYRIUS_CORE_LIBS} gtest)
+else()
+    target_link_libraries(SyriusCoreTest ${SYRIUS_CORE_LIBS} -lgtest)
+endif()

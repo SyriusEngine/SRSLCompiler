@@ -7,7 +7,7 @@ namespace Srsl{
 
     class SrslException: public std::exception{
     public:
-        explicit SrslException(const std::string& message);
+        explicit SrslException(std::string  message);
 
         ~SrslException() override;
 
@@ -17,24 +17,31 @@ namespace Srsl{
         std::string m_Message;
     };
 
+    class FileNotFoundException: public SrslException{
+    public:
+        explicit FileNotFoundException(const std::string& filePath);
+
+        ~FileNotFoundException() override;
+    };
+
     class SyntaxError: public SrslException{
     public:
-        SyntaxError(const std::string& message, uint64 lineNumber, uint64 charPosition);
+        SyntaxError(const std::string& message, u64 lineNumber, u64 charPosition);
 
         ~SyntaxError() override;
 
-        [[nodiscard]] uint64 getLineNumber() const;
+        [[nodiscard]] u64 getLineNumber() const;
 
-        [[nodiscard]] uint64 getCharPosition() const;
+        [[nodiscard]] u64 getCharPosition() const;
 
     private:
-        uint64 m_LineNumber;
-        uint64 m_CharPosition;
+        u64 m_LineNumber;
+        u64 m_CharPosition;
     };
 
     class UndefinedSymbolError: public SrslException{
     public:
-        UndefinedSymbolError(const std::string& symbolName, const std::string& tableName, uint64 lineNumber);
+        UndefinedSymbolError(const std::string& symbolName, const std::string& tableName, u64 lineNumber);
 
         ~UndefinedSymbolError() override;
 
@@ -42,17 +49,17 @@ namespace Srsl{
 
         [[nodiscard]] const std::string& getTableName() const;
 
-        [[nodiscard]] uint64 getLineNumber() const;
+        [[nodiscard]] u64 getLineNumber() const;
 
     private:
         std::string m_SymbolName;
         std::string m_TableName;
-        uint64 m_LineNumber;
+        u64 m_LineNumber;
     };
 
     class RedefinitionError: public SrslException{
     public:
-        RedefinitionError(const std::string& symbolName, const std::string& tableName, uint64 lineNumber);
+        RedefinitionError(const std::string& symbolName, const std::string& tableName, u64 lineNumber);
 
         ~RedefinitionError() override;
 
@@ -60,19 +67,19 @@ namespace Srsl{
 
         [[nodiscard]] const std::string& getTableName() const;
 
-        [[nodiscard]] uint64 getLineNumber() const;
+        [[nodiscard]] u64 getLineNumber() const;
 
     private:
         std::string m_SymbolName;
         std::string m_TableName;
-        uint64 m_LineNumber;
+        u64 m_LineNumber;
     };
 
     class ValidationError: public SrslException{
     public:
         template<typename... Args>
         explicit ValidationError(const char* message, Args... args): SrslException("") {
-            uint64_t formatSize = std::snprintf(nullptr, 0, message, args...);
+            u64 formatSize = std::snprintf(nullptr, 0, message, args...);
             std::vector<uint8_t> formatBuffer(formatSize + 1);
             std::snprintf(reinterpret_cast<char*>(formatBuffer.data()), formatSize + 1, message, args...);
             m_Message = reinterpret_cast<char*>(formatBuffer.data());

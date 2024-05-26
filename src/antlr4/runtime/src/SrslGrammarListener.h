@@ -20,20 +20,14 @@ public:
   virtual void enterShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext *ctx) = 0;
   virtual void exitShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext *ctx) = 0;
 
-  virtual void enterMultilineComment(SrslGrammarParser::MultilineCommentContext *ctx) = 0;
-  virtual void exitMultilineComment(SrslGrammarParser::MultilineCommentContext *ctx) = 0;
-
-  virtual void enterSinglelinecomment(SrslGrammarParser::SinglelinecommentContext *ctx) = 0;
-  virtual void exitSinglelinecomment(SrslGrammarParser::SinglelinecommentContext *ctx) = 0;
-
   virtual void enterStatement(SrslGrammarParser::StatementContext *ctx) = 0;
   virtual void exitStatement(SrslGrammarParser::StatementContext *ctx) = 0;
 
-  virtual void enterForLoop(SrslGrammarParser::ForLoopContext *ctx) = 0;
-  virtual void exitForLoop(SrslGrammarParser::ForLoopContext *ctx) = 0;
+  virtual void enterForStatement(SrslGrammarParser::ForStatementContext *ctx) = 0;
+  virtual void exitForStatement(SrslGrammarParser::ForStatementContext *ctx) = 0;
 
-  virtual void enterWhileLoop(SrslGrammarParser::WhileLoopContext *ctx) = 0;
-  virtual void exitWhileLoop(SrslGrammarParser::WhileLoopContext *ctx) = 0;
+  virtual void enterWhileStatement(SrslGrammarParser::WhileStatementContext *ctx) = 0;
+  virtual void exitWhileStatement(SrslGrammarParser::WhileStatementContext *ctx) = 0;
 
   virtual void enterIfStatement(SrslGrammarParser::IfStatementContext *ctx) = 0;
   virtual void exitIfStatement(SrslGrammarParser::IfStatementContext *ctx) = 0;
@@ -71,12 +65,6 @@ public:
   virtual void enterScope(SrslGrammarParser::ScopeContext *ctx) = 0;
   virtual void exitScope(SrslGrammarParser::ScopeContext *ctx) = 0;
 
-  virtual void enterTestCase(SrslGrammarParser::TestCaseContext *ctx) = 0;
-  virtual void exitTestCase(SrslGrammarParser::TestCaseContext *ctx) = 0;
-
-  virtual void enterTestAssertion(SrslGrammarParser::TestAssertionContext *ctx) = 0;
-  virtual void exitTestAssertion(SrslGrammarParser::TestAssertionContext *ctx) = 0;
-
   virtual void enterStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) = 0;
   virtual void exitStructDeclaration(SrslGrammarParser::StructDeclarationContext *ctx) = 0;
 
@@ -85,9 +73,6 @@ public:
 
   virtual void enterExpression(SrslGrammarParser::ExpressionContext *ctx) = 0;
   virtual void exitExpression(SrslGrammarParser::ExpressionContext *ctx) = 0;
-
-  virtual void enterInitializerList(SrslGrammarParser::InitializerListContext *ctx) = 0;
-  virtual void exitInitializerList(SrslGrammarParser::InitializerListContext *ctx) = 0;
 
   virtual void enterLvalue(SrslGrammarParser::LvalueContext *ctx) = 0;
   virtual void exitLvalue(SrslGrammarParser::LvalueContext *ctx) = 0;
@@ -112,6 +97,9 @@ public:
 
   virtual void enterTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) = 0;
   virtual void exitTypeConstructor(SrslGrammarParser::TypeConstructorContext *ctx) = 0;
+
+  virtual void enterInitializerList(SrslGrammarParser::InitializerListContext *ctx) = 0;
+  virtual void exitInitializerList(SrslGrammarParser::InitializerListContext *ctx) = 0;
 
 
 };
