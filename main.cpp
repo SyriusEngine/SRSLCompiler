@@ -1,12 +1,21 @@
 #include <iostream>
 #include <SrslCompiler/SrslCompiler.hpp>
+#include <chrono>
 
 int main(int argc, char** argv){
     try{
         if (argc > 2){
             using namespace Srsl;
 
+            auto start = std::chrono::high_resolution_clock::now();
             auto vs = createShaderModuleFromFile(argv[1]);
+            auto stop = std::chrono::high_resolution_clock::now();
+            std::cout << "Vertex Shader Parse: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << "ms" << std::endl;
+
+            start = std::chrono::high_resolution_clock::now();
+            auto fs = createShaderModuleFromFile(argv[2]);
+            stop = std::chrono::high_resolution_clock::now();
+            std::cout << "Fragment Shader Parse: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << "ms" << std::endl;
 
 
         }
