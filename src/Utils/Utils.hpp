@@ -3,6 +3,8 @@
 #include "Exception.hpp"
 #include "Typedefs.hpp"
 #include "Macros.hpp"
+#include "Memory.hpp"
+#include "SmartPtr.hpp"
 
 namespace Srsl{
 

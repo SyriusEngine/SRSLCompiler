@@ -28,21 +28,4 @@ namespace Srsl{
 
     typedef size_t Size;
     typedef u64 Index;
-
-    template<typename T>
-    using UP = std::unique_ptr<T>;
-
-    template<typename T>
-    using RCP = std::shared_ptr<T>;
-
-    template<typename T, typename... Args>
-    inline UP<T> createUP(Args&&... args){
-        return std::make_unique<T>(args...);
-    }
-
-    template<typename T, typename... Args>
-    inline RCP<T> createRCP(Args&&... args){
-        return std::make_shared<T>(args...);
-    }
-
 }

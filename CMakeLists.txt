@@ -4,6 +4,7 @@ project(SRSLCompiler)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_compile_definitions(SRSL_DEBUG)
 add_compile_definitions(SRSL_EXPORT_DLL)
 
 add_subdirectory(./src/antlr4/)
@@ -28,22 +29,25 @@ set(ANTLR4_SRC
     src/antlr4/runtime/src/SrslGrammarListener.cpp
     src/antlr4/runtime/src/SrslGrammarParser.cpp)
 
-set(AST_SRC
+set(SRSL_AST_SRC
     )
 
-set(CONVERTER_SRC
+set(SRSL_SYMBOL_TABLE_SRC
+    src/SymbolTable/SymbolTable.cpp
+    src/SymbolTable/SymbolType.cpp
+    src/SymbolTable/Symbol.cpp src/SymbolTable/Symbol.hpp)
 
-    )
-
-set(UTILS_SRC
+set(SRSL_UTILS_SRC
     src/Utils/Exception.cpp
     src/Utils/Utils.cpp
+    src/Utils/Memory.cpp
 )
 
 set(SRSL_SRC
     ${ANTLR4_SRC}
-    ${AST_SRC}
-    ${UTILS_SRC}
+    ${SRSL_AST_SRC}
+    ${SRSL_UTILS_SRC}
+    ${SRSL_SYMBOL_TABLE_SRC}
 
     src/SrslCompiler.cpp
     src/ShaderModuleImpl.cpp
@@ -51,7 +55,8 @@ set(SRSL_SRC
     src/ParseExceptionHandler.cpp
     src/TreeWalker.cpp
     src/ShaderModule.cpp
-    src/ShaderProgram.cpp src/ProgramInfo.cpp src/ProgramInfo.hpp src/SymbolTable.cpp src/SymbolTable.hpp)
+    src/ShaderProgram.cpp
+    src/ProgramInfo.cpp)
 
 add_library(SRSLCompiler SHARED ${SRSL_SRC})
 target_link_libraries(SRSLCompiler antlr4-runtime)

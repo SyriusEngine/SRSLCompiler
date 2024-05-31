@@ -17,4 +17,10 @@ namespace Srsl{
 
     SRSL_API std::shared_ptr<ShaderProgram> createShaderProgram();
 
+    SRSL_API uint64_t getAllocatedMemory();
+
+    SRSL_API uint64_t getFreedMemory();
+
+    SRSL_API uint64_t getMemoryUsage();
+
 }

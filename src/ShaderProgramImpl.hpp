@@ -18,8 +18,8 @@ namespace Srsl{
         void exportShader(const ProgramExportDesc& programExportDesc) override;
 
     private:
-        RCP<ShaderModuleImpl> m_VertexShader;
-        RCP<ShaderModuleImpl> m_FragmentShader;
+        SharedPtr<ShaderModuleImpl> m_VertexShader;
+        SharedPtr<ShaderModuleImpl> m_FragmentShader;
 
     };
 }

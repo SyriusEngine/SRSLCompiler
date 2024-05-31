@@ -3,10 +3,9 @@
 #include <chrono>
 
 int main(int argc, char** argv){
+    using namespace Srsl;
     try{
         if (argc > 2){
-            using namespace Srsl;
-
             auto start = std::chrono::high_resolution_clock::now();
             auto vs = createShaderModuleFromFile(argv[1]);
             auto stop = std::chrono::high_resolution_clock::now();
@@ -29,6 +28,10 @@ int main(int argc, char** argv){
         std::cerr << "Unknown exception" << std::endl;
         return -1;
     }
+    std::cout << "Total Allocated: " << getAllocatedMemory() << " bytes" << std::endl;
+    std::cout << "Total Freed    : " << getFreedMemory() << " bytes" << std::endl;
+    std::cout << "Lost Memory    : " << getMemoryUsage() << " bytes" << std::endl;
+
     return 0;
 
 }

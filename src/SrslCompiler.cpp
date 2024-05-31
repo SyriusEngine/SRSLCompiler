@@ -47,4 +47,16 @@ namespace Srsl{
     std::shared_ptr<ShaderProgram> createShaderProgram(){
         return std::make_shared<ShaderProgramImpl>();
     }
+
+    uint64_t getAllocatedMemory(){
+        return AllocationTracker::getTotalAllocated();
+    }
+
+    uint64_t getFreedMemory(){
+        return AllocationTracker::getTotalFreed();
+    }
+
+    uint64_t getMemoryUsage(){
+        return AllocationTracker::getUsage();
+    }
 }
