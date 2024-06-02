@@ -59,7 +59,9 @@ set(SRSL_SRC
     src/ProgramInfo.cpp)
 
 add_library(SRSLCompiler SHARED ${SRSL_SRC})
-target_link_libraries(SRSLCompiler antlr4-runtime)
+set(SRSLCOMPILER_LIBRARIES antlr4-runtime)
+
+target_link_libraries(SRSLCompiler ${SRSLCOMPILER_LIBRARIES})
 add_dependencies(SRSLCompiler CopySRSLCompiler4DLL)
 
 ################################ Development Executable ################################
@@ -82,12 +84,13 @@ include_directories(./Dependencies/gtest/include/)
 link_directories(./Dependencies/gtest/lib/)
 
 set(SRSL_COMPILER_TEST_SRC
-    )
+    Tests/SymbolTableTest.cpp Tests/SymbolTableTest.hpp)
 
-add_executable(SyriusCoreTest ${SYRIUSCORE_SRC} ${SR_CORE_TEST_SRC} TestMain.cpp)
+add_executable(SRSLCompilerTest ${SRSL_COMPILER_TEST_SRC} ${SRSL_SRC} TestMain.cpp)
+add_dependencies(SRSLCompilerTest CopySRSLCompiler4DLL)
 
 if (MSVC)
-    target_link_libraries(SyriusCoreTest ${SYRIUS_CORE_LIBS} gtest)
+    target_link_libraries(SRSLCompilerTest ${SRSLCOMPILER_LIBRARIES} gtest)
 else()
-    target_link_libraries(SyriusCoreTest ${SYRIUS_CORE_LIBS} -lgtest)
+    target_link_libraries(SRSLCompilerTest ${SRSLCOMPILER_LIBRARIES} -lgtest)
 endif()

@@ -16,13 +16,16 @@ namespace Srsl{
         SC_VECTOR_SWIZZLE   = 0x08,
     } SYMBOL_CLASS;
 
+    std::string symbolClassToString(SYMBOL_CLASS symbolClass);
+
+    class SymbolTable;
+
     class Symbol{
     public:
         std::string name;
         std::string semantic;
         SymbolType type;
-
+        SYMBOL_CLASS symbolClass    = SC_DEFAULT;
+        SharedPtr<SymbolTable> structTable = nullptr;
     };
-
-
 }

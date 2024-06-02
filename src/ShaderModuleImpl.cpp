@@ -4,14 +4,15 @@ namespace Srsl{
 
     ShaderModuleImpl::ShaderModuleImpl(const std::string& source, const ShaderLimits& shaderLimits):
     ShaderModule(shaderLimits){
-        Ptr<antlr4::ANTLRInputStream> input = createPtr<antlr4::ANTLRInputStream>(source);
+        // TODO: In this standard ANTLR4 setup, 16kb memory is not freed
+        auto input = createPtr<antlr4::ANTLRInputStream>(source);
         SrslGrammarLexer lexer(input.get());
         antlr4::CommonTokenStream tokens(&lexer);
         SrslGrammarParser parser(&tokens);
         parser.removeErrorListeners();
-        Ptr<SrslErrorListener> errorListener = createPtr<SrslErrorListener>();
+        auto errorListener = createPtr<SrslErrorListener>();
         parser.addErrorListener(errorListener.get());
-        antlr4::tree::ParseTree* tree = parser.file();
+        auto tree = parser.file();
 
     }
 
