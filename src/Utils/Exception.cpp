@@ -52,7 +52,7 @@ namespace Srsl{
     }
 
     RedefinitionError::RedefinitionError(const std::string &symbolName, const std::string &tableName, uint64 lineNumber):
-    SrslException("Undefined symbol: " + symbolName + " at line: " + std::to_string(lineNumber) + " in scope: " + tableName),
+    SrslException("Redefined symbol: " + symbolName + " at line: " + std::to_string(lineNumber) + " in scope: " + tableName),
     m_SymbolName(symbolName),
     m_TableName(tableName),
     m_LineNumber(lineNumber){
