@@ -10,4 +10,6 @@ namespace Srsl{
 
     std::string shaderTypeToString(SRSL_SHADER_TYPE type);
 
+    u64 generateID();
+
 }
