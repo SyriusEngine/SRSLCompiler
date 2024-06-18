@@ -39,42 +39,6 @@ namespace Srsl{
         u64 m_CharPosition;
     };
 
-    class UndefinedSymbolError: public SrslException{
-    public:
-        UndefinedSymbolError(const std::string& symbolName, const std::string& tableName, u64 lineNumber);
-
-        ~UndefinedSymbolError() override;
-
-        [[nodiscard]] const std::string& getSymbolName() const;
-
-        [[nodiscard]] const std::string& getTableName() const;
-
-        [[nodiscard]] u64 getLineNumber() const;
-
-    private:
-        std::string m_SymbolName;
-        std::string m_TableName;
-        u64 m_LineNumber;
-    };
-
-    class RedefinitionError: public SrslException{
-    public:
-        RedefinitionError(const std::string& symbolName, const std::string& tableName, u64 lineNumber);
-
-        ~RedefinitionError() override;
-
-        [[nodiscard]] const std::string& getSymbolName() const;
-
-        [[nodiscard]] const std::string& getTableName() const;
-
-        [[nodiscard]] u64 getLineNumber() const;
-
-    private:
-        std::string m_SymbolName;
-        std::string m_TableName;
-        u64 m_LineNumber;
-    };
-
     class ValidationError: public SrslException{
     public:
         template<typename... Args>

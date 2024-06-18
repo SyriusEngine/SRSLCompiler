@@ -16,4 +16,11 @@ namespace Srsl{
             default:                    return "unknown";
         }
     }
+
+    Symbol createSymbolDefault(const std::string& name, const SymbolType& type){
+        Symbol symbol;
+        symbol.name = name;
+        symbol.type = type;
+        return symbol;
+    }
 }

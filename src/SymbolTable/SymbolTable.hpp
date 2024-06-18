@@ -15,14 +15,16 @@ namespace Srsl{
 
         bool hasSymbol(const std::string& name);
 
-        const Symbol& operator[](const std::string& name) const;
+        View<SymbolTable> addChild(const std::string& name);
+
+        const Symbol& getSymbol(const std::string& name);
 
     private:
         const std::string m_Name;
         std::unordered_map<std::string, Symbol> m_Symbols;
 
-        View<SymbolTable> m_Parent;
-        std::unordered_map<std::string, SharedPtr<SymbolTable>> m_Children;
+        SymbolTable* m_Parent;
+        std::unordered_map<std::string, Ptr<SymbolTable>> m_Children;
     };
 
 

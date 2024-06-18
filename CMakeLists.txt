@@ -17,7 +17,7 @@ set(SRSL_DEPENDENCIES_DLL
 add_custom_target(CopySRSLCompiler4DLL ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SRSL_DEPENDENCIES_DLL} ${CMAKE_CURRENT_BINARY_DIR}
     DEPENDS ${SRSL_DEPENDENCIES_DLL}
-    COMMENT "Copying DLLs to build tree")
+    COMMENT "Copying ANTLR4 DLLs to build tree")
 add_dependencies(CopySRSLCompiler4DLL antlr4_shared)
 
 link_directories(${CMAKE_CURRENT_BINARY_DIR}/src/antlr4/runtime/)
@@ -35,7 +35,8 @@ set(SRSL_AST_SRC
 set(SRSL_SYMBOL_TABLE_SRC
     src/SymbolTable/SymbolTable.cpp
     src/SymbolTable/SymbolType.cpp
-    src/SymbolTable/Symbol.cpp src/SymbolTable/Symbol.hpp)
+    src/SymbolTable/Symbol.cpp
+    src/SymbolTable/SymbolException.cpp )
 
 set(SRSL_UTILS_SRC
     src/Utils/Exception.cpp
@@ -84,7 +85,7 @@ include_directories(./Dependencies/gtest/include/)
 link_directories(./Dependencies/gtest/lib/)
 
 set(SRSL_COMPILER_TEST_SRC
-    Tests/SymbolTableTest.cpp Tests/SymbolTableTest.hpp)
+    Tests/SymbolTable/SymbolTableTest.cpp )
 
 add_executable(SRSLCompilerTest ${SRSL_COMPILER_TEST_SRC} ${SRSL_SRC} TestMain.cpp)
 add_dependencies(SRSLCompilerTest CopySRSLCompiler4DLL)

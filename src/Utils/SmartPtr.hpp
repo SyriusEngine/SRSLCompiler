@@ -10,16 +10,6 @@ namespace Srsl{
     template<typename T>
     using SharedPtr = std::shared_ptr<T>;
 
-    template<typename T, typename... Args>
-    inline Ptr<T> createPtr(Args&&... args){
-        return std::make_unique<T>(args...);
-    }
-
-    template<typename T, typename... Args>
-    inline SharedPtr<T> createSharedPtr(Args&&... args){
-        return std::make_shared<T>(args...);
-    }
-
     template<typename T>
     class View{
     public:
@@ -66,7 +56,7 @@ namespace Srsl{
 
         ~View(){
             /*
-             * We do not want to delete the resource here because it is managed by the Resource class
+             * We do not want to delete the resource here because it is managed by the Ptr class
              */
             m_ResourcePtr = nullptr;
         }
@@ -187,5 +177,34 @@ namespace Srsl{
         T* m_ResourcePtr;
 
     };
+
+    template<typename T, typename... Args>
+    inline Ptr<T> createPtr(Args&&... args){
+        return std::make_unique<T>(args...);
+    }
+
+    template<typename T, typename... Args>
+    inline SharedPtr<T> createSharedPtr(Args&&... args){
+        return std::make_shared<T>(args...);
+    }
+
+    template<typename T>
+    inline View<T> createView(const Ptr<T>& ptr){
+        return View<T>(ptr);
+    }
+
+    template<typename T>
+    inline View<T> createView(const SharedPtr<T>& ptr){
+        return View<T>(ptr);
+    }
+
+    /*
+     * TODO: This function is only used to fix creating view of the this pointer, but this requires some std
+     * magic to make it work properly
+     */
+    template<typename T>
+    inline View<T> createView(T* ptr){
+        return View<T>(ptr);
+    }
 
 }

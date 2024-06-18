@@ -1,4 +1,5 @@
 #include "SymbolTable.hpp"
+#include "SymbolException.hpp"
 
 namespace Srsl{
 
@@ -17,9 +18,9 @@ namespace Srsl{
             m_Symbols[symbol.name] = symbol;
         }
         else{
-            throw RedefinitionError(symbol.name, m_Name, 0);
+            auto existingSymbol = getSymbol(symbol.name);
+            throw SymbolRedefinitionException(existingSymbol, symbol);
         }
-
     }
 
     bool SymbolTable::hasSymbol(const std::string &name) {
@@ -34,15 +35,23 @@ namespace Srsl{
         }
     }
 
-    const Symbol &SymbolTable::operator[](const std::string &name) const {
+    View<SymbolTable> SymbolTable::addChild(const std::string &name) {
+        auto child = createPtr<SymbolTable>(name);
+        child->m_Parent = this;
+        auto view = createView<SymbolTable>(child);
+        m_Children[name] = std::move(child);
+        return view;
+    }
+
+    const Symbol& SymbolTable::getSymbol(const std::string &name) {
         if (m_Symbols.find(name) != m_Symbols.end()){
-            return m_Symbols.at(name);
+            return m_Symbols[name];
         }
-        else if (m_Parent != nullptr){
-            return m_Parent->operator[](name);
+        else if (m_Parent != nullptr) {
+            return m_Parent->getSymbol(name);
         }
-        else {
-            throw UndefinedSymbolError(name, m_Name, 0);
+        else{
+            throw SymbolUndefinedException(name, 0, 0);
         }
     }
 }
