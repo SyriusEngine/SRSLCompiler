@@ -15,7 +15,7 @@ namespace Srsl{
 
         bool hasSymbol(const std::string& name);
 
-        View<SymbolTable> addChild(const std::string& name);
+        Ptr<SymbolTable>& addChild(const std::string& name);
 
         const Symbol& getSymbol(const std::string& name);
 

@@ -30,21 +30,21 @@ namespace Srsl{
         void toDot(std::ofstream& stream) const;
 
         template<typename T, typename... Args>
-        View<T> addChild(Args&&... args){
+        Ptr<T> addChild(Args&&... args){
             auto& retVal = m_Children.emplace_back(createPtr<T>(std::forward<Args>(args)...));
             retVal->m_Parent = this;
-            return createView<T>(retVal);
+            return retVal;
         }
 
         virtual void construct() = 0;
 
     protected:
-        BaseNode(const std::string& value, View<SymbolTable> symbolTable, SymbolType type, NodeType nodeType, AST_NODE_CLASS nodeClass, u64 lineNr, u64 charPos);
+        BaseNode(const std::string& value, SharedPtr<SymbolTable> symbolTable, SymbolType type, NodeType nodeType, AST_NODE_CLASS nodeClass, u64 lineNr, u64 charPos);
 
     protected:
         std::vector<Ptr<BaseNode>> m_Children;
         BaseNode* m_Parent;
-        View<SymbolTable> m_SymbolTable;
+        SharedPtr<SymbolTable> m_SymbolTable;
         SymbolType m_Type;
         std::string m_Value;
 

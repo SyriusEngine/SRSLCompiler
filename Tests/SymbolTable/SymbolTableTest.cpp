@@ -26,7 +26,7 @@ TEST_F(SymbolTableTest, AddSymbol){
     auto table = createPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
-    auto symbol1 = createSymbolDefault("symbol1", type1);
+    Symbol symbol1("symbol1", type1);
 
     table->addSymbol(symbol1);
 
@@ -43,7 +43,7 @@ TEST_F(SymbolTableTest, AddExistingSymbol){
     auto table = createPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
-    auto symbol1 = createSymbolDefault("symbol1", type1);
+    Symbol symbol1("symbol1", type1);
 
     table->addSymbol(symbol1);
 
@@ -59,10 +59,10 @@ TEST_F(SymbolTableTest, AddExistingSymbol){
 
 TEST_F(SymbolTableTest, CheckSymbolInParent){
     auto table1 = createPtr<SymbolTable>("table1");
-    auto table2 = table1->addChild("table2");
+    auto& table2 = table1->addChild("table2");
 
     SymbolType type1("float4");
-    auto symbol1 = createSymbolDefault("symbol1", type1);
+    Symbol symbol1("symbol1", type1);
 
     table1->addSymbol(symbol1);
 
@@ -73,7 +73,7 @@ TEST_F(SymbolTableTest, GetSymbol){
     auto table = createPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
-    auto symbol1 = createSymbolDefault("symbol1", type1);
+    Symbol symbol1("symbol1", type1);
 
     table->addSymbol(symbol1);
 
@@ -84,10 +84,10 @@ TEST_F(SymbolTableTest, GetSymbol){
 
 TEST_F(SymbolTableTest, GetSymbolFromParent){
     auto table1 = createPtr<SymbolTable>("table1");
-    auto table2 = table1->addChild("table2");
+    auto& table2 = table1->addChild("table2");
 
     SymbolType type1("float4");
-    auto symbol1 = createSymbolDefault("symbol1", type1);
+    Symbol symbol1("symbol1", type1);
 
     table1->addSymbol(symbol1);
 

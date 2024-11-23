@@ -50,7 +50,7 @@ namespace Srsl{
         }
     }
 
-    BaseNode::BaseNode(const std::string &value, View<SymbolTable> symbolTable, SymbolType type, NodeType nodeType, AST_NODE_CLASS nodeClass, u64 lineNr, u64 charPos):
+    BaseNode::BaseNode(const std::string &value, SharedPtr<SymbolTable> symbolTable, SymbolType type, NodeType nodeType, AST_NODE_CLASS nodeClass, u64 lineNr, u64 charPos):
     m_Value(value),
     m_SymbolTable(symbolTable),
     m_Type(std::move(type)),

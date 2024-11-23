@@ -3,7 +3,8 @@
 namespace Srsl{
 
     ShaderModuleImpl::ShaderModuleImpl(const std::string& source, const ShaderLimits& shaderLimits):
-    ShaderModule(shaderLimits){
+    ShaderModule(shaderLimits),
+    m_SymbolTable(createSharedPtr<SymbolTable>("Global")){
         // TODO: In this standard ANTLR4 setup, 16kb memory is not freed
         auto input = createPtr<antlr4::ANTLRInputStream>(source);
         SrslGrammarLexer lexer(input.get());

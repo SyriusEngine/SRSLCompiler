@@ -26,10 +26,12 @@ namespace Srsl{
         std::string semantic;
         SymbolType type;
         SYMBOL_CLASS symbolClass    = SC_DEFAULT;
-        View<SymbolTable> structTable;
+        SharedPtr<SymbolTable> structTable = nullptr;
         u64 lineNr = 0;
         u64 charPos = 0;
-    };
 
-    Symbol createSymbolDefault(const std::string& name, const SymbolType& type);
+        Symbol() = default;
+
+        Symbol(const std::string& name, const SymbolType& type);
+    };
 }

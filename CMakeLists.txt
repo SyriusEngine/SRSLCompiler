@@ -31,13 +31,16 @@ set(ANTLR4_SRC
 
 set(SRSL_AST_SRC
     src/AbstractSyntaxTree/Internal/NodeTypeGenerator.cpp
+
     src/AbstractSyntaxTree/BaseNode.cpp)
 
 set(SRSL_SYMBOL_TABLE_SRC
     src/SymbolTable/SymbolTable.cpp
     src/SymbolTable/SymbolType.cpp
     src/SymbolTable/Symbol.cpp
-    src/SymbolTable/SymbolException.cpp )
+    src/SymbolTable/SymbolException.cpp
+    src/SymbolTable/IntrinsicFunctions.cpp
+    )
 
 set(SRSL_UTILS_SRC
     src/Utils/Exception.cpp
@@ -86,7 +89,7 @@ include_directories(./Dependencies/gtest/include/)
 link_directories(./Dependencies/gtest/lib/)
 
 set(SRSL_COMPILER_TEST_SRC
-    Tests/SymbolTable/SymbolTableTest.cpp src/AbstractSyntaxTree/Internal/NodeTypeGenerator.cpp src/AbstractSyntaxTree/Internal/NodeTypeGenerator.hpp)
+    Tests/SymbolTable/SymbolTableTest.cpp )
 
 add_executable(SRSLCompilerTest ${SRSL_COMPILER_TEST_SRC} ${SRSL_SRC} TestMain.cpp)
 add_dependencies(SRSLCompilerTest CopySRSLCompiler4DLL)

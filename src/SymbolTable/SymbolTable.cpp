@@ -35,12 +35,11 @@ namespace Srsl{
         }
     }
 
-    View<SymbolTable> SymbolTable::addChild(const std::string &name) {
+    Ptr<SymbolTable>& SymbolTable::addChild(const std::string &name) {
         auto child = createPtr<SymbolTable>(name);
         child->m_Parent = this;
-        auto view = createView<SymbolTable>(child);
         m_Children[name] = std::move(child);
-        return view;
+        return m_Children[name];
     }
 
     const Symbol& SymbolTable::getSymbol(const std::string &name) {

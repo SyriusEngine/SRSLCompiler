@@ -1,8 +1,10 @@
 #pragma once
 
+#include "SymbolTable/SymbolTable.hpp"
 #include "Utils/Utils.hpp"
 #include "TreeWalker.hpp"
 #include "ParseExceptionHandler.hpp"
+#include "ProgramInfo.hpp"
 
 namespace Srsl{
 
@@ -19,5 +21,7 @@ namespace Srsl{
         void exportShader(const ExportDesc& exportDesc) override;
 
     private:
+        SharedPtr<SymbolTable> m_SymbolTable;
+        ProgramInfo m_ProgramInfo;
     };
 }

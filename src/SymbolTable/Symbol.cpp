@@ -17,10 +17,9 @@ namespace Srsl{
         }
     }
 
-    Symbol createSymbolDefault(const std::string& name, const SymbolType& type){
-        Symbol symbol;
-        symbol.name = name;
-        symbol.type = type;
-        return symbol;
+    Symbol::Symbol(const std::string &name, const SymbolType &type):
+    name(name),
+    type(type){
+
     }
 }
