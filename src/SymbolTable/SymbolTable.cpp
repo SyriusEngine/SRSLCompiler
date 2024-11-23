@@ -53,4 +53,36 @@ namespace Srsl{
             throw SymbolUndefinedException(name, 0, 0);
         }
     }
+
+    void SymbolTable::toHtml(std::ofstream &file) {
+        file << "<h2>" << m_Name;
+        if (m_Parent != nullptr){
+            file << " (Parent: " << m_Parent->m_Name << ")";
+        }
+        file << "</h2>\n";
+
+        file << "<table border=\"1\">" << std::endl;
+        file << "<tr>" << std::endl;
+        file << "<th>Name</th>" << std::endl;
+        file << "<th>Type</th>" << std::endl;
+        file << "<th>Class</th>" << std::endl;
+        file << "<th>IsConst</th>" << std::endl;
+        file << "<th>Struct</th>" << std::endl;
+        file << "</tr>" << std::endl;
+        for (const auto& [name, symbol]: m_Symbols){
+            file << "<tr>" << std::endl;
+            file << "<td>" << symbol.name << "</td>" << std::endl;
+            file << "<td>" << symbol.type.getVariableType() << "</td>" << std::endl;
+            file << "<td>" << symbolClassToString(symbol.symbolClass) << "</td>" << std::endl;
+            file << "<td>" << (symbol.type.isConst() ? "true" : "false") << "</td>" << std::endl;
+            file << "<td>" << (symbol.structTable ? "true" : "false") << "</td>" << std::endl;
+            file << "</tr>" << std::endl;
+        }
+        file << "</table>" << std::endl;
+
+
+        for (const auto& [name, child]: m_Children){
+            child->toHtml(file);
+        }
+    }
 }

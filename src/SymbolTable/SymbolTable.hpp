@@ -19,6 +19,8 @@ namespace Srsl{
 
         const Symbol& getSymbol(const std::string& name);
 
+        void toHtml(std::ofstream& file);
+
     private:
         const std::string m_Name;
         std::unordered_map<std::string, Symbol> m_Symbols;

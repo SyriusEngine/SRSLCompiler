@@ -8,5 +8,4 @@ void main(){
 
     int2x3 var5 = int2x3(0, 0, 0, 0, 0, 0);
     const float4x4 var6[2];
-
 }

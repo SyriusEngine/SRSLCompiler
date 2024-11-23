@@ -44,7 +44,7 @@ namespace Srsl{
         file << "</head>" << std::endl;
         file << "<body>" << std::endl;
         file << "<h1>Symbol Tables</h1>" << std::endl;
-//        m_SymbolTable->toHtml(file);
+        m_SymbolTable->toHtml(file);
         file << "</body>" << std::endl;
         file << "</html>" << std::endl;
     }

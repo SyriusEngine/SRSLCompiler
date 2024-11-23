@@ -9,12 +9,14 @@ int main(int argc, char** argv){
             auto start = std::chrono::high_resolution_clock::now();
             auto vs = createShaderModuleFromFile(argv[1]);
             vs->exportAstDot("vs.dot");
+            vs->exportSymbolTableHtml("vs.html");
             auto stop = std::chrono::high_resolution_clock::now();
             std::cout << "Vertex Shader Parse: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << "ms" << std::endl;
 
             start = std::chrono::high_resolution_clock::now();
             auto fs = createShaderModuleFromFile(argv[2]);
             fs->exportAstDot("fs.dot");
+            fs->exportSymbolTableHtml("fs.html");
             stop = std::chrono::high_resolution_clock::now();
             std::cout << "Fragment Shader Parse: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << "ms" << std::endl;
         }

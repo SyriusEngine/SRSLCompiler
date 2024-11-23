@@ -47,6 +47,14 @@ namespace Srsl{
 
         explicit SymbolType(const std::string& srslStr, bool isConst = false, const std::vector<u32>& arraySizes = {});
 
+        [[nodiscard]] VARIABLE_TYPE getVariableType() const;
+
+        [[nodiscard]] DIMENSION_TYPE getDimensionType() const;
+
+        [[nodiscard]] bool isConst() const;
+
+        [[nodiscard]] const std::vector<u32>& getArraySizes() const;
+
     private:
         std::string m_Original;
         VARIABLE_TYPE m_VariableType = VT_TYPE_NONE;
@@ -55,6 +63,5 @@ namespace Srsl{
         std::vector<u32> m_ArraySizes;
 
     };
-
 
 }
