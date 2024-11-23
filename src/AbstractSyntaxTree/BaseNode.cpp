@@ -37,16 +37,10 @@ namespace Srsl{
     }
 
     void BaseNode::toDot(std::ofstream &stream) const {
-        if (m_Parent == nullptr){
-            stream << "digraph AST {" << std::endl;
-        }
         stream << "\tnode" << m_ID << " [label=\"" << m_Value << "\"];" << std::endl;
         for (const auto& child : m_Children){
             child->toDot(stream);
             stream << "\tnode" << m_ID << " -> node" << child->getID() << ";" << std::endl;
-        }
-        if (m_Parent == nullptr){
-            stream << "}" << std::endl;
         }
     }
 

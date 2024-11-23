@@ -32,7 +32,7 @@ set(ANTLR4_SRC
 set(SRSL_AST_SRC
     src/AbstractSyntaxTree/Internal/NodeTypeGenerator.cpp
 
-    src/AbstractSyntaxTree/BaseNode.cpp)
+    src/AbstractSyntaxTree/BaseNode.cpp src/AbstractSyntaxTree/ShaderTypeNode.cpp src/AbstractSyntaxTree/ShaderTypeNode.hpp)
 
 set(SRSL_SYMBOL_TABLE_SRC
     src/SymbolTable/SymbolTable.cpp

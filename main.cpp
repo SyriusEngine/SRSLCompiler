@@ -8,15 +8,15 @@ int main(int argc, char** argv){
         if (argc > 2){
             auto start = std::chrono::high_resolution_clock::now();
             auto vs = createShaderModuleFromFile(argv[1]);
+            vs->exportAstDot("vs.dot");
             auto stop = std::chrono::high_resolution_clock::now();
             std::cout << "Vertex Shader Parse: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << "ms" << std::endl;
 
             start = std::chrono::high_resolution_clock::now();
             auto fs = createShaderModuleFromFile(argv[2]);
+            fs->exportAstDot("fs.dot");
             stop = std::chrono::high_resolution_clock::now();
             std::cout << "Fragment Shader Parse: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << "ms" << std::endl;
-
-
         }
         else{
             std::cerr << "Usage: " << argv[0] << " <vertex shader> <fragment shader>" << std::endl;

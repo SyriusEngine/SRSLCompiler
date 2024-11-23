@@ -1,4 +1,5 @@
 #include "ShaderModuleImpl.hpp"
+#include "SymbolTable/IntrinsicFunctions.hpp"
 
 namespace Srsl{
 
@@ -15,11 +16,22 @@ namespace Srsl{
         parser.addErrorListener(errorListener.get());
         auto tree = parser.file();
 
+        IntrinsicFunctions::loadIntrinsicFunctions(m_SymbolTable);
+
+        TreeWalker treeWalker(m_AST, m_SymbolTable, m_ProgramInfo);
+        antlr4::tree::ParseTreeWalker::DEFAULT.walk(&treeWalker, tree);
     }
 
     ShaderModuleImpl::~ShaderModuleImpl() = default;
 
     void ShaderModuleImpl::exportAstDot(const std::string &outputFile) {
+        if (m_AST == nullptr) {
+            return;
+        }
+        std::ofstream file(outputFile);
+        file << "digraph G {" << std::endl;
+        m_AST->toDot(file);
+        file << "}" << std::endl;
     }
 
     void ShaderModuleImpl::exportSymbolTableHtml(const std::string &outputFile) {

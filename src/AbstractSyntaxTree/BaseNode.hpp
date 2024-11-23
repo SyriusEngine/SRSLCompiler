@@ -36,8 +36,6 @@ namespace Srsl{
             return retVal;
         }
 
-        virtual void construct() = 0;
-
     protected:
         BaseNode(const std::string& value, SharedPtr<SymbolTable> symbolTable, SymbolType type, NodeType nodeType, AST_NODE_CLASS nodeClass, u64 lineNr, u64 charPos);
 

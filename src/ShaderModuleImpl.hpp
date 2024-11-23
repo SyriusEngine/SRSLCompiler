@@ -21,7 +21,8 @@ namespace Srsl{
         void exportShader(const ExportDesc& exportDesc) override;
 
     private:
-        SharedPtr<SymbolTable> m_SymbolTable;
+        SharedPtr<SymbolTable> m_SymbolTable = nullptr;
+        SharedPtr<BaseNode> m_AST = nullptr;
         ProgramInfo m_ProgramInfo;
     };
 }
