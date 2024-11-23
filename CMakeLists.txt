@@ -32,7 +32,9 @@ set(ANTLR4_SRC
 set(SRSL_AST_SRC
     src/AbstractSyntaxTree/Internal/NodeTypeGenerator.cpp
 
-    src/AbstractSyntaxTree/BaseNode.cpp src/AbstractSyntaxTree/ShaderTypeNode.cpp src/AbstractSyntaxTree/ShaderTypeNode.hpp)
+    src/AbstractSyntaxTree/BaseNode.cpp
+    src/AbstractSyntaxTree/ShaderTypeNode.cpp
+    src/AbstractSyntaxTree/VariableNode.cpp)
 
 set(SRSL_SYMBOL_TABLE_SRC
     src/SymbolTable/SymbolTable.cpp
@@ -78,18 +80,14 @@ add_executable(SRSLCompilerDev main.cpp)
 target_link_libraries(SRSLCompilerDev -lSRSLCompiler)
 add_dependencies(SRSLCompilerDev SRSLCompiler)
 
-################################ benchmark Executable ################################
-
-add_executable(SRSLCompilerBenchmark Benchmark.cpp)
-target_link_libraries(SRSLCompilerBenchmark -lSRSLCompiler)
-add_dependencies(SRSLCompilerBenchmark SRSLCompiler)
-
 ################################ Test Executable ################################
 include_directories(./Dependencies/gtest/include/)
 link_directories(./Dependencies/gtest/lib/)
 
 set(SRSL_COMPILER_TEST_SRC
-    Tests/SymbolTable/SymbolTableTest.cpp )
+    Tests/SymbolTable/SymbolTableTest.cpp
+
+    Tests/TestBenchmark.cpp)
 
 add_executable(SRSLCompilerTest ${SRSL_COMPILER_TEST_SRC} ${SRSL_SRC} TestMain.cpp)
 add_dependencies(SRSLCompilerTest CopySRSLCompiler4DLL)

@@ -32,7 +32,7 @@ namespace Srsl{
         return m_Type;
     }
 
-    const BaseNode *BaseNode::getParent() const {
+    BaseNode *BaseNode::getParent() const {
         return m_Parent;
     }
 

@@ -10,7 +10,9 @@ namespace Srsl {
 
         ~ShaderTypeNode() override = default;
 
+        void evaluate() override;
+
     private:
-        const SRSL_SHADER_TYPE m_ShaderType;
+        SRSL_SHADER_TYPE m_ShaderType;
     };
 }

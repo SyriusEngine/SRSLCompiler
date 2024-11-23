@@ -25,16 +25,18 @@ namespace Srsl{
 
         [[nodiscard]] const SymbolType& getType() const;
 
-        [[nodiscard]] const BaseNode* getParent() const;
+        [[nodiscard]] BaseNode* getParent() const;
 
         void toDot(std::ofstream& stream) const;
 
         template<typename T, typename... Args>
-        Ptr<T> addChild(Args&&... args){
-            auto& retVal = m_Children.emplace_back(createPtr<T>(std::forward<Args>(args)...));
-            retVal->m_Parent = this;
-            return retVal;
+        T* addChild(Args&&... args){
+            m_Children.emplace_back(createPtr<T>(std::forward<Args>(args)...));
+            m_Children.back()->m_Parent = this;
+            return static_cast<T*>(m_Children.back().get());
         }
+
+        virtual void evaluate() = 0;
 
     protected:
         BaseNode(const std::string& value, SharedPtr<SymbolTable> symbolTable, SymbolType type, NodeType nodeType, AST_NODE_CLASS nodeClass, u64 lineNr, u64 charPos);

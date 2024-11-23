@@ -10,6 +10,7 @@
 
 #include "AbstractSyntaxTree/BaseNode.hpp"
 #include "AbstractSyntaxTree/ShaderTypeNode.hpp"
+#include "AbstractSyntaxTree/VariableNode.hpp"
 
 #include "ProgramInfo.hpp"
 
@@ -17,13 +18,20 @@ namespace Srsl{
 
     class TreeWalker: public SrslGrammarBaseListener{
     public:
-        TreeWalker(SharedPtr<BaseNode>& root, SharedPtr<SymbolTable> symbolTable, ProgramInfo& programInfo);
+        TreeWalker(Ptr<BaseNode>& root, SharedPtr<SymbolTable> symbolTable, ProgramInfo& programInfo);
 
         void enterShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext* ctx) override;
 
+        void exitShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext* ctx) override;
+
+        void enterNewVariable(SrslGrammarParser::NewVariableContext* ctx) override;
+
+        void exitNewVariable(SrslGrammarParser::NewVariableContext* ctx) override;
+
 
     private:
-        SharedPtr<BaseNode>& m_Root;
+        Ptr<BaseNode>& m_Root;
+        BaseNode* m_CurrentNode = nullptr;
         SharedPtr<SymbolTable> m_SymbolTable;
         ProgramInfo& m_ProgramInfo;
 

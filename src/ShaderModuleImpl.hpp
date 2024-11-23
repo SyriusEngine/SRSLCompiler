@@ -22,7 +22,7 @@ namespace Srsl{
 
     private:
         SharedPtr<SymbolTable> m_SymbolTable = nullptr;
-        SharedPtr<BaseNode> m_AST = nullptr;
+        Ptr<BaseNode> m_AST = nullptr;
         ProgramInfo m_ProgramInfo;
     };
 }

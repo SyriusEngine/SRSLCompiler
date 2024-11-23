@@ -3,7 +3,7 @@
 
 namespace Srsl{
 
-    TreeWalker::TreeWalker(SharedPtr<BaseNode>& root, SharedPtr<SymbolTable> symbolTable, ProgramInfo& programInfo):
+    TreeWalker::TreeWalker(Ptr<BaseNode>& root, SharedPtr<SymbolTable> symbolTable, ProgramInfo& programInfo):
     m_Root(root), m_SymbolTable(symbolTable), m_ProgramInfo(programInfo){}
 
     void TreeWalker::enterShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext *ctx) {
@@ -19,6 +19,38 @@ namespace Srsl{
             throw SrslException("Unknown shader type: " + shaderType);
         }
         m_ProgramInfo.shaderType = type;
-        m_Root = createSharedPtr<ShaderTypeNode>(type, m_SymbolTable, ctx->start->getLine(), ctx->start->getCharPositionInLine());
+        m_Root = createPtr<ShaderTypeNode>(type, m_SymbolTable, ctx->start->getLine(), ctx->start->getCharPositionInLine());
+        m_CurrentNode = m_Root.get();
+    }
+
+    void TreeWalker::exitShaderTypeSpec(SrslGrammarParser::ShaderTypeSpecContext *ctx) {
+        // DO NOTHING
+    }
+
+    void TreeWalker::enterNewVariable(SrslGrammarParser::NewVariableContext *ctx) {
+        const bool isConst = !ctx->CONST().empty();
+        std::vector<u32> arraySizes;
+        for (auto& size : ctx->NUMBER()){
+            arraySizes.push_back(std::stoi(size->getText()));
+        }
+        std::string name;
+        std::string type;
+        // if the TYPE() is null, then the type is a user defined type which is the first VAR_NAME
+        if (ctx->TYPE()){
+            type = ctx->TYPE()->getText();
+            name = ctx->VAR_NAME(0)->getText();
+        }
+        else{
+            type = ctx->VAR_NAME(0)->getText();
+            name = ctx->VAR_NAME(1)->getText();
+        }
+        SymbolType symbolType(type, isConst, arraySizes);
+        m_CurrentNode = m_CurrentNode->addChild<NewVariableNode>(name, symbolType,
+                                                                   m_SymbolTable, ctx->start->getLine(),
+                                                                   ctx->start->getCharPositionInLine());
+    }
+
+    void TreeWalker::exitNewVariable(SrslGrammarParser::NewVariableContext *ctx) {
+        m_CurrentNode = m_CurrentNode->getParent();
     }
 }

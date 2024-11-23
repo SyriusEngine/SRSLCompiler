@@ -9,4 +9,8 @@ namespace Srsl{
 
     }
 
+    void ShaderTypeNode::evaluate() {
+        // Nothing to evaluate
+    }
+
 }
