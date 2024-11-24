@@ -5,7 +5,6 @@ namespace Srsl{
 
     SymbolTable::SymbolTable(const std::string &name):
     m_Name(name),
-    m_Parent(nullptr),
     m_Symbols(),
     m_Children(){
 
@@ -27,27 +26,33 @@ namespace Srsl{
         if (m_Symbols.find(name) != m_Symbols.end()){
             return true;
         }
-        else if (m_Parent != nullptr){
-            return m_Parent->hasSymbol(name);
+        SharedPtr<SymbolTable> parent = m_Parent.lock();
+        if (parent != nullptr){
+            return parent->hasSymbol(name);
         }
         else {
             return false;
         }
     }
 
-    Ptr<SymbolTable>& SymbolTable::addChild(const std::string &name) {
+    SharedPtr<SymbolTable> SymbolTable::addChild(const std::string &name) {
         auto child = createPtr<SymbolTable>(name);
-        child->m_Parent = this;
+        child->m_Parent = shared_from_this();
         m_Children[name] = std::move(child);
         return m_Children[name];
+    }
+
+    SharedPtr<SymbolTable> SymbolTable::getParent() const {
+        return m_Parent.lock();
     }
 
     const Symbol& SymbolTable::getSymbol(const std::string &name) {
         if (m_Symbols.find(name) != m_Symbols.end()){
             return m_Symbols[name];
         }
-        else if (m_Parent != nullptr) {
-            return m_Parent->getSymbol(name);
+        SharedPtr<SymbolTable> parent = m_Parent.lock();
+        if (parent != nullptr) {
+            return parent->getSymbol(name);
         }
         else{
             throw SymbolUndefinedException(name, 0, 0);
@@ -56,8 +61,9 @@ namespace Srsl{
 
     void SymbolTable::toHtml(std::ofstream &file) {
         file << "<h2>" << m_Name;
-        if (m_Parent != nullptr){
-            file << " (Parent: " << m_Parent->m_Name << ")";
+        SharedPtr<SymbolTable> parent = m_Parent.lock();
+        if (parent != nullptr){
+            file << " (Parent: " << parent->m_Name << ")";
         }
         file << "</h2>\n";
 

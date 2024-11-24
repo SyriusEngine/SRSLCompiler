@@ -11,6 +11,7 @@
 #include "AbstractSyntaxTree/BaseNode.hpp"
 #include "AbstractSyntaxTree/ShaderTypeNode.hpp"
 #include "AbstractSyntaxTree/VariableNode.hpp"
+#include "AbstractSyntaxTree/ScopeNode.hpp"
 
 #include "ProgramInfo.hpp"
 
@@ -28,16 +29,16 @@ namespace Srsl{
 
         void exitNewVariable(SrslGrammarParser::NewVariableContext* ctx) override;
 
+        void enterScope(SrslGrammarParser::ScopeContext* ctx) override;
+
+        void exitScope(SrslGrammarParser::ScopeContext* ctx) override;
+
 
     private:
         Ptr<BaseNode>& m_Root;
         BaseNode* m_CurrentNode = nullptr;
         SharedPtr<SymbolTable> m_SymbolTable;
         ProgramInfo& m_ProgramInfo;
-
-        std::stack<SharedPtr<SymbolTable>> m_SymbolTableStack;
-
-
     };
 
 }

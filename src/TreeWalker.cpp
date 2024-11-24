@@ -53,4 +53,17 @@ namespace Srsl{
     void TreeWalker::exitNewVariable(SrslGrammarParser::NewVariableContext *ctx) {
         m_CurrentNode = m_CurrentNode->getParent();
     }
+
+    void TreeWalker::enterScope(SrslGrammarParser::ScopeContext *ctx) {
+        // create a new scope
+        auto scopeID = m_ProgramInfo.scopeCount++;
+        m_SymbolTable = m_SymbolTable->addChild("Scope" + std::to_string(scopeID));
+        m_CurrentNode = m_CurrentNode->addChild<ScopeNode>(scopeID, m_SymbolTable,
+                                                          ctx->start->getLine(), ctx->start->getCharPositionInLine());
+    }
+
+    void TreeWalker::exitScope(SrslGrammarParser::ScopeContext *ctx) {
+        m_SymbolTable = m_SymbolTable->getParent();
+        m_CurrentNode = m_CurrentNode->getParent();
+    }
 }

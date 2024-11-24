@@ -5,7 +5,7 @@
 
 namespace Srsl{
 
-    class SymbolTable{
+    class SymbolTable: public std::enable_shared_from_this<SymbolTable>{
     public:
         explicit SymbolTable(const std::string& name);
 
@@ -15,7 +15,9 @@ namespace Srsl{
 
         bool hasSymbol(const std::string& name);
 
-        Ptr<SymbolTable>& addChild(const std::string& name);
+        SharedPtr<SymbolTable> addChild(const std::string& name);
+
+        SharedPtr<SymbolTable> getParent() const;
 
         const Symbol& getSymbol(const std::string& name);
 
@@ -25,8 +27,8 @@ namespace Srsl{
         const std::string m_Name;
         std::unordered_map<std::string, Symbol> m_Symbols;
 
-        SymbolTable* m_Parent;
-        std::unordered_map<std::string, Ptr<SymbolTable>> m_Children;
+        WeakPtr<SymbolTable> m_Parent;
+        std::unordered_map<std::string, SharedPtr<SymbolTable>> m_Children;
     };
 
 

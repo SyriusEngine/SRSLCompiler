@@ -34,7 +34,7 @@ set(SRSL_AST_SRC
 
     src/AbstractSyntaxTree/BaseNode.cpp
     src/AbstractSyntaxTree/ShaderTypeNode.cpp
-    src/AbstractSyntaxTree/VariableNode.cpp)
+    src/AbstractSyntaxTree/VariableNode.cpp src/AbstractSyntaxTree/ScopeNode.cpp src/AbstractSyntaxTree/ScopeNode.hpp)
 
 set(SRSL_SYMBOL_TABLE_SRC
     src/SymbolTable/SymbolTable.cpp

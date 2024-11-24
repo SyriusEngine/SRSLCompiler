@@ -10,6 +10,9 @@ namespace Srsl{
     template<typename T>
     using SharedPtr = std::shared_ptr<T>;
 
+    template<typename T>
+    using WeakPtr = std::weak_ptr<T>;
+
     template<typename T, typename... Args>
     inline Ptr<T> createPtr(Args&&... args){
         return std::make_unique<T>(args...);

@@ -23,7 +23,7 @@ TEST_F(TestSymbolTable, SymbolClassConversionTest){
 }
 
 TEST_F(TestSymbolTable, AddSymbol){
-    auto table = createPtr<SymbolTable>("table1");
+    auto table = createSharedPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
     Symbol symbol1("symbol1", type1);
@@ -34,13 +34,13 @@ TEST_F(TestSymbolTable, AddSymbol){
 }
 
 TEST_F(TestSymbolTable, CheckNonExistentSymbol){
-    auto table = createPtr<SymbolTable>("table1");
+    auto table = createSharedPtr<SymbolTable>("table1");
 
     EXPECT_FALSE(table->hasSymbol("symbol1"));
 }
 
 TEST_F(TestSymbolTable, AddExistingSymbol){
-    auto table = createPtr<SymbolTable>("table1");
+    auto table = createSharedPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
     Symbol symbol1("symbol1", type1);
@@ -58,8 +58,8 @@ TEST_F(TestSymbolTable, AddExistingSymbol){
 }
 
 TEST_F(TestSymbolTable, CheckSymbolInParent){
-    auto table1 = createPtr<SymbolTable>("table1");
-    auto& table2 = table1->addChild("table2");
+    auto table1 = createSharedPtr<SymbolTable>("table1");
+    auto table2 = table1->addChild("table2");
 
     SymbolType type1("float4");
     Symbol symbol1("symbol1", type1);
@@ -70,7 +70,7 @@ TEST_F(TestSymbolTable, CheckSymbolInParent){
 }
 
 TEST_F(TestSymbolTable, GetSymbol){
-    auto table = createPtr<SymbolTable>("table1");
+    auto table = createSharedPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
     Symbol symbol1("symbol1", type1);
@@ -83,8 +83,8 @@ TEST_F(TestSymbolTable, GetSymbol){
 }
 
 TEST_F(TestSymbolTable, GetSymbolFromParent){
-    auto table1 = createPtr<SymbolTable>("table1");
-    auto& table2 = table1->addChild("table2");
+    auto table1 = createSharedPtr<SymbolTable>("table1");
+    auto table2 = table1->addChild("table2");
 
     SymbolType type1("float4");
     Symbol symbol1("symbol1", type1);
@@ -97,7 +97,7 @@ TEST_F(TestSymbolTable, GetSymbolFromParent){
 }
 
 TEST_F(TestSymbolTable, GetNonExistentSymbol){
-    auto table = createPtr<SymbolTable>("table1");
+    auto table = createSharedPtr<SymbolTable>("table1");
 
     bool thrown = false;
     try{
