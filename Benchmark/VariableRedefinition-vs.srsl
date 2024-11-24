@@ -1,0 +1,6 @@
+ShaderType = Vertex;
+
+void main(){
+    float var1 = 0.0f;
+    bool var1 = true; // Error
+}
