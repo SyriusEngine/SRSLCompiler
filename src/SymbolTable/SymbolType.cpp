@@ -42,10 +42,55 @@ namespace Srsl{
 
     }
 
+    static std::unordered_map<std::string, VARIABLE_TYPE> s_TypeMapping = {
+        {"void", VT_VOID},
+        {"bool", VT_BOOL},
+        {"int", VT_INT},
+        {"uint", VT_UINT},
+        {"half", VT_HALF},
+        {"float", VT_FLOAT},
+        {"double", VT_DOUBLE},
+        {"sampler", VT_SAMPLER},
+        {"Texture1D", VT_TEXTURE1D},
+        {"Texture2D", VT_TEXTURE2D},
+        {"Texture3D", VT_TEXTURE3D},
+        {"TextureCube", VT_TEXTURE_CUBE},
+        {"Texture1DArray", VT_TEXTURE1D_ARRAY},
+        {"Texture2DArray", VT_TEXTURE2D_ARRAY},
+        {"Texture3DArray", VT_TEXTURE3D_ARRAY},
+        {"TextureCubeArray", VT_TEXTURE_CUBE_ARRAY},
+        {"struct", VT_STRUCT},
+        {"intrinsic", VT_INTRINSIC},
+        {"template", VT_TEMPLATE}
+    };
+
     SymbolType::SymbolType(const std::string& srslStr, bool isConst, const std::vector<u32> &arraySizes):
     m_IsConst(isConst),
-    m_Original(srslStr){
+    m_Original(srslStr),
+    m_ArraySizes(arraySizes){
+        std::string dimensions;
+        for (const auto& [typeStr, type]: s_TypeMapping){
+            if (srslStr.compare(0, typeStr.size(), typeStr) == 0){
+                m_VariableType = type;
+                dimensions = srslStr.substr(typeStr.size());
+                break;
+            }
+        }
 
+        if (!dimensions.empty()){
+            if (dimensions.find('x') != std::string::npos){
+                m_DimensionType = DT_MATRIX;
+                m_ArraySizes.push_back(std::stoi(dimensions.substr(0, dimensions.find('x'))));
+                m_ArraySizes.push_back(std::stoi(dimensions.substr(dimensions.find('x') + 1)));
+            }
+            else {
+                m_DimensionType = DT_VECTOR;
+                m_ArraySizes.push_back(std::stoi(dimensions));
+            }
+        }
+        else {
+            m_DimensionType = DT_NONE;
+        }
     }
 
     VARIABLE_TYPE SymbolType::getVariableType() const {

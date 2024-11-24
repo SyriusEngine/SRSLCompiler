@@ -85,9 +85,9 @@ include_directories(./Dependencies/gtest/include/)
 link_directories(./Dependencies/gtest/lib/)
 
 set(SRSL_COMPILER_TEST_SRC
-    Tests/SymbolTable/SymbolTableTest.cpp
+    Tests/SymbolTable/TestSymbolTable.cpp
 
-    Tests/TestBenchmark.cpp)
+    Tests/TestBenchmark.cpp Tests/SymbolTable/TestSymbolType.cpp Tests/SymbolTable/TestSymbolType.hpp)
 
 add_executable(SRSLCompilerTest ${SRSL_COMPILER_TEST_SRC} ${SRSL_SRC} TestMain.cpp)
 add_dependencies(SRSLCompilerTest CopySRSLCompiler4DLL)

@@ -3,7 +3,7 @@
 #include "../TestInclude.hpp"
 #include "../../src/SymbolTable/SymbolTable.hpp"
 
-class SymbolTableTest: public testing::Test{
+class TestSymbolTable: public testing::Test{
 protected:
     void SetUp() override;
 

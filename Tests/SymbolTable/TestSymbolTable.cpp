@@ -1,15 +1,15 @@
-#include "SymbolTableTest.hpp"
+#include "TestSymbolTable.hpp"
 #include "../../src/SymbolTable/SymbolException.hpp"
 
-void SymbolTableTest::SetUp() {
+void TestSymbolTable::SetUp() {
     Test::SetUp();
 }
 
-void SymbolTableTest::TearDown() {
+void TestSymbolTable::TearDown() {
     Test::TearDown();
 }
 
-TEST_F(SymbolTableTest, SymbolClassConversionTest){
+TEST_F(TestSymbolTable, SymbolClassConversionTest){
     EXPECT_EQ(symbolClassToString(SC_DEFAULT), "default");
     EXPECT_EQ(symbolClassToString(SC_VARIABLE), "variable");
     EXPECT_EQ(symbolClassToString(SC_FUNCTION), "function");
@@ -22,7 +22,7 @@ TEST_F(SymbolTableTest, SymbolClassConversionTest){
     EXPECT_EQ(symbolClassToString((SYMBOL_CLASS)0xFF09), "unknown");
 }
 
-TEST_F(SymbolTableTest, AddSymbol){
+TEST_F(TestSymbolTable, AddSymbol){
     auto table = createPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
@@ -33,13 +33,13 @@ TEST_F(SymbolTableTest, AddSymbol){
     EXPECT_TRUE(table->hasSymbol("symbol1"));
 }
 
-TEST_F(SymbolTableTest, CheckNonExistentSymbol){
+TEST_F(TestSymbolTable, CheckNonExistentSymbol){
     auto table = createPtr<SymbolTable>("table1");
 
     EXPECT_FALSE(table->hasSymbol("symbol1"));
 }
 
-TEST_F(SymbolTableTest, AddExistingSymbol){
+TEST_F(TestSymbolTable, AddExistingSymbol){
     auto table = createPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
@@ -57,7 +57,7 @@ TEST_F(SymbolTableTest, AddExistingSymbol){
     EXPECT_TRUE(thrown);
 }
 
-TEST_F(SymbolTableTest, CheckSymbolInParent){
+TEST_F(TestSymbolTable, CheckSymbolInParent){
     auto table1 = createPtr<SymbolTable>("table1");
     auto& table2 = table1->addChild("table2");
 
@@ -69,7 +69,7 @@ TEST_F(SymbolTableTest, CheckSymbolInParent){
     EXPECT_TRUE(table2->hasSymbol("symbol1"));
 }
 
-TEST_F(SymbolTableTest, GetSymbol){
+TEST_F(TestSymbolTable, GetSymbol){
     auto table = createPtr<SymbolTable>("table1");
 
     SymbolType type1("float4");
@@ -82,7 +82,7 @@ TEST_F(SymbolTableTest, GetSymbol){
     EXPECT_EQ(symbol.name, "symbol1");
 }
 
-TEST_F(SymbolTableTest, GetSymbolFromParent){
+TEST_F(TestSymbolTable, GetSymbolFromParent){
     auto table1 = createPtr<SymbolTable>("table1");
     auto& table2 = table1->addChild("table2");
 
@@ -96,7 +96,7 @@ TEST_F(SymbolTableTest, GetSymbolFromParent){
     EXPECT_EQ(symbol.name, "symbol1");
 }
 
-TEST_F(SymbolTableTest, GetNonExistentSymbol){
+TEST_F(TestSymbolTable, GetNonExistentSymbol){
     auto table = createPtr<SymbolTable>("table1");
 
     bool thrown = false;
