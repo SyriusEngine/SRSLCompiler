@@ -66,15 +66,15 @@ namespace Srsl{
         file << "<th>Name</th>" << std::endl;
         file << "<th>Type</th>" << std::endl;
         file << "<th>Class</th>" << std::endl;
-        file << "<th>IsConst</th>" << std::endl;
         file << "<th>Struct</th>" << std::endl;
         file << "</tr>" << std::endl;
         for (const auto& [name, symbol]: m_Symbols){
             file << "<tr>" << std::endl;
             file << "<td>" << symbol.name << "</td>" << std::endl;
-            file << "<td>" << symbol.type.getVariableType() << "</td>" << std::endl;
+            file << "<td>";
+            symbol.type.toHtml(file);
+            file << "</td>" << std::endl;
             file << "<td>" << symbolClassToString(symbol.symbolClass) << "</td>" << std::endl;
-            file << "<td>" << (symbol.type.isConst() ? "true" : "false") << "</td>" << std::endl;
             file << "<td>" << (symbol.structTable ? "true" : "false") << "</td>" << std::endl;
             file << "</tr>" << std::endl;
         }

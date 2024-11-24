@@ -33,11 +33,15 @@ namespace Srsl{
         VT_TEMPLATE         = 0x22,
     } VARIABLE_TYPE;
 
+    std::string variableTypeToString(VARIABLE_TYPE type);
+
     typedef enum DIMENSION_TYPE: u32{
         DT_NONE = 0x00,
         DT_VECTOR = 0x01,
         DT_MATRIX = 0x02,
     } DIMENSION_TYPE;
+
+    std::string dimensionTypeToString(DIMENSION_TYPE type);
 
     class SymbolType{
     public:
@@ -54,6 +58,8 @@ namespace Srsl{
         [[nodiscard]] bool isConst() const;
 
         [[nodiscard]] const std::vector<u32>& getArraySizes() const;
+
+        void toHtml(std::ofstream& file) const;
 
     private:
         std::string m_Original;
